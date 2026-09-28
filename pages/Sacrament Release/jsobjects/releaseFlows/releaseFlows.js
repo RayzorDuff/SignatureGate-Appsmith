@@ -148,7 +148,7 @@ export default {
         return;
       }
       const practitioner_person_id = String(selFacilitator.selectedOptionValue || appsmith.store.release_practitioner_person_id || "").trim() || null;
-      const practitionerLabel = String(((qTerminology.data || []).find(x => x.concept_key === "facilitator") || {}).singular_label || appsmith.store.practitioner_singular_label || "Practitioner");
+      const practitionerLabel = String(((qTerminology.data || []).find(x => x.concept_key === "practitioner") || {}).singular_label || appsmith.store.practitioner_singular_label || "Practitioner");
       if (!practitioner_person_id) {
         showAlert(`Select a ${practitionerLabel.toLowerCase()}.`, "warning");
         return;
