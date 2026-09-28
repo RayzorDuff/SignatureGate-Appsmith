@@ -1,0 +1,58 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "defaultOptionValue": "",
+  "isDisabled": "{{ !qIndividualAvailablePractitioners.data?.length }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "labelPosition": "Top",
+  "labelText": "{{ (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner') }}",
+  "labelTextSize": "0.875rem",
+  "placeholderText": "Select option",
+  "optionLabel": "display_name",
+  "optionValue": "practitioner_person_id",
+  "sourceData": "{{ qIndividualAvailablePractitioners.data || [] }}",
+  "leftColumn": 43,
+  "rightColumn": 64,
+  "topRow": 300,
+  "bottomRow": 333,
+  "minWidth": 300,
+  "mobileLeftColumn": 43,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 300,
+  "mobileBottomRow": 333,
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "labelText"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "labelText"
+    }
+  ],
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "issue19-agreement-practitioner",
+  "widgetName": "selIndividualAgreementPractitioner"
+}
