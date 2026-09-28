@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.issue19_create_member_agreement(\n  {{ appsmith.user.email }},\n  {{ qIndividualMemberOperationsState.data?.[0]?.member_id || null }}::uuid,\n  {{ selIndividualAgreementPractitioner.selectedOptionValue || null }}::uuid,\n  NULLIF({{ selIndividualAgreementTemplate.selectedOptionValue || \"\" }}, '')::uuid,\n  'paper',\n  'pending_review',\n  COALESCE({{ this.params.evidence_json || \"[]\" }}::jsonb, '[]'::jsonb),\n  NULL\n);",
+      "body": "SELECT *\nFROM public.issue19_create_member_agreement(\n  {{ appsmith.user.email }},\n  {{ qIndividualMemberOperationsState.data?.[0]?.member_id || null }}::uuid,\n  {{ selIndividualAgreementPractitioner.selectedOptionValue || null }}::uuid,\n  NULLIF({{ selIndividualAgreementTemplate.selectedOptionValue || \"\" }}, '')::uuid,\n  'paper',\n  'pending_review',\n  COALESCE({{ this.params.evidence_json || \"[]\" }}::jsonb, '[]'::jsonb),\n  NULL\n);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{\n  \"files\": {{ this.params.files || FilePickerIndividualAgreement.files }}\n}",
+      "body": "{\n  \"files\": {{ this.params.files || FilePickerIndividualAgreement.files }}\n}\n",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {
