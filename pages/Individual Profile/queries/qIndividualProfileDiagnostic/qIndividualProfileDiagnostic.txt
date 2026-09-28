@@ -1,0 +1,39 @@
+WITH target AS (
+  SELECT NULLIF({{ appsmith.URL.queryParams.person_id || "" }}, '')::uuid AS person_id
+),
+directory AS (
+  SELECT d.*
+  FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+  CROSS JOIN target t
+  WHERE d.party_kind = 'individual'
+    AND d.party_id = t.person_id
+)
+SELECT
+  t.person_id::text AS requested_person_id,
+  EXISTS (
+    SELECT 1 FROM public.people p
+    WHERE p.person_id = t.person_id
+  ) AS person_exists,
+  EXISTS (
+    SELECT 1 FROM directory
+  ) AS directory_visible,
+  (SELECT count(*)::integer
+   FROM public.issue19_directory_entries({{ appsmith.user.email }}) d) AS directory_row_count,
+  EXISTS (
+    SELECT 1
+    FROM public.person_app_accounts a
+    WHERE a.email_normalized = lower(btrim({{ appsmith.user.email }}))
+      AND a.status = 'active'
+  ) AS actor_account_exists,
+  public.issue19_has_role({{ appsmith.user.email }}, 'directory_manager') AS actor_is_directory_manager,
+  public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') AS actor_is_document_reviewer,
+  public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer') AS actor_is_donations_reviewer,
+  EXISTS (
+    SELECT 1 FROM directory d
+    WHERE d.member_id IS NOT NULL
+  ) AS directory_row_has_membership,
+  EXISTS (
+    SELECT 1 FROM directory d
+    WHERE d.contributor_id IS NOT NULL
+  ) AS directory_row_has_contributor
+FROM target t;
