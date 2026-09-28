@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT d.*,term.singular_label AS practitioner_singular_label,\n  term.plural_label AS practitioner_plural_label\nFROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nLEFT JOIN public.issue20_organization_terminology() term\n  ON term.concept_key='practitioner'\nWHERE d.party_kind = 'individual'\n  AND d.party_id = NULLIF({{ this.params?.person_id || \"\" }}, '')::uuid\nLIMIT 1;",
+      "body": "SELECT d.*,term.singular_label AS practitioner_singular_label,\n  term.plural_label AS practitioner_plural_label\nFROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nLEFT JOIN public.issue20_organization_terminology() term\n  ON term.concept_key='practitioner'\nWHERE d.party_kind = 'individual'\n  AND d.party_id = NULLIF({{ appsmith.URL.queryParams.person_id || \"\" }}, '')::uuid\nLIMIT 1;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
