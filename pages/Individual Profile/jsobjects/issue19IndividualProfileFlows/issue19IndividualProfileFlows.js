@@ -7,12 +7,13 @@ export default {
       showAlert('Your account has not loaded. Refresh this page.', 'error');
       return;
     }
-    if (!appsmith.URL?.queryParams?.person_id) {
+    const personId = String(appsmith.URL?.queryParams?.person_id || '').trim();
+    if (!personId) {
       showAlert('No individual was selected. Return to Directory and choose View Profile.', 'error');
       return;
     }
     try {
-      await qIndividualProfile.run();
+      await qIndividualProfile.run({ person_id: personId });
       if (!qIndividualProfile.data?.[0]?.party_id) {
         showAlert('Record not found or you do not have access to this individual.', 'error');
         return;
