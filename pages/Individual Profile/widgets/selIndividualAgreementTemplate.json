@@ -48,5 +48,9 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-template",
-  "widgetName": "selIndividualAgreementTemplate"
+  "widgetName": "selIndividualAgreementTemplate",
+  "parentId": "0",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "dynamicTriggerPathList": []
 }
