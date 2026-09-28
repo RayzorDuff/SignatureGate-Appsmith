@@ -1,0 +1,34 @@
+{
+  "animateLoading": true,
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1rem",
+  "fontStyle": "BOLD",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "key": "issue19-agreement-heading",
+  "leftColumn": 0,
+  "minWidth": 450,
+  "rightColumn": 64,
+  "topRow": 276,
+  "bottomRow": 298,
+  "dynamicBindingPathList": [
+    {
+      "key": "fontFamily"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "text": "Agreement Operations",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "issue19-agreement-heading",
+  "widgetName": "txtIndividualAgreementOperationsHeading"
+}
