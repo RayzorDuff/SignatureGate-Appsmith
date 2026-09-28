@@ -1,0 +1,49 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "isDisabled": "{{ !(qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.member_id && selIndividualAgreementType.selectedOptionValue && selIndividualAgreementTemplate.selectedOptionValue && selIndividualAgreementPractitioner.selectedOptionValue && selIndividualAgreementEmail.selectedOptionValue) }}",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "minWidth": 180,
+  "leftColumn": 43,
+  "rightColumn": 64,
+  "topRow": 338,
+  "bottomRow": 371,
+  "mobileLeftColumn": 43,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 338,
+  "mobileBottomRow": 371,
+  "text": "Send Digital Agreement",
+  "key": "issue19-send-agreement",
+  "widgetId": "issue19-send-agreement",
+  "widgetName": "btnSendIndividualAgreement",
+  "onClick": "{{ (async()=>{ try {\n  const rows = await qCreateIndividualAgreement.run();\n  const row = Array.isArray(rows) ? rows[0] : rows;\n  const agreementId = row?.member_agreement_id;\n  if (!agreementId) throw new Error('Agreement was created but no member_agreement_id was returned.');\n  await apiTriggerIndividualDocumenso.run({ member_agreement_id: agreementId, externalId: 'ma:' + agreementId });\n  await qIndividualMemberAgreements.run();\n  showAlert('Digital agreement queued for email send.', 'success');\n} catch (e) {\n  showAlert('Unable to send digital agreement: ' + (e?.message || e), 'error');\n} })() }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "type": "BUTTON_WIDGET",
+  "version": 1
+}
