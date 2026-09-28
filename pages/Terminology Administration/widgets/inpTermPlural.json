@@ -3,12 +3,15 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 58,
+  "bottomRow": 57,
   "boxShadow": "none",
   "defaultText": "{{ ((qTerminology.data || []).find(x => x.concept_key === selTerminologyConcept.selectedOptionValue) || {}).plural_label || '' }}",
   "dynamicBindingPathList": [
     {
       "key": "defaultText"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -30,6 +33,7 @@
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
+  "labelText": "Plural label",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 34,
@@ -41,8 +45,8 @@
   "mobileRightColumn": 39,
   "mobileTopRow": 26,
   "needsErrorInfo": false,
-  "originalBottomRow": 22,
-  "originalTopRow": 15,
+  "originalBottomRow": 57,
+  "originalTopRow": 46,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -51,10 +55,9 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "showStepArrows": false,
-  "topRow": 47,
+  "topRow": 46,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "term-plural",
-  "widgetName": "inpTermPlural",
-  "labelText": "Plural label"
+  "widgetName": "inpTermPlural"
 }

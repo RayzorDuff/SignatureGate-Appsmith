@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 72,
+  "bottomRow": 71,
   "boxShadow": "none",
   "defaultOptionValue": "{{ String(((qTerminology.data || []).find(x => x.concept_key === selTerminologyConcept.selectedOptionValue) || {}).is_active ?? true) }}",
   "dynamicBindingPathList": [
@@ -10,7 +10,10 @@
       "key": "sourceData"
     },
     {
-      "key": "isDisabled"
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "borderRadius"
@@ -48,8 +51,8 @@
   "needsErrorInfo": false,
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 21,
-  "originalTopRow": 14,
+  "originalBottomRow": 71,
+  "originalTopRow": 60,
   "parentColumnSpace": 9.9375,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -59,7 +62,7 @@
   "rightColumn": 64,
   "serverSideFiltering": false,
   "sourceData": "{{ [{label:'Active',value:'true'},{label:'Inactive',value:'false'}] }}",
-  "topRow": 61,
+  "topRow": 60,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "term-active",

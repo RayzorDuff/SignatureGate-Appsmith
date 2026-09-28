@@ -1,16 +1,13 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 112,
+  "bottomRow": 105,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
+      "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -30,8 +27,8 @@
   "mobileRightColumn": 13,
   "mobileTopRow": 0,
   "needsErrorInfo": false,
-  "originalBottomRow": 4,
-  "originalTopRow": 0,
+  "originalBottomRow": 105,
+  "originalTopRow": 100,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -43,7 +40,7 @@
   "text": "Reserved concepts such as facilitator may remain inactive. Activating or renaming a concept never creates that appointment or changes authorization.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 101,
+  "topRow": 100,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

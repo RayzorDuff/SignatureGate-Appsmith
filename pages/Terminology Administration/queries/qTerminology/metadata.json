@@ -25,7 +25,7 @@
     "dynamicBindingPathList": [],
     "name": "qTerminology",
     "pageId": "Terminology Administration",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": true
   }
 }

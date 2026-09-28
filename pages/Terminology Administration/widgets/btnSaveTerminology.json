@@ -1,12 +1,18 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 98,
+  "bottomRow": 97,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
     {
       "key": "buttonColor"
     },
@@ -37,8 +43,8 @@
   "mobileTopRow": 26,
   "needsErrorInfo": false,
   "onClick": "{{ (async()=>{ const rows = await qSetTerminology.run(); await qTerminology.run(); showAlert(rows?.[0]?.changed ? 'Terminology updated.' : 'No terminology changes were needed.', 'success'); })() }}",
-  "originalBottomRow": 41,
-  "originalTopRow": 37,
+  "originalBottomRow": 97,
+  "originalTopRow": 90,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -49,7 +55,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 28,
   "text": "Save terminology",
-  "topRow": 91,
+  "topRow": 90,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "term-save",

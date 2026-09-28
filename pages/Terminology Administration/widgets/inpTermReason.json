@@ -3,12 +3,12 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 88,
+  "bottomRow": 87,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
     {
-      "key": "defaultText"
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -30,6 +30,7 @@
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
+  "labelText": "Reason for change",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 0,
@@ -41,8 +42,8 @@
   "mobileRightColumn": 39,
   "mobileTopRow": 26,
   "needsErrorInfo": false,
-  "originalBottomRow": 22,
-  "originalTopRow": 15,
+  "originalBottomRow": 87,
+  "originalTopRow": 74,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -51,10 +52,9 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "showStepArrows": false,
-  "topRow": 75,
+  "topRow": 74,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "term-reason",
-  "widgetName": "inpTermReason",
-  "labelText": "Reason for change"
+  "widgetName": "inpTermReason"
 }
