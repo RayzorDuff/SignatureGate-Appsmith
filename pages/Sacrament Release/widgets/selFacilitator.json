@@ -42,7 +42,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "serverSideFiltering": false,
-  "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: i.display_name || i.first_name + ' ' + i.last_name, value: i.practitioner_person_id || i.member_id })) }}",
+  "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: i.display_name || `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.practitioner_person_id || i.member_id })) }}",
   "topRow": 0,
   "type": "SELECT_WIDGET",
   "version": 1,
