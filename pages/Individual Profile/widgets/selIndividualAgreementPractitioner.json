@@ -54,5 +54,9 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-practitioner",
-  "widgetName": "selIndividualAgreementPractitioner"
+  "widgetName": "selIndividualAgreementPractitioner",
+  "parentId": "0",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "dynamicTriggerPathList": []
 }
