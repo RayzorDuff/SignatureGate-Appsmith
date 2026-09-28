@@ -1,0 +1,67 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 72,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{ String(((qTerminology.data || []).find(x => x.concept_key === selTerminologyConcept.selectedOptionValue) || {}).is_active ?? true) }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isFilterable": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ qTerminologyAccess.data?.[0]?.allowed === true }}",
+  "key": "term-active",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Presentation state",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 34,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 20,
+  "mobileLeftColumn": 45,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 13,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 21,
+  "originalTopRow": 14,
+  "parentColumnSpace": 9.9375,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select state",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "serverSideFiltering": false,
+  "sourceData": "{{ [{label:'Active',value:'true'},{label:'Inactive',value:'false'}] }}",
+  "topRow": 61,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "term-active",
+  "widgetName": "selTermActive"
+}

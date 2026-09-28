@@ -1,12 +1,12 @@
 {
-  "gitSyncId": "69546c483d3106150e1d4549_6bfe55ec-2ce4-471a-8558-bbd2c4d5fb35",
+  "gitSyncId": "issue20-terminology-admin-page",
   "unpublishedPage": {
     "isHidden": false,
     "layouts": [
       {
         "dsl": {
           "backgroundColor": "none",
-          "bottomRow": 550,
+          "bottomRow": 120,
           "canExtend": true,
           "containerStyle": "none",
           "detachFromLayout": true,
@@ -26,8 +26,8 @@
         }
       }
     ],
-    "name": "Donations",
-    "slug": "donations",
-    "uniqueSlug": "donations-cash-entry"
+    "name": "Terminology Administration",
+    "slug": "terminology-administration",
+    "uniqueSlug": "terminology-administration"
   }
 }
