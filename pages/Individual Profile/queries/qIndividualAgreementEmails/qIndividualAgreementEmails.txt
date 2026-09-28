@@ -1,0 +1,10 @@
+SELECT me.member_email_id::text AS member_email_id,
+       me.email, me.is_primary, me.is_verified
+FROM public.member_emails me
+JOIN public.members m ON m.member_id = me.member_id
+JOIN public.issue19_person_member_operations_state(
+  {{ appsmith.user.email }},
+  {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+) state ON state.member_id = m.member_id
+WHERE me.status = 'active' AND state.can_view
+ORDER BY me.is_primary DESC, me.is_verified DESC, me.email;
