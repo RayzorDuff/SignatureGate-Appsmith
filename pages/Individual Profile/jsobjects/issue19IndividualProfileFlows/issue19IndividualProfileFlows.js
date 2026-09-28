@@ -13,7 +13,7 @@ export default {
       return;
     }
     try {
-      await qIndividualProfile.run({ person_id: personId });
+      await qIndividualProfile.run();
       if (!qIndividualProfile.data?.[0]?.party_id) {
         await qIndividualProfileDiagnostic.run();
         const d = qIndividualProfileDiagnostic.data?.[0] || {};
@@ -23,6 +23,7 @@ export default {
         );
         return;
       }
+      const profile = qIndividualProfile.data?.[0];
       await Promise.all([qIndividualContacts.run(), qIndividualRoles.run(),
         qIndividualAccount.run(), qDirectoryCanManage.run(),
         qProfileCanCreateContributor.run(),
@@ -34,6 +35,7 @@ export default {
         qIndividualContributorStatusState.run(), qIndividualPartyIdentity.run(),
         qIndividualMemberOperationsState.run(), qIndividualMembershipContacts.run(), qIndividualMembershipAddresses.run(), qIndividualMemberAgreements.run(),
         qIndividualPractitionerAssignments.run(), qIndividualAvailablePractitioners.run()]);
+      return profile;
     } catch (error) {
       showAlert('Directory could not load: ' + (error?.message || error), 'error');
     }
