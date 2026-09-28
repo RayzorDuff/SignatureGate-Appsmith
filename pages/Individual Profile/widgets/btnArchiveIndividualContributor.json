@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 560,
+  "bottomRow": 627,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -61,7 +61,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "Archive contributor",
-  "topRow": 556,
+  "topRow": 623,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "72111de520",
