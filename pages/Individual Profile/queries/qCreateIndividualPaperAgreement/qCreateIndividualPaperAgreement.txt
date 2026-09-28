@@ -1,0 +1,11 @@
+SELECT *
+FROM public.issue19_create_member_agreement(
+  {{ appsmith.user.email }},
+  {{ qIndividualMemberOperationsState.data?.[0]?.member_id || null }}::uuid,
+  {{ selIndividualAgreementPractitioner.selectedOptionValue || null }}::uuid,
+  NULLIF({{ selIndividualAgreementTemplate.selectedOptionValue || "" }}, '')::uuid,
+  'paper',
+  'pending_review',
+  COALESCE({{ this.params.evidence_json || "[]" }}::jsonb, '[]'::jsonb),
+  NULL
+);
