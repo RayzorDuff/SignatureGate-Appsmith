@@ -25,7 +25,7 @@
     "dynamicBindingPathList": [],
     "name": "qTerminology",
     "pageId": "Sacrament Release",
-    "runBehaviour": "ON_PAGE_LOAD",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": true
   }
 }
