@@ -1,0 +1,8 @@
+SELECT d.party_kind, d.party_id::text AS party_id, d.display_name,
+  d.member_id::text AS member_id, d.contributor_id::text AS contributor_id,
+  COALESCE(d.membership_status, '') AS membership_status,
+  COALESCE(d.contributor_status, '') AS contributor_status,
+  d.email, d.phone, d.created_at
+FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+ORDER BY d.display_name, d.party_kind, d.party_id
+LIMIT 500;

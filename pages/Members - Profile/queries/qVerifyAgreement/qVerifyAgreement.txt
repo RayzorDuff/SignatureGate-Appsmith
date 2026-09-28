@@ -1,0 +1,8 @@
+UPDATE public.member_agreements
+SET
+  status = {{ this.params.new_status }}, -- 'signed' or 'rejected'
+  reviewer_id = {{ appsmith.store.facilitator_id }}::uuid,
+  reviewed_at = now(),
+	review_notes = {{ this.params.review_notes }}
+WHERE member_agreement_id = {{ this.params.member_agreement_id }}::uuid
+RETURNING member_agreement_id;

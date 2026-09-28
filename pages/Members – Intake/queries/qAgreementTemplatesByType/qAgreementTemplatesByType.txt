@@ -1,0 +1,11 @@
+SELECT
+  agreement_template_id,
+  name,
+  version,
+  required_for,
+  active,
+  documenso_template_envelope_id
+FROM public.agreement_templates
+WHERE active = true
+  AND {{ selAgreementType.selectedOptionValue || this.params.type_key }} = ANY(required_for)
+ORDER BY name, version DESC, created_at DESC;

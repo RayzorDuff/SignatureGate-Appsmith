@@ -1,0 +1,4 @@
+SELECT c.* FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+CROSS JOIN LATERAL public.issue19_directory_contacts(
+  {{ appsmith.user.email }}, 'organization', d.party_id) c
+WHERE d.party_kind = 'organization' AND d.party_id::text = {{ appsmith.URL.queryParams.organization_id || "" }};

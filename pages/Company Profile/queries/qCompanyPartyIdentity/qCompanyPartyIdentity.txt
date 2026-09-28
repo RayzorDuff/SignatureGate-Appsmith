@@ -1,0 +1,1 @@
+SELECT party_kind,party_id::text AS party_id,display_name,identity_version,can_edit FROM public.issue19_party_identity_state({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid);

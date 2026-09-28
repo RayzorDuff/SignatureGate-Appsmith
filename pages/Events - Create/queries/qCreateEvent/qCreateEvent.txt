@@ -1,0 +1,8 @@
+INSERT INTO public.events (name, starts_at, location, notes)
+VALUES (
+  {{ inpEventName.text }},
+  {{ inpEventStartsAt.selectedDate }},
+  {{ inpEventLocation.text }},
+  {{ inpEventNotes.text }}
+)
+RETURNING event_id;

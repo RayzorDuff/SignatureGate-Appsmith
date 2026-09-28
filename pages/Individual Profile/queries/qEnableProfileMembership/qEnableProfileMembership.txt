@@ -1,0 +1,4 @@
+SELECT public.issue19_enable_person_membership(
+  {{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid,
+  {{ this.params.first }}, {{ this.params.last }}, {{ this.params.reason }}
+)::text AS member_id;

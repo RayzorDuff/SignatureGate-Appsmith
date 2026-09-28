@@ -1,0 +1,3 @@
+SELECT *
+FROM public.issue19_sacrament_release_members({{ appsmith.user.email }})
+LIMIT 500;

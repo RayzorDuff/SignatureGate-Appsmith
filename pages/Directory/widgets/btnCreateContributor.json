@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 92,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qCreateDirectoryContributor.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qDirectoryCanCreateContributor.data?.[0]?.can_create === true }}",
+  "key": "950aacc281",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 92,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 88,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const kind = selNewContributorKind.selectedOptionValue; const reason = inpNewContributorReason.text?.trim(); if (!reason || !kind || (kind === 'individual' && (!inpNewContributorFirst.text?.trim() || !inpNewContributorLast.text?.trim())) || (kind === 'organization' && !inpNewContributorCompany.text?.trim())) { showAlert('Select a contributor type, enter a name and reason.', 'warning'); return; } const rows = await qCreateDirectoryContributor.run({ kind, first: inpNewContributorFirst.text?.trim() || null, last: inpNewContributorLast.text?.trim() || null, company: inpNewContributorCompany.text?.trim() || null, email: inpNewContributorEmail.text?.trim() || null, phone: inpNewContributorPhone.text?.trim() || null, reason }); const created = rows?.[0]; if (!created?.party_id) throw new Error('No contributor was returned.'); await qPartyDirectory.run(); navigateTo(kind === 'individual' ? 'Individual Profile' : 'Company Profile', kind === 'individual' ? { person_id: created.party_id } : { organization_id: created.party_id }, 'SAME_WINDOW'); } catch (e) { showAlert('Contributor creation failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 92,
+  "originalTopRow": 88,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Create contributor",
+  "topRow": 88,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "79149d1ead",
+  "widgetName": "btnCreateContributor"
+}

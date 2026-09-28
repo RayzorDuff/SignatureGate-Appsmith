@@ -1,0 +1,3 @@
+SELECT d.* FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+WHERE d.party_kind = 'organization' AND d.party_id::text = {{ appsmith.URL.queryParams.organization_id || "" }}
+LIMIT 1;

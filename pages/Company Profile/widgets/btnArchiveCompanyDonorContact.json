@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 99,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qArchiveCompanyDonorContact.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "key": "c7238955eb",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 99,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 95,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const reason = inpCompanyDonorContactReason.text?.trim(); const id = selCompanyDonorContactToArchive.selectedOptionValue; if (!reason || !id) { showAlert('Select a contact and enter a reason.', 'warning'); return; } const entry = (qCompanyDonorContacts.data || []).find(c => c.contact_id === id); if (!entry) throw new Error('Refresh the profile and select the contact again.'); const result = await qArchiveCompanyDonorContact.run({ kind: entry.contact_kind, id, reason }); if (!result?.[0]?.archived) throw new Error('The contact was not archived.'); await Promise.all([qCompanyDonorContacts.run(), qCompanyContacts.run(), qCompanyProfile.run()]); showAlert('Contributor contact archived.', 'success'); } catch (e) { showAlert('Contact archive failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 99,
+  "originalTopRow": 95,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Archive contact",
+  "topRow": 95,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "b15b6981cb",
+  "widgetName": "btnArchiveCompanyDonorContact"
+}

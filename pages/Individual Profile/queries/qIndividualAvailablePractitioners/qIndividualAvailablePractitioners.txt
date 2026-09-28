@@ -1,0 +1,6 @@
+SELECT practitioner_person_id::text AS practitioner_person_id,
+  display_name,COALESCE(account_email,'') AS account_email,
+  has_active_membership,already_assigned
+FROM public.issue19_available_member_practitioners(
+  {{ appsmith.user.email }},{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+);

@@ -1,0 +1,15 @@
+SELECT
+  actor.person_id AS member_id,
+  actor.person_id,
+  actor.member_id AS legacy_member_id,
+  actor.email,
+  actor.first_name,
+  actor.last_name,
+  actor.display_name,
+  actor.is_document_reviewer,
+  actor.is_donations_reviewer,
+  actor.practitioner_singular_label,
+  actor.practitioner_plural_label
+FROM public.issue19_current_release_actor({{ this.params.email }}) actor
+WHERE actor.is_practitioner
+LIMIT 1;

@@ -1,0 +1,8 @@
+SELECT DISTINCT
+  storage_location_name
+FROM public.facilitator_storage_location_access 
+WHERE {{ (inpAssignStorageLocation.text || "").trim().length >= 2 }}
+  AND storage_location_name IS NOT NULL
+  AND trim(storage_location_name) <> ''
+  AND lower(storage_location_name) LIKE lower({{ "%" + (inpAssignStorageLocation.text || "").trim() + "%" }})
+ORDER BY storage_location_name;

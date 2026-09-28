@@ -1,0 +1,32 @@
+{
+  "gitSyncId": "696e976bef6f963f4d13cbc6_8adb1686-2b4f-4d9e-9f30-816e73010042",
+  "id": "Audit Log_auditLogFlows",
+  "unpublishedCollection": {
+    "name": "auditLogFlows",
+    "pageId": "Audit Log",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "DOCUMENSO_BASE_URL",
+        "value": "\"https://documenso.danks.store/t/facilitators\""
+      },
+      {
+        "name": "GIVEBUTTER_BASE_URL",
+        "value": "\"https://givebutter.com\""
+      },
+      {
+        "name": "GIVEBUTTER_DASHBOARD_BASE_URL",
+        "value": "\"https://dashboard.givebutter.com\""
+      },
+      {
+        "name": "APPSMITH_MEMBER_PROFILE_PAGE",
+        "value": "\"Members - Profile\""
+      },
+      {
+        "name": "NOCODB_BASE_URL",
+        "value": "\"https://nocodb.danks.store\""
+      }
+    ]
+  }
+}

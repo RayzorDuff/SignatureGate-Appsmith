@@ -1,0 +1,7 @@
+UPDATE public.member_facilitators
+SET
+  status = 'inactive',
+  updated_at = now(),
+  notes = COALESCE({{ this.params.notes }}, notes)
+WHERE member_facilitator_id = {{ this.params.member_facilitator_id }}::uuid
+RETURNING member_facilitator_id, member_id, facilitator_id, status;

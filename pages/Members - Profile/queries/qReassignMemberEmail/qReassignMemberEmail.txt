@@ -1,0 +1,8 @@
+UPDATE public.member_emails
+SET
+  member_id = {{ this.params.new_member_id }}::uuid,
+  is_primary = false,
+  updated_at = now(),
+  notes = COALESCE(notes, '') || E'\nReassigned from member ' || {{ this.params.old_member_id }}
+WHERE member_email_id = {{ this.params.member_email_id }}::uuid
+RETURNING *;

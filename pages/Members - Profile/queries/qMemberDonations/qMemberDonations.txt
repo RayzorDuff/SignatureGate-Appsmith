@@ -1,0 +1,37 @@
+WITH me AS (
+  SELECT
+    member_id,
+    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer,
+    COALESCE(is_donations_reviewer, FALSE) AS is_donations_reviewer
+  FROM public.member_profiles
+  WHERE lower(email) = lower({{ appsmith.user.email }})
+    AND is_facilitator IS TRUE
+    AND status = 'active'
+  LIMIT 1
+)
+SELECT d.*
+FROM public.donations d
+CROSS JOIN me
+WHERE d.member_id = {{ appsmith.store.member_id }}::uuid
+
+  -- Hide rejected donations unless explicitly requested.
+  AND (
+    {{ Boolean(this.params.show_rejected) }}
+    OR lower(COALESCE(d.status, '')) <> 'rejected'
+  )
+
+  -- Preserve the existing member/donation access rules.
+  AND (
+    me.is_document_reviewer = TRUE
+    OR me.is_donations_reviewer = TRUE
+    OR EXISTS (
+      SELECT 1
+      FROM public.member_facilitators mf
+      WHERE mf.member_id = d.member_id
+        AND mf.facilitator_id = me.member_id
+        AND mf.status = 'active'
+    )
+  )
+ORDER BY
+  d.donated_at DESC NULLS LAST,
+  d.created_at DESC;

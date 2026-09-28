@@ -1,0 +1,6 @@
+SELECT storage_location_name
+FROM public.issue19_release_storage_locations(
+  {{ appsmith.user.email }},
+  NULLIF({{ this.params.member_id }}::text, '')::uuid,
+  NULLIF({{ this.params.practitioner_person_id }}::text, '')::uuid
+);

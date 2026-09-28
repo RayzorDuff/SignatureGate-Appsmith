@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 91,
+  "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
+    {
+      "key": "fontFamily"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "truncateButtonColor"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1rem",
+  "fontStyle": "BOLD",
+  "isLoading": false,
+  "isVisible": "{{ qDirectoryCanManage.data?.[0]?.can_manage === true && !!qIndividualProfile.data?.[0]?.party_id }}",
+  "key": "2e62e25dca",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 91,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 10,
+  "mobileTopRow": 86,
+  "needsErrorInfo": false,
+  "originalBottomRow": 91,
+  "originalTopRow": 86,
+  "overflow": "NONE",
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "shouldTruncate": false,
+  "text": "{{ 'Assigned: ' + (qIndividualRoles.data?.map(role => role.role_key === 'practitioner' ? (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner') : role.role_key.replaceAll('_', ' ')).join(', ') || 'none') + '  ·  Appsmith account: ' + (qIndividualAccount.data?.[0]?.email || 'not linked') }}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 86,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "f438adafcb",
+  "widgetName": "txtPersonAccessCurrent"
+}

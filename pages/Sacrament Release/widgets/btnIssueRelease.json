@@ -1,0 +1,67 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 20,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "tooltip"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{\n  (() => {\n    const selectedMember = selMember.selectedOptionValue || appsmith.URL.queryParams.member_id || appsmith.store.member_id;\n    const hasAgreement = qGateCheckAgreement.data && qGateCheckAgreement.data.length > 0;\n    const isReviewer = appsmith.store.facilitator_is_reviewer === true;\n    const hasNotes = !!(inpNotes.text && inpNotes.text.trim());\n    const hasFacilitator = !!selFacilitator.selectedOptionValue;\n\n    if (!selectedMember) return true;\n    if (!hasFacilitator) return true;\n    if (hasAgreement) return false;\n    if (!isReviewer) return true;\n    if (!hasNotes) return true;\n\n    return false;\n  })()\n}}",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "vdp8i20knw",
+  "leftColumn": 49,
+  "minWidth": 120,
+  "mobileBottomRow": 77,
+  "mobileLeftColumn": 12,
+  "mobileRightColumn": 28,
+  "mobileTopRow": 73,
+  "needsErrorInfo": false,
+  "onClick": "{{releaseFlows.issueRelease();}}",
+  "originalBottomRow": 20,
+  "originalTopRow": 16,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Record Sacrament Release",
+  "tooltip": "{{\n!qGateCheckAgreement.data?.length && appsmith.store.facilitator_is_reviewer\n  ? \"Reviewer override: notes required\"\n  : \"\"\n}}",
+  "topRow": 16,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "jd8pypql8f",
+  "widgetName": "btnIssueRelease"
+}

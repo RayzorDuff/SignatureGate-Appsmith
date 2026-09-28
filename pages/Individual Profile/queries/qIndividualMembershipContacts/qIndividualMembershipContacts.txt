@@ -1,0 +1,5 @@
+SELECT contact_id::text AS contact_id,contact_kind,contact_value,is_primary,is_verified,mailing_subscription_status,created_at
+FROM public.issue19_person_membership_contacts(
+  {{ appsmith.user.email }},{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+)
+ORDER BY contact_kind,is_primary DESC,contact_value;

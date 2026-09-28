@@ -1,0 +1,22 @@
+SELECT
+  m.*,
+  (
+    SELECT jsonb_agg(
+      jsonb_build_object(
+        'member_agreement_id', ma.member_agreement_id,
+        'status', ma.status,
+        'signature_method', ma.signature_method,
+        'created_at', ma.created_at,
+        'facilitator_id', ma.facilitator_id,
+        'agreement_template_id', ma.agreement_template_id,
+        'template_name', COALESCE(at.name, 'Paper Agreement - No Template')
+      )
+      ORDER BY ma.created_at DESC
+    )
+    FROM member_agreements ma
+    LEFT JOIN agreement_templates at
+      ON at.agreement_template_id = ma.agreement_template_id
+    WHERE ma.member_id = m.member_id
+  ) AS agreements_json
+FROM members m
+WHERE m.member_id = {{ tblMembers.selectedRow.member_id }}::uuid;

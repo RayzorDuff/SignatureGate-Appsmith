@@ -1,0 +1,10 @@
+UPDATE public.member_emails
+SET
+  is_verified = true,
+  verified_at = now(),
+  verified_by = {{ appsmith.store.facilitator_id }}::uuid,
+  verification_source = COALESCE(NULLIF({{ this.params.source }}, ''), 'document_reviewer'),
+  verification_notes = NULLIF({{ this.params.notes }}, ''),
+  updated_at = now()
+WHERE member_email_id = {{ this.params.member_email_id }}::uuid
+RETURNING *;

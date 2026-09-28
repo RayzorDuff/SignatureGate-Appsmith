@@ -1,0 +1,85 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 349,
+  "boxShadow": "none",
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "labelText"
+    },
+    {
+      "key": "placeholderText"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "labelText"
+    },
+    {
+      "key": "placeholderText"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "{{ qAssignIndividualPractitioner.isLoading || qEndIndividualPractitioner.isLoading }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active' }}",
+  "key": "82584cb026",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "{{ (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner') + ' to assign' }}",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 349,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 30,
+  "mobileTopRow": 343,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 349,
+  "originalTopRow": 343,
+  "parentColumnSpace": 9.9375,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "{{ 'Select ' + (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner').toLowerCase() }}",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 30,
+  "serverSideFiltering": false,
+  "sourceData": "{{ (qIndividualAvailablePractitioners.data || []).filter(p => p.already_assigned !== true).map(p => ({ label: p.display_name + (p.account_email ? ' · ' + p.account_email : '') + (p.has_active_membership ? ' · member' : ' · non-member'), value: p.practitioner_person_id })) }}",
+  "topRow": 343,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "85b53cd9a6",
+  "widgetName": "selIndividualPractitionerToAssign"
+}

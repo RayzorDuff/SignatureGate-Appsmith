@@ -1,0 +1,1 @@
+SELECT public.issue19_add_contributor_address({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid, {{ this.params.street }}, {{ this.params.unit }}, {{ this.params.city }}, {{ this.params.state }}, {{ this.params.postal }}, {{ this.params.country }}, {{ this.params.reason }})::text AS address_id;

@@ -1,0 +1,1 @@
+SELECT provider,provider_identity,status,COALESCE(source,'') AS source,created_at::text AS created_at FROM public.issue19_contributor_provider_identities({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid);

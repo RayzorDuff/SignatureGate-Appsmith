@@ -1,0 +1,17 @@
+SELECT *
+FROM public.upsert_member_address(
+  p_member_id => {{ this.params.member_id }}::uuid,
+  p_address_1 => {{ this.params.address_1 }},
+  p_address_type => 'home',
+  p_address_2 => {{ this.params.address_2 }},
+  p_city => {{ this.params.city }},
+  p_state => {{ this.params.state }},
+  p_postal_code => {{ this.params.postal_code }},
+  p_country => COALESCE(
+    NULLIF(btrim({{ this.params.country }}), ''),
+    'USA'
+  ),
+  p_is_primary => false,
+  p_source => 'givebutter_review',
+  p_notes => 'Added when manually linking Givebutter donation'
+);

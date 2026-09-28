@@ -1,0 +1,18 @@
+SELECT
+  fsla.facilitator_storage_location_access_id,
+  fsla.facilitator_id,
+  fsla.storage_location_name,
+  fsla.status,
+  fsla.created_at,
+  fsla.updated_at,
+  fsla.assigned_by_member_id,
+  fsla.notes,
+  ab.first_name AS assigned_by_first_name,
+  ab.last_name AS assigned_by_last_name
+FROM public.facilitator_storage_location_access fsla
+LEFT JOIN public.member_profiles ab
+  ON ab.member_id = fsla.assigned_by_member_id
+WHERE fsla.facilitator_id = {{ appsmith.store.member_id }}::uuid
+ORDER BY
+  CASE WHEN fsla.status = 'active' THEN 0 ELSE 1 END,
+  fsla.storage_location_name;

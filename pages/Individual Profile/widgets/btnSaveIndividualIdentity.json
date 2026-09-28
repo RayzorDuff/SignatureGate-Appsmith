@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 33,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qUpdateIndividualPartyIdentity.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualPartyIdentity.data?.[0]?.can_edit === true }}",
+  "key": "85c48f4dab",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 33,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 29,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const displayName = inpIndividualIdentityDisplayName.text?.trim(); const firstName = inpIndividualIdentityFirstName.text?.trim() || ''; const lastName = inpIndividualIdentityLastName.text?.trim() || ''; const birthDate = inpIndividualIdentityBirthDate.text?.trim() || ''; const reason = inpIndividualIdentityReason.text?.trim(); if (!displayName || !reason) { showAlert('Enter a display name and reason.', 'warning'); return; } if (birthDate && !/^\\d{4}-\\d{2}-\\d{2}$/.test(birthDate)) { showAlert('Enter the birth date as YYYY-MM-DD.', 'warning'); return; } const rows = await qUpdateIndividualPartyIdentity.run({ display_name: displayName, first_name: firstName, last_name: lastName, date_of_birth: birthDate, expected_version: qIndividualPartyIdentity.data?.[0]?.identity_version, reason }); if (!rows?.[0]?.party_id) throw new Error('No person was returned.'); await Promise.all([qIndividualProfile.run(), qIndividualPartyIdentity.run(), qMembershipIdentity.run()]); resetWidget('inpIndividualIdentityDisplayName'); resetWidget('inpIndividualIdentityFirstName'); resetWidget('inpIndividualIdentityLastName'); resetWidget('inpIndividualIdentityBirthDate'); resetWidget('inpIndividualIdentityReason'); showAlert('Individual identity updated.', 'success'); } catch (e) { showAlert('Identity update failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 33,
+  "originalTopRow": 29,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Save identity",
+  "topRow": 29,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "0dd5577b7a",
+  "widgetName": "btnSaveIndividualIdentity"
+}

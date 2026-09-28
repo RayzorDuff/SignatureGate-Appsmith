@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 249,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qSetCompanyContributorStatus.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qCompanyContributorStatusState.data?.[0]?.can_reactivate === true }}",
+  "key": "696bb7c09e",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 249,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 245,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const reason = inpCompanyContributorStatusReason.text?.trim(); if (!reason) { showAlert('Enter a reason for reactivating this contributor.', 'warning'); return; } const rows = await qSetCompanyContributorStatus.run({ target_status: 'active', reason }); if (!rows?.[0]?.contributor_id) throw new Error('No contributor was returned.'); await qCompanyProfile.run(); await Promise.all([qCompanyContributorStatusState.run(), qCompanyCanEditDonorContacts.run(), qCompanyContacts.run(), qCompanyDonorContacts.run(), qCompanyDonorAddresses.run(), qCompanyContributionHistory.run(), qCompanyProviderIdentities.run()]); showAlert('Contributor reactivated.', 'success'); } catch (e) { showAlert('Contributor status change failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 249,
+  "originalTopRow": 245,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Reactivate contributor",
+  "topRow": 245,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "441c2071f6",
+  "widgetName": "btnReactivateCompanyContributor"
+}

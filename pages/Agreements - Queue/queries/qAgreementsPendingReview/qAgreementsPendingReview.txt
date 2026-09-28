@@ -1,0 +1,19 @@
+SELECT
+  ma.member_agreement_id,
+  ma.created_at,
+  ma.member_id,
+  m.first_name,
+  m.last_name,
+  m.email,
+  ma.agreement_template_id,
+  t.name AS template_name,
+  t.version AS template_version,
+  ma.status,
+  ma.review_notes,
+  ma.evidence
+FROM public.member_agreements ma
+JOIN public.member_profiles m ON m.member_id = ma.member_id
+LEFT JOIN public.agreement_templates t ON t.agreement_template_id = ma.agreement_template_id
+WHERE ma.status IN ('pending_review', 'pending_signature')
+ORDER BY ma.created_at ASC
+LIMIT 500;

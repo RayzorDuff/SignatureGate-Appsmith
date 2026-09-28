@@ -1,0 +1,5 @@
+SELECT *
+FROM public.member_email_set_primary(
+  {{ this.params.member_email_id }}::uuid,
+  {{ appsmith.store.facilitator_id || null }}::uuid
+);

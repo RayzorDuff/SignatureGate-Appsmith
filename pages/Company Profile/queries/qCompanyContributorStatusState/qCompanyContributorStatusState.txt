@@ -1,0 +1,1 @@
+SELECT contributor_id::text AS contributor_id,current_status,can_archive,can_reactivate,status_note FROM public.issue19_contributor_status_state({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid);

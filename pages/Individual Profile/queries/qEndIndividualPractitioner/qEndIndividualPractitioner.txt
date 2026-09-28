@@ -1,0 +1,6 @@
+SELECT public.issue19_end_member_practitioner(
+  {{ appsmith.user.email }},
+  {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid,
+  {{ this.params.assignment_id || null }}::uuid,
+  {{ this.params.reason || null }}
+)::text AS member_practitioner_assignment_id;

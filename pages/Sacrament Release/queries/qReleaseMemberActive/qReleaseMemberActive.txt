@@ -1,0 +1,1 @@
+SELECT EXISTS (SELECT 1 FROM public.members m WHERE m.member_id={{ this.params.member_id }}::uuid AND m.status='active') AS is_active;

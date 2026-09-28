@@ -1,0 +1,12 @@
+UPDATE public.facilitator_storage_location_access
+SET
+  status = 'inactive',
+  updated_at = now(),
+  notes = COALESCE({{ this.params.notes }}, notes)
+WHERE facilitator_storage_location_access_id =
+  {{ this.params.facilitator_storage_location_access_id }}::uuid
+RETURNING
+  facilitator_storage_location_access_id,
+  facilitator_id,
+  storage_location_name,
+  status;

@@ -1,0 +1,8 @@
+UPDATE public.donations
+SET
+  status = {{ this.params.new_status }}, -- 'verified' or 'rejected'
+  reviewer_id = {{ appsmith.store.facilitator_id }}::uuid,
+  reviewed_at = now(),
+	review_notes = {{ this.params.review_notes }}
+WHERE donation_id = {{ this.params.donation_id }}::uuid
+RETURNING donation_id;

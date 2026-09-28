@@ -1,0 +1,1 @@
+SELECT public.issue19_update_organization_identity({{ appsmith.user.email }}, {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid, {{ this.params.organization_name }}, {{ this.params.expected_version }}, {{ this.params.reason }})::text AS party_id;

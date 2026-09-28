@@ -1,0 +1,10 @@
+UPDATE public.donations
+SET
+  contributor_id = public.ensure_member_contributor({{ this.params.new_member_id }}::uuid),
+  member_id = {{ this.params.new_member_id }}::uuid,
+  donor_kind = 'identified'
+WHERE donation_id = {{ this.params.donation_id }}::uuid
+RETURNING
+  donation_id,
+  contributor_id,
+  member_id;

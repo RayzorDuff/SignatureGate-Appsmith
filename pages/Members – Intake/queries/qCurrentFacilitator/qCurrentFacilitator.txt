@@ -1,0 +1,6 @@
+SELECT member_id, email, first_name, last_name, is_document_reviewer, is_donations_reviewer
+FROM public.member_profiles
+WHERE lower(email) = lower({{ this.params.email }})
+  AND is_facilitator IS TRUE
+  AND status = 'active'
+LIMIT 1;

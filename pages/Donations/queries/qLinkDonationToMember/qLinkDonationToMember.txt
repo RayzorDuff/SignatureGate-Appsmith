@@ -1,0 +1,7 @@
+SELECT *
+FROM public.resolve_pending_donation_choice(
+  p_donation_id => {{ this.params.donation_id }}::uuid,
+  p_reviewer_id => {{ appsmith.store.facilitator_id }}::uuid,
+  p_choice => {{ this.params.contributor_choice }},
+  p_review_notes => {{ this.params.review_notes || null }}
+);

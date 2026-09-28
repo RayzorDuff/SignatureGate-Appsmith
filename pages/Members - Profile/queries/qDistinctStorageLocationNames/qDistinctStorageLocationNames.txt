@@ -1,0 +1,5 @@
+SELECT DISTINCT storage_location_name
+FROM public.facilitator_storage_location_access
+WHERE storage_location_name IS NOT NULL
+  AND trim(storage_location_name) <> ''
+ORDER BY storage_location_name;

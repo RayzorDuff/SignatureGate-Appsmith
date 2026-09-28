@@ -1,0 +1,1 @@
+SELECT role_key FROM public.issue19_profile_roles({{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid) ORDER BY role_key;

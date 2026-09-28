@@ -1,0 +1,5 @@
+{
+  "airtable_record_id": "{{ this.params.airtable_record_id }}",
+  "mushroomprocess_product_id": "{{ this.params.mushroomprocess_product_id }}",
+  "storage_location_name": "{{ this.params.storage_location_name }}"
+}

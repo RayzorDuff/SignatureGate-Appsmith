@@ -1,0 +1,25 @@
+INSERT INTO public.facilitator_storage_location_access (
+  facilitator_id,
+  storage_location_name,
+  assigned_by_member_id,
+  status,
+  notes
+)
+VALUES (
+  {{ appsmith.store.member_id }}::uuid,
+  {{ this.params.storage_location_name }},
+  {{ appsmith.store.facilitator_id }}::uuid,
+  'active',
+  {{ this.params.notes || null }}
+)
+ON CONFLICT (facilitator_id, storage_location_name)
+DO UPDATE SET
+  status = 'active',
+  updated_at = now(),
+  assigned_by_member_id = EXCLUDED.assigned_by_member_id,
+  notes = EXCLUDED.notes
+RETURNING
+  facilitator_storage_location_access_id,
+  facilitator_id,
+  storage_location_name,
+  status;

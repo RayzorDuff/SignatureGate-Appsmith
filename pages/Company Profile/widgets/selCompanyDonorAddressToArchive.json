@@ -1,0 +1,68 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 156,
+  "boxShadow": "none",
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "key": "7ac886e503",
+  "label": "Address to archive",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Contributor contact to archive",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 100,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 42,
+  "mobileTopRow": 94,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 100,
+  "originalTopRow": 94,
+  "parentColumnSpace": 9.9375,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 42,
+  "serverSideFiltering": false,
+  "sourceData": "{{ (qCompanyDonorAddresses.data || []).map(a => ({label: a.address_1 + (a.address_2 ? ', ' + a.address_2 : '') + ', ' + a.city + ' ' + a.postal_code + (a.is_primary ? ' (primary)' : ''), value: a.address_id})) }}",
+  "topRow": 150,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "1ebd677294",
+  "widgetName": "selCompanyDonorAddressToArchive"
+}

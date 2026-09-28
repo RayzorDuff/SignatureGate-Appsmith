@@ -1,0 +1,16 @@
+SELECT *
+FROM public.issue19_record_sacrament_release(
+  {{ appsmith.user.email }},
+  {{ this.params.member_id }}::uuid,
+  {{ this.params.practitioner_person_id }}::uuid,
+  NULLIF({{ this.params.member_agreement_id }}::text, '')::uuid,
+  {{ this.params.mushroomprocess_product_id }},
+  {{ this.params.item_name }},
+  {{ this.params.quantity }}::numeric,
+  {{ this.params.unit }},
+  NULLIF({{ this.params.net_weight_g }}::text, '')::integer,
+  {{ this.params.strain }},
+  {{ this.params.storage_location_name }},
+  {{ this.params.notes }},
+  {{ this.params.override_reason }}
+);

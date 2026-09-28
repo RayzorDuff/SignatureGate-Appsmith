@@ -1,0 +1,15 @@
+SELECT
+  agreement_template_id,
+  name,
+  version,
+  required_for,
+  doc_url,
+  active,
+  created_at,
+  updated_at,
+  documenso_template_id,
+  documenso_template_envelope_id,
+  documenso_member_recipient_id,
+  documenso_facilitator_recipient_id
+FROM public.agreement_templates
+ORDER BY name, version DESC;

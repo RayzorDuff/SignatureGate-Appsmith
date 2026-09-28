@@ -1,0 +1,6 @@
+{
+  "member_agreement_id": "{{ this.params.member_agreement_id }}",
+  "actor_member_id": "{{ appsmith.store.facilitator_id }}",
+  "actor_email": "{{ (appsmith.user.email || '').trim().toLowerCase() }}",
+  "reason": "{{ this.params.reason || '' }}"
+}

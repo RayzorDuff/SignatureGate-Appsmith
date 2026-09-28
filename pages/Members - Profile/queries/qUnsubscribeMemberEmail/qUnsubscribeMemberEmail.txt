@@ -1,0 +1,14 @@
+SELECT *
+FROM public.member_email_request_mailing_unsubscribe(
+  {{ this.params.member_email_id || tblMemberEmails.triggeredRow.member_email_id }}::uuid,
+  {{ appsmith.store.facilitator_email || appsmith.user.email || 'appsmith' }}::text,
+  'signaturegate_interface'::text,
+  {{ this.params.reason || 'Unsubscribed from Members - Profile' }}::text,
+  jsonb_build_object(
+    'page', 'Members - Profile',
+    'member_email_id', {{ this.params.member_email_id || tblMemberEmails.triggeredRow.member_email_id }}::uuid,
+    'facilitator_id', {{ appsmith.store.facilitator_id || null }}::uuid,
+    'facilitator_email', {{ appsmith.store.facilitator_email || appsmith.user.email || null }}::text
+  )::jsonb,
+  true::boolean
+);

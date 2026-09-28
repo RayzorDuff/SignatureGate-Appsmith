@@ -1,0 +1,1 @@
+SELECT contact_id::text AS contact_id, contact_kind, contact_value, is_primary, is_verified FROM public.issue19_contributor_contacts({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid) ORDER BY contact_kind, is_primary DESC, contact_value;

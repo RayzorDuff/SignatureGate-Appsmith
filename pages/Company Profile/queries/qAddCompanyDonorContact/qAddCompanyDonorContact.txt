@@ -1,0 +1,1 @@
+SELECT public.issue19_add_contributor_contact({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid, {{ this.params.kind }}, {{ this.params.value }}, {{ this.params.reason }})::text AS contact_id;

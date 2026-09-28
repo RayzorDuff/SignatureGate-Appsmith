@@ -1,0 +1,1 @@
+SELECT source_table,source_id::text AS source_id,contact_kind,contact_detail,target_role FROM public.issue19_reusable_person_contacts({{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid);

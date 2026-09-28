@@ -1,0 +1,61 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 19,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{! (\n  selMember?.selectedOptionValue &&\n  selAgreementTemplate.selectedOptionValue &&\n  inpFacilitator?.selectedOptionValue &&\n  (qMemberEmails.data || []).some(e => (e.status || \"active\") === \"active\")\n) }}",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "zy8x2yht2q",
+  "leftColumn": 45,
+  "minWidth": 120,
+  "mobileBottomRow": 5,
+  "mobileLeftColumn": 38,
+  "mobileRightColumn": 54,
+  "mobileTopRow": 1,
+  "needsErrorInfo": false,
+  "onClick": "{{ memberProfile.sendDigitalAgreement() }}",
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Send Digital Agreement",
+  "topRow": 15,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "6z81ok6vse",
+  "widgetName": "SendRelease"
+}

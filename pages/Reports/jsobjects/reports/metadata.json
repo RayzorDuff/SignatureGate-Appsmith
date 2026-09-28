@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "6a2c72cf889f4468406c5d09_28630b69-ee3b-4c58-b897-a34b8d14d19e",
+  "id": "Reports_reports",
+  "unpublishedCollection": {
+    "name": "reports",
+    "pageId": "Reports",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "MAX_BUCKETS",
+        "value": "120"
+      }
+    ]
+  }
+}

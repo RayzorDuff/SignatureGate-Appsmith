@@ -1,0 +1,93 @@
+WITH me AS (
+  SELECT
+    member_id,
+    lower(email) AS email,
+    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer
+  FROM public.member_profiles
+  WHERE lower(email) = lower({{ appsmith.user.email }})
+    AND status = 'active'
+  LIMIT 1
+),
+audit_rows AS (
+  SELECT
+    al.*,
+    CASE
+      WHEN COALESCE(al.details::jsonb->>'member_id', '') ~*
+        '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      THEN (al.details::jsonb->>'member_id')::uuid
+      ELSE NULL
+    END AS scoped_detail_member_id,
+    CASE
+      WHEN al.entity_type = 'member'
+       AND COALESCE(al.entity_id, '') ~*
+        '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      THEN al.entity_id::uuid
+      ELSE NULL
+    END AS scoped_entity_member_id
+  FROM public.audit_log al
+)
+SELECT
+  al.audit_log_id,
+  al.created_at,
+  al.actor,
+  al.action,
+  al.entity_type,
+  al.entity_id,
+  al.details,
+
+  actor_m.first_name || ' ' || actor_m.last_name AS actor_member_name,
+
+  member_m.member_id AS detail_member_id,
+  member_m.first_name || ' ' || member_m.last_name AS detail_member_name,
+
+  facilitator_m.member_id AS detail_facilitator_id,
+  facilitator_m.first_name || ' ' || facilitator_m.last_name AS detail_facilitator_name
+
+FROM audit_rows al
+CROSS JOIN me
+
+LEFT JOIN public.member_profiles actor_m
+  ON lower(actor_m.email) = lower(al.actor)
+
+LEFT JOIN public.member_profiles member_m
+  ON member_m.member_id = al.scoped_detail_member_id
+
+LEFT JOIN public.member_profiles facilitator_m
+  ON facilitator_m.member_id = CASE
+    WHEN COALESCE(al.details::jsonb->>'facilitator_id', '') ~*
+      '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+    THEN (al.details::jsonb->>'facilitator_id')::uuid
+    ELSE NULL
+  END
+
+LEFT JOIN public.releases release_entity
+  ON al.entity_type IN ('release', 'sacrament_release')
+ AND release_entity.release_id::text = al.entity_id
+
+LEFT JOIN public.donations donation_entity
+  ON al.entity_type = 'donation'
+ AND donation_entity.donation_id::text = al.entity_id
+
+LEFT JOIN public.contributor_member_links donation_contributor_link
+  ON donation_contributor_link.contributor_id = donation_entity.contributor_id
+ AND donation_contributor_link.status = 'active'
+
+WHERE
+  me.is_document_reviewer = TRUE
+  OR lower(al.actor) = me.email
+  OR EXISTS (
+    SELECT 1
+    FROM public.member_facilitators mf
+    WHERE mf.facilitator_id = me.member_id
+      AND mf.status = 'active'
+      AND mf.member_id = COALESCE(
+        al.scoped_detail_member_id,
+        al.scoped_entity_member_id,
+        release_entity.member_id,
+        donation_entity.member_id,
+        donation_contributor_link.member_id
+      )
+  )
+
+ORDER BY al.created_at DESC
+LIMIT 500;

@@ -1,0 +1,74 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 15,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{\n  (() => {\n    const emails = (qMemberEmails.data || []).filter(e => (e.status || \"active\") === \"active\");\n    const primary = emails.find(e => e.is_primary);\n    const verified = emails.find(e => e.is_verified);\n    const first = emails[0];\n    return (primary || verified || first)?.member_email_id || \"\";\n  })()\n}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "defaultOptionValue"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "defaultOptionValue"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "{{! (\n  selMember?.selectedOptionValue &&\n  selAgreementTemplate.selectedOptionValue &&\n  inpFacilitator?.selectedOptionValue &&\n  (qMemberEmails.data || []).some(e => (e.status || \"active\") === \"active\")\n) }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": true,
+  "key": "wxsck82x94",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Email Agreement To",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 45,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 15,
+  "mobileLeftColumn": 45,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 8,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "serverSideFiltering": false,
+  "sourceData": "{{\n  (qMemberEmails.data || [])\n    .filter(e => (e.status || \"active\") === \"active\")\n    .map(e => ({\n      label: `${e.email}${e.is_primary ? \" (primary)\" : \"\"}${e.is_verified ? \" (verified)\" : \"\"}`,\n      value: e.member_email_id\n    }))\n}}",
+  "topRow": 8,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "ejksnhh7nj",
+  "widgetName": "inpEmailAgreementTo"
+}

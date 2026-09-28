@@ -1,0 +1,5 @@
+SELECT *
+FROM public.member_phones
+WHERE member_id = {{ appsmith.store.member_id }}::uuid
+AND status = 'active'
+ORDER BY is_primary DESC, created_at DESC;

@@ -1,0 +1,80 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 7,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{ (() => {\n  const memberId = String(appsmith.URL.queryParams.member_id || appsmith.store.member_id || \"\").trim();\n  const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(memberId);\n  if (!isUuid) return \"\";\n  return (qMembersDirectory.data || []).find(item => String(item.member_id || \"\") === memberId)?.selection_value || \"\";\n})() }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "defaultOptionValue"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "onOptionChange"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onFilterUpdate"
+    },
+    {
+      "key": "onOptionChange"
+    }
+  ],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": true,
+  "key": "tcvabvv6qz",
+  "label": "Contributor, Member, or Anonymous",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Member or Anonymous",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 17,
+  "mobileLeftColumn": 45,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 10,
+  "needsErrorInfo": false,
+  "onFilterUpdate": "{{\n            qListFacilitators.run();\n            \n          }}",
+  "onOptionChange": "{{ storeValue(\"donation_donor_selection\", selDonationMember.selectedOptionValue || \"\") }}",
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 23,
+  "originalTopRow": 14,
+  "parentColumnSpace": 9.77734375,
+  "parentId": "td6u8eudjb",
+  "parentRowSpace": 10,
+  "placeholderText": "Select contributor, member, or Anonymous cash donor",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 41,
+  "serverSideFiltering": false,
+  "sourceData": "{{ [\n  { label: \"Anonymous cash donor\", value: \"__anonymous__\" },\n  ...(tblPendingGivebutterDonations.selectedRow?.provider === \"givebutter\" ? [\n    { label: \"Create new individual contributor from donation\", value: \"__new_individual__\" },\n    { label: \"Create new organization contributor from donation\", value: \"__new_organization__\" }\n  ] : []),\n  ...(qMembersDirectory.data || []).map(item => ({\n    label: `${item.selection_label}${item.email ? \" — \" + item.email : \"\"}`,\n    value: item.selection_value\n  }))\n] }}",
+  "topRow": 0,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "r0xlcd0xql",
+  "widgetName": "selDonationMember"
+}

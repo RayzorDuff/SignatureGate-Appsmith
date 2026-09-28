@@ -1,0 +1,12 @@
+SELECT state.member_id::text AS member_id,
+  state.membership_status,state.can_view,state.can_manage,
+  EXISTS (
+    SELECT 1 FROM public.person_app_accounts account
+    JOIN public.members actor_member ON actor_member.person_id=account.person_id
+      AND actor_member.status='active' AND actor_member.is_facilitator
+    WHERE account.status='active'
+      AND account.email_normalized=lower(btrim({{ appsmith.user.email }}))
+  ) AS can_use_legacy_operations
+FROM public.issue19_person_member_operations_state(
+  {{ appsmith.user.email }},{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+) state;

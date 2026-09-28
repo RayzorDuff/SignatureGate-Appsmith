@@ -1,0 +1,4 @@
+SELECT event_id, name, starts_at, location, notes
+FROM public.events
+ORDER BY starts_at DESC
+LIMIT 200;

@@ -1,0 +1,23 @@
+SELECT
+  mf.member_facilitator_id,
+  mf.member_id,
+  mf.facilitator_id,
+  mf.status,
+  mf.created_at,
+  mf.updated_at,
+  mf.notes,
+  f.first_name,
+  f.last_name,
+  f.email,
+  ab.first_name AS assigned_by_first_name,
+  ab.last_name  AS assigned_by_last_name
+FROM public.member_facilitators mf
+JOIN public.member_profiles f
+  ON f.member_id = mf.facilitator_id
+LEFT JOIN public.member_profiles ab
+  ON ab.member_id = mf.assigned_by_member_id
+WHERE mf.member_id = {{ appsmith.store.member_id }}::uuid
+ORDER BY
+  CASE WHEN mf.status = 'active' THEN 0 ELSE 1 END,
+  f.last_name,
+  f.first_name;

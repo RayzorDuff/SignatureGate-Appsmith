@@ -1,0 +1,66 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 110,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": false,
+  "isLoading": false,
+  "isVisible": "{{ qDirectoryCanManage.data?.[0]?.can_manage === true && !!qIndividualProfile.data?.[0]?.party_id }}",
+  "key": "3a969b5d51",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 110,
+  "mobileLeftColumn": 17,
+  "mobileRightColumn": 33,
+  "mobileTopRow": 106,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { if (!inpPersonAccessReason.text?.trim() || !inpPersonAppAccountEmail.text?.trim()) { showAlert('Enter an email and a reason first.', 'warning'); return; } const rows = await qSetIndividualAccount.run({ email: inpPersonAppAccountEmail.text.trim(), reason: inpPersonAccessReason.text.trim() }); await qIndividualAccount.run(); showAlert(rows?.[0]?.changed ? 'Account linked.' : 'Account already linked.', 'success'); } catch (e) { showAlert('Account change failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 110,
+  "originalTopRow": 106,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Link account",
+  "topRow": 106,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "a9a46ae246",
+  "widgetName": "btnSavePersonAppAccount"
+}

@@ -1,0 +1,4 @@
+SELECT public.issue19_set_person_app_account(
+  {{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid,
+  {{ this.params.email }}, {{ this.params.reason }}
+) AS changed;

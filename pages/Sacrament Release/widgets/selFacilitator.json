@@ -1,0 +1,84 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 5,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{ appsmith.store.release_practitioner_person_id || appsmith.store.practitioner_person_id || '' }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "labelText"
+    },
+    {
+      "key": "defaultOptionValue"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onOptionChange"
+    }
+  ],
+  "isDisabled": "{{ !appsmith.store.facilitator_is_reviewer }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "mjehiralxq",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "{{ appsmith.store.practitioner_singular_label || 'Practitioner' }}",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 41,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 69,
+  "mobileLeftColumn": 10,
+  "mobileRightColumn": 30,
+  "mobileTopRow": 62,
+  "needsErrorInfo": false,
+  "onOptionChange": "{{ storeValue('release_practitioner_person_id', selFacilitator.selectedOptionValue).then(() => qAccessibleStorageLocations.run({ member_id: selMember.selectedOptionValue || appsmith.store.member_id, practitioner_person_id: selFacilitator.selectedOptionValue })).then(() => apiListAvailableProducts.run()) }}",
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 58,
+  "originalTopRow": 51,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "serverSideFiltering": false,
+  "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: i.display_name || `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.practitioner_person_id || i.member_id })) }}",
+  "topRow": 0,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "duv1ugg6h9",
+  "widgetName": "selFacilitator"
+}

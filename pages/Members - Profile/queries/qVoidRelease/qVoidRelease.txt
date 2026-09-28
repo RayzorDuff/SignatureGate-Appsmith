@@ -1,0 +1,8 @@
+UPDATE public.releases
+SET
+  status = 'voided',
+  voided_at = now(),
+  voided_by = {{ appsmith.store.facilitator_id }}::uuid,
+  void_reason = {{ this.params.void_reason }}
+WHERE release_id = {{ this.params.release_id }}::uuid
+RETURNING release_id;

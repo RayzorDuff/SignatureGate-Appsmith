@@ -1,0 +1,6 @@
+SELECT party_kind, party_id::text AS party_id, contributor_id::text AS contributor_id
+FROM public.issue19_create_contributor(
+ {{ appsmith.user.email }}, {{ this.params.kind }}, {{ this.params.first }},
+ {{ this.params.last }}, {{ this.params.company }}, {{ this.params.email }},
+ {{ this.params.phone }}, {{ this.params.reason }}
+);

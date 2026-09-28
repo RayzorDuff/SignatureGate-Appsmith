@@ -1,0 +1,66 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 271,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qIndividualMemberOperationsState.data?.[0]?.membership_status !== 'active' }}",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true && qIndividualMemberOperationsState.data?.[0]?.can_use_legacy_operations === true }}",
+  "key": "8d4a1c5506",
+  "leftColumn": 34,
+  "minWidth": 120,
+  "mobileBottomRow": 271,
+  "mobileLeftColumn": 34,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 267,
+  "needsErrorInfo": false,
+  "onClick": "{{ navigateTo('Sacrament Release', {member_id: qIndividualMemberOperationsState.data?.[0]?.member_id}, 'SAME_WINDOW') }}",
+  "originalBottomRow": 271,
+  "originalTopRow": 267,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Record sacrament release",
+  "topRow": 267,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "8d4a1c5505",
+  "widgetName": "btnIndividualSacramentRelease"
+}

@@ -1,0 +1,29 @@
+WITH created AS (
+  SELECT m.*
+  FROM public.create_member_from_pending_donation(
+    p_donation_id => {{ this.params.donation_id }}::uuid,
+    p_reviewer_id => {{ appsmith.store.facilitator_id }}::uuid,
+    p_review_notes => {{ this.params.review_notes || null }}
+  ) m
+),
+mailing AS (
+  UPDATE public.member_emails me
+  SET
+    mailing_subscription_status = CASE
+      WHEN COALESCE({{ this.params.subscribe_to_mailing_list }}, true)
+        THEN 'subscribed'
+      ELSE 'not_subscribed'
+    END,
+    mailing_subscription_source = 'givebutter_create_member'
+  FROM created
+  WHERE me.member_id = created.member_id
+    AND me.status = 'active'
+  RETURNING me.member_email_id
+)
+SELECT
+  created.member_id,
+  created.first_name,
+  created.last_name,
+  created.email,
+  created.phone
+FROM created;

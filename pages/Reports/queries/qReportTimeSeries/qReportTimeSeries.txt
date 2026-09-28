@@ -1,0 +1,317 @@
+WITH raw_params AS (
+  SELECT
+    lower(NULLIF({{ this.params?.bucket || 'month' }}, ''))::text AS requested_bucket,
+
+    GREATEST(
+      1,
+      LEAST(
+        COALESCE(NULLIF({{ this.params?.periods || '12' }}, '')::int, 12),
+        120
+      )
+    ) AS requested_periods,
+
+    NULLIF({{ this.params?.start_date || '' }}, '')::timestamptz AS start_override,
+    NULLIF({{ this.params?.end_date || '' }}, '')::timestamptz AS end_override,
+
+    COALESCE(
+      NULLIF({{ this.params?.metric_keys_json || '[]' }}, '')::jsonb,
+      '[]'::jsonb
+    ) AS metric_keys_json,
+
+    lower({{ appsmith.user.email }})::text AS current_email
+),
+
+params AS (
+  SELECT
+    CASE
+      WHEN requested_bucket IN ('day', 'week', 'month', 'year')
+        THEN requested_bucket
+      ELSE 'month'
+    END AS bucket,
+
+    CASE
+      WHEN requested_bucket = 'day' THEN interval '1 day'
+      WHEN requested_bucket = 'week' THEN interval '1 week'
+      WHEN requested_bucket = 'year' THEN interval '1 year'
+      ELSE interval '1 month'
+    END AS step,
+
+    CASE
+      WHEN requested_bucket = 'day' THEN 'YYYY-MM-DD'
+      WHEN requested_bucket = 'week' THEN 'IYYY-"W"IW'
+      WHEN requested_bucket = 'year' THEN 'YYYY'
+      ELSE 'YYYY-MM'
+    END AS label_format,
+
+    requested_periods,
+    start_override,
+    end_override,
+    metric_keys_json,
+    current_email
+  FROM raw_params
+),
+
+me AS (
+  SELECT
+    member_id,
+    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer,
+    COALESCE(is_donations_reviewer, FALSE) AS is_donations_reviewer
+  FROM public.member_profiles
+  WHERE lower(email) = (SELECT current_email FROM params)
+    AND is_facilitator IS TRUE
+    AND status = 'active'
+  LIMIT 1
+),
+
+auth AS (
+  SELECT
+    p.*,
+    me.member_id AS viewer_member_id,
+    me.is_document_reviewer,
+    me.is_donations_reviewer
+  FROM params p
+  JOIN me ON TRUE
+),
+
+bounds AS (
+  SELECT
+    bucket,
+    step,
+    label_format,
+    metric_keys_json,
+
+    date_trunc(
+      bucket,
+      COALESCE(
+        start_override,
+        date_trunc(bucket, now()) - ((requested_periods - 1) * step)
+      )
+    ) AS start_ts,
+
+    date_trunc(
+      bucket,
+      COALESCE(end_override, now())
+    ) + step AS exclusive_end_ts
+  FROM auth
+),
+
+buckets AS (
+  SELECT
+    gs AS bucket_start,
+    gs + b.step AS bucket_end,
+    b.label_format
+  FROM bounds b
+  CROSS JOIN LATERAL generate_series(
+    b.start_ts,
+    b.exclusive_end_ts - b.step,
+    b.step
+  ) AS gs
+),
+
+scoped_members AS (
+  SELECT DISTINCT
+    m.member_id
+  FROM public.member_profiles m
+  CROSS JOIN auth a
+  WHERE lower(COALESCE(m.status, 'active')) = 'active'
+    AND (
+      a.is_document_reviewer IS TRUE
+      OR EXISTS (
+        SELECT 1
+        FROM public.member_facilitators mf
+        WHERE mf.member_id = m.member_id
+          AND mf.facilitator_id = a.viewer_member_id
+          AND mf.status = 'active'
+      )
+    )
+),
+
+scoped_donations AS (
+  SELECT d.*
+  FROM public.donations d
+  CROSS JOIN auth a
+  WHERE d.donor_kind IN ('identified', 'anonymous')
+    AND (
+      a.is_donations_reviewer IS TRUE
+      OR (
+        d.donor_kind = 'identified'
+        AND d.member_id IN (SELECT member_id FROM scoped_members)
+      )
+      OR (
+        d.donor_kind = 'anonymous'
+        AND d.facilitator_id = a.viewer_member_id
+      )
+    )
+),
+
+selected_metrics AS (
+  SELECT *
+  FROM (
+    SELECT 'agreements_signed'::text AS metric_key, 'Agreements signed'::text AS metric_label, 10 AS sort_order
+    UNION ALL SELECT 'releases_sent', 'Releases sent', 20
+    UNION ALL SELECT 'donations_count', 'Donations received', 30
+    UNION ALL SELECT 'donations_dollars', 'Donation dollars', 40
+    UNION ALL SELECT 'member_donations_count', 'Member-linked donations', 50
+    UNION ALL SELECT 'member_donations_dollars', 'Member-linked donation dollars', 60
+    UNION ALL SELECT 'anonymous_donations_count', 'Anonymous cash donations', 70
+    UNION ALL SELECT 'anonymous_donations_dollars', 'Anonymous cash donation dollars', 80
+    UNION ALL SELECT 'members_created', 'Members created', 90
+  ) m
+  CROSS JOIN bounds b
+  WHERE jsonb_array_length(b.metric_keys_json) = 0
+     OR m.metric_key IN (
+       SELECT value::text
+       FROM jsonb_array_elements_text(b.metric_keys_json)
+     )
+),
+
+agreement_counts AS (
+  SELECT
+    b.bucket_start,
+    'agreements_signed'::text AS metric_key,
+    COUNT(ma.member_agreement_id)::numeric AS value
+  FROM buckets b
+  LEFT JOIN public.member_agreements ma
+    ON ma.member_id IN (SELECT member_id FROM scoped_members)
+   AND lower(COALESCE(ma.status, '')) IN ('signed', 'complete', 'completed')
+   AND COALESCE(ma.signed_at, ma.reviewed_at, ma.updated_at) >= b.bucket_start
+   AND COALESCE(ma.signed_at, ma.reviewed_at, ma.updated_at) < b.bucket_end
+  GROUP BY b.bucket_start
+),
+
+release_counts AS (
+  SELECT
+    b.bucket_start,
+    'releases_sent'::text AS metric_key,
+    COUNT(r.release_id)::numeric AS value
+  FROM buckets b
+  LEFT JOIN public.releases r
+    ON r.member_id IN (SELECT member_id FROM scoped_members)
+   AND COALESCE(r.released_at, r.created_at) >= b.bucket_start
+   AND COALESCE(r.released_at, r.created_at) < b.bucket_end
+   AND lower(COALESCE(r.status, 'issued')) <> 'voided'
+  GROUP BY b.bucket_start
+),
+
+donation_counts AS (
+  SELECT
+    b.bucket_start,
+    'donations_count'::text AS metric_key,
+    COUNT(d.donation_id)::numeric AS value
+  FROM buckets b
+  LEFT JOIN scoped_donations d
+    ON COALESCE(d.donated_at, d.created_at) >= b.bucket_start
+   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
+   AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
+  GROUP BY b.bucket_start
+),
+
+donation_dollars AS (
+  SELECT
+    b.bucket_start,
+    'donations_dollars'::text AS metric_key,
+    COALESCE(SUM(d.amount_cents), 0)::numeric / 100.0 AS value
+  FROM buckets b
+  LEFT JOIN scoped_donations d
+    ON COALESCE(d.donated_at, d.created_at) >= b.bucket_start
+   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
+   AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
+  GROUP BY b.bucket_start
+),
+
+member_donation_counts AS (
+  SELECT
+    b.bucket_start,
+    'member_donations_count'::text AS metric_key,
+    COUNT(d.donation_id)::numeric AS value
+  FROM buckets b
+  LEFT JOIN scoped_donations d
+    ON d.donor_kind = 'identified'
+   AND d.member_id IS NOT NULL
+   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
+   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
+   AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
+  GROUP BY b.bucket_start
+),
+
+member_donation_dollars AS (
+  SELECT
+    b.bucket_start,
+    'member_donations_dollars'::text AS metric_key,
+    COALESCE(SUM(d.amount_cents), 0)::numeric / 100.0 AS value
+  FROM buckets b
+  LEFT JOIN scoped_donations d
+    ON d.donor_kind = 'identified'
+   AND d.member_id IS NOT NULL
+   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
+   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
+   AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
+  GROUP BY b.bucket_start
+),
+
+anonymous_donation_counts AS (
+  SELECT
+    b.bucket_start,
+    'anonymous_donations_count'::text AS metric_key,
+    COUNT(d.donation_id)::numeric AS value
+  FROM buckets b
+  LEFT JOIN scoped_donations d
+    ON d.donor_kind = 'anonymous'
+   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
+   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
+   AND lower(COALESCE(d.status, '')) IN ('verified', 'pending_review')
+  GROUP BY b.bucket_start
+),
+
+anonymous_donation_dollars AS (
+  SELECT
+    b.bucket_start,
+    'anonymous_donations_dollars'::text AS metric_key,
+    COALESCE(SUM(d.amount_cents), 0)::numeric / 100.0 AS value
+  FROM buckets b
+  LEFT JOIN scoped_donations d
+    ON d.donor_kind = 'anonymous'
+   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
+   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
+   AND lower(COALESCE(d.status, '')) IN ('verified', 'pending_review')
+  GROUP BY b.bucket_start
+),
+
+member_counts AS (
+  SELECT
+    b.bucket_start,
+    'members_created'::text AS metric_key,
+    COUNT(m.member_id)::numeric AS value
+  FROM buckets b
+  LEFT JOIN public.member_profiles m
+    ON m.member_id IN (SELECT member_id FROM scoped_members)
+   AND m.created_at >= b.bucket_start
+   AND m.created_at < b.bucket_end
+   AND lower(COALESCE(m.status, 'active')) <> 'deleted'
+  GROUP BY b.bucket_start
+),
+
+all_metric_values AS (
+  SELECT * FROM agreement_counts
+  UNION ALL SELECT * FROM release_counts
+  UNION ALL SELECT * FROM donation_counts
+  UNION ALL SELECT * FROM donation_dollars
+  UNION ALL SELECT * FROM member_donation_counts
+  UNION ALL SELECT * FROM member_donation_dollars
+  UNION ALL SELECT * FROM anonymous_donation_counts
+  UNION ALL SELECT * FROM anonymous_donation_dollars
+  UNION ALL SELECT * FROM member_counts
+)
+
+SELECT
+  mv.bucket_start,
+  to_char(mv.bucket_start, b.label_format) AS bucket_label,
+  mv.metric_key,
+  sm.metric_label,
+  sm.sort_order,
+  mv.value
+FROM all_metric_values mv
+JOIN selected_metrics sm
+  ON sm.metric_key = mv.metric_key
+CROSS JOIN bounds b
+ORDER BY mv.bucket_start, sm.sort_order;

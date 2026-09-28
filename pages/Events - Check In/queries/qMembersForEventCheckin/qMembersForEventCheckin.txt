@@ -1,0 +1,106 @@
+WITH me AS (
+  SELECT
+    member_id,
+    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer
+  FROM public.member_profiles
+  WHERE lower(email) = lower({{ appsmith.user.email }})
+    AND status = 'active'
+  LIMIT 1
+)
+SELECT DISTINCT
+  m.member_id,
+  m.first_name,
+  m.last_name,
+  m.email,
+  m.phone,
+  m.status,
+  m.is_facilitator,
+  m.created_at,
+
+  concat_ws(' ',
+    m.member_id::text,
+    m.first_name,
+    m.last_name,
+    m.email,
+    m.phone,
+    COALESCE((
+      SELECT string_agg(DISTINCT me2.email, ' ')
+      FROM public.member_emails me2
+      WHERE me2.member_id = m.member_id
+        AND COALESCE(me2.status, 'active') = 'active'
+    ), ''),
+    COALESCE((
+      SELECT string_agg(DISTINCT mp.phone, ' ')
+      FROM public.member_phones mp
+      WHERE mp.member_id = m.member_id
+        AND COALESCE(mp.status, 'active') = 'active'
+    ), ''),
+    COALESCE((
+      SELECT string_agg(
+        DISTINCT concat_ws(' ', ma.address_1, ma.address_2, ma.city, ma.state, ma.postal_code, ma.country),
+        ' '
+      )
+      FROM public.member_addresses ma
+      WHERE ma.member_id = m.member_id
+        AND COALESCE(ma.status, 'active') = 'active'
+    ), '')
+  ) AS member_search_text,
+
+  (
+    SELECT ma.status
+    FROM public.member_agreements ma
+    JOIN public.agreement_templates at
+      ON at.agreement_template_id = ma.agreement_template_id
+    WHERE ma.member_id = m.member_id
+      AND 'sacrament_release' = ANY(COALESCE(at.required_for, ARRAY[]::text[]))
+    ORDER BY
+      CASE
+        WHEN lower(COALESCE(ma.status, '')) IN ('signed', 'complete', 'completed') THEN 0
+        WHEN lower(COALESCE(ma.status, '')) IN ('pending_review', 'pending_signature') THEN 1
+        WHEN lower(COALESCE(ma.status, '')) IN ('expired', 'rejected', 'canceled', 'cancelled') THEN 2
+        ELSE 3
+      END,
+      ma.created_at DESC
+    LIMIT 1
+  ) AS latest_release_agreement_status,
+
+  (
+    SELECT max(sr.released_at)
+    FROM public.releases sr
+    WHERE sr.member_id = m.member_id
+  ) AS last_release_at
+
+FROM public.member_profiles m
+CROSS JOIN me
+WHERE
+  m.status = 'active'
+  AND (
+    me.is_document_reviewer = TRUE
+    OR (
+      me.member_id IS NOT NULL
+      AND (
+        m.created_by_facilitator_id = me.member_id
+        OR EXISTS (
+          SELECT 1
+          FROM public.member_facilitators mf
+          WHERE mf.member_id = m.member_id
+            AND mf.facilitator_id = me.member_id
+            AND mf.status = 'active'
+        )
+        OR EXISTS (
+          SELECT 1
+          FROM public.member_agreements ma
+          WHERE ma.member_id = m.member_id
+            AND ma.facilitator_id = me.member_id
+        )
+        OR EXISTS (
+          SELECT 1
+          FROM public.releases sr
+          WHERE sr.member_id = m.member_id
+            AND sr.facilitator_id = me.member_id
+        )
+      )
+    )
+  )
+ORDER BY m.last_name NULLS LAST, m.first_name NULLS LAST, m.created_at DESC
+LIMIT 500;

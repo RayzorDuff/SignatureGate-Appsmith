@@ -1,0 +1,54 @@
+SELECT
+  d.donation_id,
+  d.created_at,
+  d.contributor_id,
+  d.member_id,
+  d.donor_kind,
+  d.provider,
+  d.provider_reference AS actual_provider_reference,
+  CASE
+    WHEN d.provider = 'cash' AND d.donor_kind = 'anonymous'
+      THEN 'Anonymous'
+    WHEN d.provider = 'cash' AND d.donor_kind = 'identified'
+      THEN c.display_name
+    ELSE d.provider_reference
+  END AS provider_reference,
+  c.contributor_type,
+  c.display_name AS contributor_name,
+  d.amount_cents,
+  d.currency,
+  d.donated_at,
+  d.notes,
+  d.status,
+  d.facilitator_id,
+  d.reviewer_id,
+  d.reviewed_at,
+  d.review_notes,
+  al.details AS details
+FROM public.donations d
+LEFT JOIN public.contributor_profiles c
+  ON c.contributor_id = d.contributor_id
+LEFT JOIN LATERAL (
+  SELECT x.details
+  FROM public.audit_log x
+  WHERE x.entity_type = 'donation'
+    AND x.entity_id = d.donation_id::text
+    AND x.details ? 'raw'
+  ORDER BY x.created_at DESC, x.audit_log_id DESC
+  LIMIT 1
+) al ON TRUE
+WHERE d.status = 'pending_review'
+  AND (
+    (
+      d.provider = 'cash'
+      AND d.donor_kind IN ('identified', 'anonymous')
+    )
+    OR
+    (
+      d.provider = 'givebutter'
+      AND d.donor_kind = 'unresolved'
+      AND d.contributor_id IS NULL
+      AND d.member_id IS NULL
+    )
+  )
+ORDER BY d.donated_at DESC NULLS LAST, d.created_at DESC;

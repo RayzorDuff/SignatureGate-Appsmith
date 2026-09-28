@@ -1,0 +1,10 @@
+SELECT member_id::text AS member_id,membership_status,
+  member_agreement_id::text AS member_agreement_id,created_at::text AS created_at,
+  template_name,agreement_scope,agreement_status,signature_method,
+  member_signed_at::text AS member_signed_at,
+  practitioner_signed_at::text AS practitioner_signed_at,
+  CASE WHEN evidence_attached THEN 'Yes' ELSE '' END AS evidence,
+  COALESCE(review_notes,'') AS review_notes
+FROM public.issue19_person_member_agreements(
+  {{ appsmith.user.email }},{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+);

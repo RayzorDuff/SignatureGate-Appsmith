@@ -1,0 +1,69 @@
+{
+  "allowedFileTypes": "[\n  \"image/*\",\n  \"image/jpeg\",\n  \".png\",\n\t\"application/pdf\",\n\t\".pdf\"\n]",
+  "animateLoading": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 23,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "allowedFileTypes"
+    },
+    {
+      "key": "onFilesSelected"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onFilesSelected"
+    }
+  ],
+  "dynamicTyping": true,
+  "fileDataType": "Base64",
+  "files": [],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{!(\n\tselMember?.selectedOptionValue\n)\t}}",
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "67f2brnxij",
+  "label": "Select Files",
+  "leftColumn": 45,
+  "maxFileSize": "50",
+  "maxNumFiles": "",
+  "minWidth": 120,
+  "mobileBottomRow": 26,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 60,
+  "mobileTopRow": 22,
+  "needsErrorInfo": false,
+  "onFilesSelected": "{{storeValue('', \"\");}}",
+  "originalBottomRow": 26,
+  "originalTopRow": 22,
+  "parentColumnSpace": 9.9375,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "selectedFiles": [],
+  "topRow": 19,
+  "type": "FILE_PICKER_WIDGET_V2",
+  "version": 1,
+  "widgetId": "1id805j7vo",
+  "widgetName": "FilePicker1"
+}

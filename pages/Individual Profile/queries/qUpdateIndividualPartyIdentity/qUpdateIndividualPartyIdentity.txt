@@ -1,0 +1,1 @@
+SELECT public.issue19_update_person_identity({{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid, {{ this.params.display_name }}, NULLIF({{ this.params.first_name }}, ''), NULLIF({{ this.params.last_name }}, ''), NULLIF({{ this.params.date_of_birth }}, '')::date, {{ this.params.expected_version }}, {{ this.params.reason }})::text AS party_id;

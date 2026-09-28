@@ -1,0 +1,4 @@
+SELECT address_id::text AS address_id,address_type,address_1,address_2,city,state,postal_code,country,is_primary,created_at
+FROM public.issue19_person_membership_addresses(
+  {{ appsmith.user.email }},{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+);

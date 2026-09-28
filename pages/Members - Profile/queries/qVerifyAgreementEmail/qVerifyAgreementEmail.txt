@@ -1,0 +1,13 @@
+UPDATE public.member_emails me
+SET
+  is_verified = true,
+  verified_at = now(),
+  verified_by = {{ appsmith.store.facilitator_id }}::uuid,
+  verification_source = 'documenso_signed_agreement',
+  verification_notes = 'Verified because Documenso agreement was signed.',
+  updated_at = now()
+FROM public.member_agreements ma
+WHERE ma.member_agreement_id = {{ this.params.member_agreement_id }}::uuid
+  AND ma.member_email_id = me.member_email_id
+  AND ma.status = 'signed'
+RETURNING me.*;

@@ -1,0 +1,4 @@
+SELECT public.issue19_archive_membership_address(
+  {{ appsmith.user.email }},{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid,
+  {{ this.params.id }}::uuid,{{ this.params.reason }}
+) AS archived;

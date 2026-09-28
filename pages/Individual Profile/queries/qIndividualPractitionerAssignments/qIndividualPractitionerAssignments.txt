@@ -1,0 +1,10 @@
+SELECT member_id::text AS member_id,membership_status,
+  member_practitioner_assignment_id::text AS member_practitioner_assignment_id,
+  practitioner_person_id::text AS practitioner_person_id,
+  practitioner_name,COALESCE(practitioner_email,'') AS practitioner_email,
+  assignment_status,assigned_at::text AS assigned_at,
+  updated_at::text AS updated_at,COALESCE(notes,'') AS notes,
+  ended_at::text AS ended_at,COALESCE(end_reason,'') AS end_reason
+FROM public.issue19_person_practitioner_assignments(
+  {{ appsmith.user.email }},{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+);

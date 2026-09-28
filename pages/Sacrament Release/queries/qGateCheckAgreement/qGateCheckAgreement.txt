@@ -1,0 +1,8 @@
+SELECT
+  member_agreement_id::text AS member_agreement_id,
+  agreement_template_id::text AS agreement_template_id,
+  signed_at,template_name,template_version,template_active,
+  agreement_status AS status,signature_method,eligibility_basis
+FROM public.issue19_sacrament_release_agreement(
+  {{ this.params.member_id }}::uuid
+);

@@ -1,0 +1,28 @@
+WITH updated_person AS (
+  UPDATE public.people p
+  SET display_name = COALESCE(
+    NULLIF(btrim(concat_ws(' ',
+      NULLIF(TRIM('{{ this.params.first_name }}'), ''),
+      NULLIF(TRIM('{{ this.params.last_name }}'), ''))), ''),
+    p.display_name),
+      first_name = NULLIF(TRIM('{{ this.params.first_name }}'), ''),
+      last_name = NULLIF(TRIM('{{ this.params.last_name }}'), ''),
+      date_of_birth = NULLIF('{{ this.params.date_of_birth }}', '')::date
+  WHERE p.person_id = (
+    SELECT m.person_id FROM public.members m
+    WHERE m.member_id = {{ this.params.member_id }}::uuid
+  )
+  RETURNING p.person_id, p.first_name, p.last_name, p.date_of_birth
+), updated_member AS (
+  UPDATE public.members m
+  SET notes = NULLIF(TRIM('{{ this.params.notes }}'), ''),
+      updated_at = now()
+  WHERE m.member_id = {{ this.params.member_id }}::uuid
+    AND m.person_id IN (SELECT person_id FROM updated_person)
+  RETURNING m.*
+)
+SELECT m.member_id, m.created_at, m.updated_at, m.status,
+  p.first_name, p.last_name, m.email, m.phone, p.date_of_birth,
+  m.notes, m.is_facilitator, m.is_document_reviewer
+FROM updated_member m
+JOIN updated_person p ON p.person_id = m.person_id;

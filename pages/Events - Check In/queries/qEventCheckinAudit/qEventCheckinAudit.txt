@@ -1,0 +1,9 @@
+INSERT INTO public.audit_log (actor, action, entity_type, entity_id, details)
+VALUES (
+  {{ appsmith.store.facilitator_email || 'unknown' }},
+  'event.checkin',
+  'event',
+  {{ selEvent.selectedOptionValue }},
+  {{ JSON.stringify({member_id: selMember.selectedOptionValue, note: inpCheckinNote.text}) }}
+)
+RETURNING audit_log_id;

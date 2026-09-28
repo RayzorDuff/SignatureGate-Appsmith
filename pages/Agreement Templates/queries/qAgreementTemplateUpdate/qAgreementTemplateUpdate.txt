@@ -1,0 +1,31 @@
+WITH updated AS (
+  UPDATE public.agreement_templates
+  SET
+    name        = {{ this.params.name }}::text,
+    version     = {{ this.params.version }}::text,
+    required_for = (
+      SELECT COALESCE(array_agg(x), '{}'::text[])
+      FROM jsonb_array_elements_text({{ this.params.required_for_json }}::jsonb) AS t(x)
+    ),
+    doc_url     = NULLIF({{ this.params.doc_url }}, '')::text,
+    active      = COALESCE({{ this.params.active }}, true)::boolean,
+    documenso_template_id              = NULLIF({{ this.params.documenso_template_id }}, '')::integer,
+    documenso_template_envelope_id     = NULLIF({{ this.params.documenso_template_envelope_id }}, '')::text,
+    documenso_member_recipient_id      = NULLIF({{ this.params.documenso_member_recipient_id }}, '')::integer,
+    documenso_facilitator_recipient_id = NULLIF({{ this.params.documenso_facilitator_recipient_id }}, '')::integer,
+    updated_at  = now()
+  WHERE agreement_template_id = {{ this.params.agreement_template_id }}::uuid
+  RETURNING agreement_template_id
+),
+aud AS (
+  INSERT INTO public.audit_log (actor, action, entity_type, entity_id, details)
+  SELECT
+    {{ this.params.actor }}::text,
+    'agreement_template.updated',
+    'agreement_template',
+    updated.agreement_template_id::text,
+    {{ this.params.audit_details }}::jsonb
+  FROM updated
+  RETURNING audit_log_id
+)
+SELECT agreement_template_id FROM updated;

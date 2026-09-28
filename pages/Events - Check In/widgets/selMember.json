@@ -1,0 +1,84 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 13,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  appsmith.store.facilitator_id ))(inpFacilitator.options, inpFacilitator.serverSideFiltering) }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onFilterUpdate"
+    }
+  ],
+  "isDisabled": "{{! appsmith.store.facilitator_is_reviewer }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": "{{inpCreateRelease.isChecked}}",
+  "isVisible": "{{inpCreateRelease.isChecked }}",
+  "key": "tcvabvv6qz",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Member",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 32,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 17,
+  "mobileLeftColumn": 45,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 10,
+  "needsErrorInfo": false,
+  "onFilterUpdate": "{{\n            qListFacilitators.run();\n            \n          }}",
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 23,
+  "originalTopRow": 14,
+  "parentColumnSpace": 9.77734375,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "serverSideFiltering": true,
+  "sourceData": "{{ (qMembersForEventCheckin.data || []).slice().sort((a, b) => `${a.last_name || ''} ${a.first_name || ''}`.localeCompare(`${b.last_name || ''} ${b.first_name || ''}`)).map(m => ({ label: `${m.first_name || ''} ${m.last_name || ''}${m.email ? ' (' + m.email + ')' : ''}`, value: m.member_id })) }}",
+  "topRow": 5,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "zqpvyalupz",
+  "widgetName": "selMember"
+}

@@ -1,0 +1,19 @@
+SELECT s.*,
+  CASE
+    WHEN s.can_end THEN 'Ready to end membership. Enter a reason to continue.'
+    WHEN m.status <> 'active' THEN 'Membership is already inactive. The existing member ID remains in history.'
+    WHEN EXISTS (SELECT 1 FROM public.person_roles r WHERE r.person_id=m.person_id)
+      OR m.is_facilitator OR m.is_document_reviewer OR m.is_donations_reviewer
+      THEN 'Remove the person''s appointments and permissions (including legacy reviewer or facilitator flags) before ending membership.'
+    WHEN EXISTS (SELECT 1 FROM public.member_facilitators f
+      WHERE f.facilitator_id=m.member_id AND f.status='active')
+      THEN 'Reassign or end this facilitator''s active member assignments before ending membership.'
+    WHEN EXISTS (SELECT 1 FROM public.member_agreements a
+      WHERE a.member_id=m.member_id AND a.status IN
+        ('pending_review','pending_email_send','pending_signature'))
+      THEN 'Resolve pending agreements before ending membership.'
+    ELSE 'Review the membership state before continuing.'
+  END AS blocker
+FROM public.issue19_person_membership_state(
+  {{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+) s JOIN public.members m ON m.member_id=s.member_id;

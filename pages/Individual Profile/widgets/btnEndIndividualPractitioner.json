@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 359,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "SECONDARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qAssignIndividualPractitioner.isLoading || qEndIndividualPractitioner.isLoading || tblIndividualPractitionerAssignments.selectedRow?.assignment_status !== 'active' || !inpIndividualPractitionerReason.text?.trim() }}",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active' }}",
+  "key": "f3e8197a4c",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 359,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 355,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const practitionerLabel = qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner'; const selected = tblIndividualPractitionerAssignments.selectedRow; if (!selected?.member_practitioner_assignment_id || selected.assignment_status !== 'active') { showAlert('Select an active ' + practitionerLabel.toLowerCase() + ' assignment.', 'warning'); return; } const rows = await qEndIndividualPractitioner.run({ assignment_id: selected.member_practitioner_assignment_id, reason: inpIndividualPractitionerReason.text?.trim() }); if (!rows?.[0]?.member_practitioner_assignment_id) throw new Error('No assignment was returned.'); await Promise.all([qIndividualPractitionerAssignments.run(), qIndividualAvailablePractitioners.run(), qIndividualMemberOperationsState.run()]); resetWidget('inpIndividualPractitionerReason', true); showAlert(practitionerLabel + ' assignment ended.', 'success'); } catch (e) { showAlert('Ending assignment failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 359,
+  "originalTopRow": 355,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "End selected assignment",
+  "topRow": 355,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "161c8ba1f6",
+  "widgetName": "btnEndIndividualPractitioner"
+}

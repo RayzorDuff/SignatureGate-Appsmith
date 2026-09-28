@@ -1,0 +1,4 @@
+SELECT public.issue19_enable_person_contributor(
+ {{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid,
+ {{ this.params.reason }}
+)::text AS contributor_id;

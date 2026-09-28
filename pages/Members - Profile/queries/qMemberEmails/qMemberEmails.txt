@@ -1,0 +1,5 @@
+SELECT *
+FROM public.member_emails
+WHERE member_id = {{ appsmith.store.member_id }}::uuid
+  AND COALESCE(status, 'active') = 'active'
+ORDER BY is_primary DESC, is_verified DESC, created_at DESC;

@@ -1,0 +1,57 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 8,
+  "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "fontFamily"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1rem",
+  "fontStyle": "BOLD",
+  "isLoading": false,
+  "isVisible": "{{!!(selMember.selectedOptionValue || appsmith.URL.queryParams.member_id || appsmith.store.member_id)}}",
+  "key": "aobxi9slwd",
+  "leftColumn": 23,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 9,
+  "mobileLeftColumn": 11,
+  "mobileRightColumn": 27,
+  "mobileTopRow": 5,
+  "needsErrorInfo": false,
+  "originalBottomRow": 10,
+  "originalTopRow": 3,
+  "overflow": "NONE",
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 41,
+  "shouldTruncate": false,
+  "text": "{{\n(() => {\n  const selectedMember = String(\n    selMember.selectedOptionValue ||\n    appsmith.store.member_id ||\n    \"\"\n  ).trim();\n\n  const memberRow = (qMembersDirectory.data || [])\n    .find(m => String(m.member_id) === selectedMember);\n\n  const memberLabel = memberRow\n    ? `${memberRow.first_name || \"\"} ${memberRow.last_name || \"\"}`.trim()\n    : selectedMember || \"selected member\";\n\n  const releaseType = \"sacrament_release\";\n  const releaseLabel = \"Sacrament Release\";\n\n  if (!selectedMember) {\n    return \"Select a member to check eligibility.\";\n  }\n\n  if (qGateCheckAgreement.isLoading) {\n    return \"Checking eligibility...\";\n  }\n\n  const gateRow = qGateCheckAgreement.data?.[0] || null;\n\n  if (gateRow?.member_agreement_id) {\n    const signedLabel =\n      gateRow.template_name ||\n      releaseLabel ||\n      \"required agreement\";\n\n    return `✅ Eligible — ${memberLabel} has signed: ${signedLabel}`;\n  }\n\n  return `❌ Not eligible — ${memberLabel} has not signed: ${releaseLabel}`;\n})()\n}}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 3,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "l4uycbyoxq",
+  "widgetName": "txtEligibility"
+}

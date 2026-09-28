@@ -1,0 +1,7 @@
+SELECT c.* FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+CROSS JOIN LATERAL public.issue19_directory_contacts(
+  {{ appsmith.user.email }}, 'individual', d.party_id) c
+WHERE d.party_kind = 'individual' AND d.party_id::text = {{ appsmith.URL.queryParams.person_id || "" }}
+UNION ALL
+SELECT c.* FROM public.issue19_former_member_contacts(
+  {{ appsmith.user.email }}, {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid) c;

@@ -1,0 +1,13 @@
+SELECT
+  practitioner_person_id AS member_id,
+  practitioner_person_id,
+  display_name,
+  first_name,
+  last_name,
+  account_email AS email,
+  legacy_member_id,
+  is_current_actor
+FROM public.issue19_release_practitioners(
+  {{ appsmith.user.email }},
+  NULLIF({{ this.params.member_id }}::text, '')::uuid
+);

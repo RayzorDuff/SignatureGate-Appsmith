@@ -1,0 +1,9 @@
+UPDATE public.member_addresses
+SET
+  status = 'archived',
+  archived_at = now(),
+  archived_by = {{ appsmith.store.facilitator_id }}::uuid,
+  archive_reason = {{ this.params.reason || 'Archived from Members - Profile' }},
+  updated_at = now()
+WHERE member_address_id = {{ this.params.member_address_id }}::uuid
+RETURNING *;
