@@ -517,7 +517,7 @@
       "isEditable": true,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "{{ ((qTerminology.data || []).find(x => x.concept_key === 'facilitator') || {}).singular_label || 'Practitioner' }} Recipient ID",
+      "label": "{{ ((qTerminology.data || []).find(x => x.concept_key === 'practitioner') || {}).singular_label || 'Practitioner' }} Recipient ID",
       "notation": "standard",
       "originalId": "documenso_facilitator_recipient_id",
       "sticky": "",
