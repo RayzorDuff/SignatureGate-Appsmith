@@ -3,5 +3,6 @@ SELECT d.*,term.singular_label AS practitioner_singular_label,
 FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
 LEFT JOIN public.issue20_organization_terminology() term
   ON term.concept_key='practitioner'
-WHERE d.party_kind = 'individual' AND d.party_id::text = {{ appsmith.URL.queryParams.person_id || "" }}
+WHERE d.party_kind = 'individual'
+  AND d.party_id = NULLIF({{ this.params?.person_id || "" }}, '')::uuid
 LIMIT 1;
