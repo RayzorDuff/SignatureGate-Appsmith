@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  p.person_id AS party_id,\n  'individual'::text AS party_kind,\n  p.display_name,\n  p.created_at,\n  d.member_id,\n  d.contributor_id,\n  d.membership_status,\n  d.contributor_status,\n  d.email,\n  d.phone,\n  d.can_view_membership,\n  d.can_view_contributions,\n  term.singular_label AS practitioner_singular_label,\n  term.plural_label AS practitioner_plural_label\nFROM public.people p\nJOIN public.issue19_directory_entries({{ appsmith.user.email }}) d\n  ON d.party_kind = 'individual' AND d.party_id = p.person_id\nLEFT JOIN public.issue20_organization_terminology() term\n  ON term.concept_key = 'practitioner'\nWHERE p.person_id = NULLIF({{ appsmith.URL.queryParams.person_id || \"\\" }}, '')::uuid\nLIMIT 1;",
+      "body": "SELECT\n  p.person_id AS party_id,\n  'individual'::text AS party_kind,\n  p.display_name,\n  p.created_at,\n  d.member_id,\n  d.contributor_id,\n  d.membership_status,\n  d.contributor_status,\n  d.email,\n  d.phone,\n  d.can_view_membership,\n  d.can_view_contributions,\n  term.singular_label AS practitioner_singular_label,\n  term.plural_label AS practitioner_plural_label\nFROM public.people p\nJOIN public.issue19_directory_entries({{ appsmith.user.email }}) d\n  ON d.party_kind = 'individual' AND d.party_id = p.person_id\nLEFT JOIN public.issue20_organization_terminology() term\n  ON term.concept_key = 'practitioner'\nWHERE p.person_id = NULLIF({{ appsmith.URL.queryParams.person_id || \"\" }}, '')::uuid\nLIMIT 1;"
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
