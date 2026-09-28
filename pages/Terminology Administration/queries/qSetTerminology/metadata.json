@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT public.issue20_set_organization_terminology({{ appsmith.user?.email || '' }}, {{ JSON.stringify(selTerminologyConcept.selectedOptionValue || '') }}, {{ JSON.stringify((inpTermSingular.text || '').trim()) }}, {{ JSON.stringify((inpTermPlural.text || '').trim()) }}, {{ JSON.stringify((inpTermShort.text || '').trim() || null) }}, {{ selTermActive.selectedOptionValue === 'true' }}, {{ JSON.stringify((inpTermReason.text || '').trim()) }}) AS changed;",
+      "body": "SELECT public.issue20_set_organization_terminology({{ appsmith.user?.email || '' }}, {{ selTerminologyConcept.selectedOptionValue || '' }}, {{ (inpTermSingular.text || '').trim() }}, {{ (inpTermPlural.text || '').trim() }}, {{ (inpTermShort.text || '').trim() || null }}, {{ selTermActive.selectedOptionValue === 'true' }}, {{ (inpTermReason.text || '').trim() }}) AS changed;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
