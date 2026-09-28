@@ -15,6 +15,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -54,7 +57,7 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 41,
-  "text": "Facilitator Profile",
+  "text": "{{ (((qTerminology.data || []).find(x => x.concept_key === 'practitioner') || {}).singular_label || 'Practitioner') + ' Profile' }}",
   "topRow": 11,
   "type": "BUTTON_WIDGET",
   "version": 1,
