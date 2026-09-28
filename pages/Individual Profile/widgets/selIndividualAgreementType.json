@@ -57,5 +57,8 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-type",
-  "widgetName": "selIndividualAgreementType"
+  "widgetName": "selIndividualAgreementType",
+  "parentId": "0",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill"
 }
