@@ -57,7 +57,7 @@
   "placeholderText": "Select option",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 42,
+  "rightColumn": 32,
   "sourceData": "{{ (qIndividualAgreementEmails.data || []).map(e => ({ label: `${e.email}${e.is_primary ? ' (primary)' : ''}${e.is_verified ? ' (verified)' : ''}`, value: e.member_email_id })) }}",
   "topRow": 360,
   "type": "SELECT_WIDGET",
