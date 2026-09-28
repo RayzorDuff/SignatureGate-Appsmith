@@ -1,1 +1,1 @@
-SELECT public.issue19_has_role({{ JSON.stringify(appsmith.user?.email || '') }}, 'directory_manager') AS allowed;
+SELECT public.issue19_has_role({{ appsmith.user.email }}, 'directory_manager') AS allowed;
