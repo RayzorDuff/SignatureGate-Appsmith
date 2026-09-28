@@ -42,7 +42,7 @@
   "mobileRightColumn": 7,
   "mobileTopRow": 26,
   "needsErrorInfo": false,
-  "onClick": "{{ (async()=>{ const rows = await qSetTerminology.run(); await qTerminology.run(); showAlert(rows?.[0]?.changed ? 'Terminology updated.' : 'No terminology changes were needed.', 'success'); })() }}",
+  "onClick": "{{ (async()=>{ try { const rows = await qSetTerminology.run(); await qTerminology.run(); showAlert(rows?.[0]?.changed ? 'Terminology updated.' : 'No terminology changes were needed.', 'success'); } catch (e) { showAlert(`Unable to save terminology: ${e?.message || e}`, 'error'); } })() }}",
   "originalBottomRow": 97,
   "originalTopRow": 90,
   "parentColumnSpace": 10.25,
