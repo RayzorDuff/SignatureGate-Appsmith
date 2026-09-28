@@ -15,7 +15,12 @@ export default {
     try {
       await qIndividualProfile.run({ person_id: personId });
       if (!qIndividualProfile.data?.[0]?.party_id) {
-        showAlert('Record not found or you do not have access to this individual.', 'error');
+        await qIndividualProfileDiagnostic.run();
+        const d = qIndividualProfileDiagnostic.data?.[0] || {};
+        showAlert(
+          `Profile lookup failed: people=${d.person_exists ? 'yes' : 'no'}, directory=${d.directory_visible ? 'yes' : 'no'}, rows=${d.directory_row_count ?? '?'}, account=${d.actor_account_exists ? 'yes' : 'no'}, manager=${d.actor_is_directory_manager ? 'yes' : 'no'}, document reviewer=${d.actor_is_document_reviewer ? 'yes' : 'no'}, donations reviewer=${d.actor_is_donations_reviewer ? 'yes' : 'no'}.`,
+          'error'
+        );
         return;
       }
       await Promise.all([qIndividualContacts.run(), qIndividualRoles.run(),
