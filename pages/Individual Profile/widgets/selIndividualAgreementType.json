@@ -1,0 +1,61 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "defaultOptionValue": "",
+  "isDisabled": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage !== true }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "labelPosition": "Top",
+  "labelText": "Agreement Type",
+  "labelTextSize": "0.875rem",
+  "placeholderText": "Select option",
+  "optionLabel": "display_name",
+  "optionValue": "type_key",
+  "sourceData": "{{ qIndividualAgreementTypes.data || [] }}",
+  "onOptionChange": "{{ qIndividualAgreementTemplates.run({ type_key: selIndividualAgreementType.selectedOptionValue }) }}",
+  "leftColumn": 0,
+  "rightColumn": 20,
+  "topRow": 300,
+  "bottomRow": 333,
+  "minWidth": 300,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 20,
+  "mobileTopRow": 300,
+  "mobileBottomRow": 333,
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "onOptionChange"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onOptionChange"
+    }
+  ],
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "issue19-agreement-type",
+  "widgetName": "selIndividualAgreementType"
+}
