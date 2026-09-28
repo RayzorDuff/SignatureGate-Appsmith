@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 427,
+  "bottomRow": 393,
   "defaultOptionValue": "{{ (qIndividualAgreementEmails.data || [])[0]?.member_email_id || '' }}",
   "dynamicBindingPathList": [
     {
@@ -59,7 +59,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 42,
   "sourceData": "{{ (qIndividualAgreementEmails.data || []).map(e => ({ label: `${e.email}${e.is_primary ? ' (primary)' : ''}${e.is_verified ? ' (verified)' : ''}`, value: e.member_email_id })) }}",
-  "topRow": 394,
+  "topRow": 360,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-email",
