@@ -2,21 +2,21 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 163,
+  "bottomRow": 162,
   "boxShadow": "none",
   "defaultOptionValue": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true ? 'member' : (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id ? 'contributor' : '') }}",
   "dynamicBindingPathList": [
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
-    },
     {
       "key": "sourceData"
     },
     {
       "key": "defaultOptionValue"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -65,7 +65,7 @@
   "rightColumn": 30,
   "serverSideFiltering": false,
   "sourceData": "{{ [ ...(qIndividualMemberOperationsState.data?.[0]?.can_view === true ? [{label: 'Membership', value: 'member'}] : []), ...(qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id ? [{label: 'Contributor', value: 'contributor'}] : []) ] }}",
-  "topRow": 157,
+  "topRow": 156,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "19a0c11010",

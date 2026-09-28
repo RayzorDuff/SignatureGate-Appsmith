@@ -4,16 +4,10 @@
   "bottomRow": 239,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
+      "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -38,8 +32,8 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 118,
   "needsErrorInfo": false,
-  "originalBottomRow": 122,
-  "originalTopRow": 118,
+  "originalBottomRow": 239,
+  "originalTopRow": 234,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -51,7 +45,7 @@
   "text": "Use an existing email, phone, or address for another active role. Contacts from ended memberships remain available.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 234,
+  "topRow": 235,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

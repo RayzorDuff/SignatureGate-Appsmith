@@ -1,23 +1,23 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 123,
+  "bottomRow": 122,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
-      "key": "buttonColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
       "key": "isVisible"
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -61,7 +61,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "Enable contributor",
-  "topRow": 119,
+  "topRow": 118,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "918e66cef1",

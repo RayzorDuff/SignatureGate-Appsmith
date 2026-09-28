@@ -2,18 +2,18 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 98,
+  "bottomRow": 97,
   "boxShadow": "none",
   "defaultOptionValue": "practitioner",
   "dynamicBindingPathList": [
     {
-      "key": "borderRadius"
+      "key": "sourceData"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "sourceData"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -59,7 +59,7 @@
   "rightColumn": 30,
   "serverSideFiltering": false,
   "sourceData": "{{ [\n  { label: qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner', value: 'practitioner' },\n  { label: 'Document Reviewer', value: 'document_reviewer' },\n  { label: 'Donations Reviewer', value: 'donations_reviewer' }\n] }}",
-  "topRow": 92,
+  "topRow": 91,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "cf5334754d",

@@ -29,7 +29,7 @@
     ],
     "name": "qIndividualProfile",
     "pageId": "Individual Profile",
-    "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "runBehaviour": "AUTOMATIC",
+    "userSetOnLoad": true
   }
 }

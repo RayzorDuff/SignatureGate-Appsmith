@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 72,
+  "bottomRow": 73,
   "boxShadow": "none",
   "defaultOptionValue": "individual",
   "dynamicBindingPathList": [
@@ -62,7 +62,7 @@
       "value": "organization"
     }
   ],
-  "topRow": 66,
+  "topRow": 67,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "8df2e4b960",

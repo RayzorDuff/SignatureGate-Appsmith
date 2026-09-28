@@ -8,16 +8,16 @@
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
-      "key": "buttonColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
       "key": "isVisible"
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -49,8 +49,8 @@
   "mobileTopRow": 131,
   "needsErrorInfo": false,
   "onClick": "{{ (async () => { try { const selected = selPersonContactToReuse.selectedOptionValue; const reason = inpPersonContactReuseReason.text?.trim(); const contact = (qReusablePersonContacts.data || []).find(c => c.source_table + ':' + c.source_id === selected); if (!contact || !reason) { showAlert('Select a contact and enter a reason.', 'warning'); return; } if (!(contact.target_role === 'contributions' ? qIndividualProfile.data?.[0]?.contributor_status === 'active' : qIndividualProfile.data?.[0]?.member_id)) { showAlert('Enable the destination role before assigning this contact.', 'warning'); return; } const rows = await qAssignPersonContactRole.run({ source_table: contact.source_table, source_id: contact.source_id, reason }); if (!rows?.[0]?.target_id) throw new Error('No contact was assigned.'); await Promise.all([qReusablePersonContacts.run(), qIndividualContacts.run(), qIndividualDonorContacts.run(), qIndividualDonorAddresses.run()]); showAlert('Contact is now available for both membership and contributions.', 'success'); } catch (e) { showAlert('Contact assignment failed: ' + (e?.message || e), 'error'); } })() }}",
-  "originalBottomRow": 135,
-  "originalTopRow": 131,
+  "originalBottomRow": 251,
+  "originalTopRow": 247,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,

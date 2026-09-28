@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 305,
+  "bottomRow": 327,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -42,9 +42,11 @@
     "member_signed_at",
     "practitioner_signed_at",
     "evidence",
-    "review_notes"
+    "review_notes",
+    "member_id",
+    "membership_status"
   ],
-  "columnUpdatedAt": 1.790112E12,
+  "columnUpdatedAt": 1790639255283,
   "columnWidthMap": {},
   "customIsLoading": false,
   "customIsLoadingValue": "",
@@ -57,6 +59,48 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
+      "key": "tableData"
+    },
+    {
+      "key": "primaryColumns.member_signed_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.template_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.evidence.computedValue"
+    },
+    {
+      "key": "primaryColumns.practitioner_signed_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.review_notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.agreement_status.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.signature_method.computedValue"
+    },
+    {
+      "key": "primaryColumns.agreement_scope.computedValue"
+    },
+    {
+      "key": "primaryColumns.member_agreement_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.member_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.membership_status.computedValue"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -64,45 +108,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "tableData"
-    },
-    {
-      "key": "primaryColumns.member_agreement_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.template_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.agreement_scope.computedValue"
-    },
-    {
-      "key": "primaryColumns.agreement_status.computedValue"
-    },
-    {
-      "key": "primaryColumns.signature_method.computedValue"
-    },
-    {
-      "key": "primaryColumns.member_signed_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.practitioner_signed_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.evidence.computedValue"
-    },
-    {
-      "key": "primaryColumns.review_notes.computedValue"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "primaryColumns.practitioner_signed_at.label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -302,6 +307,40 @@
       "verticalAlignment": "CENTER",
       "width": 150
     },
+    "member_id": {
+      "alias": "member_id",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblIndividualMemberAgreements.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"member_id\"])) : member_id })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "member_id",
+      "index": 0,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "member_id",
+      "notation": "standard",
+      "originalId": "member_id",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
     "member_signed_at": {
       "alias": "member_signed_at",
       "allowCellWrapping": false,
@@ -332,6 +371,40 @@
       "validation": {},
       "verticalAlignment": "CENTER",
       "width": 180
+    },
+    "membership_status": {
+      "alias": "membership_status",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblIndividualMemberAgreements.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"membership_status\"])) : membership_status })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "membership_status",
+      "index": 1,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "membership_status",
+      "notation": "standard",
+      "originalId": "membership_status",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
     },
     "practitioner_signed_at": {
       "alias": "practitioner_signed_at",
@@ -466,7 +539,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{ qIndividualMemberAgreements.data || [] }}",
   "textSize": "0.875rem",
-  "topRow": 277,
+  "topRow": 299,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

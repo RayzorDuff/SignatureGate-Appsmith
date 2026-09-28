@@ -1,22 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 311,
+  "bottomRow": 364,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
-    },
-    {
-      "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
+      "key": "text"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "text"
+      "key": "fontFamily"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -57,7 +51,7 @@
   "text": "{{ (qIndividualProfile.data?.[0]?.practitioner_plural_label || 'Practitioners') + ' assignments' }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 307,
+  "topRow": 360,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 430,
+  "bottomRow": 538,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -39,7 +39,7 @@
     "source",
     "created_at"
   ],
-  "columnUpdatedAt": 1.79E12,
+  "columnUpdatedAt": 1790000000000,
   "columnWidthMap": {},
   "customIsLoading": false,
   "customIsLoadingValue": "",
@@ -52,19 +52,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
       "key": "tableData"
     },
     {
       "key": "primaryColumns.provider.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.source.computedValue"
     },
     {
       "key": "primaryColumns.provider_identity.computedValue"
@@ -73,13 +70,16 @@
       "key": "primaryColumns.status.computedValue"
     },
     {
-      "key": "primaryColumns.source.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
       "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [
@@ -288,7 +288,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{ qIndividualProviderIdentities.data || [] }}",
   "textSize": "0.875rem",
-  "topRow": 402,
+  "topRow": 510,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

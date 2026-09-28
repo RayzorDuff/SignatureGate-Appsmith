@@ -52,6 +52,24 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
+      "key": "tableData"
+    },
+    {
+      "key": "primaryColumns.contact_kind.computedValue"
+    },
+    {
+      "key": "primaryColumns.is_primary.computedValue"
+    },
+    {
+      "key": "primaryColumns.purpose.computedValue"
+    },
+    {
+      "key": "primaryColumns.contact_detail.computedValue"
+    },
+    {
+      "key": "primaryColumns.is_verified.computedValue"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -59,24 +77,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "tableData"
-    },
-    {
-      "key": "primaryColumns.contact_kind.computedValue"
-    },
-    {
-      "key": "primaryColumns.contact_detail.computedValue"
-    },
-    {
-      "key": "primaryColumns.purpose.computedValue"
-    },
-    {
-      "key": "primaryColumns.is_primary.computedValue"
-    },
-    {
-      "key": "primaryColumns.is_verified.computedValue"
     }
   ],
   "dynamicPropertyPathList": [

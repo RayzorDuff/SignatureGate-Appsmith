@@ -1,5 +1,20 @@
 {
   "animateLoading": true,
+  "bottomRow": 299,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "fontFamily"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1rem",
   "fontStyle": "BOLD",
@@ -8,31 +23,18 @@
   "key": "issue19-agreement-heading",
   "leftColumn": 0,
   "minWidth": 450,
-  "rightColumn": 64,
-  "topRow": 276,
-  "bottomRow": 298,
-  "dynamicBindingPathList": [
-    {
-      "key": "fontFamily"
-    },
-    {
-      "key": "isVisible"
-    }
-  ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "text": "Agreement Operations",
-  "textAlign": "LEFT",
-  "textColor": "#231F20",
-  "type": "TEXT_WIDGET",
-  "version": 1,
-  "widgetId": "issue19-agreement-heading",
-  "widgetName": "txtIndividualAgreementOperationsHeading",
+  "originalBottomRow": 298,
+  "originalTopRow": 276,
   "parentId": "0",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "dynamicTriggerPathList": []
+  "rightColumn": 64,
+  "text": "Agreement Operations",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 277,
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "issue19-agreement-heading",
+  "widgetName": "txtIndividualAgreementOperationsHeading"
 }

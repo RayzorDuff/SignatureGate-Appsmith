@@ -2,39 +2,23 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 360,
   "defaultOptionValue": "",
-  "isDisabled": "{{ !qIndividualAvailablePractitioners.data?.length }}",
-  "isFilterable": true,
-  "isLoading": false,
-  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
-  "labelPosition": "Top",
-  "labelText": "{{ (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner') }}",
-  "labelTextSize": "0.875rem",
-  "placeholderText": "Select option",
-  "optionLabel": "display_name",
-  "optionValue": "practitioner_person_id",
-  "sourceData": "{{ qIndividualAvailablePractitioners.data || [] }}",
-  "leftColumn": 43,
-  "rightColumn": 64,
-  "topRow": 300,
-  "bottomRow": 333,
-  "minWidth": 300,
-  "mobileLeftColumn": 43,
-  "mobileRightColumn": 64,
-  "mobileTopRow": 300,
-  "mobileBottomRow": 333,
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
     },
     {
-      "key": "isDisabled"
+      "key": "labelText"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "labelText"
+      "key": "isDisabled"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -51,12 +35,33 @@
       "key": "labelText"
     }
   ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "{{ !qIndividualAvailablePractitioners.data?.length }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "labelPosition": "Top",
+  "labelText": "{{ (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner') }}",
+  "labelTextSize": "0.875rem",
+  "leftColumn": 43,
+  "minWidth": 300,
+  "mobileBottomRow": 333,
+  "mobileLeftColumn": 43,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 300,
+  "optionLabel": "display_name",
+  "optionValue": "practitioner_person_id",
+  "originalBottomRow": 333,
+  "originalTopRow": 300,
+  "parentId": "0",
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "sourceData": "{{ qIndividualAvailablePractitioners.data || [] }}",
+  "topRow": 327,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-practitioner",
-  "widgetName": "selIndividualAgreementPractitioner",
-  "parentId": "0",
-  "renderMode": "CANVAS",
-  "responsiveBehavior": "fill",
-  "dynamicTriggerPathList": []
+  "widgetName": "selIndividualAgreementPractitioner"
 }

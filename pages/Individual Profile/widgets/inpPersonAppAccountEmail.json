@@ -3,21 +3,21 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 111,
+  "bottomRow": 110,
   "boxShadow": "none",
   "defaultText": "{{ qIndividualAccount.data?.[0]?.email || '' }}",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "defaultText"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "defaultText"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -59,7 +59,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 42,
   "showStepArrows": false,
-  "topRow": 105,
+  "topRow": 104,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "0afdead690",

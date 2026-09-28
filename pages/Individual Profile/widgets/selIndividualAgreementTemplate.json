@@ -2,36 +2,20 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 360,
   "defaultOptionValue": "",
-  "isDisabled": "{{ !selIndividualAgreementType.selectedOptionValue }}",
-  "isFilterable": true,
-  "isLoading": false,
-  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
-  "labelPosition": "Top",
-  "labelText": "Agreement Template",
-  "labelTextSize": "0.875rem",
-  "placeholderText": "Select option",
-  "optionLabel": "display_label",
-  "optionValue": "agreement_template_id",
-  "sourceData": "{{ (qIndividualAgreementTemplates.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
-  "leftColumn": 21,
-  "rightColumn": 42,
-  "topRow": 300,
-  "bottomRow": 333,
-  "minWidth": 300,
-  "mobileLeftColumn": 21,
-  "mobileRightColumn": 42,
-  "mobileTopRow": 300,
-  "mobileBottomRow": 333,
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "isDisabled"
     },
     {
-      "key": "isVisible"
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -45,12 +29,33 @@
       "key": "isVisible"
     }
   ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "{{ !selIndividualAgreementType.selectedOptionValue }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "labelPosition": "Top",
+  "labelText": "Agreement Template",
+  "labelTextSize": "0.875rem",
+  "leftColumn": 21,
+  "minWidth": 300,
+  "mobileBottomRow": 333,
+  "mobileLeftColumn": 21,
+  "mobileRightColumn": 42,
+  "mobileTopRow": 300,
+  "optionLabel": "display_label",
+  "optionValue": "agreement_template_id",
+  "originalBottomRow": 333,
+  "originalTopRow": 300,
+  "parentId": "0",
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 42,
+  "sourceData": "{{ (qIndividualAgreementTemplates.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
+  "topRow": 327,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-template",
-  "widgetName": "selIndividualAgreementTemplate",
-  "parentId": "0",
-  "renderMode": "CANVAS",
-  "responsiveBehavior": "fill",
-  "dynamicTriggerPathList": []
+  "widgetName": "selIndividualAgreementTemplate"
 }

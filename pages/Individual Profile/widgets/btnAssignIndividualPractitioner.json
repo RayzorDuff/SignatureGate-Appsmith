@@ -1,17 +1,14 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 354,
+  "bottomRow": 437,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
-      "key": "buttonColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "text"
     },
     {
       "key": "isVisible"
@@ -20,7 +17,10 @@
       "key": "isDisabled"
     },
     {
-      "key": "text"
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -67,7 +67,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "{{ 'Assign ' + (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner') }}",
-  "topRow": 350,
+  "topRow": 433,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "758d015333",

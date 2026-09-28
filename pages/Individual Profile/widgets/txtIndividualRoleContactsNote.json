@@ -1,22 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 156,
+  "bottomRow": 155,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
-    },
-    {
-      "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
+      "key": "text"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "text"
+      "key": "fontFamily"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -57,7 +51,7 @@
   "text": "{{ selIndividualContactCapacity.selectedOptionValue === 'member' ? 'Editing membership contacts.' : (selIndividualContactCapacity.selectedOptionValue === 'contributor' ? 'Editing contributor contacts.' : 'Select a contact role.') }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 152,
+  "topRow": 151,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

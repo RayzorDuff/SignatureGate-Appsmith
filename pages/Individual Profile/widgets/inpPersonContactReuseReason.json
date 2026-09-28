@@ -8,13 +8,13 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
+      "key": "isVisible"
+    },
+    {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -46,8 +46,8 @@
   "mobileRightColumn": 42,
   "mobileTopRow": 130,
   "needsErrorInfo": false,
-  "originalBottomRow": 136,
-  "originalTopRow": 130,
+  "originalBottomRow": 252,
+  "originalTopRow": 246,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,

@@ -4,16 +4,10 @@
   "bottomRow": 207,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
+      "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -38,8 +32,8 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 148,
   "needsErrorInfo": false,
-  "originalBottomRow": 152,
-  "originalTopRow": 148,
+  "originalBottomRow": 207,
+  "originalTopRow": 203,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",

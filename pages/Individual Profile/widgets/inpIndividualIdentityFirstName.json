@@ -8,16 +8,16 @@
   "defaultText": "{{ qIndividualPartyIdentity.data?.[0]?.first_name || '' }}",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "defaultText"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "defaultText"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

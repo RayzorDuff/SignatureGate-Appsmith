@@ -2,39 +2,23 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 427,
   "defaultOptionValue": "{{ (qIndividualAgreementEmails.data || [])[0]?.member_email_id || '' }}",
-  "isDisabled": "{{ !(qIndividualAgreementEmails.data || []).length }}",
-  "isFilterable": true,
-  "isLoading": false,
-  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
-  "labelPosition": "Top",
-  "labelText": "Email Agreement To",
-  "labelTextSize": "0.875rem",
-  "placeholderText": "Select option",
-  "optionLabel": "label",
-  "optionValue": "value",
-  "sourceData": "{{ (qIndividualAgreementEmails.data || []).map(e => ({ label: `${e.email}${e.is_primary ? ' (primary)' : ''}${e.is_verified ? ' (verified)' : ''}`, value: e.member_email_id })) }}",
-  "leftColumn": 0,
-  "rightColumn": 42,
-  "topRow": 338,
-  "bottomRow": 371,
-  "minWidth": 300,
-  "mobileLeftColumn": 0,
-  "mobileRightColumn": 42,
-  "mobileTopRow": 338,
-  "mobileBottomRow": 371,
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
     },
     {
-      "key": "isDisabled"
+      "key": "defaultOptionValue"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "defaultOptionValue"
+      "key": "isDisabled"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -51,12 +35,33 @@
       "key": "defaultOptionValue"
     }
   ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "{{ !(qIndividualAgreementEmails.data || []).length }}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "labelPosition": "Top",
+  "labelText": "Email Agreement To",
+  "labelTextSize": "0.875rem",
+  "leftColumn": 0,
+  "minWidth": 300,
+  "mobileBottomRow": 371,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 42,
+  "mobileTopRow": 338,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 371,
+  "originalTopRow": 338,
+  "parentId": "0",
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 42,
+  "sourceData": "{{ (qIndividualAgreementEmails.data || []).map(e => ({ label: `${e.email}${e.is_primary ? ' (primary)' : ''}${e.is_verified ? ' (verified)' : ''}`, value: e.member_email_id })) }}",
+  "topRow": 394,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-email",
-  "widgetName": "selIndividualAgreementEmail",
-  "parentId": "0",
-  "renderMode": "CANVAS",
-  "responsiveBehavior": "fill",
-  "dynamicTriggerPathList": []
+  "widgetName": "selIndividualAgreementEmail"
 }

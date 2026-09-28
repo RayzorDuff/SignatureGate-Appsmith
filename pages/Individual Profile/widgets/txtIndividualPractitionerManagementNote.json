@@ -1,22 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 342,
+  "bottomRow": 394,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
-    },
-    {
-      "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
+      "key": "text"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "text"
+      "key": "fontFamily"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -57,7 +51,7 @@
   "text": "{{ 'Document reviewers can assign any person holding the ' + (qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner') + ' appointment. Select an active row before ending an assignment.' }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 338,
+  "topRow": 389,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -1,22 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 224,
+  "bottomRow": 225,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
-    },
-    {
-      "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
+      "key": "text"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "text"
+      "key": "fontFamily"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -44,8 +38,8 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 148,
   "needsErrorInfo": false,
-  "originalBottomRow": 152,
-  "originalTopRow": 148,
+  "originalBottomRow": 224,
+  "originalTopRow": 219,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -57,7 +51,7 @@
   "text": "{{ 'Membership ended on ' + new Date(qProfileMembershipState.data?.[0]?.membership_ended_at).toLocaleDateString() + '. This individual remains a contributor; past agreements, releases and donations are preserved.' }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 219,
+  "topRow": 220,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
