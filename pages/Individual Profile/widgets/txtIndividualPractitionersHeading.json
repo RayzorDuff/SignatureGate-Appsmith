@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 364,
+  "bottomRow": 431,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -51,7 +51,7 @@
   "text": "{{ (qIndividualProfile.data?.[0]?.practitioner_plural_label || 'Practitioners') + ' assignments' }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 360,
+  "topRow": 427,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
