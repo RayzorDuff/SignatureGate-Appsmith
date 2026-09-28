@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 548,
+  "bottomRow": 615,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -45,7 +45,7 @@
   "text": "Contributor status",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 544,
+  "topRow": 611,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
