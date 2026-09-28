@@ -45,5 +45,8 @@
     }
   ],
   "type": "BUTTON_WIDGET",
-  "version": 1
+  "version": 1,
+  "parentId": "0",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill"
 }
