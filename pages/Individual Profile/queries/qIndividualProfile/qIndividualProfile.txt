@@ -1,8 +1,22 @@
-SELECT d.*,term.singular_label AS practitioner_singular_label,
+SELECT
+  p.person_id AS party_id,
+  'individual'::text AS party_kind,
+  p.display_name,
+  p.created_at,
+  d.member_id,
+  d.contributor_id,
+  d.membership_status,
+  d.contributor_status,
+  d.email,
+  d.phone,
+  d.can_view_membership,
+  d.can_view_contributions,
+  term.singular_label AS practitioner_singular_label,
   term.plural_label AS practitioner_plural_label
-FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+FROM public.people p
+JOIN public.issue19_directory_entries({{ appsmith.user.email }}) d
+  ON d.party_kind = 'individual' AND d.party_id = p.person_id
 LEFT JOIN public.issue20_organization_terminology() term
-  ON term.concept_key='practitioner'
-WHERE d.party_kind = 'individual'
-  AND d.party_id = NULLIF({{ appsmith.URL.queryParams.person_id || "" }}, '')::uuid
+  ON term.concept_key = 'practitioner'
+WHERE p.person_id = NULLIF({{ appsmith.URL.queryParams.person_id || "" }}, '')::uuid
 LIMIT 1;
