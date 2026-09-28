@@ -206,7 +206,7 @@
       "label": "Open profile",
       "labelColor": "#FFFFFF",
       "notation": "standard",
-      "onClick": "{{ navigateTo(currentRow.party_kind === 'organization' ? 'Company Profile' : 'Individual Profile', currentRow.party_kind === 'organization' ? {organization_id: currentRow.party_id} : {person_id: currentRow.party_id}, 'SAME_WINDOW') }}",
+      "onClick": "{{ navigateTo(currentRow.party_kind === 'organization' ? 'Company Profile' : 'Individual Profile', currentRow.party_kind === 'organization' ? {organization_id: String(currentRow.party_id || '')} : {person_id: String(currentRow.party_id || '')}, 'SAME_WINDOW') }}",
       "originalId": "customColumn1",
       "sticky": "",
       "textSize": "0.875rem",
