@@ -17,7 +17,7 @@
   "key": "mjehiralxq",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "{{ ((qTerminology.data || []).find(x => x.concept_key === 'facilitator') || {}).singular_label || appsmith.store.practitioner_singular_label || 'Practitioner' }}",
+  "labelText": "{{ ((qTerminology.data || []).find(x => x.concept_key === 'practitioner') || {}).singular_label || appsmith.store.practitioner_singular_label || 'Practitioner' }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 41,
