@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 441,
+  "bottomRow": 508,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "SECONDARY",
@@ -61,7 +61,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "End selected assignment",
-  "topRow": 437,
+  "topRow": 504,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "161c8ba1f6",
