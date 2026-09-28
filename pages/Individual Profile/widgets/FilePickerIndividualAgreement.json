@@ -1,0 +1,53 @@
+{
+  "allowedFileTypes": "[\n  \"image/*\",\n  \"image/jpeg\",\n  \".png\",\n  \"application/pdf\",\n  \".pdf\"\n]",
+  "animateLoading": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 405,
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "allowedFileTypes"
+    }
+  ],
+  "dynamicTyping": true,
+  "fileDataType": "Base64",
+  "files": [],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage !== true }}",
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true }}",
+  "key": "issue19-paper-picker",
+  "label": "Paper Agreement Files",
+  "leftColumn": 0,
+  "maxFileSize": "50",
+  "maxNumFiles": "",
+  "minWidth": 120,
+  "mobileBottomRow": 405,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 20,
+  "mobileTopRow": 372,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 20,
+  "selectedFiles": [],
+  "topRow": 372,
+  "type": "FILE_PICKER_WIDGET_V2",
+  "version": 1,
+  "widgetId": "issue19-paper-picker",
+  "widgetName": "FilePickerIndividualAgreement"
+}
