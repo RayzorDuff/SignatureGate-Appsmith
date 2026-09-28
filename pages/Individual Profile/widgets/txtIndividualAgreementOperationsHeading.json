@@ -30,5 +30,9 @@
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-heading",
-  "widgetName": "txtIndividualAgreementOperationsHeading"
+  "widgetName": "txtIndividualAgreementOperationsHeading",
+  "parentId": "0",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "dynamicTriggerPathList": []
 }
