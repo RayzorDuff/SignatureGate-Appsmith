@@ -15,11 +15,17 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "onClick"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicTriggerPathList": [
@@ -51,7 +57,7 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 30,
-  "text": "Open agreement operations",
+  "text": "Open remaining legacy member operations",
   "topRow": 267,
   "type": "BUTTON_WIDGET",
   "version": 1,
