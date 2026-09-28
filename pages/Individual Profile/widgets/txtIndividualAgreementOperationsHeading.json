@@ -1,6 +1,6 @@
 {
   "animateLoading": true,
-  "bottomRow": 299,
+  "bottomRow": 327,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -32,7 +32,7 @@
   "text": "Agreement Operations",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 277,
+  "topRow": 305,
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "issue19-agreement-heading",
