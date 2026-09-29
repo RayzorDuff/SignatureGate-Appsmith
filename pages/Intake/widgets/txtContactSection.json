@@ -12,5 +12,16 @@
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "intake-contact-section",
-  "widgetName": "txtContactSection"
+  "widgetName": "txtContactSection",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }

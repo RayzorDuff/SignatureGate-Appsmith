@@ -8,7 +8,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ true }}",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "label": "State",
   "leftColumn": 32,
   "rightColumn": 48,
@@ -19,5 +19,15 @@
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-state",
-  "widgetName": "inpIntakeState"
+  "widgetName": "inpIntakeState",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }

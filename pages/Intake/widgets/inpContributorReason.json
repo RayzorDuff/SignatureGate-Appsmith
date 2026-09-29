@@ -2,32 +2,39 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 74,
+  "bottomRow": 105,
   "defaultText": "",
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
-  "isRequired": true,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
-  "label": "Mailing address",
+  "isRequired": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Contributor' }}",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Contributor' }}",
+  "label": "Contributor enrollment reason",
+  "labelPosition": "Top",
   "leftColumn": 0,
   "rightColumn": 64,
-  "topRow": 67,
+  "topRow": 94,
   "parentId": "0",
   "parentColumnSpace": 10.25,
   "parentRowSpace": 10,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
-  "widgetId": "intake-address",
-  "widgetName": "inpIntakeAddress",
+  "widgetId": "intake-contributor-reason",
+  "widgetName": "inpContributorReason",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ]
 }

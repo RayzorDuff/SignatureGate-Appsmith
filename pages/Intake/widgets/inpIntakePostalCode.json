@@ -8,7 +8,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ true }}",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "label": "ZIP / Postal code",
   "leftColumn": 50,
   "rightColumn": 64,
@@ -19,5 +19,15 @@
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-postal-code",
-  "widgetName": "inpIntakePostalCode"
+  "widgetName": "inpIntakePostalCode",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }

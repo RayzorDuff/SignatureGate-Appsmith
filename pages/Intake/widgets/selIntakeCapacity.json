@@ -3,7 +3,7 @@
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 58,
-  "defaultOptionValue": "Member",
+  "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
@@ -23,10 +23,10 @@
   "dynamicHeight": "FIXED",
   "isFilterable": false,
   "isLoading": false,
-  "isRequired": true,
+  "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
   "labelPosition": "Top",
-  "labelText": "Capacity",
+  "labelText": "Enrollment (optional)",
   "optionLabel": "label",
   "optionValue": "value",
   "leftColumn": 0,
@@ -34,7 +34,7 @@
   "parentId": "0",
   "parentRowSpace": 10,
   "rightColumn": 64,
-  "sourceData": "{{ [{ label: 'Member', value: 'Member' }, { label: 'Contributor', value: 'Contributor' }] }}",
+  "sourceData": "{{ [{ label: 'No enrollment', value: 'None' }, { label: 'Member', value: 'Member' }, { label: 'Contributor', value: 'Contributor' }] }}",
   "topRow": 51,
   "type": "SELECT_WIDGET",
   "version": 1,

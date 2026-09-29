@@ -22,7 +22,7 @@
   ],
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": true,
+  "isRequired": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Member' }}",
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Member' }}",
   "labelPosition": "Top",
   "labelText": "Spiritual Practitioner",
