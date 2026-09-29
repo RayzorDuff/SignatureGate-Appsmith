@@ -101,7 +101,7 @@
       "widgetName": "Canvas6"
     }
   ],
-  "defaultTab": "{{ chkIntakeContributor.isChecked ? \"Member Enrollment\" : \"Blank\" }}",
+  "defaultTab": "{{ chkIntakeContributor.isChecked ? \"Contributor Enrollment\" : \"Blank\" }}",
   "dynamicBindingPathList": [
     {
       "key": "accentColor"
@@ -114,14 +114,22 @@
     },
     {
       "key": "defaultTab"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
   "dynamicTriggerPathList": [],
   "flexVerticalAlignment": "stretch",
   "isCanvas": true,
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ chkIntakeContributor.isChecked }}",
   "key": "5lddd6da6g",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
@@ -164,5 +172,5 @@
   "type": "TABS_WIDGET",
   "version": 3,
   "widgetId": "mdpityzu7l",
-  "widgetName": "Tabs1"
+  "widgetName": "tabsContributorEnrollment"
 }
