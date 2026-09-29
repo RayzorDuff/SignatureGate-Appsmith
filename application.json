@@ -85,6 +85,10 @@
     {
       "id": "Terminology Administration",
       "isDefault": false
+    },
+    {
+      "id": "Individual – Intake",
+      "isDefault": false
     }
   ],
   "staticUrlSettings": {
