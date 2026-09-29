@@ -14,6 +14,9 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -26,7 +29,7 @@
   "isDisabled": "{{!(inpCreateRelease.isChecked)}}",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": true,
+  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
   "key": "pot135qppb",
   "label": "Upload Paper Agreement",
   "labelPosition": "Right",
