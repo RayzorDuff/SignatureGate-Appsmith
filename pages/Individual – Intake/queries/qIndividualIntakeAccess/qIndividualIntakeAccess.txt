@@ -1,5 +1,0 @@
-SELECT
-  public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') AS can_member,
-  public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer') AS can_contributor,
-  (public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')
-   AND public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer')) AS can_both;

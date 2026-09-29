@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  d.party_id::text AS person_id,\n  d.display_name,\n  d.member_id::text AS member_id,\n  d.contributor_id::text AS contributor_id,\n  d.email,\n  d.phone\nFROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nWHERE d.party_kind = 'individual'\n  AND d.party_id <> {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid\n  AND (\n    (\n      {{ selIndividualContactCapacity.selectedOptionValue || '' }} = 'member'\n      AND d.member_id IS NOT NULL\n      AND d.membership_status = 'active'\n    )\n    OR\n    (\n      {{ selIndividualContactCapacity.selectedOptionValue || '' }} = 'contributor'\n      AND d.contributor_id IS NOT NULL\n      AND d.contributor_status = 'active'\n    )\n  )\nORDER BY d.display_name NULLS LAST, d.party_id;",
+      "body": "SELECT\n  d.party_id::text AS person_id,\n  d.display_name,\n  d.member_id::text AS member_id,\n  d.contributor_id::text AS contributor_id,\n  d.email,\n  d.phone,\n  d.membership_status,\n  d.contributor_status\nFROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nWHERE d.party_kind = 'individual'\n  AND (\n    (\n      d.member_id IS NOT NULL\n      AND d.membership_status = 'active'\n    )\n    OR\n    (\n      d.contributor_id IS NOT NULL\n      AND d.contributor_status = 'active'\n    )\n  )\nORDER BY d.display_name NULLS LAST, d.party_id;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
