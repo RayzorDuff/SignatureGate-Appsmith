@@ -1,0 +1,1 @@
+SELECT person_id, member_id FROM public.members WHERE member_id = {{ this.params.member_id }}::uuid LIMIT 1;
