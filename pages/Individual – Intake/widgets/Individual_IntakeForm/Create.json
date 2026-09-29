@@ -18,5 +18,16 @@
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "issue19create",
-  "widgetName": "Create"
+  "widgetName": "Create",
+  "onClick": "{{ individualIntakeFlows.submit(); }}",
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
