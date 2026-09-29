@@ -3,7 +3,7 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 15,
+  "bottomRow": 43,
   "defaultCheckedState": true,
   "dynamicBindingPathList": [
     {
@@ -22,7 +22,7 @@
   "key": "txx4yee41h",
   "label": "Add email to mailing list",
   "labelPosition": "Right",
-  "leftColumn": 46,
+  "leftColumn": 32,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -39,7 +39,7 @@
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 64,
-  "topRow": 11,
+  "topRow": 36,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "u82s4lfdiy",
