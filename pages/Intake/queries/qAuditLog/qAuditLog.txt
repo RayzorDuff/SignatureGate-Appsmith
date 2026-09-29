@@ -1,0 +1,1 @@
+INSERT INTO public.audit_log(actor,action,entity_type,entity_id,details) VALUES (lower(btrim({{ this.params.actor_email }})),{{ this.params.action }},{{ this.params.entity_type }},COALESCE(NULLIF({{ this.params.entity_id }},''),'unknown'),COALESCE({{ this.params.details_json }}::jsonb,'{}'::jsonb)) RETURNING audit_log_id;

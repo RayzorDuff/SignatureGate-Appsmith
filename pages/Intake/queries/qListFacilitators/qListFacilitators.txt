@@ -1,1 +1,1 @@
-SELECT member_id, first_name, last_name, email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status = 'active' ORDER BY last_name, first_name;
+SELECT member_id,person_id,first_name,last_name,email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status='active' AND EXISTS (SELECT 1 FROM public.person_roles r WHERE r.person_id=member_profiles.person_id AND r.role_key='practitioner') ORDER BY last_name,first_name;

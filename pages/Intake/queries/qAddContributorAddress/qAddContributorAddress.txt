@@ -1,0 +1,1 @@
+SELECT public.issue19_add_contributor_address({{ appsmith.user.email }},{{ this.params.party_kind }},{{ this.params.party_id }}::uuid,{{ this.params.address_1 }},{{ this.params.address_2 || null }},{{ this.params.city }},{{ this.params.state }},{{ this.params.postal_code }},'USA',{{ this.params.reason }});

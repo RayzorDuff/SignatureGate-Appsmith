@@ -1,0 +1,1 @@
+SELECT public.link_contributor_to_member({{ this.params.contributor_id }}::uuid,{{ this.params.member_id }}::uuid,{{ this.params.actor_member_id }}::uuid,{{ this.params.reason }});

@@ -129,7 +129,7 @@
   "flexVerticalAlignment": "stretch",
   "isCanvas": true,
   "isLoading": false,
-  "isVisible": "{{ chkIntakeContributor.isChecked }}",
+  "isVisible": "{{ (selIntakeEntityType.selectedOptionValue === 'Individual' && chkIntakeContributor.isChecked) || (selIntakeEntityType.selectedOptionValue === 'Company' && chkCompanyContributor.isChecked) }}",
   "key": "5lddd6da6g",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

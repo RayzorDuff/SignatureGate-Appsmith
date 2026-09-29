@@ -1,0 +1,1 @@
+SELECT public.issue19_has_role({{ this.params.email }}, 'document_reviewer') AS is_document_reviewer, public.issue19_has_role({{ this.params.email }}, 'donations_reviewer') AS is_donations_reviewer, public.issue19_has_role({{ this.params.email }}, 'directory_manager') AS is_directory_manager;

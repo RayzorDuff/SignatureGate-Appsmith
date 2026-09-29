@@ -1,0 +1,1 @@
+{"files": {{ this.params.files }}}

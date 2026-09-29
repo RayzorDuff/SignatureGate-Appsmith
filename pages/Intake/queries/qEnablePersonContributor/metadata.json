@@ -1,11 +1,11 @@
 {
-  "gitSyncId": "issue19-20-intake-practitioners",
-  "id": "Intake_qListFacilitators",
+  "gitSyncId": "issue19-20-intake-qEnablePersonContributor",
+  "id": "Intake_qEnablePersonContributor",
   "pluginId": "postgres-plugin",
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT member_id,person_id,first_name,last_name,email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status='active' AND EXISTS (SELECT 1 FROM public.person_roles r WHERE r.person_id=member_profiles.person_id AND r.role_key='practitioner') ORDER BY last_name,first_name;",
+      "body": "SELECT public.issue19_enable_person_contributor({{ appsmith.user.email }},{{ this.params.person_id }}::uuid,{{ this.params.reason }}) AS contributor_id;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -22,10 +22,14 @@
       "name": "signaturegate-postgres",
       "pluginId": "postgres-plugin"
     },
-    "dynamicBindingPathList": [],
-    "name": "qListFacilitators",
+    "dynamicBindingPathList": [
+      {
+        "key": "body"
+      }
+    ],
+    "name": "qEnablePersonContributor",
     "pageId": "Intake",
-    "runBehaviour": "AUTOMATIC",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

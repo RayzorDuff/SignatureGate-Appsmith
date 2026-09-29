@@ -21,7 +21,7 @@
   ],
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ chkIntakeMember.isChecked }}",
+  "isRequired": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Digital' }}",
   "isVisible": true,
   "labelPosition": "Top",
   "labelText": "Agreement type",

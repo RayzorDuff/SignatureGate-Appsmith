@@ -1,0 +1,32 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 22,
+  "defaultCheckedState": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "label": "Enroll as Contributor",
+  "labelPosition": "Right",
+  "leftColumn": 0,
+  "parentId": "kzty0i0elx",
+  "rightColumn": 14,
+  "topRow": 18,
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "widgetId": "company-contributor",
+  "widgetName": "chkCompanyContributor"
+}

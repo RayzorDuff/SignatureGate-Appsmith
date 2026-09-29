@@ -1,0 +1,1 @@
+SELECT public.issue19_assign_person_contact_role({{ appsmith.user.email }},{{ this.params.person_id }}::uuid,{{ this.params.source_table }},{{ this.params.source_id }}::uuid,{{ this.params.reason }});
