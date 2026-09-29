@@ -13,10 +13,10 @@
       "key": "borderRadius"
     },
     {
-      "key": "isVisible"
+      "key": "isRequired"
     },
     {
-      "key": "isRequired"
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -42,7 +42,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": "{{inpUploadRelease.isChecked}}",
-  "isVisible": "{{inpUploadRelease.isChecked}}",
+  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked && inpUploadRelease.isChecked }}",
   "key": "67f2brnxij",
   "label": "Select Files",
   "leftColumn": 0,
