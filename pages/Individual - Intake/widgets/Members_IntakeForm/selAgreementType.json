@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 55,
+  "bottomRow": 22,
   "boxShadow": "none",
   "defaultOptionValue": "sacrament_release",
   "dynamicBindingPathList": [
@@ -17,12 +17,6 @@
     },
     {
       "key": "isDisabled"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -35,12 +29,6 @@
     },
     {
       "key": "isDisabled"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
     }
   ],
   "dynamicTriggerPathList": [
@@ -51,15 +39,15 @@
   "isDisabled": "{{!(inpCreateRelease.isChecked)}}",
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked }}",
-  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
+  "isRequired": false,
+  "isVisible": false,
   "key": "rgf69u4gmd",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelText": "Agreement Type",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 0,
+  "leftColumn": 22,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -79,10 +67,10 @@
   "placeholderText": "Select option",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 30,
+  "rightColumn": 42,
   "serverSideFiltering": false,
   "sourceData": "{{ qAgreementTypesList.data}}",
-  "topRow": 48,
+  "topRow": 15,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "i8gvpssodv",

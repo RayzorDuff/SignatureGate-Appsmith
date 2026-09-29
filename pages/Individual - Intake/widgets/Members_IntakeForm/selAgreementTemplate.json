@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 63,
+  "bottomRow": 29,
   "boxShadow": "none",
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
@@ -19,9 +19,6 @@
       "key": "isDisabled"
     },
     {
-      "key": "isVisible"
-    },
-    {
       "key": "isRequired"
     }
   ],
@@ -34,9 +31,6 @@
       "key": "isDisabled"
     },
     {
-      "key": "isVisible"
-    },
-    {
       "key": "isRequired"
     }
   ],
@@ -44,15 +38,15 @@
   "isDisabled": "{{!(selAgreementType.selectedOptionValue && inpCreateRelease.isChecked && !inpUploadRelease.isChecked )}}",
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked }}",
-  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
+  "isRequired": "{{ inpCreateRelease.isChecked && !inpUploadRelease.isChecked }}",
+  "isVisible": true,
   "key": "rgf69u4gmd",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelText": "Agreement Template",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 0,
+  "leftColumn": 22,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -72,11 +66,11 @@
   "placeholderText": "Select option",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 42,
+  "rightColumn": 63,
   "serverSideFiltering": false,
   "shouldScrollContents": true,
   "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
-  "topRow": 56,
+  "topRow": 22,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "lp3gikfcuj",

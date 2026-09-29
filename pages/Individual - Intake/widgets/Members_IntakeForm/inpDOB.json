@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 35,
+  "bottomRow": 15,
   "boxShadow": "none",
   "closeOnSelection": true,
   "dateFormat": "LL",
@@ -20,9 +20,6 @@
     },
     {
       "key": "minDate"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -35,9 +32,6 @@
     },
     {
       "key": "defaultDate"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicTriggerPathList": [],
@@ -45,7 +39,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
+  "isVisible": true,
   "key": "7vrj7m8u4k",
   "label": "Date of Birth",
   "labelAlignment": "left",
@@ -53,7 +47,7 @@
   "labelTextSize": "0.875rem",
   "labelTooltip": "Date of Birth is optional.  Please ensure member is 21 years old.",
   "labelWidth": 5,
-  "leftColumn": 0,
+  "leftColumn": 26,
   "maxDate": "{{ moment().subtract(21, 'years').format('YYYY-MM-DD') }}",
   "maxDynamicHeight": 9000,
   "minDate": "{{moment().subtract(120, 'year').format()}}",
@@ -69,10 +63,10 @@
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 30,
+  "rightColumn": 46,
   "shortcuts": false,
   "timePrecision": "None",
-  "topRow": 27,
+  "topRow": 7,
   "type": "DATE_PICKER_WIDGET2",
   "version": 2,
   "widgetId": "7ey2p9nvk1",

@@ -2,7 +2,7 @@
   "allowedFileTypes": "[\n  \"image/*\",\n  \"image/jpeg\",\n  \".png\",\n\t\"application/pdf\",\n\t\".pdf\"\n]",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 82,
+  "bottomRow": 38,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "dynamicBindingPathList": [
@@ -13,10 +13,10 @@
       "key": "borderRadius"
     },
     {
-      "key": "isRequired"
+      "key": "isVisible"
     },
     {
-      "key": "isVisible"
+      "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
@@ -42,7 +42,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": "{{inpUploadRelease.isChecked}}",
-  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked && inpUploadRelease.isChecked }}",
+  "isVisible": "{{inpUploadRelease.isChecked}}",
   "key": "67f2brnxij",
   "label": "Select Files",
   "leftColumn": 0,
@@ -62,9 +62,9 @@
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "hug",
-  "rightColumn": 64,
+  "rightColumn": 15,
   "selectedFiles": [],
-  "topRow": 74,
+  "topRow": 34,
   "type": "FILE_PICKER_WIDGET_V2",
   "version": 1,
   "widgetId": "giu69q7f4l",

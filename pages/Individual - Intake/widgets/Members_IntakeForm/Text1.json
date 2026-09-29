@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 73,
+  "bottomRow": 36,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -51,7 +51,7 @@
   "text": "Select Upload and Choose Files to upload a paper agreement, otherwise a Digital agreement will be e-mailed.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 66,
+  "topRow": 29,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

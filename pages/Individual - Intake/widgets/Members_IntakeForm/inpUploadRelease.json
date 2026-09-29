@@ -3,7 +3,7 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 65,
+  "bottomRow": 34,
   "defaultCheckedState": false,
   "dynamicBindingPathList": [
     {
@@ -14,9 +14,6 @@
     },
     {
       "key": "isDisabled"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -29,7 +26,7 @@
   "isDisabled": "{{!(inpCreateRelease.isChecked)}}",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
+  "isVisible": true,
   "key": "pot135qppb",
   "label": "Upload Paper Agreement",
   "labelPosition": "Right",
@@ -50,7 +47,7 @@
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 22,
-  "topRow": 61,
+  "topRow": 30,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "b3tp0b74gh",

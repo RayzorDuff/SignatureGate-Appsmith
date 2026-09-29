@@ -3,7 +3,7 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 60,
+  "bottomRow": 30,
   "defaultCheckedState": true,
   "dynamicBindingPathList": [
     {
@@ -11,9 +11,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -21,7 +18,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
+  "isVisible": true,
   "key": "o29pmcoglp",
   "label": "Send Agreement",
   "labelPosition": "Right",
@@ -42,7 +39,7 @@
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 18,
-  "topRow": 56,
+  "topRow": 26,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "nu8bi71lk3",

@@ -38,33 +38,69 @@ export default {
 	
 	async verifyaccess() {
 		try {
-			let email = null;
-			for (let i = 0; i < 20; i++) {
-				email = (appsmith.user?.email ?? "").trim().toLowerCase();
-				if (email) break;
-				await new Promise(r => setTimeout(r, 150));
-			}
-			if (!email) { showAlert("Unknown user: appsmith.user.email not available.", "error"); return; }
-			const access = qIndividualIntakeAccess.data?.[0] || {};
-			if (!access.can_member && !access.can_contributor) {
-				showAlert("Access denied: this intake requires document reviewer or donations reviewer permission.", "error");
-				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") navigateTo("Unauthorized", {}, "SAME_WINDOW");
+			//showAlert("Beginning init. mode=" + appsmith.mode, "warning");
+
+			// Wait briefly for Appsmith user context to hydrate
+      let email = null;
+      for (let i = 0; i < 20; i++) {
+        email = (appsmith.user?.email ?? "").trim().toLowerCase();
+        if (email) break;
+        await new Promise(r => setTimeout(r, 150));
+      }
+
+			if (!email) {
+				showAlert("Unknown user: appsmith.user.email not available.", "error");
 				return;
 			}
-			const rows = await qCurrentFacilitator.run({ email });
-			const me = Array.isArray(rows) ? rows[0] : null;
-			if (me?.member_id) {
-				await storeValue("facilitator_id", me.member_id);
-				await storeValue("facilitator_email", (me.email ?? "").trim().toLowerCase());
-				await storeValue("facilitator_is_reviewer", me.is_document_reviewer);
-				await storeValue("facilitator_is_donations_reviewer", me.is_donations_reviewer);
-				await storeValue("facilitator_full_name", `${me.first_name} ${me.last_name}`.trim());
+
+			// IMPORTANT: use return value of run(), not qCurrentFacilitator.data
+      let rows = await qCurrentFacilitator.run({ email });
+
+      // 🔴 Appsmith bug fix
+      if (!Array.isArray(rows)) rows = [];
+      //showAlert("qCurrentFacilitator rows=" + rows.length, "warning");
+
+      const me = rows[0];	
+
+			if (!me?.member_id) {
+				showAlert("Access denied: not an active facilitator for " + email, "error");
+				
+				await this.auditLog("auth.denied","facilitator","", { email, page: appsmith.URL?.pathname, mode: appsmith.mode });if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
+					//Only redirect when not in editor
+					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				}
+				return;
 			}
-			await this.refresh();
+
+			const facilitator_id = me.member_id;
+			const facilitator_email = (me.email ?? "").trim().toLowerCase();
+			const is_document_reviewer = me.is_document_reviewer;
+			const is_donations_reviewer = me.is_donations_reviewer;
+
+			//showAlert("Access granted for " + facilitator_email + " id=" + facilitator_id + " document reviewer=" + is_document_reviewer + " donations reviewer=" + is_donations_reviewer, "success");
+
+			// May want these enabled in deployed mode:
+			storeValue("facilitator_id", facilitator_id);
+			storeValue("facilitator_email", facilitator_email);
+			storeValue("facilitator_is_reviewer", is_document_reviewer );
+			storeValue("facilitator_is_donations_reviewer", is_donations_reviewer);
+			storeValue("facilitator_full_name", `${me.first_name} ${me.last_name}`.trim());	
+
+		
+			//await this.auditLog("auth.granted","facilitator", facilitator_id, { email: facilitator_email, is_reviewer, is_donations_reviewer page: appsmith.URL?.pathname, mode: appsmith.mode });
 		} catch (e) {
 			showAlert("Access check failed: " + (e?.message || e), "error");
-			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") navigateTo("Unauthorized", {}, "SAME_WINDOW");
+			// Helpful: show query error if present
+			showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? {}), "error");
+			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
+				//Only redirect when not in editor
+				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+			}
+			return;
 		}
+		
+    this.refresh();
+		
 	},
 	
 	_normalizeUploadResponse(uploadRes) {
@@ -100,24 +136,11 @@ export default {
 		const email = (inpEmail.text || "").trim();
 		const phone = (inpPhone.text || "").trim();
 		const dateOfBirth = (inpDOB.selectedDate || "").toString().slice(0, 10);
-		const partyKind = selIntakePartyKind.selectedOptionValue || "individual";
-		const capacity = selIntakeCapacity.selectedOptionValue || "member";
-		const organizationName = first;
-		const intakeReason = (inpNotes.text || "").trim() || "Individual Intake";
-		const intakeAccess = qIndividualIntakeAccess.data?.[0] || {};
-		if ((capacity === "member" || capacity === "both") && !intakeAccess.can_member) { showAlert("Document reviewer permission is required for Member intake.", "error"); return; }
-		if ((capacity === "contributor" || capacity === "both") && !intakeAccess.can_contributor) { showAlert("Donations reviewer permission is required for Contributor intake.", "error"); return; }
-		if (capacity === "both" && !intakeAccess.can_directory_manager) { showAlert("Directory manager permission is required to add Contributor capacity to an existing person.", "error"); return; }
-		if (partyKind === "organization" && capacity !== "contributor") { showAlert("Company intake currently supports Contributor capacity only.", "warning"); return; }
 
 		await storeValue("memberDupes", []);
 
-		if (partyKind === "individual" && (!first || !last)) {
-			showAlert("First and last name are required for an individual.", "warning");
-			return;
-		}
-		if (partyKind === "organization" && !organizationName) {
-			showAlert("Company Name is required.", "warning");
+		if (!first || !last) {
+			showAlert("First and last name are required.", "warning");
 			return;
 		}
 
@@ -127,25 +150,6 @@ export default {
 				"warning"
 			);
 			return;
-		}
-		if (partyKind === "organization" || capacity === "contributor") {
-			if (partyKind === "organization" && !organizationName) { showAlert("Company Name is required.", "warning"); return; }
-			if (partyKind === "individual" && (!first || !last)) { showAlert("First and Last Name are required.", "warning"); return; }
-			if (phone && !inpPhone.isValid) { showAlert("Enter a valid phone number.", "warning"); return; }
-			const created = await qCreateContributor.run({
-				party_kind: partyKind,
-				first_name: partyKind === "individual" ? first : "",
-				last_name: partyKind === "individual" ? last : "",
-				organization_name: organizationName,
-				email, phone, reason: intakeReason
-			});
-			const row = Array.isArray(created) ? created[0] : created;
-			if (!row?.contributor_id) { showAlert("Contributor creation did not return a contributor ID.", "error"); return; }
-			await storeValue("new_contributor_id", row.contributor_id);
-			await storeValue("new_intake_person_id", row.party_kind === "individual" ? row.party_id : "");
-			showAlert(`${partyKind === "organization" ? "Company" : "Individual"} contributor created successfully.`, "success");
-			resetWidget("Members_IntakeForm", true);
-			return { contributorId: row.contributor_id, partyId: row.party_id };
 		}
 		const wantsAgreement = inpCreateRelease.isChecked;
 		const uploadPaper = typeof inpUploadRelease !== "undefined" ? inpUploadRelease.isChecked : false;
@@ -331,17 +335,6 @@ export default {
 			if (!phoneRows?.[0]?.member_phone_id) {
 				showAlert("Member was created, but this phone already exists on the member profile and was not duplicated.", "info");
 			}
-		}
-		if (capacity === "both") {
-			const personRows = await qMemberPersonId.run({ member_id: memberId });
-			const personId = Array.isArray(personRows) ? personRows[0]?.person_id : personRows?.person_id;
-			if (!personId) { showAlert("Member was created, but its canonical person identity could not be resolved.", "error"); return; }
-			const contributorRows = await qEnableContributor.run({ person_id: personId, reason: intakeReason });
-			const contributor = Array.isArray(contributorRows) ? contributorRows[0] : contributorRows;
-			if (!contributor?.contributor_id) { showAlert("Member was created, but Contributor capacity could not be enabled.", "error"); return; }
-			if (email) await qAddContributorEmail.run({ person_id: personId, email, reason: intakeReason });
-			if (phone) await qAddContributorPhone.run({ person_id: personId, phone, reason: intakeReason });
-			await storeValue("new_contributor_id", contributor.contributor_id);
 		}
 		showAlert(`Member created (ID ${memberId}).`, "success");
 		await storeValue("new_member_id", memberId);

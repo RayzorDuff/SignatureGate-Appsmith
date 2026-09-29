@@ -7,17 +7,35 @@
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
-    {"key":"isVisible"},
-    {"key":"isDisabled"},
-    {"key":"buttonColor"},
-    {"key":"borderRadius"}
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
   ],
   "dynamicPropertyPathList": [
-    {"key":"onClick"},
-    {"key":"isVisible"},
-    {"key":"isDisabled"}
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
   ],
-  "dynamicTriggerPathList": [{"key":"onClick"}],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' ? (qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' && qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) || !selIndividualRoleContactToArchive.selectedOptionValue || !selIndividualContactReassignTarget.selectedOptionValue || !inpIndividualRoleContactReason.text?.trim() || qReassignIndividualContact.isLoading }}",
   "isLoading": false,

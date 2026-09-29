@@ -3,7 +3,7 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 17,
+  "bottomRow": 7,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
@@ -14,32 +14,19 @@
       "key": "borderRadius"
     },
     {
-      "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
-    },
-    {
       "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
-    }
-  ],
+  "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [],
   "errorMessage": "Invalid Name",
   "iconAlign": "left",
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
-  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' }}",
-  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' }}",
+  "isRequired": true,
+  "isVisible": true,
   "key": "4ggftkl0jh",
   "label": "Last Name",
   "labelAlignment": "left",
@@ -47,7 +34,7 @@
   "labelStyle": "",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 21,
+  "leftColumn": 20,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -63,11 +50,11 @@
   "renderMode": "CANVAS",
   "resetOnSubmit": true,
   "responsiveBehavior": "fill",
-  "rightColumn": 42,
+  "rightColumn": 41,
   "showStepArrows": false,
-  "topRow": 9,
+  "topRow": 0,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{ selIntakePartyKind.selectedOptionValue !== 'individual' || inpLastName.text.trim().length > 0 }}",
+  "validation": "{{inpLastName.text.length > 0}}",
   "version": 2,
   "widgetId": "xnr7ecwgj6",
   "widgetName": "inpLastName"

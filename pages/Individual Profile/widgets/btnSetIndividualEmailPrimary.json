@@ -6,9 +6,36 @@
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
-  "dynamicBindingPathList": [{"key":"isVisible"},{"key":"isDisabled"},{"key":"buttonColor"},{"key":"borderRadius"}],
-  "dynamicPropertyPathList": [{"key":"onClick"},{"key":"isVisible"},{"key":"isDisabled"}],
-  "dynamicTriggerPathList": [{"key":"onClick"}],
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !(selIndividualRoleContactToArchive.selectedOptionValue && (((selIndividualContactCapacity.selectedOptionValue === 'member' ? qIndividualMembershipContacts.data : qIndividualDonorContacts.data) || []).find(c => c.contact_id === selIndividualRoleContactToArchive.selectedOptionValue)?.contact_kind === 'email') ) }}",
   "isLoading": false,

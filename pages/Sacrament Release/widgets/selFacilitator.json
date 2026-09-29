@@ -5,10 +5,43 @@
   "bottomRow": 5,
   "boxShadow": "none",
   "defaultOptionValue": "{{ appsmith.store.release_practitioner_person_id || appsmith.store.practitioner_person_id || '' }}",
-  "dynamicBindingPathList": [{"key":"sourceData"},{"key":"defaultOptionValue"},{"key":"isDisabled"},{"key":"borderRadius"},{"key":"labelText"}],
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
+    }
+  ],
   "dynamicHeight": "FIXED",
-  "dynamicPropertyPathList": [{"key":"sourceData"},{"key":"isDisabled"},{"key":"labelText"},{"key":"defaultOptionValue"}],
-  "dynamicTriggerPathList": [{"key":"onOptionChange"}],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "labelText"
+    },
+    {
+      "key": "defaultOptionValue"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onOptionChange"
+    }
+  ],
   "isDisabled": "{{ !appsmith.store.facilitator_is_reviewer }}",
   "isFilterable": true,
   "isLoading": false,
