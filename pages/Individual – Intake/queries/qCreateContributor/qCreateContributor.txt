@@ -1,0 +1,10 @@
+SELECT * FROM public.issue19_create_contributor(
+  {{ appsmith.user.email }},
+  {{ this.params.party_kind }},
+  {{ this.params.first_name || "" }},
+  {{ this.params.last_name || "" }},
+  {{ this.params.organization_name || "" }},
+  {{ this.params.email || "" }},
+  {{ this.params.phone || "" }},
+  {{ this.params.reason }}
+);
