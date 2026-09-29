@@ -136,6 +136,15 @@ export default {
 		const email = (inpEmail.text || "").trim();
 		const phone = (inpPhone.text || "").trim();
 		const dateOfBirth = (inpDOB.selectedDate || "").toString().slice(0, 10);
+		const partyKind = selIntakePartyKind.selectedOptionValue || "individual";
+		const capacity = selIntakeCapacity.selectedOptionValue || "member";
+		const organizationName = first;
+		const intakeReason = (inpNotes.text || "").trim() || "Individual Intake";
+		const intakeAccess = qIndividualIntakeAccess.data?.[0] || {};
+		if ((capacity === "member" || capacity === "both") && !intakeAccess.can_member) { showAlert("Document reviewer permission is required for Member intake.", "error"); return; }
+		if ((capacity === "contributor" || capacity === "both") && !intakeAccess.can_contributor) { showAlert("Donations reviewer permission is required for Contributor intake.", "error"); return; }
+		if (capacity === "both" && !intakeAccess.can_directory_manager) { showAlert("Directory manager permission is required to add Contributor capacity to an existing person.", "error"); return; }
+		if (partyKind === "organization" && capacity !== "contributor") { showAlert("Company intake currently supports Contributor capacity only.", "warning"); return; }
 
 		await storeValue("memberDupes", []);
 
@@ -150,6 +159,25 @@ export default {
 				"warning"
 			);
 			return;
+		}
+		if (partyKind === "organization" || capacity === "contributor") {
+			if (partyKind === "organization" && !organizationName) { showAlert("Company Name is required.", "warning"); return; }
+			if (partyKind === "individual" && (!first || !last)) { showAlert("First and Last Name are required.", "warning"); return; }
+			if (phone && !inpPhone.isValid) { showAlert("Enter a valid phone number.", "warning"); return; }
+			const created = await qCreateContributor.run({
+				party_kind: partyKind,
+				first_name: partyKind === "individual" ? first : "",
+				last_name: partyKind === "individual" ? last : "",
+				organization_name: organizationName,
+				email, phone, reason: intakeReason
+			});
+			const row = Array.isArray(created) ? created[0] : created;
+			if (!row?.contributor_id) { showAlert("Contributor creation did not return a contributor ID.", "error"); return; }
+			await storeValue("new_contributor_id", row.contributor_id);
+			await storeValue("new_intake_person_id", row.party_kind === "individual" ? row.party_id : "");
+			showAlert(`${partyKind === "organization" ? "Company" : "Individual"} contributor created successfully.`, "success");
+			resetWidget("Members_IntakeForm", true);
+			return { contributorId: row.contributor_id, partyId: row.party_id };
 		}
 		const wantsAgreement = inpCreateRelease.isChecked;
 		const uploadPaper = typeof inpUploadRelease !== "undefined" ? inpUploadRelease.isChecked : false;
@@ -335,6 +363,17 @@ export default {
 			if (!phoneRows?.[0]?.member_phone_id) {
 				showAlert("Member was created, but this phone already exists on the member profile and was not duplicated.", "info");
 			}
+		}
+		if (capacity === "both") {
+			const personRows = await qMemberPersonId.run({ member_id: memberId });
+			const personId = Array.isArray(personRows) ? personRows[0]?.person_id : personRows?.person_id;
+			if (!personId) { showAlert("Member was created, but its canonical person identity could not be resolved.", "error"); return; }
+			const contributorRows = await qEnableContributor.run({ person_id: personId, reason: intakeReason });
+			const contributor = Array.isArray(contributorRows) ? contributorRows[0] : contributorRows;
+			if (!contributor?.contributor_id) { showAlert("Member was created, but Contributor capacity could not be enabled.", "error"); return; }
+			if (email) await qAddContributorEmail.run({ person_id: personId, email, reason: intakeReason });
+			if (phone) await qAddContributorPhone.run({ person_id: personId, phone, reason: intakeReason });
+			await storeValue("new_contributor_id", contributor.contributor_id);
 		}
 		showAlert(`Member created (ID ${memberId}).`, "success");
 		await storeValue("new_member_id", memberId);
