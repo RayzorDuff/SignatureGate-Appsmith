@@ -12,5 +12,16 @@
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "intake-individual-section",
-  "widgetName": "txtIndividualSection"
+  "widgetName": "txtIndividualSection",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }

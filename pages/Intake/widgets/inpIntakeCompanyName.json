@@ -20,5 +20,15 @@
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-company-name",
-  "widgetName": "inpIntakeCompanyName"
+  "widgetName": "inpIntakeCompanyName",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }

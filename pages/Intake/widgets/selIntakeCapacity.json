@@ -5,10 +5,20 @@
   "bottomRow": 58,
   "defaultOptionValue": "Member",
   "dynamicBindingPathList": [
-    { "key": "sourceData" }
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
   ],
   "dynamicPropertyPathList": [
-    { "key": "sourceData" }
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
   ],
   "dynamicHeight": "FIXED",
   "isFilterable": false,

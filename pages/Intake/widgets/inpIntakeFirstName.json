@@ -21,5 +21,15 @@
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-first-name",
-  "widgetName": "inpIntakeFirstName"
+  "widgetName": "inpIntakeFirstName",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }

@@ -21,5 +21,15 @@
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-email",
-  "widgetName": "inpIntakeEmail"
+  "widgetName": "inpIntakeEmail",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }
