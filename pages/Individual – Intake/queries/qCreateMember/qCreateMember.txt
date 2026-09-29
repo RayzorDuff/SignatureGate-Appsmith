@@ -1,0 +1,11 @@
+SELECT member_id, duplicate_blocked
+FROM public.create_member_from_intake(
+  NULLIF(btrim({{ this.params.first_name || "" }}), ''),
+  NULLIF(btrim({{ this.params.last_name || "" }}), ''),
+  NULLIF(lower(btrim({{ this.params.email || "" }})), ''),
+  NULLIF(btrim({{ this.params.phone || "" }}), ''),
+  NULLIF({{ this.params.date_of_birth || "" }}, '')::date,
+  NULLIF(btrim({{ this.params.notes || "" }}), ''),
+  false,
+  NULL
+);
