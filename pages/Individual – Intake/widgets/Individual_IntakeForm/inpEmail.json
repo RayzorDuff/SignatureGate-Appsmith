@@ -19,7 +19,7 @@
   "resetOnSubmit": true,
   "topRow": 16,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{ !inpIntakeEmail.text || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inpIntakeEmail.text) }}",
+  "validation": "{{ !inpIntakeEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIntakeEmail.text) }}",
   "version": 2,
   "widgetId": "issue19email",
   "widgetName": "inpIntakeEmail"
