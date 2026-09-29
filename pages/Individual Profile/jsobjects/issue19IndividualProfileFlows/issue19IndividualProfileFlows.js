@@ -13,7 +13,6 @@ export default {
       return;
     }
     try {
-      await qIndividualProfile.run();
       if (!qIndividualProfile.data?.[0]?.party_id) {
         await qIndividualProfileDiagnostic.run();
         const d = qIndividualProfileDiagnostic.data?.[0] || {};
