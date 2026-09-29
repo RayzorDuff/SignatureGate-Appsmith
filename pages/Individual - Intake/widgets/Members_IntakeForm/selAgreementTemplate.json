@@ -19,10 +19,10 @@
       "key": "isDisabled"
     },
     {
-      "key": "isRequired"
+      "key": "isVisible"
     },
     {
-      "key": "isVisible"
+      "key": "isRequired"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -34,17 +34,17 @@
       "key": "isDisabled"
     },
     {
-      "key": "isRequired"
+      "key": "isVisible"
     },
     {
-      "key": "isVisible"
+      "key": "isRequired"
     }
   ],
   "dynamicTriggerPathList": [],
   "isDisabled": "{{!(selAgreementType.selectedOptionValue && inpCreateRelease.isChecked && !inpUploadRelease.isChecked )}}",
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ inpCreateRelease.isChecked && !inpUploadRelease.isChecked }}",
+  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked }}",
   "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
   "key": "rgf69u4gmd",
   "labelAlignment": "left",
