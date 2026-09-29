@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 109,
+  "bottomRow": 111,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
@@ -30,9 +30,9 @@
   "optionValue": "agreement_template_id",
   "placeholderText": "Select agreement template",
   "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
-  "leftColumn": 32,
+  "leftColumn": 33,
   "rightColumn": 64,
-  "topRow": 93,
+  "topRow": 103,
   "parentId": "0",
   "parentColumnSpace": 10.25,
   "parentRowSpace": 10,

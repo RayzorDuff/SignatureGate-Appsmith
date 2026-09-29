@@ -12,7 +12,7 @@
   "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
   "label": "Phone",
-  "leftColumn": 32,
+  "leftColumn": 33,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,

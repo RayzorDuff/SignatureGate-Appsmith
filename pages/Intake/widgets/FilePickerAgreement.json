@@ -2,7 +2,7 @@
   "allowedFileTypes": "[\"application/pdf\",\".pdf\"]",
   "animateLoading": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 108,
+  "bottomRow": 131,
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "dynamicBindingPathList": [
     {
@@ -28,9 +28,9 @@
   "isRequired": "{{ selAgreementDelivery.selectedOptionValue === 'Paper' }}",
   "isVisible": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Paper' }}",
   "label": "Upload paper agreement",
-  "leftColumn": 34,
+  "leftColumn": 33,
   "rightColumn": 64,
-  "topRow": 92,
+  "topRow": 123,
   "parentId": "0",
   "type": "FILE_PICKER_WIDGET_V2",
   "version": 1,

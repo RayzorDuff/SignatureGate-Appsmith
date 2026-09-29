@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 100,
+  "bottomRow": 111,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
@@ -37,8 +37,8 @@
   "sourceData": "{{ qAgreementTypesList.data || [] }}",
   "onOptionChange": "{{ qAgreementTemplatesByType.run(); }}",
   "leftColumn": 0,
-  "rightColumn": 30,
-  "topRow": 93,
+  "rightColumn": 31,
+  "topRow": 103,
   "parentId": "0",
   "parentColumnSpace": 10.25,
   "parentRowSpace": 10,
