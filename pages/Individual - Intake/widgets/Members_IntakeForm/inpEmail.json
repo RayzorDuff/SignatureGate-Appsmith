@@ -32,7 +32,7 @@
   "inputType": "EMAIL",
   "isDisabled": false,
   "isLoading": false,
-  "isRequired": "{{ inpCreateRelease.isChecked && !inpUploadRelease.isChecked }}",
+  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked && !inpUploadRelease.isChecked }}",
   "isVisible": true,
   "key": "4ggftkl0jh",
   "label": "Email Address",
