@@ -23,6 +23,9 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -46,7 +49,7 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": "{{inpCreateRelease.isChecked}}",
-  "isVisible": true,
+  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
   "key": "tcvabvv6qz",
   "labelAlignment": "left",
   "labelPosition": "Top",
