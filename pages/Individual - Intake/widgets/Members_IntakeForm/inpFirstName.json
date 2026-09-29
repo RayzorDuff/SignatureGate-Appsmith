@@ -14,6 +14,12 @@
       "key": "borderRadius"
     },
     {
+      "key": "label"
+    },
+    {
+      "key": "isRequired"
+    },
+    {
       "key": "validation"
     }
   ],
@@ -24,10 +30,10 @@
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
-  "isRequired": true,
+  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'organization' || selIntakePartyKind.selectedOptionValue === 'individual' }}",
   "isVisible": true,
   "key": "4ggftkl0jh",
-  "label": "First Name",
+  "label": "{{ selIntakePartyKind.selectedOptionValue === 'organization' ? 'Company Name' : 'First Name' }}",
   "labelAlignment": "left",
   "labelPosition": "Auto",
   "labelStyle": "",
@@ -53,8 +59,13 @@
   "showStepArrows": false,
   "topRow": 0,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{inpFirstName.text.length > 0}}",
+  "validation": "{{ inpFirstName.text.trim().length > 0 }}",
   "version": 2,
   "widgetId": "7219zkuoiw",
-  "widgetName": "inpFirstName"
+  "widgetName": "inpFirstName",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    }
+  ]
 }
