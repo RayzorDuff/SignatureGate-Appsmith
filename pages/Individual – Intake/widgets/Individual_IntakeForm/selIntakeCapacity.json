@@ -21,5 +21,16 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19capacity",
-  "widgetName": "selIntakeCapacity"
+  "widgetName": "selIntakeCapacity",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": []
 }
