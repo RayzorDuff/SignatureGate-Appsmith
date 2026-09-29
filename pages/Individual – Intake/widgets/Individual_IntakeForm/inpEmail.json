@@ -22,5 +22,12 @@
   "validation": "{{ !inpIntakeEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIntakeEmail.text) }}",
   "version": 2,
   "widgetId": "issue19email",
-  "widgetName": "inpIntakeEmail"
+  "widgetName": "inpIntakeEmail",
+  "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    }
+  ],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": []
 }
