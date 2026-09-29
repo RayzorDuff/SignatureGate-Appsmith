@@ -1,0 +1,72 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "autoFocus": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 15,
+  "boxShadow": "none",
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "validation"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "errorMessage": "Invalid Email",
+  "iconAlign": "left",
+  "inputType": "EMAIL",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": "{{ inpCreateRelease.isChecked && !inpUploadRelease.isChecked }}",
+  "isVisible": true,
+  "key": "4ggftkl0jh",
+  "label": "Email Address",
+  "labelAlignment": "left",
+  "labelPosition": "Auto",
+  "labelStyle": "",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 34,
+  "mobileLeftColumn": 20,
+  "mobileRightColumn": 40,
+  "mobileTopRow": 27,
+  "needsErrorInfo": false,
+  "originalBottomRow": 34,
+  "originalTopRow": 27,
+  "parentColumnSpace": 10.25,
+  "parentId": "3b2kwugb6g",
+  "parentRowSpace": 10,
+  "regex": "",
+  "renderMode": "CANVAS",
+  "resetOnSubmit": true,
+  "responsiveBehavior": "fill",
+  "rightColumn": 26,
+  "shouldAllowAutofill": true,
+  "showStepArrows": false,
+  "tooltip": "Enter a valid email address when sending a digital release",
+  "topRow": 7,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{\n  !inpEmail.text ||\n  /^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@(([0-9]{1,3}\\.){3}[0-9]{1,3}|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/.test(inpEmail.text)\n}}",
+  "version": 2,
+  "widgetId": "y2r4c9t53a",
+  "widgetName": "inpEmail"
+}

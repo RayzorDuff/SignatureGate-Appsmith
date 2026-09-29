@@ -1,0 +1,78 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 29,
+  "boxShadow": "none",
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "{{!(selAgreementType.selectedOptionValue && inpCreateRelease.isChecked && !inpUploadRelease.isChecked )}}",
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": "{{ inpCreateRelease.isChecked && !inpUploadRelease.isChecked }}",
+  "isVisible": true,
+  "key": "rgf69u4gmd",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Agreement Template",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 22,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 32,
+  "mobileLeftColumn": 45,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 25,
+  "needsErrorInfo": false,
+  "onOptionChange": "{{}}",
+  "optionLabel": "display_label",
+  "optionValue": "agreement_template_id",
+  "originalBottomRow": 29,
+  "originalTopRow": 22,
+  "parentColumnSpace": 9.9375,
+  "parentId": "3b2kwugb6g",
+  "parentRowSpace": 10,
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 63,
+  "serverSideFiltering": false,
+  "shouldScrollContents": true,
+  "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
+  "topRow": 22,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "lp3gikfcuj",
+  "widgetName": "selAgreementTemplate"
+}

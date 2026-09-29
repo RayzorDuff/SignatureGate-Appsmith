@@ -1,23 +1,23 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_b3721a52-a50c-4577-8e3c-906c858e03fc",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_5405d3a9-a493-409a-b31d-d87c74135240",
   "unpublishedPage": {
     "isHidden": false,
     "layouts": [
       {
         "dsl": {
           "backgroundColor": "none",
-          "bottomRow": 630,
+          "bottomRow": 490,
           "canExtend": true,
           "containerStyle": "none",
           "detachFromLayout": true,
           "dynamicBindingPathList": [],
           "leftColumn": 0,
-          "minHeight": 640,
+          "minHeight": 450,
           "parentColumnSpace": 1,
           "parentRowSpace": 1,
           "rightColumn": 1224,
           "snapColumns": 64,
-          "snapRows": 62,
+          "snapRows": 43,
           "topRow": 0,
           "type": "CANVAS_WIDGET",
           "version": 94,
@@ -26,7 +26,8 @@
         }
       }
     ],
-    "name": "Individual – Intake",
-    "slug": "individual-intake"
+    "name": "Individual - Intake",
+    "slug": "individual-intake",
+    "uniqueSlug": "members-intake-1"
   }
 }
