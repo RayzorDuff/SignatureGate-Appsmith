@@ -20,6 +20,9 @@
     },
     {
       "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -32,6 +35,9 @@
     },
     {
       "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicTriggerPathList": [],
@@ -39,7 +45,7 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": "{{ inpCreateRelease.isChecked && !inpUploadRelease.isChecked }}",
-  "isVisible": true,
+  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
   "key": "rgf69u4gmd",
   "labelAlignment": "left",
   "labelPosition": "Top",
