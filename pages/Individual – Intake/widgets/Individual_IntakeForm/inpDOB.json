@@ -18,5 +18,16 @@
   "type": "DATE_PICKER_WIDGET2",
   "version": 1,
   "widgetId": "issue19dob",
-  "widgetName": "inpIntakeDOB"
+  "widgetName": "inpIntakeDOB",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": []
 }
