@@ -1,5 +1,0 @@
-SELECT public.issue19_enable_person_contributor(
-  {{ appsmith.user.email }},
-  {{ this.params.person_id }}::uuid,
-  {{ this.params.reason }}
-) AS contributor_id;
