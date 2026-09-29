@@ -20,6 +20,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -35,6 +38,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicTriggerPathList": [
@@ -45,7 +51,7 @@
   "isDisabled": "{{!(inpCreateRelease.isChecked)}}",
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": false,
+  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked }}",
   "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
   "key": "rgf69u4gmd",
   "labelAlignment": "left",
