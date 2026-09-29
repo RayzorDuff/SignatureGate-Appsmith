@@ -1,0 +1,43 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 109,
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Member' }}",
+  "labelPosition": "Top",
+  "labelText": "Agreement template",
+  "optionLabel": "display_label",
+  "optionValue": "agreement_template_id",
+  "placeholderText": "Select agreement template",
+  "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
+  "leftColumn": 32,
+  "rightColumn": 64,
+  "topRow": 93,
+  "parentId": "0",
+  "parentColumnSpace": 10.25,
+  "parentRowSpace": 10,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-agreement-template",
+  "widgetName": "selAgreementTemplate"
+}

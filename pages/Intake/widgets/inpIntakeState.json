@@ -1,0 +1,23 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 83,
+  "defaultText": "",
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ true }}",
+  "label": "State",
+  "leftColumn": 32,
+  "rightColumn": 48,
+  "topRow": 76,
+  "parentId": "0",
+  "parentColumnSpace": 10.25,
+  "parentRowSpace": 10,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-state",
+  "widgetName": "inpIntakeState"
+}

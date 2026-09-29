@@ -1,0 +1,1 @@
+SELECT type_key, display_name FROM public.agreement_types WHERE active = true ORDER BY sort_order, display_name;

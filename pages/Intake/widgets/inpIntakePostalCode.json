@@ -1,0 +1,23 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 83,
+  "defaultText": "",
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ true }}",
+  "label": "ZIP / Postal code",
+  "leftColumn": 50,
+  "rightColumn": 64,
+  "topRow": 76,
+  "parentId": "0",
+  "parentColumnSpace": 10.25,
+  "parentRowSpace": 10,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-postal-code",
+  "widgetName": "inpIntakePostalCode"
+}

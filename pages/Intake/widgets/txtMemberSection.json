@@ -1,0 +1,27 @@
+{
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1.125rem",
+  "fontStyle": "BOLD",
+  "text": "Member enrollment",
+  "textColor": "#231F20",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Member' }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "leftColumn": 0,
+  "rightColumn": 64,
+  "topRow": 86,
+  "bottomRow": 91,
+  "parentId": "0",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-member-section",
+  "widgetName": "txtMemberSection"
+}

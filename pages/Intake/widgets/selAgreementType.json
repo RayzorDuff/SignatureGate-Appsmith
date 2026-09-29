@@ -1,0 +1,49 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 100,
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onOptionChange"
+    }
+  ],
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Member' }}",
+  "labelPosition": "Top",
+  "labelText": "Agreement type",
+  "optionLabel": "display_name",
+  "optionValue": "type_key",
+  "placeholderText": "Select agreement type",
+  "sourceData": "{{ qAgreementTypesList.data || [] }}",
+  "onOptionChange": "{{ qAgreementTemplatesByType.run(); }}",
+  "leftColumn": 0,
+  "rightColumn": 30,
+  "topRow": 93,
+  "parentId": "0",
+  "parentColumnSpace": 10.25,
+  "parentRowSpace": 10,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-agreement-type",
+  "widgetName": "selAgreementType"
+}

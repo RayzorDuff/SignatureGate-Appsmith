@@ -1,0 +1,43 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 118,
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Member' }}",
+  "labelPosition": "Top",
+  "labelText": "Spiritual Practitioner",
+  "optionLabel": "label",
+  "optionValue": "value",
+  "placeholderText": "Select practitioner",
+  "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.member_id })) }}",
+  "leftColumn": 0,
+  "rightColumn": 64,
+  "topRow": 111,
+  "parentId": "0",
+  "parentColumnSpace": 10.25,
+  "parentRowSpace": 10,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-practitioner",
+  "widgetName": "selIntakePractitioner"
+}
