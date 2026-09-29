@@ -26,7 +26,7 @@
   "isDisabled": "{{! appsmith.store.facilitator_is_reviewer }}",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": true,
+  "isVisible": false,
   "key": "9h654oyjya",
   "label": "Member is a Facilitator",
   "labelPosition": "Right",
