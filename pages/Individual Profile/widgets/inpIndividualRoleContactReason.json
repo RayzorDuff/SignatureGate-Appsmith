@@ -37,7 +37,7 @@
   "isRequired": true,
   "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id) }}",
   "key": "1893bc63db",
-  "label": "Reason for change",
+  "label": "Reason for action (required for archive and verify)",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
