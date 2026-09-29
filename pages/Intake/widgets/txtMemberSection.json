@@ -4,7 +4,7 @@
   "fontStyle": "BOLD",
   "text": "Member enrollment",
   "textColor": "#231F20",
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' && selIntakeCapacity.selectedOptionValue === 'Member' }}",
+  "isVisible": "{{ chkIntakeMember.isChecked }}",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"

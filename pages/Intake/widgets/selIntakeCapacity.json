@@ -24,7 +24,7 @@
   "isFilterable": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "isVisible": false,
   "labelPosition": "Top",
   "labelText": "Enrollment (optional)",
   "optionLabel": "label",

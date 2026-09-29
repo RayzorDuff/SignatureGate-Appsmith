@@ -1,0 +1,32 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 58,
+  "defaultCheckedState": false,
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "label": "Enroll as Member",
+  "labelPosition": "Right",
+  "leftColumn": 0,
+  "rightColumn": 32,
+  "topRow": 51,
+  "parentId": "0",
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "widgetId": "intake-member",
+  "widgetName": "chkIntakeMember",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
+}
