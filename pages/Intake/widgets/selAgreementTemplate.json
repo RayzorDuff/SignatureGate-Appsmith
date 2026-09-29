@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 111,
+  "bottomRow": 102,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
@@ -10,6 +10,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
@@ -18,11 +21,14 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ chkIntakeMember.isChecked }}",
+  "isRequired": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Digital' }}",
   "isVisible": "{{ chkIntakeMember.isChecked }}",
   "labelPosition": "Top",
   "labelText": "Agreement template",
@@ -32,12 +38,13 @@
   "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
   "leftColumn": 33,
   "rightColumn": 64,
-  "topRow": 103,
+  "topRow": 95,
   "parentId": "0",
   "parentColumnSpace": 10.25,
   "parentRowSpace": 10,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-agreement-template",
-  "widgetName": "selAgreementTemplate"
+  "widgetName": "selAgreementTemplate",
+  "labelAlignment": "left"
 }
