@@ -29,7 +29,7 @@
     ],
     "name": "qIndividualPractitionerAssignments",
     "pageId": "Individual Profile",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": false
   }
 }
