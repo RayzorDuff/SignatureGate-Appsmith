@@ -4,7 +4,17 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 15,
   "defaultText": "",
-  "dynamicBindingPathList": [{"key":"isVisible"}],
+  "dynamicBindingPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "validation"
+    }
+  ],
   "isDisabled": false,
   "isLoading": false,
   "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'organization' }}",
@@ -22,5 +32,14 @@
   "validation": "{{ selIntakePartyKind.selectedOptionValue !== 'organization' || inpIntakeOrganizationName.text.trim().length > 0 }}",
   "version": 2,
   "widgetId": "issue19org",
-  "widgetName": "inpIntakeOrganizationName"
+  "widgetName": "inpIntakeOrganizationName",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": []
 }
