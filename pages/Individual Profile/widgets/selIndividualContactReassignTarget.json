@@ -6,16 +6,30 @@
   "boxShadow": "none",
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
-    {"key":"sourceData"},
-    {"key":"isVisible"},
-    {"key":"isDisabled"},
-    {"key":"borderRadius"}
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "borderRadius"
+    }
   ],
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
-    {"key":"sourceData"},
-    {"key":"isVisible"},
-    {"key":"isDisabled"}
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
   ],
   "dynamicTriggerPathList": [],
   "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' ? (qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' && qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) || !selIndividualRoleContactToArchive.selectedOptionValue }}",
@@ -50,7 +64,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "serverSideFiltering": false,
-  "sourceData": "{{ (qIndividualReassignTargets.data || []).map(p => ({ label: `${p.display_name || 'Unnamed individual'}${p.email ? ' (' + p.email + ')' : ''}`, value: p.person_id })) }}",
+  "sourceData": "{{ (qIndividualReassignTargets.data || []).filter(p => p.person_id !== String(qIndividualProfile.data?.[0]?.party_id || '') && (selIndividualContactCapacity.selectedOptionValue === 'member' ? (p.member_id && p.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' ? (p.contributor_id && p.contributor_status === 'active') : false))).map(p => ({ label: `${p.display_name || 'Unnamed individual'}${p.email ? ' (' + p.email + ')' : ''}`, value: p.person_id })) }}",
   "topRow": 200,
   "type": "SELECT_WIDGET",
   "version": 1,
