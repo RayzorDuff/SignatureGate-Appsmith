@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 121,
+  "bottomRow": 111,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
@@ -32,7 +32,7 @@
   "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.member_id })) }}",
   "leftColumn": 0,
   "rightColumn": 64,
-  "topRow": 113,
+  "topRow": 104,
   "parentId": "0",
   "parentColumnSpace": 10.25,
   "parentRowSpace": 10,

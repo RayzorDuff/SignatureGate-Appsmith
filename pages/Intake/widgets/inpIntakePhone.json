@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 46,
+  "bottomRow": 49,
   "defaultText": "",
   "dynamicHeight": "FIXED",
   "dynamicTriggerPathList": [],
@@ -12,14 +12,12 @@
   "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
   "label": "Phone",
-  "labelPosition": "Top",
-  "labelAlignment": "left",
   "leftColumn": 33,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
   "rightColumn": 64,
-  "topRow": 40,
+  "topRow": 42,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-phone",
@@ -33,5 +31,6 @@
     {
       "key": "isVisible"
     }
-  ]
+  ],
+  "labelPosition": "Top"
 }

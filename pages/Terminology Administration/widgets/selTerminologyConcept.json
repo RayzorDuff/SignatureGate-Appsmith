@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 43,
+  "bottomRow": 33,
   "boxShadow": "none",
   "defaultOptionValue": "{{ qTerminology.data?.[0]?.concept_key || '' }}",
   "dynamicBindingPathList": [
@@ -72,7 +72,7 @@
   "rightColumn": 32,
   "serverSideFiltering": false,
   "sourceData": "{{ (qTerminology.data || []).map(x => ({ label: x.concept_key + ' — ' + x.singular_label, value: x.concept_key })) }}",
-  "topRow": 33,
+  "topRow": 24,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "term-concept",

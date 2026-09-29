@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 97,
+  "bottomRow": 75,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -55,7 +55,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 28,
   "text": "Save terminology",
-  "topRow": 90,
+  "topRow": 68,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "term-save",

@@ -10,9 +10,6 @@
     },
     {
       "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
@@ -21,14 +18,11 @@
     },
     {
       "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
     }
   ],
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Digital' }}",
+  "isRequired": "{{ chkIntakeMember.isChecked }}",
   "isVisible": "{{ chkIntakeMember.isChecked }}",
   "labelPosition": "Top",
   "labelText": "Agreement template",
@@ -45,6 +39,5 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-agreement-template",
-  "widgetName": "selAgreementTemplate",
-  "labelAlignment": "left"
+  "widgetName": "selAgreementTemplate"
 }

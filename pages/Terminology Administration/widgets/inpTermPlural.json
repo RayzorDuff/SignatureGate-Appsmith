@@ -3,7 +3,7 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 57,
+  "bottomRow": 44,
   "boxShadow": "none",
   "defaultText": "{{ ((qTerminology.data || []).find(x => x.concept_key === selTerminologyConcept.selectedOptionValue) || {}).plural_label || '' }}",
   "dynamicBindingPathList": [
@@ -55,7 +55,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "showStepArrows": false,
-  "topRow": 46,
+  "topRow": 35,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "term-plural",

@@ -3,53 +3,30 @@
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 54,
-  "closeOnSelection": true,
-  "dateFormat": "LL",
-  "datePickerType": "DATE_PICKER",
-  "defaultDate": "",
-  "dynamicBindingPathList": [
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "minDate"
-    },
-    {
-      "key": "maxDate"
-    }
-  ],
-  "dynamicHeight": "FIXED",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "minDate"
-    },
-    {
-      "key": "maxDate"
-    }
-  ],
-  "firstDayOfWeek": 0,
+  "defaultText": "",
+  "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
   "label": "Date of birth (optional)",
   "labelPosition": "Top",
-  "labelAlignment": "left",
   "leftColumn": 33,
-  "maxDate": "{{ moment().format('YYYY-MM-DD') }}",
-  "minDate": "{{ moment().subtract(120, 'years').format('YYYY-MM-DD') }}",
-  "parentColumnSpace": 10.25,
-  "parentId": "0",
-  "parentRowSpace": 10,
   "rightColumn": 64,
-  "shortcuts": false,
-  "timePrecision": "None",
   "topRow": 48,
-  "type": "DATE_PICKER_WIDGET2",
+  "parentId": "0",
+  "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-birth-date",
-  "widgetName": "inpIntakeBirthDate"
+  "widgetName": "inpIntakeBirthDate",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }

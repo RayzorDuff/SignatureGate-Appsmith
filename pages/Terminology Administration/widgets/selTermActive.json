@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 71,
+  "bottomRow": 55,
   "boxShadow": "none",
   "defaultOptionValue": "{{ String(((qTerminology.data || []).find(x => x.concept_key === selTerminologyConcept.selectedOptionValue) || {}).is_active ?? true) }}",
   "dynamicBindingPathList": [
@@ -62,7 +62,7 @@
   "rightColumn": 64,
   "serverSideFiltering": false,
   "sourceData": "{{ [{label:'Active',value:'true'},{label:'Inactive',value:'false'}] }}",
-  "topRow": 60,
+  "topRow": 46,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "term-active",

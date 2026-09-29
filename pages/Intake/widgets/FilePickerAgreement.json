@@ -2,7 +2,7 @@
   "allowedFileTypes": "[\"application/pdf\",\".pdf\"]",
   "animateLoading": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 131,
+  "bottomRow": 120,
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "dynamicBindingPathList": [
     {
@@ -30,7 +30,7 @@
   "label": "Upload paper agreement",
   "leftColumn": 33,
   "rightColumn": 64,
-  "topRow": 123,
+  "topRow": 113,
   "parentId": "0",
   "type": "FILE_PICKER_WIDGET_V2",
   "version": 1,
