@@ -1,7 +1,7 @@
 {
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
-  "defaultOptionValue": "member",
+  "defaultOptionValue": "{{ selIntakePartyKind.selectedOptionValue === 'organization' ? 'contributor' : 'member' }}",
   "isDisabled": false,
   "isFilterable": false,
   "isLoading": false,
@@ -24,10 +24,16 @@
   "widgetName": "selIntakeCapacity",
   "dynamicBindingPathList": [
     {
+      "key": "defaultOptionValue"
+    },
+    {
       "key": "sourceData"
     }
   ],
   "dynamicPropertyPathList": [
+    {
+      "key": "defaultOptionValue"
+    },
     {
       "key": "sourceData"
     }
