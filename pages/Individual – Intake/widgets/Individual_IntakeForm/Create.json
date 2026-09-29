@@ -1,0 +1,34 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 41,
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": true,
+  "isDisabled": false,
+  "isLoading": false,
+  "isVisible": true,
+  "onClick": "{{ individualIntakeFlows.submit(); }}",
+  "parentColumnSpace": 10.25,
+  "parentId": "issue19canvas",
+  "parentRowSpace": 10,
+  "rightColumn": 30,
+  "renderMode": "CANVAS",
+  "text": "Create",
+  "topRow": 35,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "issue19create",
+  "widgetName": "Create",
+  "dynamicBindingPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
+}

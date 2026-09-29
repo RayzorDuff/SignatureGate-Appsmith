@@ -1,0 +1,45 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 15,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "validation"
+    }
+  ],
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' }}",
+  "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' }}",
+  "label": "First Name",
+  "leftColumn": 0,
+  "parentColumnSpace": 10.25,
+  "parentId": "issue19canvas",
+  "parentRowSpace": 10,
+  "rightColumn": 20,
+  "renderMode": "CANVAS",
+  "resetOnSubmit": true,
+  "topRow": 8,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{ selIntakePartyKind.selectedOptionValue !== 'individual' || inpIntakeFirstName.text.trim().length > 0 }}",
+  "version": 2,
+  "widgetId": "issue19first",
+  "widgetName": "inpIntakeFirstName",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": []
+}

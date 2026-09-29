@@ -1,0 +1,42 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "defaultOptionValue": "{{ selIntakePartyKind.selectedOptionValue === 'organization' ? 'contributor' : 'member' }}",
+  "isDisabled": false,
+  "isFilterable": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": true,
+  "labelPosition": "Auto",
+  "labelText": "Capacity",
+  "leftColumn": 32,
+  "parentColumnSpace": 10.25,
+  "parentId": "issue19canvas",
+  "parentRowSpace": 10,
+  "placeholderText": "Select capacity",
+  "renderMode": "CANVAS",
+  "rightColumn": 64,
+  "sourceData": "{{ selIntakePartyKind.selectedOptionValue === 'organization' ? [{label:'Contributor',value:'contributor'}] : (qIndividualIntakeAccess.data?.[0]?.can_both === true ? [{label:'Member',value:'member'},{label:'Contributor',value:'contributor'},{label:'Member + Contributor',value:'both'}] : [{label:'Member',value:'member'},{label:'Contributor',value:'contributor'}]) }}",
+  "topRow": 0,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "issue19capacity",
+  "widgetName": "selIntakeCapacity",
+  "dynamicBindingPathList": [
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": []
+}

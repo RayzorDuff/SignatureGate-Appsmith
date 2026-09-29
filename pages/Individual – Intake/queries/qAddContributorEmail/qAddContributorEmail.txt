@@ -1,0 +1,8 @@
+SELECT public.issue19_add_contributor_contact(
+  {{ appsmith.user.email }},
+  'individual',
+  {{ this.params.person_id }}::uuid,
+  'email',
+  {{ this.params.email }},
+  {{ this.params.reason }}
+) AS contact_id;
