@@ -1,7 +1,7 @@
 {
+  "allowFormatting": true,
   "animateLoading": true,
   "defaultDialCode": "+1",
-  "allowFormatting": true,
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
@@ -11,8 +11,8 @@
   "parentColumnSpace": 10.25,
   "parentId": "issue19canvas",
   "parentRowSpace": 10,
-  "rightColumn": 64,
   "renderMode": "CANVAS",
+  "rightColumn": 64,
   "topRow": 16,
   "type": "PHONE_INPUT_WIDGET",
   "version": 1,

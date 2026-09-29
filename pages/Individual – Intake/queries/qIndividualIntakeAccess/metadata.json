@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') AS can_member,\n  public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer') AS can_contributor,\n  (public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')\n   AND public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer')) AS can_both;",
+      "body": "SELECT\n  public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') AS can_member,\n  public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer') AS can_contributor,\n  public.issue19_has_role({{ appsmith.user.email }}, 'directory_manager') AS can_directory_manager,\n  (public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')\n   AND public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer')\n   AND public.issue19_has_role({{ appsmith.user.email }}, 'directory_manager')) AS can_both;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
