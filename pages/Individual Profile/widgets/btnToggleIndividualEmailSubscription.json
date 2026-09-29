@@ -6,9 +6,42 @@
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
-  "dynamicBindingPathList": [{"key":"isVisible"},{"key":"isDisabled"},{"key":"buttonColor"},{"key":"borderRadius"}],
-  "dynamicPropertyPathList": [{"key":"onClick"},{"key":"isVisible"},{"key":"isDisabled"}],
-  "dynamicTriggerPathList": [{"key":"onClick"}],
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' && selIndividualRoleContactToArchive.selectedOptionValue && (((qIndividualMembershipContacts.data || []).find(c => c.contact_id === selIndividualRoleContactToArchive.selectedOptionValue)?.contact_kind) === 'email')) }}",
   "isLoading": false,
@@ -31,7 +64,7 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 64,
-  "text": "Toggle mailing",
+  "text": "{{ (() => { const row=(qIndividualMembershipContacts.data || []).find(c=>c.contact_id===selIndividualRoleContactToArchive.selectedOptionValue); if (!row || row.contact_kind !== 'email') return 'Mailing subscription'; return row.mailing_subscription_status === 'subscribed' ? 'Unsubscribe (currently subscribed)' : 'Subscribe (currently unsubscribed)'; })() }}",
   "topRow": 212,
   "type": "BUTTON_WIDGET",
   "version": 1,
