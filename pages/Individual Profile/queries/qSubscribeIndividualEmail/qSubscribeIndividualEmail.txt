@@ -1,0 +1,13 @@
+SELECT *
+FROM public.member_email_request_mailing_subscribe(
+  {{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid,
+  {{ appsmith.user.email }}::text,
+  'signaturegate_interface'::text,
+  'Subscribed from Individual Profile'::text,
+  jsonb_build_object(
+    'page','Individual Profile',
+    'person_id',{{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid,
+    'contact_id',{{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid
+  )::jsonb,
+  true::boolean
+);
