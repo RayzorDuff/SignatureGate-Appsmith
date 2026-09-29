@@ -21,5 +21,16 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "issue19party",
-  "widgetName": "selIntakePartyKind"
+  "widgetName": "selIntakePartyKind",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": []
 }
