@@ -16,9 +16,6 @@
       "key": "sourceData"
     },
     {
-      "key": "isRequired"
-    },
-    {
       "key": "defaultOptionValue"
     },
     {
@@ -26,6 +23,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -34,10 +34,10 @@
       "key": "sourceData"
     },
     {
-      "key": "isRequired"
+      "key": "isDisabled"
     },
     {
-      "key": "isDisabled"
+      "key": "isRequired"
     }
   ],
   "dynamicTriggerPathList": [
@@ -48,7 +48,7 @@
   "isDisabled": "{{! (appsmith.store.facilitator_is_reviewer && inpCreateRelease.isChecked)\n}}",
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{inpCreateRelease.isChecked}}",
+  "isRequired": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') && inpCreateRelease.isChecked }}",
   "isVisible": "{{ selIntakePartyKind.selectedOptionValue === 'individual' && (selIntakeCapacity.selectedOptionValue === 'member' || selIntakeCapacity.selectedOptionValue === 'both') }}",
   "key": "tcvabvv6qz",
   "labelAlignment": "left",
