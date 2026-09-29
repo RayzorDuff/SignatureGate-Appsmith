@@ -19,5 +19,16 @@
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "issue19create",
-  "widgetName": "Create"
+  "widgetName": "Create",
+  "dynamicBindingPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
