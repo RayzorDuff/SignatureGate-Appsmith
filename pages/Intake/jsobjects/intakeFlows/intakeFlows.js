@@ -23,11 +23,14 @@ export default {
     }
 
     const email = (appsmith.user?.email || "").trim().toLowerCase();
-    const actorRows = await qCurrentFacilitator.run({ email });
-    const actor = Array.isArray(actorRows) ? actorRows[0] : null;
-    if (!actor?.member_id) {
-      showAlert("The current user is not an active facilitator.", "error");
-      return;
+    let actor = null;
+    if (member) {
+      const actorRows = await qCurrentFacilitator.run({ email });
+      actor = Array.isArray(actorRows) ? actorRows[0] : null;
+      if (!actor?.member_id) {
+        showAlert("The current user is not an active facilitator.", "error");
+        return;
+      }
     }
 
     const rolesRows = await qIntakeActorRoles.run({ email });
