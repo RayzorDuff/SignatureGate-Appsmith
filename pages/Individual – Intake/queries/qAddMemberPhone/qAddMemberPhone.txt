@@ -1,7 +1,0 @@
-SELECT * FROM public.issue19_add_membership_contact(
-  {{ appsmith.user.email }},
-  {{ this.params.member_id }}::uuid,
-  'phone',
-  {{ this.params.phone }},
-  {{ this.params.reason }}
-);
