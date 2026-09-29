@@ -2,24 +2,8 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 70,
+  "bottomRow": 53,
   "defaultText": "",
-  "inputType": "TEXT",
-  "isDisabled": false,
-  "isLoading": false,
-  "isRequired": true,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
-  "label": "Mailing address",
-  "leftColumn": 0,
-  "rightColumn": 64,
-  "topRow": 63,
-  "parentId": "0",
-  "parentColumnSpace": 10.25,
-  "parentRowSpace": 10,
-  "type": "INPUT_WIDGET_V2",
-  "version": 2,
-  "widgetId": "intake-address",
-  "widgetName": "inpIntakeAddress",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -29,5 +13,23 @@
     {
       "key": "isVisible"
     }
-  ]
+  ],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "label": "Mailing address",
+  "leftColumn": 0,
+  "originalBottomRow": 53,
+  "originalTopRow": 47,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "rightColumn": 64,
+  "topRow": 47,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-address",
+  "widgetName": "inpIntakeAddress"
 }

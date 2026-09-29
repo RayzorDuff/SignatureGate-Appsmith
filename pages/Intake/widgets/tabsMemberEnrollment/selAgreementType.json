@@ -2,22 +2,16 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 102,
+  "bottomRow": 12,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicTriggerPathList": [
@@ -28,20 +22,22 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": "{{ chkIntakeMember.isChecked }}",
-  "isVisible": "{{ chkIntakeMember.isChecked }}",
+  "isVisible": true,
   "labelPosition": "Top",
   "labelText": "Agreement type",
+  "leftColumn": 0,
+  "onOptionChange": "{{ qAgreementTemplatesByType.run(); }}",
   "optionLabel": "display_name",
   "optionValue": "type_key",
-  "placeholderText": "Select agreement type",
-  "sourceData": "{{ qAgreementTypesList.data || [] }}",
-  "onOptionChange": "{{ qAgreementTemplatesByType.run(); }}",
-  "leftColumn": 0,
-  "rightColumn": 31,
-  "topRow": 95,
-  "parentId": "0",
+  "originalBottomRow": 158,
+  "originalTopRow": 151,
   "parentColumnSpace": 10.25,
+  "parentId": "2mq85c27oi",
   "parentRowSpace": 10,
+  "placeholderText": "Select agreement type",
+  "rightColumn": 31,
+  "sourceData": "{{ qAgreementTypesList.data || [] }}",
+  "topRow": 5,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-agreement-type",

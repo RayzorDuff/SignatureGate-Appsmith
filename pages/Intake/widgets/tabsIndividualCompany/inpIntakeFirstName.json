@@ -2,35 +2,36 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 49,
+  "bottomRow": 10,
   "defaultText": "",
-  "dynamicHeight": "FIXED",
-  "dynamicTriggerPathList": [],
-  "inputType": "EMAIL",
-  "isDisabled": false,
-  "isLoading": false,
-  "isRequired": true,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
-  "label": "Email",
-  "leftColumn": 0,
-  "parentColumnSpace": 10.25,
-  "parentId": "0",
-  "parentRowSpace": 10,
-  "rightColumn": 31,
-  "topRow": 42,
-  "type": "INPUT_WIDGET_V2",
-  "version": 2,
-  "widgetId": "intake-email",
-  "widgetName": "inpIntakeEmail",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
     }
   ],
+  "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
       "key": "isVisible"
     }
   ],
-  "labelPosition": "Top"
+  "dynamicTriggerPathList": [],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "label": "First name",
+  "leftColumn": 0,
+  "originalBottomRow": 65,
+  "originalTopRow": 59,
+  "parentColumnSpace": 10.25,
+  "parentId": "1tzudli4lz",
+  "parentRowSpace": 10,
+  "rightColumn": 31,
+  "topRow": 4,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-first-name",
+  "widgetName": "inpIntakeFirstName"
 }

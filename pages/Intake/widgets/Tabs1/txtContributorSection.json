@@ -1,0 +1,22 @@
+{
+  "bottomRow": 4,
+  "dynamicBindingPathList": [],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1.125rem",
+  "fontStyle": "BOLD",
+  "isVisible": true,
+  "leftColumn": 0,
+  "originalBottomRow": 144,
+  "originalTopRow": 139,
+  "parentId": "gb0jk02tsa",
+  "rightColumn": 64,
+  "text": "Contributor enrollment",
+  "textColor": "#231F20",
+  "topRow": 0,
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-contributor-section",
+  "widgetName": "txtContributorSection"
+}

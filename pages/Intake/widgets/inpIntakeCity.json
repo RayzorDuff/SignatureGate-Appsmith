@@ -2,24 +2,8 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 78,
+  "bottomRow": 59,
   "defaultText": "",
-  "inputType": "TEXT",
-  "isDisabled": false,
-  "isLoading": false,
-  "isRequired": true,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
-  "label": "City",
-  "leftColumn": 0,
-  "rightColumn": 31,
-  "topRow": 72,
-  "parentId": "0",
-  "parentColumnSpace": 10.25,
-  "parentRowSpace": 10,
-  "type": "INPUT_WIDGET_V2",
-  "version": 2,
-  "widgetId": "intake-city",
-  "widgetName": "inpIntakeCity",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -29,5 +13,23 @@
     {
       "key": "isVisible"
     }
-  ]
+  ],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "label": "City",
+  "leftColumn": 0,
+  "originalBottomRow": 59,
+  "originalTopRow": 53,
+  "parentColumnSpace": 10.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "rightColumn": 31,
+  "topRow": 53,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-city",
+  "widgetName": "inpIntakeCity"
 }

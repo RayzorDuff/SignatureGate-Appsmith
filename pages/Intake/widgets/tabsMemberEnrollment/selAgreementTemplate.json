@@ -2,40 +2,37 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 102,
+  "bottomRow": 12,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
     }
   ],
+  "dynamicTriggerPathList": [],
   "isFilterable": true,
   "isLoading": false,
   "isRequired": "{{ chkIntakeMember.isChecked }}",
-  "isVisible": "{{ chkIntakeMember.isChecked }}",
+  "isVisible": true,
   "labelPosition": "Top",
   "labelText": "Agreement template",
+  "leftColumn": 34,
   "optionLabel": "display_label",
   "optionValue": "agreement_template_id",
-  "placeholderText": "Select agreement template",
-  "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
-  "leftColumn": 33,
-  "rightColumn": 64,
-  "topRow": 95,
-  "parentId": "0",
+  "originalBottomRow": 158,
+  "originalTopRow": 151,
   "parentColumnSpace": 10.25,
+  "parentId": "2mq85c27oi",
   "parentRowSpace": 10,
+  "placeholderText": "Select agreement template",
+  "rightColumn": 64,
+  "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
+  "topRow": 5,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-agreement-template",

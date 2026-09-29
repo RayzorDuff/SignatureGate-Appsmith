@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 22,
+  "bottomRow": 17,
   "defaultOptionValue": "Individual",
   "dynamicBindingPathList": [
     {
@@ -37,6 +37,8 @@
   "mobileTopRow": 0,
   "optionLabel": "label",
   "optionValue": "value",
+  "originalBottomRow": 22,
+  "originalTopRow": 16,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -46,7 +48,7 @@
   "rightColumn": 32,
   "serverSideFiltering": false,
   "sourceData": "{{ [{ label: 'Individual', value: 'Individual' }, { label: 'Company', value: 'Company' }] }}",
-  "topRow": 16,
+  "topRow": 10,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-entity-type",

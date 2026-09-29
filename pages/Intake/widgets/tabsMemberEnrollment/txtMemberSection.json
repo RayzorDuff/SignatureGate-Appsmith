@@ -1,0 +1,22 @@
+{
+  "bottomRow": 5,
+  "dynamicBindingPathList": [],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1.125rem",
+  "fontStyle": "BOLD",
+  "isVisible": true,
+  "leftColumn": 0,
+  "originalBottomRow": 139,
+  "originalTopRow": 134,
+  "parentId": "2mq85c27oi",
+  "rightColumn": 63,
+  "text": "Member enrollment",
+  "textColor": "#231F20",
+  "topRow": 0,
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-member-section",
+  "widgetName": "txtMemberSection"
+}

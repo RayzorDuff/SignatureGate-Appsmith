@@ -2,34 +2,37 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 38,
+  "bottomRow": 17,
   "defaultText": "",
-  "dynamicHeight": "FIXED",
-  "dynamicTriggerPathList": [],
-  "inputType": "TEXT",
-  "isDisabled": false,
-  "isLoading": false,
-  "isRequired": true,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
-  "label": "First name",
-  "leftColumn": 0,
-  "parentColumnSpace": 10.25,
-  "parentId": "0",
-  "parentRowSpace": 10,
-  "rightColumn": 31,
-  "topRow": 32,
-  "type": "INPUT_WIDGET_V2",
-  "version": 2,
-  "widgetId": "intake-first-name",
-  "widgetName": "inpIntakeFirstName",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
     }
   ],
+  "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
       "key": "isVisible"
     }
-  ]
+  ],
+  "dynamicTriggerPathList": [],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "label": "Phone",
+  "labelPosition": "Top",
+  "leftColumn": 33,
+  "originalBottomRow": 77,
+  "originalTopRow": 70,
+  "parentColumnSpace": 10.25,
+  "parentId": "1tzudli4lz",
+  "parentRowSpace": 10,
+  "rightColumn": 64,
+  "topRow": 10,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-phone",
+  "widgetName": "inpIntakePhone"
 }

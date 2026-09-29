@@ -2,40 +2,37 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 111,
+  "bottomRow": 19,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
     }
   ],
+  "dynamicTriggerPathList": [],
   "isFilterable": true,
   "isLoading": false,
   "isRequired": "{{ chkIntakeMember.isChecked }}",
-  "isVisible": "{{ chkIntakeMember.isChecked }}",
+  "isVisible": true,
   "labelPosition": "Top",
   "labelText": "Spiritual Practitioner",
+  "leftColumn": 0,
   "optionLabel": "label",
   "optionValue": "value",
-  "placeholderText": "Select practitioner",
-  "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.member_id })) }}",
-  "leftColumn": 0,
-  "rightColumn": 64,
-  "topRow": 104,
-  "parentId": "0",
+  "originalBottomRow": 167,
+  "originalTopRow": 160,
   "parentColumnSpace": 10.25,
+  "parentId": "2mq85c27oi",
   "parentRowSpace": 10,
+  "placeholderText": "Select practitioner",
+  "rightColumn": 64,
+  "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.member_id })) }}",
+  "topRow": 12,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-practitioner",

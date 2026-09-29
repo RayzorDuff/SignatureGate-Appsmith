@@ -1,5 +1,5 @@
 {
-  "bottomRow": 47,
+  "bottomRow": 5,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -13,17 +13,17 @@
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1.125rem",
   "fontStyle": "BOLD",
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "leftColumn": 0,
-  "originalBottomRow": 47,
-  "originalTopRow": 43,
-  "parentId": "0",
+  "originalBottomRow": 65,
+  "originalTopRow": 60,
+  "parentId": "kzty0i0elx",
   "rightColumn": 64,
-  "text": "Contact and mailing address",
+  "text": "Company information",
   "textColor": "#231F20",
-  "topRow": 43,
+  "topRow": 0,
   "type": "TEXT_WIDGET",
   "version": 1,
-  "widgetId": "intake-contact-section",
-  "widgetName": "txtContactSection"
+  "widgetId": "intake-company-section",
+  "widgetName": "txtCompanySection"
 }

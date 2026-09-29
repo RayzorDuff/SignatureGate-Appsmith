@@ -3,30 +3,25 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 86,
+  "bottomRow": 22,
   "defaultCheckedState": false,
+  "dynamicBindingPathList": [],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "isVisible": true,
   "label": "Enroll as Contributor",
   "labelPosition": "Right",
-  "leftColumn": 32,
-  "rightColumn": 64,
-  "topRow": 80,
-  "parentId": "0",
+  "leftColumn": 12,
+  "originalBottomRow": 65,
+  "originalTopRow": 59,
+  "parentId": "1tzudli4lz",
+  "rightColumn": 26,
+  "topRow": 18,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "intake-contributor",
-  "widgetName": "chkIntakeContributor",
-  "dynamicBindingPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ]
+  "widgetName": "chkIntakeContributor"
 }

@@ -2,34 +2,41 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 59,
+  "bottomRow": 12,
   "defaultText": "",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
-  "isRequired": true,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
-  "label": "ZIP / Postal code",
-  "leftColumn": 50,
-  "originalBottomRow": 59,
-  "originalTopRow": 53,
+  "isRequired": "{{ chkIntakeContributor.isChecked }}",
+  "isVisible": "{{ chkIntakeContributor.isChecked }}",
+  "label": "Contributor enrollment reason",
+  "labelPosition": "Top",
+  "leftColumn": 0,
+  "originalBottomRow": 151,
+  "originalTopRow": 144,
   "parentColumnSpace": 10.25,
-  "parentId": "0",
+  "parentId": "gb0jk02tsa",
   "parentRowSpace": 10,
   "rightColumn": 64,
-  "topRow": 53,
+  "topRow": 5,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
-  "widgetId": "intake-postal-code",
-  "widgetName": "inpIntakePostalCode"
+  "widgetId": "intake-contributor-reason",
+  "widgetName": "inpContributorReason"
 }

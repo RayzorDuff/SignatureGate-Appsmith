@@ -2,9 +2,19 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 40,
+  "bottomRow": 12,
   "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
   "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
@@ -12,23 +22,15 @@
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "label": "Company name",
   "leftColumn": 0,
+  "originalBottomRow": 72,
+  "originalTopRow": 65,
   "parentColumnSpace": 10.25,
-  "parentId": "0",
+  "parentId": "kzty0i0elx",
   "parentRowSpace": 10,
   "rightColumn": 64,
-  "topRow": 33,
+  "topRow": 5,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-company-name",
-  "widgetName": "inpIntakeCompanyName",
-  "dynamicBindingPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ]
+  "widgetName": "inpIntakeCompanyName"
 }

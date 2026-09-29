@@ -1,0 +1,43 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 26,
+  "defaultOptionValue": "Digital",
+  "dynamicBindingPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isFilterable": false,
+  "isLoading": false,
+  "isRequired": "{{ chkIntakeMember.isChecked }}",
+  "isVisible": true,
+  "labelPosition": "Top",
+  "labelText": "Agreement delivery",
+  "leftColumn": 0,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 176,
+  "originalTopRow": 169,
+  "parentId": "2mq85c27oi",
+  "rightColumn": 34,
+  "sourceData": "{{ [{ label: 'Digital agreement', value: 'Digital' }, { label: 'Paper agreement upload', value: 'Paper' }] }}",
+  "topRow": 19,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-agreement-delivery",
+  "widgetName": "selAgreementDelivery"
+}
