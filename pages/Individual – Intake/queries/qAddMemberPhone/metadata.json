@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "{{body}}",
+      "body": "SELECT * FROM public.issue19_add_membership_contact(\n  {{ appsmith.user.email }},\n  {{ this.params.member_id }}::uuid,\n  'phone',\n  {{ this.params.phone }},\n  {{ this.params.reason }}\n);",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
