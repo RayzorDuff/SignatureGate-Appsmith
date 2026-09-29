@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "issue19-native-intake-js",
+  "id": "Individual – Intake_individualIntakeFlows",
+  "unpublishedCollection": {
+    "name": "individualIntakeFlows",
+    "pageId": "Individual – Intake",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}
