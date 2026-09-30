@@ -268,4 +268,22 @@ export default {
     );
     return {memberId, contributorId, agreementResult, triggerResult};
   }
+
+  reset() {
+    const widgets = [
+      "inpIntakeFirstName", "inpIntakeLastName", "inpIntakeEmail", "inpIntakePhone",
+      "inpIntakeCompanyName", "dateIntakeBirthDate", "inpIntakeAddress", "inpIntakeCity",
+      "inpIntakeState", "inpIntakePostalCode", "inpContributorReason", "selAgreementType",
+      "selAgreementTemplate", "selAgreementDelivery", "selIntakePractitioner", "inpIntakeAddress"
+    ];
+    for (const name of widgets) {
+      try { resetWidget(name, true); } catch (e) { console.log("Intake reset failed for " + name, e); }
+    }
+    try { resetWidget("chkIntakeMember", true); } catch (e) {}
+    try { resetWidget("chkIntakeContributor", true); } catch (e) {}
+    try { resetWidget("chkCompanyContributor", true); } catch (e) {}
+    try { resetWidget("FilePickerAgreement", true); } catch (e) {}
+    try { resetWidget("selIntakeEntityType", true); } catch (e) {}
+    showAlert("Intake form reset.", "info");
+  }
 };
