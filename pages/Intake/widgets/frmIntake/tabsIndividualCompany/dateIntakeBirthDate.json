@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 24,
+  "bottomRow": 17,
   "boxShadow": "none",
   "closeOnSelection": true,
   "dateFormat": "LL",
@@ -42,6 +42,7 @@
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelTextSize": "0.875rem",
+  "labelTooltip": "Date of Birth is optional. Please ensure the member is 21 years old.",
   "labelWidth": 5,
   "leftColumn": 33,
   "maxDate": "{{ moment().subtract(21, 'years').format('YYYY-MM-DD') }}",
@@ -62,10 +63,9 @@
   "rightColumn": 64,
   "shortcuts": false,
   "timePrecision": "minute",
-  "topRow": 17,
+  "topRow": 10,
   "type": "DATE_PICKER_WIDGET2",
   "version": 2,
   "widgetId": "fptzkkuu5l",
-  "widgetName": "dateIntakeBirthDate",
-  "labelTooltip": "Date of Birth is optional. Please ensure the member is 21 years old."
+  "widgetName": "dateIntakeBirthDate"
 }

@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 65,
+  "bottomRow": 53,
   "defaultText": "",
   "dynamicBindingPathList": [
     {
@@ -23,18 +23,19 @@
   "isLoading": false,
   "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
-  "label": "ZIP / Postal code",
-  "leftColumn": 50,
-  "originalBottomRow": 65,
-  "originalTopRow": 59,
+  "label": "Mailing address",
+  "leftColumn": 0,
+  "originalBottomRow": 53,
+  "originalTopRow": 47,
   "parentColumnSpace": 10.25,
-  "parentId": "0",
+  "parentId": "mqyh9qp9p6",
   "parentRowSpace": 10,
   "rightColumn": 64,
-  "topRow": 59,
+  "tooltip": "Mailing address is one of three contact methods. At least two of email, phone, and a complete mailing address are required.",
+  "topRow": 47,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{ !inpIntakePostalCode.text || (inpIntakeAddress.text && inpIntakeCity.text && inpIntakeState.text) }}",
+  "validation": "{{ !inpIntakeAddress.text || (inpIntakeCity.text && inpIntakeState.text && inpIntakePostalCode.text) }}",
   "version": 2,
-  "widgetId": "intake-postal-code",
-  "widgetName": "inpIntakePostalCode"
+  "widgetId": "intake-address",
+  "widgetName": "inpIntakeAddress"
 }

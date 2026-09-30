@@ -1,18 +1,18 @@
 {
-  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "backgroundColor": "#FFFFFF",
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "borderWidth": 1,
-  "bottomRow": 103,
+  "borderWidth": "1",
+  "bottomRow": 112,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "children": [
     {
       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-      "bottomRow": 150,
+      "bottomRow": 1120,
       "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
-      "canExtend": true,
+      "canExtend": false,
+      "containerStyle": "none",
       "detachFromLayout": true,
       "dynamicBindingPathList": [
         {
@@ -23,97 +23,68 @@
         }
       ],
       "dynamicHeight": "AUTO_HEIGHT",
-      "dynamicTriggerPathList": [],
       "flexLayers": [],
-      "isDisabled": false,
       "isLoading": false,
       "isVisible": true,
-      "key": "t7anzsdix9",
+      "key": "0a6lilbwdc",
       "leftColumn": 0,
       "maxDynamicHeight": 9000,
       "minDynamicHeight": 4,
-      "minHeight": 150,
+      "minHeight": 400,
       "minWidth": 450,
-      "mobileBottomRow": 150,
+      "mobileBottomRow": 400,
       "mobileLeftColumn": 0,
-      "mobileRightColumn": 227,
+      "mobileRightColumn": 297.9375,
       "mobileTopRow": 0,
       "needsErrorInfo": false,
       "parentColumnSpace": 1,
-      "parentId": "mdpityzu7l",
+      "parentId": "d5tkf4v44y",
       "parentRowSpace": 1,
       "renderMode": "CANVAS",
       "responsiveBehavior": "fill",
-      "rightColumn": 227,
-      "shouldScrollContents": false,
-      "tabId": "tab1",
-      "tabName": "Contributor Enrollment",
+      "rightColumn": 297.9375,
       "topRow": 0,
       "type": "CANVAS_WIDGET",
       "version": 1,
-      "widgetId": "gb0jk02tsa",
-      "widgetName": "Canvas5"
+      "widgetId": "mqyh9qp9p6",
+      "widgetName": "Canvas6"
     }
   ],
-  "defaultTab": "Contributor Enrollment",
   "dynamicBindingPathList": [
-    {
-      "key": "accentColor"
-    },
     {
       "key": "borderRadius"
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "dynamicTriggerPathList": [],
   "flexVerticalAlignment": "stretch",
   "isCanvas": true,
   "isLoading": false,
-  "isVisible": "{{ (selIntakeEntityType.selectedOptionValue === 'Individual' && chkIntakeContributor.isChecked) || (selIntakeEntityType.selectedOptionValue === 'Company' && chkCompanyContributor.isChecked) }}",
-  "key": "5lddd6da6g",
+  "isVisible": true,
+  "key": "6xrhpls483",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
-  "minDynamicHeight": 15,
+  "minDynamicHeight": 10,
   "minWidth": 450,
-  "mobileBottomRow": 119,
+  "mobileBottomRow": 49,
   "mobileLeftColumn": 0,
-  "mobileRightColumn": 16,
-  "mobileTopRow": 104,
+  "mobileRightColumn": 21,
+  "mobileTopRow": 9,
   "needsErrorInfo": false,
-  "originalBottomRow": 103,
-  "originalTopRow": 88,
+  "originalBottomRow": 111,
+  "originalTopRow": 0,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
+  "positioning": "fixed",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldScrollContents": true,
-  "shouldShowTabs": false,
-  "tabsObj": {
-    "tab1": {
-      "id": "tab1",
-      "index": 0,
-      "isVisible": true,
-      "label": "Contributor Enrollment",
-      "positioning": "vertical",
-      "widgetId": "gb0jk02tsa"
-    }
-  },
-  "topRow": 88,
-  "type": "TABS_WIDGET",
-  "version": 3,
-  "widgetId": "mdpityzu7l",
-  "widgetName": "tabsContributorEnrollment"
+  "topRow": 0,
+  "type": "FORM_WIDGET",
+  "widgetId": "d5tkf4v44y",
+  "widgetName": "frmIntake"
 }

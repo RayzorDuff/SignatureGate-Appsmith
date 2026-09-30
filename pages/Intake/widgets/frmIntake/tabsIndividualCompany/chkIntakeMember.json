@@ -3,7 +3,7 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 22,
+  "bottomRow": 14,
   "defaultCheckedState": false,
   "dynamicBindingPathList": [
     {
@@ -26,7 +26,7 @@
   "originalTopRow": 59,
   "parentId": "1tzudli4lz",
   "rightColumn": 12,
-  "topRow": 18,
+  "topRow": 10,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "intake-member",

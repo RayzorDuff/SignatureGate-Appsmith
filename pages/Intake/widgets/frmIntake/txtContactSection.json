@@ -1,5 +1,5 @@
 {
-  "bottomRow": 47,
+  "bottomRow": 40,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -10,18 +10,19 @@
       "key": "isVisible"
     }
   ],
+  "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1.125rem",
   "fontStyle": "BOLD",
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "leftColumn": 0,
-  "originalBottomRow": 47,
-  "originalTopRow": 43,
-  "parentId": "0",
+  "originalBottomRow": 40,
+  "originalTopRow": 35,
+  "parentId": "mqyh9qp9p6",
   "rightColumn": 64,
   "text": "Contact information — at least 2 of 3 required: email, phone, or mailing address",
   "textColor": "#231F20",
-  "topRow": 43,
+  "topRow": 35,
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "intake-contact-section",

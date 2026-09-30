@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 10,
+  "bottomRow": 9,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -24,11 +24,11 @@
   "mobileRightColumn": 13,
   "mobileTopRow": 0,
   "needsErrorInfo": false,
-  "originalBottomRow": 10,
-  "originalTopRow": 5,
+  "originalBottomRow": 9,
+  "originalTopRow": 4,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
-  "parentId": "0",
+  "parentId": "mqyh9qp9p6",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
@@ -37,7 +37,7 @@
   "text": "Create or intake an individual or company. Additional workflow appears based on the capacity and relationship being established.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 5,
+  "topRow": 4,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
