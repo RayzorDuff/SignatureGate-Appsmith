@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT public.issue19_assign_member_practitioner({{ appsmith.user.email }},(SELECT person_id FROM public.members WHERE member_id={{ this.params.member_id }}::uuid),{{ this.params.practitioner_person_id }}::uuid,{{ this.params.notes || null }},{{ this.params.reason }});",
+      "body": "SELECT public.issue19_assign_member_practitioner(\n  {{ appsmith.user.email }},\n  (SELECT person_id FROM public.members WHERE member_id={{ this.params.member_id }}::uuid),\n  (SELECT person_id FROM public.members WHERE member_id={{ this.params.practitioner_member_id }}::uuid),\n  {{ this.params.notes || null }},\n  {{ this.params.reason }}\n);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
