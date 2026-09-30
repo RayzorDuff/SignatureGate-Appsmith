@@ -17,7 +17,7 @@
   "dynamicTriggerPathList": [],
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ chkIntakeMember.isChecked }}",
+  "isRequired": "{{ chkIntakeMember.isChecked === true }}",
   "isVisible": true,
   "labelPosition": "Top",
   "labelText": "Spiritual Practitioner",
