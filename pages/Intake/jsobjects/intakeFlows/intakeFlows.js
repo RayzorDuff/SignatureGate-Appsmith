@@ -54,6 +54,26 @@ export default {
     const state = (inpIntakeState.text || "").trim();
     const postal = (inpIntakePostalCode.text || "").trim();
 
+    const addressParts = [address, city, state, postal];
+    const hasAnyAddress = addressParts.some(Boolean);
+    const hasCompleteAddress = addressParts.every(Boolean);
+    if (hasAnyAddress && !hasCompleteAddress) {
+      showAlert("If providing a mailing address, please provide street address, city, state, and ZIP / Postal code.", "warning");
+      return;
+    }
+
+    if (individual) {
+      const contactMethods = [
+        !!(inpIntakeEmail.text || "").trim(),
+        !!(inpIntakePhone.text || "").trim(),
+        hasCompleteAddress
+      ].filter(Boolean).length;
+      if (contactMethods < 2) {
+        showAlert("At least two contact methods are required: email, phone, or mailing address.", "warning");
+        return;
+      }
+    }
+
     const reason = contributor ? (inpContributorReason.text || "").trim() : "";
     if (contributor && !reason) {
       showAlert("Contributor enrollment reason is required.", "warning");
@@ -78,11 +98,6 @@ export default {
         showAlert("First and last name are required.", "warning");
         return;
       }
-      if (!individualEmail) {
-        showAlert("Email is required for an individual intake.", "warning");
-        return;
-      }
-
       if (member) {
         const dupRows = await qCheckMemberDuplicate.run({
           first_name: first, last_name: last, email: individualEmail,
