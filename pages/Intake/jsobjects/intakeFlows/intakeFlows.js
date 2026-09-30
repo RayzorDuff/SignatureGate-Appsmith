@@ -269,21 +269,34 @@ export default {
     return {memberId, contributorId, agreementResult, triggerResult};
   }
 
-  reset() {
+  async reset() {
     const widgets = [
-      "inpIntakeFirstName", "inpIntakeLastName", "inpIntakeEmail", "inpIntakePhone",
-      "inpIntakeCompanyName", "dateIntakeBirthDate", "inpIntakeAddress", "inpIntakeCity",
-      "inpIntakeState", "inpIntakePostalCode", "inpContributorReason", "selAgreementType",
-      "selAgreementTemplate", "selAgreementDelivery", "selIntakePractitioner", "inpIntakeAddress"
+      "inpIntakeFirstName",
+      "inpIntakeLastName",
+      "inpIntakeEmail",
+      "inpIntakePhone",
+      "inpIntakeCompanyName",
+      "dateIntakeBirthDate",
+      "inpIntakeAddress",
+      "inpIntakeCity",
+      "inpIntakeState",
+      "inpIntakePostalCode",
+      "inpContributorReason",
+      "selAgreementType",
+      "selAgreementTemplate",
+      "selAgreementDelivery",
+      "selIntakePractitioner",
+      "FilePickerAgreement",
+      "chkIntakeMember",
+      "chkIntakeContributor",
+      "chkCompanyContributor",
+      "selIntakeEntityType"
     ];
-    for (const name of widgets) {
-      try { resetWidget(name, true); } catch (e) { console.log("Intake reset failed for " + name, e); }
+
+    for (const widgetName of widgets) {
+      await resetWidget(widgetName, true);
     }
-    try { resetWidget("chkIntakeMember", true); } catch (e) {}
-    try { resetWidget("chkIntakeContributor", true); } catch (e) {}
-    try { resetWidget("chkCompanyContributor", true); } catch (e) {}
-    try { resetWidget("FilePickerAgreement", true); } catch (e) {}
-    try { resetWidget("selIntakeEntityType", true); } catch (e) {}
+
     showAlert("Intake form reset.", "info");
   }
 };
