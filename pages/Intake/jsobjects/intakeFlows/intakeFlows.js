@@ -80,6 +80,41 @@ export default {
       return;
     }
 
+    // Preflight every Member enrollment gate before creating the Member.
+    // This prevents a deterministic downstream validation failure from
+    // leaving a partially-created Member behind.
+    let delivery = null;
+    let practitionerMemberId = null;
+    let agreementType = null;
+    let agreementTemplate = null;
+    if (member) {
+      delivery = selAgreementDelivery.selectedOptionValue;
+      practitionerMemberId = selIntakePractitioner.selectedOptionValue;
+      agreementType = selAgreementType.selectedOptionValue;
+      agreementTemplate = selAgreementTemplate.selectedOptionValue;
+
+      if (!practitionerMemberId) {
+        showAlert("Spiritual Practitioner is required for member enrollment.", "warning");
+        return;
+      }
+      if (!delivery) {
+        showAlert("Agreement delivery is required for member enrollment.", "warning");
+        return;
+      }
+      if (delivery === "Digital" && (!agreementType || !agreementTemplate)) {
+        showAlert("Agreement Type and Agreement Template are required for a Digital Agreement.", "warning");
+        return;
+      }
+      if (delivery === "Digital" && !((inpIntakeEmail.text || "").trim())) {
+        showAlert("Email is required to send a Digital Agreement.", "warning");
+        return;
+      }
+      if (delivery === "Paper" && !(FilePickerAgreement.files || []).length) {
+        showAlert("Select a paper agreement file to upload.", "warning");
+        return;
+      }
+    }
+
     let memberId = null;
     let memberPersonId = null;
     let contributorId = null;
@@ -143,11 +178,6 @@ export default {
         const memberAddressId = addressResult?.[0]?.member_address_id ||
           addressResult?.[0]?.issue19_add_membership_address || null;
 
-        const practitionerMemberId = selIntakePractitioner.selectedOptionValue;
-        if (!practitionerMemberId) {
-          showAlert("Spiritual Practitioner is required for member enrollment.", "warning");
-          return;
-        }
         await qAssignMemberPractitioner.run({
           member_id: memberId,
           practitioner_member_id: practitionerMemberId,
@@ -216,24 +246,6 @@ export default {
     }
 
     if (member) {
-      const delivery = selAgreementDelivery.selectedOptionValue;
-      const practitionerMemberId = selIntakePractitioner.selectedOptionValue;
-      const agreementType = selAgreementType.selectedOptionValue;
-      const agreementTemplate = selAgreementTemplate.selectedOptionValue;
-
-      if (delivery === "Digital" && (!agreementType || !agreementTemplate)) {
-        showAlert("Agreement Type and Agreement Template are required for a Digital Agreement.", "warning");
-        return;
-      }
-      if (delivery === "Digital" && !inpIntakeEmail.text.trim()) {
-        showAlert("Email is required to send a Digital Agreement.", "warning");
-        return;
-      }
-      if (delivery === "Paper" && !(FilePickerAgreement.files || []).length) {
-        showAlert("Select a paper agreement file to upload.", "warning");
-        return;
-      }
-
       let evidence = "[]";
       if (delivery === "Paper") {
         const attachments = [];
