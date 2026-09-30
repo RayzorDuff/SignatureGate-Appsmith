@@ -66,5 +66,6 @@
   "type": "DATE_PICKER_WIDGET2",
   "version": 2,
   "widgetId": "fptzkkuu5l",
-  "widgetName": "dateIntakeBirthDate"
+  "widgetName": "dateIntakeBirthDate",
+  "labelTooltip": "Date of Birth is optional. Please ensure the member is 21 years old."
 }
