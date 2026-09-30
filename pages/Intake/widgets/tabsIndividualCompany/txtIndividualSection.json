@@ -1,19 +1,12 @@
 {
   "bottomRow": 4,
-  "dynamicBindingPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
+  "dynamicBindingPathList": [],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1.125rem",
   "fontStyle": "BOLD",
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "isVisible": true,
   "leftColumn": 0,
   "originalBottomRow": 54,
   "originalTopRow": 50,

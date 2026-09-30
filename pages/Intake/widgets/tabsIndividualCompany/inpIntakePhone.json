@@ -1,38 +1,59 @@
 {
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "allowDialCodeChange": false,
+  "allowFormatting": true,
   "animateLoading": true,
+  "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 17,
+  "boxShadow": "none",
+  "defaultDialCode": "+1",
   "defaultText": "",
   "dynamicBindingPathList": [
     {
-      "key": "isVisible"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
   "dynamicTriggerPathList": [],
-  "inputType": "TEXT",
+  "iconAlign": "left",
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "isVisible": true,
+  "key": "ak3gp05svi",
   "label": "Phone",
+  "labelAlignment": "left",
   "labelPosition": "Top",
+  "labelStyle": "",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
   "leftColumn": 33,
-  "originalBottomRow": 77,
-  "originalTopRow": 70,
-  "parentColumnSpace": 10.25,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 23,
+  "mobileLeftColumn": 33,
+  "mobileRightColumn": 53,
+  "mobileTopRow": 16,
+  "needsErrorInfo": false,
+  "parentColumnSpace": 13.875,
   "parentId": "1tzudli4lz",
   "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "resetOnSubmit": true,
+  "responsiveBehavior": "fill",
   "rightColumn": 64,
   "topRow": 10,
-  "type": "INPUT_WIDGET_V2",
-  "version": 2,
-  "widgetId": "intake-phone",
+  "type": "PHONE_INPUT_WIDGET",
+  "validation": "{{\n  !inpIntakePhone.text ||\n  /^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/.test(inpIntakePhone.text)\n}}",
+  "version": 1,
+  "widgetId": "6l9zjpeg2q",
   "widgetName": "inpIntakePhone"
 }

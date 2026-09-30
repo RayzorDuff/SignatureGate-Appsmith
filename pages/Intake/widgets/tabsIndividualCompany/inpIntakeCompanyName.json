@@ -4,22 +4,15 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 12,
   "defaultText": "",
-  "dynamicBindingPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
+  "dynamicBindingPathList": [],
   "dynamicHeight": "FIXED",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "isVisible": true,
   "label": "Company name",
   "leftColumn": 0,
   "originalBottomRow": 72,

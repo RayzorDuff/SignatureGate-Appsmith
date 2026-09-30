@@ -1,19 +1,12 @@
 {
   "bottomRow": 5,
-  "dynamicBindingPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
+  "dynamicBindingPathList": [],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1.125rem",
   "fontStyle": "BOLD",
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "isVisible": true,
   "leftColumn": 0,
   "originalBottomRow": 65,
   "originalTopRow": 60,

@@ -41,7 +41,7 @@
   "parentId": "2mq85c27oi",
   "parentRowSpace": 10,
   "placeholderText": "Select agreement type",
-  "rightColumn": 31,
+  "rightColumn": 20,
   "sourceData": "{{ qAgreementTypesList.data || [] }}",
   "topRow": 5,
   "type": "SELECT_WIDGET",
