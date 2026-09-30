@@ -201,7 +201,7 @@ export default {
       }
       const created = await qCreateContributor.run({
         party_kind: "organization", organization_name: companyName,
-        first_name: "", last_name: "", email: "", phone: "", reason
+        first_name: "", last_name: "",\n        email: (inpIntakeEmail.text || "").trim(),\n        phone: (inpIntakePhone.text || "").trim(), reason
       });
       contributorId = created?.[0]?.contributor_id;
       const organizationId = created?.[0]?.party_id;
