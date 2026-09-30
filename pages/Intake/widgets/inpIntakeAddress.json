@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 53,
+  "bottomRow": 51,
   "defaultText": "",
   "dynamicBindingPathList": [
     {
@@ -27,7 +27,7 @@
   "parentId": "0",
   "parentRowSpace": 10,
   "rightColumn": 64,
-  "topRow": 47,
+  "topRow": 45,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "intake-address",

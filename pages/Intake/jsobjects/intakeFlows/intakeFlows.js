@@ -1,5 +1,6 @@
 export default {
-  async auditLog(action, entity_type, entity_id, payload) {
+  
+	async auditLog(action, entity_type, entity_id, payload) {
     try {
       await qAuditLog.run({
         actor_email: (appsmith.user?.email || "").trim().toLowerCase(),
@@ -267,7 +268,7 @@ export default {
       "success"
     );
     return {memberId, contributorId, agreementResult, triggerResult};
-  }
+  },
 
   async reset() {
     const widgets = [

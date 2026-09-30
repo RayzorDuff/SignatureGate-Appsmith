@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": 1,
-  "bottomRow": 89,
+  "bottomRow": 101,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "children": [
     {
@@ -53,55 +53,9 @@
       "version": 1,
       "widgetId": "gb0jk02tsa",
       "widgetName": "Canvas5"
-    },
-    {
-      "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-      "bottomRow": 150,
-      "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
-      "canExtend": true,
-      "detachFromLayout": true,
-      "dynamicBindingPathList": [
-        {
-          "key": "borderRadius"
-        },
-        {
-          "key": "boxShadow"
-        }
-      ],
-      "dynamicHeight": "AUTO_HEIGHT",
-      "dynamicTriggerPathList": [],
-      "flexLayers": [],
-      "isDisabled": false,
-      "isLoading": false,
-      "isVisible": true,
-      "key": "t7anzsdix9",
-      "leftColumn": 0,
-      "maxDynamicHeight": 9000,
-      "minDynamicHeight": 4,
-      "minHeight": 150,
-      "minWidth": 450,
-      "mobileBottomRow": 150,
-      "mobileLeftColumn": 0,
-      "mobileRightColumn": 227,
-      "mobileTopRow": 0,
-      "needsErrorInfo": false,
-      "parentColumnSpace": 1,
-      "parentId": "mdpityzu7l",
-      "parentRowSpace": 1,
-      "renderMode": "CANVAS",
-      "responsiveBehavior": "fill",
-      "rightColumn": 227,
-      "shouldScrollContents": false,
-      "tabId": "tab2",
-      "tabName": "Blank",
-      "topRow": 0,
-      "type": "CANVAS_WIDGET",
-      "version": 1,
-      "widgetId": "s69wvga5mf",
-      "widgetName": "Canvas6"
     }
   ],
-  "defaultTab": "{{ chkIntakeContributor.isChecked ? \"Contributor Enrollment\" : \"Blank\" }}",
+  "defaultTab": "Contributor Enrollment",
   "dynamicBindingPathList": [
     {
       "key": "accentColor"
@@ -111,9 +65,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "defaultTab"
     },
     {
       "key": "isVisible"
@@ -158,17 +109,9 @@
       "label": "Contributor Enrollment",
       "positioning": "vertical",
       "widgetId": "gb0jk02tsa"
-    },
-    "tab2": {
-      "id": "tab2",
-      "index": 1,
-      "isVisible": true,
-      "label": "Blank",
-      "positioning": "vertical",
-      "widgetId": "s69wvga5mf"
     }
   },
-  "topRow": 74,
+  "topRow": 86,
   "type": "TABS_WIDGET",
   "version": 3,
   "widgetId": "mdpityzu7l",
