@@ -29,7 +29,7 @@
   "tooltip": "Email is one of three contact methods. At least two of email, phone, and mailing address are required. Email is required when sending a Digital Agreement.",
   "topRow": 40,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{\n  !inpIntakeEmail.text ||\n  /^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@(([0-9]{1,3}\\.){3}[0-9]{1,3}|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/.test(inpIntakeEmail.text)\n}}",
+  "validation": "{{ ([!!inpIntakeEmail.text.trim(), !!inpIntakePhone.text.trim(), !!(inpIntakeAddress.text.trim() && inpIntakeCity.text.trim() && inpIntakeState.text.trim() && inpIntakePostalCode.text.trim())].filter(Boolean).length >= 2) && (!inpIntakeEmail.text || /^(([^<>()[\\\\]\\\\\\\\.,;:\\\\s@\\\"]+(\\\\.[^<>()[\\\\]\\\\\\\\.,;:\\\\s@\\\"]+)*)|(\\\".+\\\"))@(([0-9]{1,3}\\\\.){3}[0-9]{1,3}|(([a-zA-Z\\\\-0-9]+\\\\.)+[a-zA-Z]{2,}))$/.test(inpIntakeEmail.text) }}",
   "version": 2,
   "widgetId": "intake-email",
   "widgetName": "inpIntakeEmail"
