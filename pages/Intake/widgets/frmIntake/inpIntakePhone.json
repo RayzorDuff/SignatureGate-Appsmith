@@ -55,7 +55,7 @@
   "tooltip": "Phone is one of three contact methods. At least two of email, phone, and mailing address are required.",
   "topRow": 40,
   "type": "PHONE_INPUT_WIDGET",
-  "validation": "{{\n  !inpIntakePhone.text ||\n  /^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/.test(inpIntakePhone.text)\n}}",
+  "validation": "{{ ([!!inpIntakeEmail.text.trim(), !!inpIntakePhone.text.trim(), !!(inpIntakeAddress.text.trim() && inpIntakeCity.text.trim() && inpIntakeState.text.trim() && inpIntakePostalCode.text.trim())].filter(Boolean).length >= 2) && (!inpIntakePhone.text || /^(\\\\+\\\\d{1,2}\\\\s)?\\\\(?\\\\d{3}\\\\)?[\\\\s.-]\\\\d{3}[\\\\s.-]\\\\d{4}$/.test(inpIntakePhone.text) }}",
   "version": 1,
   "widgetId": "6l9zjpeg2q",
   "widgetName": "inpIntakePhone"
