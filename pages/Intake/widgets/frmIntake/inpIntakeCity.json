@@ -33,7 +33,7 @@
   "rightColumn": 32,
   "topRow": 53,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{ !inpIntakeCity.text || (inpIntakeAddress.text && inpIntakeState.text && inpIntakePostalCode.text) }}",
+  "validation": "{{ ([!!inpIntakeEmail.text.trim(), !!inpIntakePhone.text.trim(), !!(inpIntakeAddress.text.trim() && inpIntakeCity.text.trim() && inpIntakeState.text.trim() && inpIntakePostalCode.text.trim())].filter(Boolean).length >= 2) && (!inpIntakeCity.text || (inpIntakeAddress.text && inpIntakeState.text && inpIntakePostalCode.text)) }}",
   "version": 2,
   "widgetId": "intake-city",
   "widgetName": "inpIntakeCity"
