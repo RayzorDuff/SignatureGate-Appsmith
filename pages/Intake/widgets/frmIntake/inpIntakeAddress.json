@@ -34,7 +34,7 @@
   "tooltip": "Mailing address is one of three contact methods. At least two of email, phone, and a complete mailing address are required.",
   "topRow": 47,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{ ([!!inpIntakeEmail.text.trim(), !!inpIntakePhone.text.trim(), !!(inpIntakeAddress.text.trim() && inpIntakeCity.text.trim() && inpIntakeState.text.trim() && inpIntakePostalCode.text.trim())].filter(Boolean).length >= 2) && (!inpIntakeAddress.text || (inpIntakeCity.text && inpIntakeState.text && inpIntakePostalCode.text)) }}",
+  "validation": "{{ !inpIntakeAddress.text || (inpIntakeCity.text && inpIntakeState.text && inpIntakePostalCode.text) }}",
   "version": 2,
   "widgetId": "intake-address",
   "widgetName": "inpIntakeAddress"

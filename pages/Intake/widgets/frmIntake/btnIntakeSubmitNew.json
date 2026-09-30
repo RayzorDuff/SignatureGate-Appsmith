@@ -5,18 +5,21 @@
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
-  "disabledWhenInvalid": true,
+  "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
     }
   ],
   "dynamicPropertyPathList": [
     {
-      "key": "onClick"
+      "key": "isDisabled"
     }
   ],
   "dynamicTriggerPathList": [
@@ -25,7 +28,7 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": "{{ (() => {\n  const individual = selIntakeEntityType.selectedOptionValue === \"Individual\";\n  const company = selIntakeEntityType.selectedOptionValue === \"Company\";\n  const member = individual && chkIntakeMember.isChecked;\n  const contributor = (individual && chkIntakeContributor.isChecked) ||\n    (company && chkCompanyContributor.isChecked);\n  const email = (inpIntakeEmail.text || \"\").trim();\n  const phone = (inpIntakePhone.text || \"\").trim();\n  const address = (inpIntakeAddress.text || \"\").trim();\n  const city = (inpIntakeCity.text || \"\").trim();\n  const state = (inpIntakeState.text || \"\").trim();\n  const postal = (inpIntakePostalCode.text || \"\").trim();\n  const hasAnyAddress = [address, city, state, postal].some(Boolean);\n  const hasCompleteAddress = [address, city, state, postal].every(Boolean);\n  const contactCount = [!!email, !!phone, hasCompleteAddress].filter(Boolean).length;\n  const addressValid = !hasAnyAddress || hasCompleteAddress;\n  const identityValid = individual\n    ? !!(inpIntakeFirstName.text || \"\").trim() && !!(inpIntakeLastName.text || \"\").trim()\n    : company\n      ? !!(inpIntakeCompanyName.text || \"\").trim()\n      : false;\n  const enrollmentValid = individual ? (member || contributor) : (company && contributor);\n  const contributorReasonValid = !contributor || !!(inpContributorReason.text || \"\").trim();\n  const memberSetupValid = !member || (\n    !!selIntakePractitioner.selectedOptionValue &&\n    !!selAgreementDelivery.selectedOptionValue &&\n    (selAgreementDelivery.selectedOptionValue !== \"Digital\" ||\n      (!!email && !!selAgreementType.selectedOptionValue && !!selAgreementTemplate.selectedOptionValue)) &&\n    (selAgreementDelivery.selectedOptionValue !== \"Paper\" ||\n      !!(FilePickerAgreement.files || []).length)\n  );\n  return !(\n    (individual || company) &&\n    identityValid &&\n    enrollmentValid &&\n    contactCount >= 2 &&\n    addressValid &&\n    inpIntakeEmail.isValid &&\n    inpIntakePhone.isValid &&\n    contributorReasonValid &&\n    memberSetupValid\n  );\n})() }}",
   "isLoading": false,
   "isVisible": true,
   "key": "nc7a08ja9p",
