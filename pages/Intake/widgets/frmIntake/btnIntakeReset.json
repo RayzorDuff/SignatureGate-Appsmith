@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 110,
+  "bottomRow": 109,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "SECONDARY",
@@ -49,7 +49,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 36,
   "text": "Reset Intake Form",
-  "topRow": 103,
+  "topRow": 102,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "intake-reset",

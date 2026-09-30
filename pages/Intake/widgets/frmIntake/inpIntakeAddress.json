@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 53,
+  "bottomRow": 52,
   "defaultText": "",
   "dynamicBindingPathList": [
     {
@@ -32,7 +32,7 @@
   "parentRowSpace": 10,
   "rightColumn": 64,
   "tooltip": "Mailing address is one of three contact methods. At least two of email, phone, and a complete mailing address are required.",
-  "topRow": 47,
+  "topRow": 46,
   "type": "INPUT_WIDGET_V2",
   "validation": "{{ !inpIntakeAddress.text || (inpIntakeCity.text && inpIntakeState.text && inpIntakePostalCode.text) }}",
   "version": 2,

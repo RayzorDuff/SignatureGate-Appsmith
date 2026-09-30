@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 47,
+  "bottomRow": 46,
   "defaultText": "",
   "dynamicBindingPathList": [
     {
@@ -34,7 +34,7 @@
   "parentRowSpace": 10,
   "rightColumn": 32,
   "tooltip": "Email is one of three contact methods. At least two of email, phone, and mailing address are required. Email is required when sending a Digital Agreement.",
-  "topRow": 40,
+  "topRow": 39,
   "type": "INPUT_WIDGET_V2",
   "validation": "{{ !inpIntakeEmail.text || (inpIntakeEmail.text.trim().includes('@') && inpIntakeEmail.text.trim().indexOf('@') > 0 && inpIntakeEmail.text.trim().lastIndexOf('@') === inpIntakeEmail.text.trim().indexOf('@') && inpIntakeEmail.text.trim().lastIndexOf('.') > inpIntakeEmail.text.trim().indexOf('@') + 1 && !inpIntakeEmail.text.includes(' ')) }}",
   "version": 2,

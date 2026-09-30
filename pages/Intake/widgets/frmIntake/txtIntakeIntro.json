@@ -1,13 +1,21 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 9,
+  "bottomRow": 8,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "text"
+    }
+  ],
   "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1rem",
@@ -42,10 +50,5 @@
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "intake-intro",
-  "widgetName": "txtIntakeIntro",
-  "dynamicPropertyPathList": [
-    {
-      "key": "text"
-    }
-  ]
+  "widgetName": "txtIntakeIntro"
 }

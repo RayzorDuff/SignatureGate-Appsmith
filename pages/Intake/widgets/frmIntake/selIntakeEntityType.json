@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 16,
+  "bottomRow": 15,
   "defaultOptionValue": "Individual",
   "dynamicBindingPathList": [
     {
@@ -48,7 +48,7 @@
   "rightColumn": 31,
   "serverSideFiltering": false,
   "sourceData": "{{ [{ label: 'Individual', value: 'Individual' }, { label: 'Company', value: 'Company' }] }}",
-  "topRow": 9,
+  "topRow": 8,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-entity-type",

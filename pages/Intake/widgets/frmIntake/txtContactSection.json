@@ -1,5 +1,5 @@
 {
-  "bottomRow": 40,
+  "bottomRow": 39,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -22,7 +22,7 @@
   "rightColumn": 64,
   "text": "Contact information — at least 2 of 3 required: email, phone, or mailing address",
   "textColor": "#231F20",
-  "topRow": 35,
+  "topRow": 34,
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "intake-contact-section",
