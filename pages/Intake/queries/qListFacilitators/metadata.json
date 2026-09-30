@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT person_id AS value, TRIM(CONCAT(COALESCE(first_name,''),' ',COALESCE(last_name,''))) AS label, member_id, first_name, last_name, email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status='active' AND EXISTS (SELECT 1 FROM public.person_roles r WHERE r.person_id=member_profiles.person_id AND r.role_key='practitioner') ORDER BY last_name,first_name;",
+      "body": "SELECT member_id,person_id,first_name,last_name,email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status='active' AND EXISTS (SELECT 1 FROM public.person_roles r WHERE r.person_id=member_profiles.person_id AND r.role_key='practitioner') ORDER BY last_name,first_name;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

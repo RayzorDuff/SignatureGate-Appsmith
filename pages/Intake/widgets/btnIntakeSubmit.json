@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 132,
+  "bottomRow": 146,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -31,14 +31,16 @@
   "key": "intake-submit-key",
   "leftColumn": 0,
   "minWidth": 160,
+  "onClick": "{{ intakeFlows.submit(); }}",
+  "originalBottomRow": 132,
+  "originalTopRow": 125,
   "placement": "CENTER",
   "responsiveBehavior": "hug",
   "rightColumn": 20,
   "text": "Complete Intake",
-  "topRow": 125,
+  "topRow": 139,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "intake-submit",
-  "widgetName": "btnIntakeSubmit",
-  "onClick": "{{ intakeFlows.submit(); }}"
+  "widgetName": "btnIntakeSubmit"
 }

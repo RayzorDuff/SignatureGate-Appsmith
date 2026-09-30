@@ -29,7 +29,7 @@
   "labelText": "Agreement template",
   "leftColumn": 34,
   "optionLabel": "label",
-  "optionValue": "value",
+  "optionValue": "agreement_template_id",
   "originalBottomRow": 158,
   "originalTopRow": 151,
   "parentColumnSpace": 10.25,

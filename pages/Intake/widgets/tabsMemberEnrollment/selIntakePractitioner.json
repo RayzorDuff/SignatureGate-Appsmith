@@ -29,7 +29,7 @@
   "labelText": "Spiritual Practitioner",
   "leftColumn": 0,
   "optionLabel": "label",
-  "optionValue": "value",
+  "optionValue": "member_id",
   "originalBottomRow": 167,
   "originalTopRow": 160,
   "parentColumnSpace": 10.25,
