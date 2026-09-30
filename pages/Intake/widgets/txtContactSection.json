@@ -19,7 +19,7 @@
   "originalTopRow": 43,
   "parentId": "0",
   "rightColumn": 64,
-  "text": "Contact and mailing address",
+  "text": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' ? 'Contact information — at least 2 of 3 required: email, phone, or mailing address' : 'Mailing address' }}",
   "textColor": "#231F20",
   "topRow": 43,
   "type": "TEXT_WIDGET",
