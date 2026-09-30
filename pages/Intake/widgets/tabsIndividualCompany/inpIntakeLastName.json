@@ -4,7 +4,11 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 10,
   "defaultText": "",
-  "dynamicBindingPathList": [],
+  "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    }
+  ],
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [],
@@ -23,6 +27,7 @@
   "rightColumn": 64,
   "topRow": 4,
   "type": "INPUT_WIDGET_V2",
+  "validation": "{{ inpIntakeLastName.text.length > 0 }}",
   "version": 2,
   "widgetId": "intake-last-name",
   "widgetName": "inpIntakeLastName"

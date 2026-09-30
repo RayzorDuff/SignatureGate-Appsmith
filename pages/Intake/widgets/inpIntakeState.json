@@ -7,6 +7,9 @@
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "validation"
     }
   ],
   "dynamicPropertyPathList": [
@@ -14,10 +17,11 @@
       "key": "isVisible"
     }
   ],
+  "dynamicTriggerPathList": [],
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
-  "isRequired": true,
+  "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "label": "State",
   "leftColumn": 33,
@@ -29,6 +33,7 @@
   "rightColumn": 48,
   "topRow": 53,
   "type": "INPUT_WIDGET_V2",
+  "validation": "{{ inpIntakeState.text.length > 0 }}",
   "version": 2,
   "widgetId": "intake-state",
   "widgetName": "inpIntakeState"
