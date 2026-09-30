@@ -131,14 +131,14 @@ export default {
         const memberAddressId = addressResult?.[0]?.member_address_id ||
           addressResult?.[0]?.issue19_add_membership_address || null;
 
-        const practitionerPersonId = selIntakePractitioner.selectedOptionValue;
-        if (!practitionerPersonId) {
+        const practitionerMemberId = selIntakePractitioner.selectedOptionValue;
+        if (!practitionerMemberId) {
           showAlert("Spiritual Practitioner is required for member enrollment.", "warning");
           return;
         }
         await qAssignMemberPractitioner.run({
           member_id: memberId,
-          practitioner_person_id: practitionerPersonId,
+          practitioner_member_id: practitionerMemberId,
           reason: "Initial member enrollment",
           notes: ""
         });
@@ -203,7 +203,7 @@ export default {
 
     if (member) {
       const delivery = selAgreementDelivery.selectedOptionValue;
-      const practitionerPersonId = selIntakePractitioner.selectedOptionValue;
+      const practitionerMemberId = selIntakePractitioner.selectedOptionValue;
       const agreementType = selAgreementType.selectedOptionValue;
       const agreementTemplate = selAgreementTemplate.selectedOptionValue;
 
@@ -239,7 +239,7 @@ export default {
 
       agreementResult = await qCreateIntakeAgreement.run({
         member_id: memberId,
-        practitioner_person_id: practitionerPersonId,
+        practitioner_member_id: practitionerMemberId,
         agreement_template_id: delivery === "Digital" ? agreementTemplate : "",
         signature_method: delivery === "Digital" ? "documenso" : "paper",
         status: delivery === "Digital" ? "pending_email_send" : "pending_review",
