@@ -33,7 +33,7 @@
   "rightColumn": 48,
   "topRow": 53,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{ inpIntakeState.text.length > 0 }}",
+  "validation": "{{ !inpIntakeState.text || (inpIntakeAddress.text && inpIntakeCity.text && inpIntakePostalCode.text) }}",
   "version": 2,
   "widgetId": "intake-state",
   "widgetName": "inpIntakeState"
