@@ -7,11 +7,17 @@
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "sourceData"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicTriggerPathList": [

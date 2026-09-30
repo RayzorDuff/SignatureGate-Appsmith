@@ -5,9 +5,9 @@
   "bottomRow": 24,
   "boxShadow": "none",
   "closeOnSelection": true,
-  "dateFormat": "YYYY-MM-DD HH:mm",
+  "dateFormat": "LL",
   "datePickerType": "DATE_PICKER",
-  "defaultDate": "2026-09-29T03:24:06.436Z",
+  "defaultDate": "",
   "dynamicBindingPathList": [
     {
       "key": "accentColor"
@@ -44,9 +44,9 @@
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 33,
-  "maxDate": "{{ moment().subtract(21, 'years').format() }}",
+  "maxDate": "{{ moment().subtract(21, 'years').format('YYYY-MM-DD') }}",
   "maxDynamicHeight": 9000,
-  "minDate": "{{ moment().subtract(120, 'years').format() }}",
+  "minDate": "{{ moment().subtract(120, 'years').format('YYYY-MM-DD') }}",
   "minDynamicHeight": 4,
   "minWidth": 450,
   "mobileBottomRow": 27,
