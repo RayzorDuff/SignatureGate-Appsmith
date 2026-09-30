@@ -7,17 +7,23 @@
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "sourceData"
+    },
+    {
+      "key": "isRequired"
     }
   ],
   "dynamicTriggerPathList": [],
   "isFilterable": true,
   "isLoading": false,
-  "isRequired": "{{ chkIntakeMember.isChecked === true }}",
+  "isRequired": "{{ Boolean(chkIntakeMember.isChecked) }}",
   "isVisible": true,
   "labelPosition": "Top",
   "labelText": "Spiritual Practitioner",
@@ -31,7 +37,7 @@
   "parentRowSpace": 10,
   "placeholderText": "Select practitioner",
   "rightColumn": 64,
-  "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.person_id })) }}",
+  "sourceData": "{{ qListFacilitators.data || [] }}",
   "topRow": 12,
   "type": "SELECT_WIDGET",
   "version": 1,
