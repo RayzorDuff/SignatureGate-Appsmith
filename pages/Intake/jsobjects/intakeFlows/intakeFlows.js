@@ -62,7 +62,7 @@ export default {
       return;
     }
 
-    if (individual) {
+    if (individual || company) {
       const contactMethods = [
         !!(inpIntakeEmail.text || "").trim(),
         !!(inpIntakePhone.text || "").trim(),
