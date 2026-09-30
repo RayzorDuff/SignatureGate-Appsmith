@@ -1,5 +1,5 @@
 {
-  "bottomRow": 45,
+  "bottomRow": 47,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -21,7 +21,7 @@
   "rightColumn": 64,
   "text": "Contact and mailing address",
   "textColor": "#231F20",
-  "topRow": 41,
+  "topRow": 43,
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "intake-contact-section",

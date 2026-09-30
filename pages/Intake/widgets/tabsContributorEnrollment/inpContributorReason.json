@@ -6,25 +6,20 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
-      "key": "isVisible"
-    },
-    {
       "key": "isRequired"
     }
   ],
   "dynamicPropertyPathList": [
     {
-      "key": "isVisible"
-    },
-    {
       "key": "isRequired"
     }
   ],
+  "dynamicTriggerPathList": [],
   "inputType": "TEXT",
   "isDisabled": false,
   "isLoading": false,
-  "isRequired": "{{ chkIntakeContributor.isChecked }}",
-  "isVisible": "{{ chkIntakeContributor.isChecked }}",
+  "isRequired": "{{ (selIntakeEntityType.selectedOptionValue === 'Individual' && chkIntakeContributor.isChecked) || (selIntakeEntityType.selectedOptionValue === 'Company' && chkCompanyContributor.isChecked) }}",
+  "isVisible": true,
   "label": "Contributor enrollment reason",
   "labelPosition": "Top",
   "leftColumn": 0,

@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 108,
+  "bottomRow": 110,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -49,7 +49,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 18,
   "text": "Complete Intake",
-  "topRow": 101,
+  "topRow": 103,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "gj41nc669m",
