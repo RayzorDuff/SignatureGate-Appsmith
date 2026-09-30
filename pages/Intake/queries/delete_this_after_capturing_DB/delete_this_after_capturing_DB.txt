@@ -1,1 +1,0 @@
-SELECT * FROM public."agreement_templates" LIMIT 10;
