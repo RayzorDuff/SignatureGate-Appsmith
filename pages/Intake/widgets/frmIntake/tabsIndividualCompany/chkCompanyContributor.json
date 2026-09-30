@@ -4,7 +4,7 @@
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 15,
-  "defaultCheckedState": false,
+  "defaultCheckedState": true,
   "dynamicBindingPathList": [],
   "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [],
