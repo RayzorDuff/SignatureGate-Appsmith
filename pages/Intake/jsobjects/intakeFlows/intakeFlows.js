@@ -53,10 +53,6 @@ export default {
     const city = (inpIntakeCity.text || "").trim();
     const state = (inpIntakeState.text || "").trim();
     const postal = (inpIntakePostalCode.text || "").trim();
-    if (!address || !city || !state || !postal) {
-      showAlert("Mailing address, city, state, and ZIP / Postal code are required.", "warning");
-      return;
-    }
 
     const reason = contributor ? (inpContributorReason.text || "").trim() : "";
     if (contributor && !reason) {
