@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 22,
+  "bottomRow": 75,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -19,7 +19,7 @@
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
-  "leftColumn": 2,
+  "leftColumn": 47,
   "minWidth": 120,
   "mobileBottomRow": 21,
   "mobileLeftColumn": 2,
@@ -34,11 +34,12 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 18,
-  "text": "Submit",
-  "topRow": 18,
+  "rightColumn": 62,
+  "text": "Add to Deposit Batch",
+  "topRow": 68,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "oiowd8ylrs",
-  "widgetName": "btnCashDepositAddToBatch"
+  "widgetName": "btnCashDepositAddToBatch",
+  "tooltip": "Add the selected cash donation to an open deposit batch."
 }
