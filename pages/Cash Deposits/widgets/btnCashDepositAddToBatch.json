@@ -12,10 +12,16 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": "{{ !tblCashDeposits.selectedRow?.donation_id || tblCashDeposits.selectedRow?.operational_status !== \"cash_on_hand\" || !tblCashDepositBatches.selectedRow?.deposit_batch_id || tblCashDepositBatches.selectedRow?.status !== \"draft\" }}",
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
@@ -41,5 +47,19 @@
   "version": 1,
   "widgetId": "oiowd8ylrs",
   "widgetName": "btnCashDepositAddToBatch",
-  "tooltip": "Add the selected cash donation to an open deposit batch."
+  "tooltip": "Add the selected cash donation to an open deposit batch.",
+  "onClick": "{{ cashDepositFlows.addSelectedDonationToBatch() }}",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
