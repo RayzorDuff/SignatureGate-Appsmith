@@ -107,7 +107,9 @@ export default {
 
     const result = await qCreateCashDepositBatch.run({
       preparer_id: preparerId,
-      deposit_date: inpCashDepositDate.selectedDate\n        ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")\n        : moment().format("YYYY-MM-DD"),
+      deposit_date: inpCashDepositDate.selectedDate
+        ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")
+        : moment().format("YYYY-MM-DD"),
       deposit_slip_number: inpCashDepositSlipNumber.text || null,
       notes: "Cash deposit batch created from Cash Deposits"
     });
@@ -166,7 +168,9 @@ export default {
 
     const slip = (inpCashDepositSlipNumber.text || "").trim();
     const bankAccount = (inpCashDepositBankAccount.text || "").trim();
-    const depositDate = inpCashDepositDate.selectedDate\n      ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")\n      : moment().format("YYYY-MM-DD");
+    const depositDate = inpCashDepositDate.selectedDate
+      ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")
+      : moment().format("YYYY-MM-DD");
 
     if (!slip) {
       showAlert("Enter the deposit slip or reference number before preparing the batch.", "warning");
@@ -203,7 +207,9 @@ export default {
     }
 
     const actualAmount = Number(inpCashDepositActualAmount.text);
-    const depositDate = inpCashDepositDate.selectedDate\n      ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")\n      : (batch.deposit_date || moment().format("YYYY-MM-DD"));
+    const depositDate = inpCashDepositDate.selectedDate
+      ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")
+      : (batch.deposit_date || moment().format("YYYY-MM-DD"));
     const slip = (inpCashDepositSlipNumber.text || batch.deposit_slip_number || "").trim();
 
     if (!actualAmount || actualAmount <= 0) {
