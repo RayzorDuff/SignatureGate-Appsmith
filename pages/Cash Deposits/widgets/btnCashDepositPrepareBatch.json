@@ -12,10 +12,16 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": "{{ !tblCashDepositBatches.selectedRow?.deposit_batch_id || tblCashDepositBatches.selectedRow?.status !== \"draft\" }}",
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
@@ -41,5 +47,19 @@
   "version": 1,
   "widgetId": "t2d1grucjh",
   "widgetName": "btnCashDepositPrepareBatch",
-  "tooltip": "Prepare the selected batch for physical deposit."
+  "tooltip": "Prepare the selected batch for physical deposit.",
+  "onClick": "{{ cashDepositFlows.prepareBatch() }}",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
