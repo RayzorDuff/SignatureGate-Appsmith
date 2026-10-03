@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.exclude_cash_donation_from_deposit(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_actor_id => {{ this.params.actor_id }}::uuid,\n  p_reason => {{ this.params.reason }},\n  p_notes => {{ this.params.notes || null }}\n);",
+      "body": "SELECT *\nFROM public.exclude_cash_donation_from_deposit(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_actor_id => {{ this.params.actor_id }}::uuid,\n  p_reason => {{ this.params.reason }},\n  p_notes => {{ this.params.notes || null }}\n);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
