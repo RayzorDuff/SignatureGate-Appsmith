@@ -12,10 +12,16 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": "{{ !qCashDepositCurrentFacilitator.data?.[0]?.member_id }}",
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
@@ -41,5 +47,19 @@
   "version": 1,
   "widgetId": "9gkmouvlql",
   "widgetName": "btnCashDepositCreateBatch",
-  "tooltip": "Create a new deposit batch for cash currently on hand."
+  "tooltip": "Create a new deposit batch for cash currently on hand.",
+  "onClick": "{{ cashDepositFlows.createBatch() }}",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
