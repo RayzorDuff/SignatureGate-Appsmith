@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 22,
+  "bottomRow": 75,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -19,7 +19,7 @@
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
-  "leftColumn": 19,
+  "leftColumn": 32,
   "minWidth": 120,
   "mobileBottomRow": 22,
   "mobileLeftColumn": 19,
@@ -34,11 +34,12 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 35,
-  "text": "Submit",
-  "topRow": 18,
+  "rightColumn": 45,
+  "text": "Cash on Hand",
+  "topRow": 68,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "4acdskdgjc",
-  "widgetName": "btnCashDepositCashOnHand"
+  "widgetName": "btnCashDepositCashOnHand",
+  "tooltip": "Record that the verified donation has been received as physical cash."
 }
