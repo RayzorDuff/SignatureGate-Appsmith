@@ -1,23 +1,38 @@
 {
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
+  "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 146,
+  "bottomRow": 143,
   "boxShadow": "none",
+  "defaultText": "",
   "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
+    {
+      "key": "isVisible"
+    },
     {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
     {
       "key": "isVisible"
     }
   ],
-  "dynamicHeight": "FIXED",
   "dynamicTriggerPathList": [],
+  "errorMessage": "Enter a positive dollar amount",
+  "iconAlign": "left",
+  "inputType": "NUMBER",
   "isDisabled": false,
   "isLoading": false,
+  "isRequired": false,
   "isVisible": "{{ tblCashDepositBatches.selectedRow?.status === \"prepared\" || qCashDepositBatches.data?.find(r => r.deposit_batch_id === appsmith.store.cash_deposit_batch_id)?.status === \"prepared\" }}",
   "key": "cdepamt01",
   "label": "Actual Amount (USD)",
@@ -33,31 +48,21 @@
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
   "mobileTopRow": 138,
+  "originalBottomRow": 146,
+  "originalTopRow": 138,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
+  "regex": "^\\d+(\\.\\d{1,2})?$",
   "renderMode": "CANVAS",
+  "resetOnSubmit": false,
   "responsiveBehavior": "fill",
   "rightColumn": 62,
-  "topRow": 138,
+  "showStepArrows": false,
+  "topRow": 135,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{ !inpCashDepositActualAmount.text || Number(inpCashDepositActualAmount.text) > 0 }}",
   "version": 2,
   "widgetId": "cdepamt01",
-  "widgetName": "inpCashDepositActualAmount",
-  "inputType": "NUMBER",
-  "defaultText": "",
-  "isRequired": false,
-  "regex": "^\\d+(\\.\\d{1,2})?$",
-  "validation": "{{ !inpCashDepositActualAmount.text || Number(inpCashDepositActualAmount.text) > 0 }}",
-  "errorMessage": "Enter a positive dollar amount",
-  "type": "INPUT_WIDGET_V2",
-  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
-  "autoFocus": false,
-  "iconAlign": "left",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "showStepArrows": false,
-  "resetOnSubmit": false
+  "widgetName": "inpCashDepositActualAmount"
 }

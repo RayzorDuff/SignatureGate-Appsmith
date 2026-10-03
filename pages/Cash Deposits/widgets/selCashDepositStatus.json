@@ -2,13 +2,10 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 21,
+  "bottomRow": 19,
   "boxShadow": "none",
   "defaultOptionValue": "ALL",
   "dynamicBindingPathList": [
-    {
-      "key": "accentColor"
-    },
     {
       "key": "borderRadius"
     }
@@ -44,6 +41,8 @@
   "needsErrorInfo": false,
   "optionLabel": "name",
   "optionValue": "code",
+  "originalBottomRow": 21,
+  "originalTopRow": 14,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -53,10 +52,10 @@
   "rightColumn": 18,
   "serverSideFiltering": false,
   "sourceData": "[\n  {\"name\":\"All cash donations\",\"code\":\"ALL\"},\n  {\"name\":\"Pending Review\",\"code\":\"pending_review\"},\n  {\"name\":\"Verified\",\"code\":\"verified\"},\n  {\"name\":\"Rejected\",\"code\":\"rejected\"},\n  {\"name\":\"Cash on Hand\",\"code\":\"cash_on_hand\"},\n  {\"name\":\"Assigned to Deposit Batch\",\"code\":\"assigned_to_deposit_batch\"},\n  {\"name\":\"Deposit Prepared\",\"code\":\"deposit_prepared\"},\n  {\"name\":\"Deposit Confirmed\",\"code\":\"deposit_confirmed\"}\n]",
-  "topRow": 14,
+  "tooltip": "Filter cash donations by their current operational status.",
+  "topRow": 12,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "mhg3s8yuwi",
-  "widgetName": "selCashDepositStatus",
-  "tooltip": "Filter cash donations by their current operational status."
+  "widgetName": "selCashDepositStatus"
 }

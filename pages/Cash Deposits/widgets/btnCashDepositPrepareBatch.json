@@ -1,21 +1,31 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 135,
+  "bottomRow": 132,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "isDisabled"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
+    }
+  ],
+  "dynamicPropertyPathList": [
     {
       "key": "isDisabled"
     },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
     {
       "key": "onClick"
     }
@@ -32,6 +42,9 @@
   "mobileRightColumn": 6,
   "mobileTopRow": 79,
   "needsErrorInfo": false,
+  "onClick": "{{ cashDepositFlows.prepareBatch() }}",
+  "originalBottomRow": 135,
+  "originalTopRow": 128,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -42,24 +55,10 @@
   "responsiveBehavior": "hug",
   "rightColumn": 15,
   "text": "Prepare",
-  "topRow": 128,
+  "tooltip": "Prepare the selected batch for physical deposit.",
+  "topRow": 125,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "t2d1grucjh",
-  "widgetName": "btnCashDepositPrepareBatch",
-  "tooltip": "Prepare the selected batch for physical deposit.",
-  "onClick": "{{ cashDepositFlows.prepareBatch() }}",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isDisabled"
-    },
-    {
-      "key": "onClick"
-    }
-  ],
-  "dynamicTriggerPathList": [
-    {
-      "key": "onClick"
-    }
-  ]
+  "widgetName": "btnCashDepositPrepareBatch"
 }

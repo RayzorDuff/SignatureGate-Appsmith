@@ -1,19 +1,10 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 67,
+  "bottomRow": 64,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
-    },
-    {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -32,6 +23,8 @@
   "mobileRightColumn": 32,
   "mobileTopRow": 61,
   "needsErrorInfo": false,
+  "originalBottomRow": 67,
+  "originalTopRow": 62,
   "overflow": "NONE",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
@@ -43,7 +36,7 @@
   "text": "Select a cash donation to perform an action.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 62,
+  "topRow": 60,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

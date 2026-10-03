@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 75,
+  "bottomRow": 72,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -14,6 +14,8 @@
       "key": "borderRadius"
     }
   ],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
   "isDefaultClickDisabled": true,
   "isDisabled": true,
   "isLoading": false,
@@ -26,6 +28,8 @@
   "mobileRightColumn": 35,
   "mobileTopRow": 18,
   "needsErrorInfo": false,
+  "originalBottomRow": 75,
+  "originalTopRow": 68,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -36,12 +40,10 @@
   "responsiveBehavior": "hug",
   "rightColumn": 45,
   "text": "Cash on Hand",
-  "topRow": 68,
+  "tooltip": "Cash on Hand is a derived status: a verified cash donation that is not assigned to an active deposit batch.",
+  "topRow": 65,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "4acdskdgjc",
-  "widgetName": "btnCashDepositCashOnHand",
-  "tooltip": "Cash on Hand is a derived status: a verified cash donation that is not assigned to an active deposit batch.",
-  "dynamicPropertyPathList": [],
-  "dynamicTriggerPathList": []
+  "widgetName": "btnCashDepositCashOnHand"
 }

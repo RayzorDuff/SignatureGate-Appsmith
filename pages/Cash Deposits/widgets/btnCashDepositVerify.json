@@ -1,24 +1,37 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 75,
+  "bottomRow": 72,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
+    }
+  ],
+  "dynamicPropertyPathList": [
     {
       "key": "isDisabled"
     },
     {
       "key": "isVisible"
     },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
     {
       "key": "onClick"
     }
@@ -35,6 +48,9 @@
   "mobileRightColumn": 6,
   "mobileTopRow": 55,
   "needsErrorInfo": false,
+  "onClick": "{{ cashDepositFlows.verifyDonation() }}",
+  "originalBottomRow": 75,
+  "originalTopRow": 68,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -45,27 +61,10 @@
   "responsiveBehavior": "hug",
   "rightColumn": 15,
   "text": "Verify Donation",
-  "topRow": 68,
+  "tooltip": "Mark the selected cash donation as verified and eligible for cash handling.",
+  "topRow": 65,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "gnvvtx734k",
-  "widgetName": "btnCashDepositVerify",
-  "tooltip": "Mark the selected cash donation as verified and eligible for cash handling.",
-  "onClick": "{{ cashDepositFlows.verifyDonation() }}",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isDisabled"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "onClick"
-    }
-  ],
-  "dynamicTriggerPathList": [
-    {
-      "key": "onClick"
-    }
-  ]
+  "widgetName": "btnCashDepositVerify"
 }
