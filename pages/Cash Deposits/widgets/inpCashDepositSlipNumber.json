@@ -9,13 +9,16 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicTriggerPathList": [],
   "isDisabled": false,
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ !!tblCashDepositBatches.selectedRow?.deposit_batch_id || !!appsmith.store.cash_deposit_batch_id }}",
   "key": "cdepslip01",
   "label": "Deposit Slip / Reference",
   "labelAlignment": "left",
@@ -47,7 +50,11 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "autoFocus": false,
   "iconAlign": "left",
-  "dynamicPropertyPathList": [],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
   "showStepArrows": false,
   "resetOnSubmit": false
 }
