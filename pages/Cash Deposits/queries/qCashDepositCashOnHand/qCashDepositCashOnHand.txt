@@ -14,14 +14,21 @@ SELECT
   c.contributor_type,
   d.status AS donation_status,
   CASE
+    WHEN e.exclusion_id IS NOT NULL THEN 'deposit_reconciliation_excluded'
     WHEN b.status = 'confirmed' THEN 'deposit_confirmed'
     WHEN b.status = 'prepared' THEN 'deposit_prepared'
     WHEN b.status = 'draft' THEN 'assigned_to_deposit_batch'
+    WHEN d.status = 'pending_review' THEN 'pending_review'
     WHEN d.status = 'verified' THEN 'cash_on_hand'
     ELSE d.status
   END AS operational_status,
   b.deposit_batch_id,
   b.status AS batch_status,
+  e.exclusion_id,
+  e.excluded_at,
+  e.excluded_by,
+  e.reason AS exclusion_reason,
+  e.notes AS exclusion_notes,
   d.notes,
   d.review_notes
 FROM public.donations d
@@ -39,6 +46,8 @@ LEFT JOIN LATERAL (
   ORDER BY i.created_at DESC
   LIMIT 1
 ) b ON TRUE
+LEFT JOIN public.cash_deposit_donation_exclusions e
+  ON e.donation_id = d.donation_id
 WHERE d.provider = 'cash'
   AND d.donor_kind IN ('identified', 'anonymous')
   AND (
@@ -46,12 +55,27 @@ WHERE d.provider = 'cash'
     OR
     (
       CASE
+        WHEN e.exclusion_id IS NOT NULL THEN 'deposit_reconciliation_excluded'
         WHEN b.status = 'confirmed' THEN 'deposit_confirmed'
         WHEN b.status = 'prepared' THEN 'deposit_prepared'
         WHEN b.status = 'draft' THEN 'assigned_to_deposit_batch'
+        WHEN d.status = 'pending_review' THEN 'pending_review'
         WHEN d.status = 'verified' THEN 'cash_on_hand'
         ELSE d.status
       END
     ) = '{{ selCashDepositStatus.selectedOptionValue }}'
+  )
+  AND (
+    {{ appsmith.store.cash_deposit_hide_ineligible !== false }}
+    AND (
+      d.status = 'pending_review'
+      OR (
+        d.status = 'verified'
+        AND b.deposit_batch_id IS NULL
+        AND e.exclusion_id IS NULL
+      )
+    )
+    OR
+    {{ appsmith.store.cash_deposit_hide_ineligible === false }}
   )
 ORDER BY d.donated_at DESC NULLS LAST, d.created_at DESC, d.donation_id;
