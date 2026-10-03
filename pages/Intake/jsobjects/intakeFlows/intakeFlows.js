@@ -163,7 +163,7 @@ export default {
           return;
         }
 
-        const e = await qAddMemberEmail.run({ member_id: memberId, email: individualEmail, notes: "Created from Intake" });
+        const e = await qAddMemberEmail.run({\n          member_id: memberId,\n          email: individualEmail,\n          notes: "Created from Intake",\n          subscribe_to_mailing_list: chkIntakeSubscribeListmonk.isChecked\n        });
         memberEmailId = e?.[0]?.member_email_id || null;
         let phoneId = null;
         if (phone) {
