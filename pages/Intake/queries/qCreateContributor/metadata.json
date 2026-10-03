@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT * FROM public.issue19_create_contributor({{ appsmith.user.email }},{{ this.params.party_kind }},{{ this.params.first_name || null }},{{ this.params.last_name || null }},{{ this.params.organization_name || null }},{{ this.params.email || null }},{{ this.params.phone || null }},{{ this.params.reason }});",
+      "body": "SELECT * FROM public.issue19_create_contributor_with_mailing({{ appsmith.user.email }},{{ this.params.party_kind }},{{ this.params.first_name || null }},{{ this.params.last_name || null }},{{ this.params.organization_name || null }},{{ this.params.email || null }},{{ this.params.phone || null }},{{ this.params.reason }},{{ this.params.subscribe_to_mailing_list }}) ;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
