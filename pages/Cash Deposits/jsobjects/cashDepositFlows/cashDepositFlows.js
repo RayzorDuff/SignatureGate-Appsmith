@@ -22,6 +22,21 @@ export default {
     return tblCashDepositBatches.selectedRow || {};
   },
 
+  isDonationsReviewer() {
+    return qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true
+      || appsmith.store.facilitator_is_donations_reviewer === true;
+  },
+
+  requireDonationsReviewer() {
+    const id = this.requireFacilitator();
+    if (!id) return "";
+    if (!this.isDonationsReviewer()) {
+      showAlert("Only a donations reviewer can review or confirm cash deposits.", "error");
+      return "";
+    }
+    return id;
+  },
+
   requireFacilitator() {
     const id = this.facilitatorId();
     if (!id) {
@@ -33,7 +48,7 @@ export default {
 
   async verifyDonation() {
     const donation = this.selectedDonation();
-    const reviewerId = this.requireFacilitator();
+    const reviewerId = this.requireDonationsReviewer();
 
     if (!reviewerId || !donation.donation_id) {
       showAlert("Select a cash donation to verify.", "warning");
@@ -58,7 +73,7 @@ export default {
 
   async rejectDonation() {
     const donation = this.selectedDonation();
-    const reviewerId = this.requireFacilitator();
+    const reviewerId = this.requireDonationsReviewer();
 
     if (!reviewerId || !donation.donation_id) {
       showAlert("Select a cash donation to reject.", "warning");
@@ -173,7 +188,7 @@ export default {
 
   async confirmBatch() {
     const batch = this.selectedBatch();
-    const verifierId = this.requireFacilitator();
+    const verifierId = this.requireDonationsReviewer();
 
     if (!verifierId) return;
 
