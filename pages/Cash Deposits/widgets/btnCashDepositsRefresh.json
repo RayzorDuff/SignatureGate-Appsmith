@@ -12,6 +12,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "onClick"
     }
   ],
   "isDefaultClickDisabled": true,
@@ -41,5 +44,16 @@
   "version": 1,
   "widgetId": "9dyrid865x",
   "widgetName": "btnCashDepositsRefresh",
-  "tooltip": "Refresh the cash donation and deposit batch data."
+  "tooltip": "Refresh the cash donation and deposit batch data.",
+  "onClick": "{{ cashDepositFlows.refresh() }}",
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
