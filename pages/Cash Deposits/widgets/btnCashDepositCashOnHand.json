@@ -15,7 +15,7 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": true,
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
@@ -41,5 +41,7 @@
   "version": 1,
   "widgetId": "4acdskdgjc",
   "widgetName": "btnCashDepositCashOnHand",
-  "tooltip": "Record that the verified donation has been received as physical cash."
+  "tooltip": "Cash on Hand is a derived status: a verified cash donation that is not assigned to an active deposit batch.",
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": []
 }
