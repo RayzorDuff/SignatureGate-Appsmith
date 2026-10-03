@@ -31,7 +31,19 @@
       "menuColor": "{{appsmith.theme.colors.primaryColor}}"
     }
   },
-  "columnOrder": [],
+  "columnOrder": [
+    "deposit_batch_id",
+    "status",
+    "deposit_date",
+    "deposit_slip_number",
+    "destination_bank_account",
+    "preparer_email",
+    "item_count",
+    "item_total_cents",
+    "expected_amount_cents",
+    "actual_amount_cents",
+    "confirmed_at"
+  ],
   "columnUpdatedAt": 1791037612169,
   "columnWidthMap": {},
   "customIsLoading": false,
@@ -51,6 +63,9 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "tableData"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -83,7 +98,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 62,
   "searchKey": "",
-  "tableData": "",
+  "tableData": "{{ qCashDepositBatches.data }}",
   "textSize": "0.875rem",
   "topRow": 87,
   "totalRecordsCount": 0,
