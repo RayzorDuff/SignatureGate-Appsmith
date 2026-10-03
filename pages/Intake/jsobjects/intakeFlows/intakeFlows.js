@@ -212,7 +212,8 @@ export default {
       } else {
         const created = await qCreateContributor.run({
           party_kind: "individual", first_name: first, last_name: last,
-          email: individualEmail, phone, reason
+          email: individualEmail, phone, reason,
+          subscribe_to_mailing_list: chkIntakeSubscribeListmonk.isChecked
         });
         contributorId = created?.[0]?.contributor_id;
         memberPersonId = created?.[0]?.party_id;
@@ -233,7 +234,8 @@ export default {
         party_kind: "organization", organization_name: companyName,
         first_name: "", last_name: "",
         email: (inpIntakeEmail.text || "").trim(),
-        phone: (inpIntakePhone.text || "").trim(), reason
+        phone: (inpIntakePhone.text || "").trim(), reason,
+        subscribe_to_mailing_list: chkIntakeSubscribeListmonk.isChecked
       });
       contributorId = created?.[0]?.contributor_id;
       const organizationId = created?.[0]?.party_id;
