@@ -54,6 +54,38 @@ export default {
     return id;
   },
 
+  async setHideIneligible(checked) {
+    await storeValue("cash_deposit_hide_ineligible", checked !== false);
+    await qCashDepositCashOnHand.run();
+  },
+
+  async excludeDonationFromReconciliation() {
+    const donation = this.selectedDonation();
+    const reviewerId = this.requireDonationsReviewer();
+
+    if (!reviewerId) return;
+
+    if (!donation.donation_id) {
+      showAlert("Select a cash donation to exclude from deposit reconciliation.", "warning");
+      return;
+    }
+
+    if (donation.operational_status !== "cash_on_hand") {
+      showAlert("Only a Cash on Hand donation can be excluded from deposit reconciliation.", "warning");
+      return;
+    }
+
+    await qExcludeCashDonation.run({
+      donation_id: donation.donation_id,
+      actor_id: reviewerId,
+      reason: "Historical cash donation could not be reconciled to a physical deposit.",
+      notes: "Excluded from future cash-deposit batching; original donation record retained."
+    });
+
+    showAlert("Cash donation excluded from deposit reconciliation.", "success");
+    await qCashDepositCashOnHand.run();
+  },
+
   async verifyDonation() {
     const donation = this.selectedDonation();
     const reviewerId = this.requireDonationsReviewer();
