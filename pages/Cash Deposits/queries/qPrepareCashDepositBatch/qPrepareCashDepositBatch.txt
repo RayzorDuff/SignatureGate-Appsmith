@@ -1,0 +1,9 @@
+SELECT *
+FROM public.prepare_cash_deposit_batch(
+  p_deposit_batch_id => {{ this.params.deposit_batch_id }}::uuid,
+  p_actor_id => {{ this.params.actor_id }}::uuid,
+  p_deposit_date => '{{ this.params.deposit_date }}'::date,
+  p_deposit_slip_number => {{ this.params.deposit_slip_number || null }},
+  p_destination_bank_account => {{ this.params.destination_bank_account || null }},
+  p_notes => {{ this.params.notes || null }}
+);
