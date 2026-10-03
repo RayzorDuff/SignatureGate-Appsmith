@@ -196,55 +196,66 @@ export default {
 	},
 
 	async submitDonation() {
-		const choice =
-			selDonationMember.selectedOptionValue ||
-			"";
-		const isAnonymous = choice === "__anonymous__";
+		try {
+			const choice =
+				selDonationMember.selectedOptionValue ||
+				"";
+			const isAnonymous = choice === "__anonymous__";
 
-		if (!choice) {
-			showAlert("Select a contributor, member, or Anonymous cash donor.", "warning");
-			return;
+			if (!choice) {
+				showAlert("Select a contributor, member, or Anonymous cash donor.", "warning");
+				return;
+			}
+			if (choice === "__new_individual__" || choice === "__new_organization__") {
+				showAlert("New contributor choices are available only while resolving a Givebutter donation.", "warning");
+				return;
+			}
+
+			const amount = Number(inpDonationAmount.text);
+			if (!amount || amount <= 0) {
+				showAlert("Enter a positive amount.", "warning");
+				return;
+			}
+
+			const amount_cents = Math.round(amount * 100);
+			const donated_at = inpDonationDate.selectedDate || moment().format("YYYY-MM-DD");
+			const notes = inpDonationNotes.text || "";
+			const res = await qInsertCashDonation.run({
+				contributor_choice: choice,
+				is_anonymous: isAnonymous,
+				amount_cents,
+				donated_at,
+				notes
+			});
+			const donation = res?.[0] || {};
+
+			await this.auditLog("donation.cash.created", "donation", donation.donation_id || "", {
+				donor_kind: isAnonymous ? "anonymous" : "identified",
+				contributor_id: donation.contributor_id || null,
+				member_id: donation.member_id || null,
+				amount_cents,
+				donated_at,
+				notes
+			});
+
+			showAlert(
+				isAnonymous
+					? "Anonymous cash donation recorded (pending review)."
+					: "Contributor cash donation recorded (pending review).",
+				"success"
+			);
+			await qPendingGivebutterDonations.run();
+			return donation.donation_id || "";
+		} catch (e) {
+			const message =
+				e?.message ||
+				qInsertCashDonation?.error?.message ||
+				qInsertCashDonation?.error ||
+				"Cash donation could not be recorded.";
+			console.error("Cash donation submission failed:", e, qInsertCashDonation?.error);
+			showAlert("Cash donation could not be recorded: " + message, "error");
+			return "";
 		}
-		if (choice === "__new_individual__" || choice === "__new_organization__") {
-			showAlert("New contributor choices are available only while resolving a Givebutter donation.", "warning");
-			return;
-		}
-
-		const amount = Number(inpDonationAmount.text);
-		if (!amount || amount <= 0) {
-			showAlert("Enter a positive amount.", "warning");
-			return;
-		}
-
-		const amount_cents = Math.round(amount * 100);
-		const donated_at = inpDonationDate.selectedDate || moment().format("YYYY-MM-DD");
-		const notes = inpDonationNotes.text || "";
-		const res = await qInsertCashDonation.run({
-			contributor_choice: choice,
-			is_anonymous: isAnonymous,
-			amount_cents,
-			donated_at,
-			notes
-		});
-		const donation = res?.[0] || {};
-
-		await this.auditLog("donation.cash.created", "donation", donation.donation_id || "", {
-			donor_kind: isAnonymous ? "anonymous" : "identified",
-			contributor_id: donation.contributor_id || null,
-			member_id: donation.member_id || null,
-			amount_cents,
-			donated_at,
-			notes
-		});
-
-		showAlert(
-			isAnonymous
-				? "Anonymous cash donation recorded (pending review)."
-				: "Contributor cash donation recorded (pending review).",
-			"success"
-		);
-		await qPendingGivebutterDonations.run();
-		return donation.donation_id || "";
 	},
 
 	async ignorePendingDonation() {
