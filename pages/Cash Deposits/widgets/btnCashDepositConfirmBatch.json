@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 75,
+  "bottomRow": 135,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -19,7 +19,7 @@
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
-  "leftColumn": 0,
+  "leftColumn": 17,
   "minWidth": 120,
   "mobileBottomRow": 75,
   "mobileLeftColumn": 0,
@@ -34,11 +34,12 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 6,
-  "text": "Submit",
-  "topRow": 71,
+  "rightColumn": 30,
+  "text": "Confirm",
+  "topRow": 128,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "7844wsrynp",
-  "widgetName": "btnCashDepositConfirmBatch"
+  "widgetName": "btnCashDepositConfirmBatch",
+  "tooltip": "Record the completed bank deposit, including the deposit date, destination account, and reference."
 }
