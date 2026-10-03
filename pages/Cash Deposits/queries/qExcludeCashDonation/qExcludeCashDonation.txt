@@ -1,0 +1,7 @@
+SELECT *
+FROM public.exclude_cash_donation_from_deposit(
+  p_donation_id => {{ this.params.donation_id }}::uuid,
+  p_actor_id => {{ this.params.actor_id }}::uuid,
+  p_reason => {{ this.params.reason }},
+  p_notes => {{ this.params.notes || null }}
+);
