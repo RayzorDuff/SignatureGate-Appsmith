@@ -247,11 +247,15 @@ export default {
 			await qPendingGivebutterDonations.run();
 			return donation.donation_id || "";
 		} catch (e) {
-			const message =
+			const rawMessage =
 				e?.message ||
 				qInsertCashDonation?.error?.message ||
 				qInsertCashDonation?.error ||
 				"Cash donation could not be recorded.";
+			const message =
+				typeof rawMessage === "string"
+					? rawMessage
+					: JSON.stringify(rawMessage);
 			console.error("Cash donation submission failed:", e, qInsertCashDonation?.error);
 			showAlert("Cash donation could not be recorded: " + message, "error");
 			return "";
