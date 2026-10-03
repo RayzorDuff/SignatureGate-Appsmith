@@ -89,6 +89,10 @@
     {
       "id": "Intake",
       "isDefault": false
+    },
+    {
+      "id": "Cash Deposits",
+      "isDefault": false
     }
   ],
   "staticUrlSettings": {
