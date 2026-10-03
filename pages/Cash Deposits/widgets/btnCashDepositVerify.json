@@ -12,12 +12,21 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "onClick"
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": "{{ !tblCashDeposits.selectedRow?.donation_id || tblCashDeposits.selectedRow?.operational_status !== \"pending_review\" || !qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer }}",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
   "key": "bkfm8aymy0",
   "leftColumn": 2,
   "minWidth": 120,
@@ -35,11 +44,28 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 15,
-  "text": "Verify",
+  "text": "Verify Donation",
   "topRow": 68,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "gnvvtx734k",
   "widgetName": "btnCashDepositVerify",
-  "tooltip": "Mark the selected cash donation as verified and eligible for cash handling."
+  "tooltip": "Mark the selected cash donation as verified and eligible for cash handling.",
+  "onClick": "{{ cashDepositFlows.verifyDonation() }}",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
