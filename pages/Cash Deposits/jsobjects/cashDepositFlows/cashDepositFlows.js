@@ -19,7 +19,12 @@ export default {
   },
 
   selectedBatch() {
-    return tblCashDepositBatches.selectedRow || {};
+    const selected = tblCashDepositBatches.selectedRow || {};
+    if (selected.deposit_batch_id) return selected;
+    const storedId = String(appsmith.store.cash_deposit_batch_id || "").trim();
+    return (qCashDepositBatches.data || []).find(
+      row => row.deposit_batch_id === storedId
+    ) || {};
   },
 
   isDonationsReviewer() {
