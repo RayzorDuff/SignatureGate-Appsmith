@@ -9,13 +9,16 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicTriggerPathList": [],
   "isDisabled": false,
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ tblCashDepositBatches.selectedRow?.status === \"prepared\" || qCashDepositBatches.data?.find(r => r.deposit_batch_id === appsmith.store.cash_deposit_batch_id)?.status === \"prepared\" }}",
   "key": "cdepamt01",
   "label": "Actual Amount (USD)",
   "labelAlignment": "left",
@@ -50,7 +53,11 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "autoFocus": false,
   "iconAlign": "left",
-  "dynamicPropertyPathList": [],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
   "showStepArrows": false,
   "resetOnSubmit": false
 }
