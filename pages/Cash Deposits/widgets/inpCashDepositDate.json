@@ -9,13 +9,16 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicTriggerPathList": [],
   "isDisabled": false,
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ !!tblCashDepositBatches.selectedRow?.deposit_batch_id || !!appsmith.store.cash_deposit_batch_id }}",
   "key": "cdepdate01",
   "label": "Deposit Date",
   "labelAlignment": "left",
@@ -52,5 +55,9 @@
   "firstDayOfWeek": 0,
   "shortcuts": false,
   "timePrecision": "None",
-  "dynamicPropertyPathList": []
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ]
 }
