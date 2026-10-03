@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 83,
+  "bottomRow": 135,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -19,7 +19,7 @@
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
-  "leftColumn": 0,
+  "leftColumn": 2,
   "minWidth": 120,
   "mobileBottomRow": 83,
   "mobileLeftColumn": 0,
@@ -34,11 +34,12 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 6,
-  "text": "Submit",
-  "topRow": 79,
+  "rightColumn": 15,
+  "text": "Prepare",
+  "topRow": 128,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "t2d1grucjh",
-  "widgetName": "btnCashDepositPrepareBatch"
+  "widgetName": "btnCashDepositPrepareBatch",
+  "tooltip": "Prepare the selected batch for physical deposit."
 }
