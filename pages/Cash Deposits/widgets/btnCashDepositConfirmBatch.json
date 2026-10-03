@@ -12,10 +12,16 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": "{{ !tblCashDepositBatches.selectedRow?.deposit_batch_id || tblCashDepositBatches.selectedRow?.status !== \"prepared\" || !inpCashDepositActualAmount.text }}",
   "isLoading": false,
   "isVisible": true,
   "key": "bkfm8aymy0",
@@ -41,5 +47,19 @@
   "version": 1,
   "widgetId": "7844wsrynp",
   "widgetName": "btnCashDepositConfirmBatch",
-  "tooltip": "Record the completed bank deposit, including the deposit date, destination account, and reference."
+  "tooltip": "Record the completed bank deposit, including the deposit date, destination account, and reference.",
+  "onClick": "{{ cashDepositFlows.confirmBatch() }}",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
 }
