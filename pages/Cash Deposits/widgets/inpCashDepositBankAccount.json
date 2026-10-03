@@ -3,7 +3,7 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 143,
+  "bottomRow": 126,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
@@ -54,7 +54,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 49,
   "showStepArrows": false,
-  "topRow": 135,
+  "topRow": 119,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "cdepbank01",

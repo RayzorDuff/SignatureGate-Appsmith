@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 72,
+  "bottomRow": 67,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -56,7 +56,7 @@
   "rightColumn": 62,
   "text": "Add to Deposit Batch",
   "tooltip": "Add the selected cash donation to an open deposit batch.",
-  "topRow": 65,
+  "topRow": 63,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "oiowd8ylrs",
