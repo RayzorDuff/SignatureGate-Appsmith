@@ -20,6 +20,4 @@ SELECT DISTINCT
   item_count,
   item_total_cents
 FROM public.cash_deposit_batch_tally
-WHERE {{ selCashDepositStatus.selectedOptionValue || 'ALL' }} = 'ALL'
-   OR status = {{ selCashDepositStatus.selectedOptionValue }}
 ORDER BY batch_created_at DESC, deposit_batch_id;
