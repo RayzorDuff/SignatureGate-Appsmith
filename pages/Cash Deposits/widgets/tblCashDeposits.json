@@ -47,7 +47,8 @@
     "contributor_type",
     "donation_status",
     "batch_status",
-    "review_notes"
+    "review_notes",
+    "exclude"
   ],
   "columnUpdatedAt": 1791065825280,
   "columnWidthMap": {},
@@ -119,10 +120,20 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "primaryColumns.exclude.buttonLabel"
+    },
+    {
+      "key": "primaryColumns.exclude.isDisabled"
     }
   ],
   "dynamicPropertyPathList": [],
-  "dynamicTriggerPathList": [],
+  "dynamicTriggerPathList": [
+    {
+      "key": "primaryColumns.exclude.onClick"
+    }
+  ],
   "enableClientSideSearch": true,
   "endOfData": false,
   "flexVerticalAlignment": "start",
@@ -693,6 +704,28 @@
       "validation": {},
       "verticalAlignment": "CENTER",
       "width": 150
+    },
+    "exclude": {
+      "index": 16,
+      "width": 105,
+      "id": "exclude",
+      "alias": "exclude",
+      "originalId": "exclude",
+      "horizontalAlignment": "CENTER",
+      "verticalAlignment": "CENTER",
+      "columnType": "button",
+      "textSize": "0.875rem",
+      "enableFilter": false,
+      "enableSort": false,
+      "isVisible": true,
+      "isCellVisible": true,
+      "isDisabled": "{{tblCashDeposits.processedTableData.map((currentRow, currentIndex) => ( currentRow.operational_status !== 'cash_on_hand' || !qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer))}}",
+      "isDerived": true,
+      "label": "Exclude",
+      "onClick": "{{cashDepositFlows.excludeDonationFromReconciliation()}}",
+      "computedValue": "",
+      "buttonLabel": "{{tblCashDeposits.processedTableData.map((currentRow, currentIndex) => ( 'Exclude'))}}",
+      "sticky": "right"
     }
   },
   "renderMode": "CANVAS",
