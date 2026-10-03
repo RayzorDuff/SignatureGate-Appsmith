@@ -31,7 +31,16 @@
       "menuColor": "{{appsmith.theme.colors.primaryColor}}"
     }
   },
-  "columnOrder": [],
+  "columnOrder": [
+    "donation_id",
+    "donated_at",
+    "donor_name",
+    "amount_cents",
+    "currency",
+    "operational_status",
+    "deposit_batch_id",
+    "notes"
+  ],
   "columnUpdatedAt": 1791037612169,
   "columnWidthMap": {},
   "customIsLoading": false,
@@ -51,6 +60,9 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "tableData"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -83,7 +95,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 62,
   "searchKey": "",
-  "tableData": "",
+  "tableData": "{{ qCashDepositCashOnHand.data }}",
   "textSize": "0.875rem",
   "topRow": 23,
   "totalRecordsCount": 0,
