@@ -17,6 +17,9 @@
   "dynamicPropertyPathList": [
     {
       "key": "sourceData"
+    },
+    {
+      "key": "sourceData"
     }
   ],
   "isDisabled": false,
@@ -27,7 +30,7 @@
   "key": "uwfouzossk",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Status",
+  "labelText": "Cash donation status",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 2,
@@ -44,12 +47,12 @@
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
-  "placeholderText": "All statuses",
+  "placeholderText": "All cash donations",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 18,
   "serverSideFiltering": false,
-  "sourceData": "[{\"name\":\"All statuses\",\"code\":\"ALL\"},{\"name\":\"Pending Review\",\"code\":\"pending_review\"},{\"name\":\"Verified\",\"code\":\"verified\"},{\"name\":\"Rejected\",\"code\":\"rejected\"},{\"name\":\"Cash on Hand\",\"code\":\"cash_on_hand\"},{\"name\":\"Assigned to Deposit Batch\",\"code\":\"assigned_to_deposit_batch\"},{\"name\":\"Deposit Prepared\",\"code\":\"deposit_prepared\"},{\"name\":\"Deposit Confirmed\",\"code\":\"deposit_confirmed\"}] ",
+  "sourceData": "[\n  {\"name\":\"All cash donations\",\"code\":\"ALL\"},\n  {\"name\":\"Pending Review\",\"code\":\"pending_review\"},\n  {\"name\":\"Verified\",\"code\":\"verified\"},\n  {\"name\":\"Rejected\",\"code\":\"rejected\"},\n  {\"name\":\"Cash on Hand\",\"code\":\"cash_on_hand\"},\n  {\"name\":\"Assigned to Deposit Batch\",\"code\":\"assigned_to_deposit_batch\"},\n  {\"name\":\"Deposit Prepared\",\"code\":\"deposit_prepared\"},\n  {\"name\":\"Deposit Confirmed\",\"code\":\"deposit_confirmed\"}\n]",
   "topRow": 14,
   "type": "SELECT_WIDGET",
   "version": 1,
