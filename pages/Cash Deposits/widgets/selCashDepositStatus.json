@@ -2,9 +2,9 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 33,
+  "bottomRow": 21,
   "boxShadow": "none",
-  "defaultOptionValue": "GREEN",
+  "defaultOptionValue": "ALL",
   "dynamicBindingPathList": [
     {
       "key": "accentColor"
@@ -27,10 +27,10 @@
   "key": "uwfouzossk",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Label",
+  "labelText": "Status",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 0,
+  "leftColumn": 2,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -44,15 +44,16 @@
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
-  "placeholderText": "Select option",
+  "placeholderText": "All statuses",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 15,
+  "rightColumn": 18,
   "serverSideFiltering": false,
-  "sourceData": "[\n  {\n    \"name\": \"Blue\",\n    \"code\": \"BLUE\"\n  },\n  {\n    \"name\": \"Green\",\n    \"code\": \"GREEN\"\n  },\n  {\n    \"name\": \"Red\",\n    \"code\": \"RED\"\n  }\n]",
-  "topRow": 26,
+  "sourceData": "[{\"name\":\"All statuses\",\"code\":\"ALL\"},{\"name\":\"Pending Review\",\"code\":\"pending_review\"},{\"name\":\"Verified\",\"code\":\"verified\"},{\"name\":\"Rejected\",\"code\":\"rejected\"},{\"name\":\"Cash on Hand\",\"code\":\"cash_on_hand\"},{\"name\":\"Assigned to Deposit Batch\",\"code\":\"assigned_to_deposit_batch\"},{\"name\":\"Deposit Prepared\",\"code\":\"deposit_prepared\"},{\"name\":\"Deposit Confirmed\",\"code\":\"deposit_confirmed\"}] ",
+  "topRow": 14,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "mhg3s8yuwi",
-  "widgetName": "selCashDepositStatus"
+  "widgetName": "selCashDepositStatus",
+  "tooltip": "Filter cash donations by their current operational status."
 }
