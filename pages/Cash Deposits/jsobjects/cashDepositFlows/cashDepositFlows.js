@@ -19,12 +19,15 @@ export default {
   },
 
   selectedBatch() {
-    const selected = tblCashDepositBatches.selectedRow || {};
-    if (selected.deposit_batch_id) return selected;
     const storedId = String(appsmith.store.cash_deposit_batch_id || "").trim();
-    return (qCashDepositBatches.data || []).find(
-      row => row.deposit_batch_id === storedId
-    ) || {};
+    if (storedId) {
+      const stored = (qCashDepositBatches.data || []).find(
+        row => row.deposit_batch_id === storedId
+      );
+      if (stored) return stored;
+    }
+
+    return tblCashDepositBatches.selectedRow || {};
   },
 
   isDonationsReviewer() {
@@ -158,6 +161,222 @@ export default {
     await this.refresh();
   },
 
+  async printBatch(batchId) {
+    const id = String(
+      batchId || this.selectedBatch()?.deposit_batch_id || ""
+    ).trim();
+
+    if (!id) {
+      showAlert("Select a deposit batch to print.", "warning");
+      return;
+    }
+
+    const batch = (qCashDepositBatches.data || []).find(
+      row => row.deposit_batch_id === id
+    ) || {};
+
+    if (!["prepared", "confirmed"].includes(batch.status)) {
+      showAlert("Only prepared or completed deposit batches can be printed.", "warning");
+      return;
+    }
+
+    if (typeof jspdf === "undefined" || !jspdf.jsPDF) {
+      showAlert(
+        "The PDF library is not installed in this Appsmith app. Install the jsPDF library, then retry.",
+        "error"
+      );
+      return;
+    }
+
+    const rows = await qCashDepositBatchPrint.run({
+      deposit_batch_id: id
+    });
+
+    if (!rows?.length) {
+      showAlert("No deposit detail was found for this batch.", "warning");
+      return;
+    }
+
+    const first = rows[0];
+    const doc = new jspdf.jsPDF({
+      orientation: "portrait",
+      unit: "pt",
+      format: "letter"
+    });
+
+    const pageWidth = 612;
+    const pageHeight = 792;
+    const margin = 36;
+    const contentWidth = pageWidth - (margin * 2);
+    let y = 44;
+
+    const money = cents => "$" + (Number(cents || 0) / 100).toFixed(2);
+    const dateOnly = value => value ? moment(value).format("YYYY-MM-DD") : "";
+    const dateTime = value => value ? moment(value).format("YYYY-MM-DD HH:mm") : "";
+    const text = value => String(value ?? "")
+      .replace(/[\u0000-\u001f]/g, " ")
+      .replace(/[“”]/g, '"')
+      .replace(/[‘’]/g, "'")
+      .replace(/–|—/g, "-")
+      .replace(/…/g, "...")
+      .replace(/[^\x20-\x7E]/g, "?")
+      .trim();
+    const donorName = row => row.donor_name
+      || (row.donor_kind === "anonymous" ? "Anonymous" : "Unidentified donor");
+
+    const addHeader = continuation => {
+      y = 44;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(16);
+      doc.text(
+        continuation ? "CASH DEPOSIT RECORD - CONTINUED" : "CASH DEPOSIT RECORD",
+        margin,
+        y
+      );
+      y += 20;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+
+      if (!continuation) {
+        doc.text("Batch: " + text(first.deposit_batch_id), margin, y);
+        doc.text("Status: " + text(first.status), 390, y);
+        y += 13;
+        doc.text("Deposit date: " + dateOnly(first.deposit_date), margin, y);
+        doc.text("Slip/reference: " + text(first.deposit_slip_number), 260, y);
+        y += 13;
+        doc.text("Destination: " + text(first.destination_bank_account), margin, y);
+        y += 13;
+        doc.text("Prepared by: " + text(first.preparer_email), margin, y);
+        doc.text("Prepared: " + dateTime(first.prepared_at), 330, y);
+        y += 13;
+
+        if (first.status === "confirmed") {
+          doc.text("Confirmed by: " + text(first.verifier_email), margin, y);
+          doc.text("Confirmed: " + dateTime(first.confirmed_at), 330, y);
+          y += 13;
+        }
+
+        if (text(first.batch_notes)) {
+          doc.text("Batch notes: " + text(first.batch_notes), margin, y);
+          y += 13;
+        }
+
+        y += 8;
+      }
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text("Date", margin, y);
+      doc.text("Donor", 90, y);
+      doc.text("Type", 215, y);
+      doc.text("Contribution ID", 270, y);
+      doc.text("Amount", 380, y);
+      doc.text("Reference", 430, y);
+      y += 5;
+      doc.line(margin, y, pageWidth - margin, y);
+      y += 12;
+      doc.setFont("helvetica", "normal");
+    };
+
+    const addFooter = pageNumber => {
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "normal");
+      doc.text(
+        "SignatureGate cash deposit record - Page " + pageNumber,
+        margin,
+        pageHeight - 22
+      );
+    };
+
+    addHeader(false);
+
+    rows.forEach(row => {
+      const donorLines = doc.splitTextToSize(text(donorName(row)), 115);
+      const referenceLines = doc.splitTextToSize(text(row.provider_reference), 72);
+      const notes = text(row.donation_notes || row.review_notes);
+      const noteLines = notes
+        ? doc.splitTextToSize("Notes: " + notes, contentWidth)
+        : [];
+      const lineCount = Math.max(
+        donorLines.length,
+        referenceLines.length,
+        noteLines.length,
+        1
+      );
+      const rowHeight = Math.max(24, (lineCount * 9) + (noteLines.length ? 10 : 4));
+
+      if (y + rowHeight > pageHeight - 42) {
+        addFooter(doc.getNumberOfPages());
+        doc.addPage();
+        addHeader(true);
+      }
+
+      const rowTop = y;
+      doc.setFontSize(7);
+      doc.text(dateOnly(row.donated_at), margin, rowTop);
+      doc.text(donorLines, 90, rowTop);
+      doc.text(text(row.donor_kind), 215, rowTop);
+      doc.text(text(row.donation_id).slice(0, 12), 270, rowTop);
+      doc.text(money(row.item_amount_cents), 380, rowTop);
+      doc.text(referenceLines, 430, rowTop);
+
+      if (noteLines.length) {
+        doc.setFontSize(6.5);
+        doc.text(noteLines, margin, rowTop + (lineCount * 9));
+      }
+
+      doc.setFontSize(7);
+      doc.line(margin, rowTop + rowHeight - 3, pageWidth - margin, rowTop + rowHeight - 3);
+      y = rowTop + rowHeight + 5;
+    });
+
+    if (y > pageHeight - 150) {
+      addFooter(doc.getNumberOfPages());
+      doc.addPage();
+      addHeader(true);
+    }
+
+    y += 8;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("Tally", margin, y);
+    y += 16;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("Contributions: " + rows.length, margin, y);
+    doc.text("Expected amount: " + money(first.expected_amount_cents), 220, y);
+    y += 14;
+
+    if (first.status === "confirmed") {
+      doc.text("Verified amount: " + money(first.actual_amount_cents), margin, y);
+      doc.text("Completed: " + dateTime(first.confirmed_at), 220, y);
+      y += 14;
+    }
+
+    doc.text("Prepared: " + dateTime(first.prepared_at), margin, y);
+    y += 14;
+
+    if (first.status === "confirmed") {
+      doc.text("Verified by: " + text(first.verifier_email), margin, y);
+      y += 14;
+    }
+
+    if (text(first.batch_notes)) {
+      doc.text("Notes: " + text(first.batch_notes), margin, y);
+    }
+
+    addFooter(doc.getNumberOfPages());
+
+    const fileDate = dateOnly(first.deposit_date) || moment().format("YYYY-MM-DD");
+    const fileName = "cash-deposit-" + fileDate + "-" + id.slice(0, 8) + ".pdf";
+    const dataUrl = doc.output("dataurlstring");
+    download(dataUrl, fileName, "application/pdf");
+
+    showAlert("Deposit record PDF downloaded.", "success");
+  },
+
   async prepareBatch() {
     const batch = this.selectedBatch();
     const actorId = this.requireFacilitator();
@@ -166,6 +385,14 @@ export default {
 
     if (!batch.deposit_batch_id || batch.status !== "draft") {
       showAlert("Select a draft deposit batch to prepare.", "warning");
+      return;
+    }
+
+    if (Number(batch.item_count || 0) < 1) {
+      showAlert(
+        "The selected batch has no active donations. Add a Cash on Hand donation before preparing it.",
+        "warning"
+      );
       return;
     }
 
@@ -194,6 +421,7 @@ export default {
       notes: null
     });
 
+    await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
     showAlert("Deposit batch prepared.", "success");
     await this.refresh();
   },
@@ -234,6 +462,7 @@ export default {
       notes: null
     });
 
+    await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
     showAlert("Deposit batch confirmed.", "success");
     await this.refresh();
   }
