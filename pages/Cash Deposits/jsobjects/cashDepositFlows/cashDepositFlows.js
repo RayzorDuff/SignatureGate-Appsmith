@@ -151,6 +151,9 @@ export default {
       actor_id: actorId
     });
 
+    // Preserve the batch the user just modified across the refresh. Appsmith
+    // may otherwise default the table selection back to the first row.
+    await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
     showAlert("Cash donation added to the deposit batch.", "success");
     await this.refresh();
   },
