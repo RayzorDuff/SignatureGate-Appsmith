@@ -1,0 +1,25 @@
+SELECT DISTINCT
+  deposit_batch_id,
+  status,
+  batch_created_at,
+  batch_updated_at,
+  deposit_date,
+  deposit_slip_number,
+  destination_bank_account,
+  preparer_id,
+  preparer_email,
+  prepared_by,
+  prepared_at,
+  verifier_id,
+  verifier_email,
+  confirmed_at,
+  cancelled_at,
+  cancelled_by,
+  expected_amount_cents,
+  actual_amount_cents,
+  item_count,
+  item_total_cents
+FROM public.cash_deposit_batch_tally
+WHERE {{ selCashDepositStatus.selectedOptionValue || 'ALL' }} = 'ALL'
+   OR status = {{ selCashDepositStatus.selectedOptionValue }}
+ORDER BY batch_created_at DESC, deposit_batch_id;
