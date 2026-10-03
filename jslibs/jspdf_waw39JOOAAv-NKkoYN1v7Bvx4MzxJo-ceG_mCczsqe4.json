@@ -1,0 +1,10 @@
+{
+  "name": "jspdf",
+  "accessor": [
+    "jspdf"
+  ],
+  "url": "https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js",
+  "version": "4.2.1",
+  "defs": "{}",
+  "uidString": "jspdf_https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"
+}
