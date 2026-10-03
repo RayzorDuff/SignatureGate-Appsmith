@@ -1,0 +1,20 @@
+SELECT
+  d.donation_id,
+  d.donated_at,
+  d.amount_cents,
+  d.currency,
+  d.donor_kind,
+  d.member_id,
+  d.contributor_id,
+  CASE
+    WHEN d.donor_kind = 'anonymous' THEN 'Anonymous'
+    ELSE COALESCE(c.display_name, d.member_id::text)
+  END AS donor_name,
+  c.contributor_type,
+  d.notes
+FROM public.cash_on_hand_donations() d
+LEFT JOIN public.contributor_profiles c
+  ON c.contributor_id = d.contributor_id
+WHERE {{ selCashDepositStatus.selectedOptionValue || 'ALL' }} = 'ALL'
+   OR {{ selCashDepositStatus.selectedOptionValue || 'ALL' }} = 'cash_on_hand'
+ORDER BY d.donated_at DESC NULLS LAST, d.donation_id;
