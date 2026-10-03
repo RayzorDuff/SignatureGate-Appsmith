@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.add_cash_deposit_item(\n  p_deposit_batch_id => {{ this.params.deposit_batch_id }}::uuid,\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_actor_id => {{ this.params.actor_id }}::uuid\n);",
+      "body": "SELECT *\nFROM public.add_cash_deposit_item(\n  p_deposit_batch_id => {{ this.params.deposit_batch_id }}::uuid,\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_actor_id => {{ this.params.actor_id }}::uuid\n);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

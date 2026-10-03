@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.review_pending_donation(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_reviewer_id => {{ this.params.reviewer_id }}::uuid,\n  p_new_status => {{ this.params.new_status }},\n  p_review_notes => {{ this.params.review_notes || null }}\n);",
+      "body": "SELECT *\nFROM public.review_pending_donation(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_reviewer_id => {{ this.params.reviewer_id }}::uuid,\n  p_new_status => {{ this.params.new_status }},\n  p_review_notes => {{ this.params.review_notes || null }}\n);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
