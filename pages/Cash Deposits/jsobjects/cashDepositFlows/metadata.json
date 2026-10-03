@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "cash-deposits-cashDepositFlows",
+  "id": "Cash Deposits_cashDepositFlows",
+  "unpublishedCollection": {
+    "name": "cashDepositFlows",
+    "pageId": "Cash Deposits",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}
