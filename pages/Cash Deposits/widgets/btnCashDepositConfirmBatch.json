@@ -1,0 +1,64 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 119,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !tblCashDepositBatches.selectedRow?.deposit_batch_id || tblCashDepositBatches.selectedRow?.status !== \"prepared\" || !inpCashDepositActualAmount.text }}",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "bkfm8aymy0",
+  "leftColumn": 17,
+  "minWidth": 120,
+  "mobileBottomRow": 75,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 6,
+  "mobileTopRow": 71,
+  "needsErrorInfo": false,
+  "onClick": "{{ cashDepositFlows.confirmBatch() }}",
+  "originalBottomRow": 135,
+  "originalTopRow": 128,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 30,
+  "text": "Confirm",
+  "tooltip": "Record the completed bank deposit, including the deposit date, destination account, and reference.",
+  "topRow": 115,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "7844wsrynp",
+  "widgetName": "btnCashDepositConfirmBatch"
+}
