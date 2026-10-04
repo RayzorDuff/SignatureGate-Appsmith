@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  created.member_id,\n  (\n    SELECT m.person_id\n    FROM public.members m\n    WHERE m.member_id = created.member_id\n  ) AS person_id,\n  created.duplicate_blocked\nFROM created;",
+      "body": "WITH created AS (\n  SELECT *\n  FROM public.create_member_from_intake(\n    NULLIF(btrim({{ this.params.first_name || \"\" }}),''),\n    NULLIF(btrim({{ this.params.last_name || \"\" }}),''),\n    NULLIF(lower(btrim({{ this.params.email || \"\" }})),''),\n    NULLIF(btrim({{ this.params.phone || \"\" }}),''),\n    NULLIF({{ this.params.date_of_birth || \"\" }},'')::date,\n    NULLIF(btrim({{ this.params.notes || \"\" }}),''),\n    false,\n    NULLIF(btrim({{ this.params.created_by_facilitator_id || \"\" }}),'')::uuid\n  )\n)\nSELECT\n  created.member_id,\n  (\n    SELECT m.person_id\n    FROM public.members m\n    WHERE m.member_id = created.member_id\n  ) AS person_id,\n  created.duplicate_blocked\nFROM created;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -22,7 +22,11 @@
       "name": "signaturegate-postgres-test",
       "pluginId": "postgres-plugin"
     },
-    "dynamicBindingPathList": [],
+    "dynamicBindingPathList": [
+      {
+        "key": "body"
+      }
+    ],
     "name": "qCreateMember",
     "pageId": "Intake",
     "runBehaviour": "MANUAL",
