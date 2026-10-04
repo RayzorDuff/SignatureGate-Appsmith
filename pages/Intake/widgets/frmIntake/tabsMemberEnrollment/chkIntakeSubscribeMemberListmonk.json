@@ -3,7 +3,7 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 72,
+  "bottomRow": 19,
   "defaultCheckedState": true,
   "dynamicBindingPathList": [
     {
@@ -14,45 +14,41 @@
     },
     {
       "key": "isDisabled"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "isDisabled"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicTriggerPathList": [],
   "isDisabled": "{{ !(inpIntakeEmail.text || '').trim() }}",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
-  "key": "intake-subscribe-contributor-listmonk",
-  "label": "Subscribe to Contributor mailing list",
+  "isVisible": true,
+  "key": "intake-subscribe-member-listmonk",
+  "label": "Subscribe to Member mailing lists",
   "labelPosition": "Right",
-  "leftColumn": 33,
+  "leftColumn": 42,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 78,
+  "mobileBottomRow": 68,
   "mobileLeftColumn": 28,
   "mobileRightColumn": 64,
-  "mobileTopRow": 63,
+  "mobileTopRow": 53,
   "needsErrorInfo": false,
+  "originalBottomRow": 67,
+  "originalTopRow": 58,
   "parentColumnSpace": 13.875,
-  "parentId": "mqyh9qp9p6",
+  "parentId": "2mq85c27oi",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 64,
-  "topRow": 63,
+  "topRow": 15,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
-  "widgetId": "intake-subscribe-contributor-listmonk",
-  "widgetName": "chkIntakeSubscribeContributorListmonk"
+  "widgetId": "intake-subscribe-member-listmonk",
+  "widgetName": "chkIntakeSubscribeMemberListmonk"
 }

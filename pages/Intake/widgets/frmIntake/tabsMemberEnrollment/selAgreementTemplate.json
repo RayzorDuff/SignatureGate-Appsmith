@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 12,
+  "bottomRow": 10,
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
@@ -38,7 +38,7 @@
   "placeholderText": "Select agreement template",
   "rightColumn": 64,
   "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
-  "topRow": 5,
+  "topRow": 4,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-agreement-template",
