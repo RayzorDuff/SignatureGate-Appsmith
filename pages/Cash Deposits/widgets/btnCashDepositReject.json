@@ -1,0 +1,70 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 67,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !tblCashDeposits.selectedRow?.donation_id || tblCashDeposits.selectedRow?.operational_status !== \"pending_review\" || !qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer }}",
+  "isLoading": false,
+  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "key": "bkfm8aymy0",
+  "leftColumn": 17,
+  "minWidth": 120,
+  "mobileBottomRow": 16,
+  "mobileLeftColumn": 17,
+  "mobileRightColumn": 33,
+  "mobileTopRow": 12,
+  "needsErrorInfo": false,
+  "onClick": "{{ cashDepositFlows.rejectDonation() }}",
+  "originalBottomRow": 75,
+  "originalTopRow": 68,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 30,
+  "text": "Reject Donation",
+  "tooltip": "Mark the selected cash donation as rejected or unverified.",
+  "topRow": 63,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "ivfuejvd4i",
+  "widgetName": "btnCashDepositReject"
+}
