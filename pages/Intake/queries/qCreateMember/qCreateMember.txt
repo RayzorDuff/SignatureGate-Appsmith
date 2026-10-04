@@ -1,1 +1,9 @@
-WITH created AS (SELECT * FROM public.create_member_from_intake(NULLIF(btrim({{ this.params.first_name || "" }}),''),NULLIF(btrim({{ this.params.last_name || "" }}),''),NULLIF(lower(btrim({{ this.params.email || "" }})),''),NULLIF(btrim({{ this.params.phone || "" }}),''),NULLIF({{ this.params.date_of_birth || "" }},'')::date,NULLIF(btrim({{ this.params.notes || "" }}),''),false,NULLIF(btrim({{ this.params.created_by_facilitator_id || "" }}),'')::uuid)) SELECT created.member_id,m.person_id,created.duplicate_blocked FROM created LEFT JOIN public.members m ON m.member_id=created.member_id;
+SELECT
+  created.member_id,
+  (
+    SELECT m.person_id
+    FROM public.members m
+    WHERE m.member_id = created.member_id
+  ) AS person_id,
+  created.duplicate_blocked
+FROM created;
