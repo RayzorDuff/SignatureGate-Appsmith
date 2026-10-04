@@ -1,1 +1,25 @@
-INSERT INTO public.member_phones(member_id,phone,is_primary,is_verified,source,notes) VALUES ({{ this.params.member_id }}::uuid,{{ this.params.phone }},true,false,'intake',{{ this.params.notes || null }}) ON CONFLICT (phone_normalized) WHERE phone_normalized IS NOT NULL AND phone_normalized<>'' AND status='active' DO NOTHING RETURNING *;
+INSERT INTO public.member_phones(
+  member_id,
+  phone,
+  is_primary,
+  is_verified,
+  source,
+  notes
+)
+SELECT
+  {{ this.params.member_id }}::uuid,
+  {{ this.params.phone }},
+  true,
+  false,
+  'intake',
+  {{ this.params.notes || null }}
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM public.member_phones existing
+  WHERE existing.phone_normalized =
+        public.normalize_us_phone({{ this.params.phone }})
+    AND existing.phone_normalized IS NOT NULL
+    AND existing.phone_normalized <> ''
+    AND existing.status = 'active'
+)
+RETURNING *;

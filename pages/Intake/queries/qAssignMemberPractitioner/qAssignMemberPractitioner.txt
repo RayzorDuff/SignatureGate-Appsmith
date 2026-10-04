@@ -1,7 +1,11 @@
 SELECT public.issue19_assign_member_practitioner(
   {{ appsmith.user.email }},
-  (SELECT person_id FROM public.members WHERE member_id={{ this.params.member_id }}::uuid),
-  (SELECT person_id FROM public.members WHERE member_id={{ this.params.practitioner_member_id }}::uuid),
+  (
+    SELECT person_id
+    FROM public.members
+    WHERE member_id = {{ this.params.member_id }}::uuid
+  ),
+  {{ this.params.practitioner_person_id }}::uuid,
   {{ this.params.notes || null }},
   {{ this.params.reason }}
 );

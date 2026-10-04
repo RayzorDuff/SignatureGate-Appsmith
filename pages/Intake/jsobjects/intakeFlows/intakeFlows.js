@@ -225,18 +225,6 @@ export default {
             actor_member_id: actor.member_id, reason
           });
 
-          if (e?.[0]?.member_email_id) await qAssignPersonContactRole.run({
-            person_id: memberPersonId, source_table: "member_emails",
-            source_id: e[0].member_email_id, reason
-          });
-          if (phoneId) await qAssignPersonContactRole.run({
-            person_id: memberPersonId, source_table: "member_phones",
-            source_id: phoneId, reason
-          });
-          if (memberAddressId) await qAssignPersonContactRole.run({
-            person_id: memberPersonId, source_table: "member_addresses",
-            source_id: memberAddressId, reason
-          });
         }
       } else {
         const created = await qCreateContributor.run({
