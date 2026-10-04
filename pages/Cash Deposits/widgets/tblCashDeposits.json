@@ -584,7 +584,7 @@
       "isDisabled": "{{tblCashDeposits.processedTableData.map((currentRow, currentIndex) => ( currentRow.operational_status !== 'cash_on_hand' || !qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer))}}",
       "isVisible": true,
       "label": "Exclude",
-      "onClick": "{{cashDepositFlows.excludeDonationFromReconciliation()}}",
+      "onClick": "{{cashDepositFlows.excludeDonationFromReconciliation(currentRow.donation_id)}}",
       "originalId": "exclude",
       "sticky": "right",
       "textSize": "0.875rem",
