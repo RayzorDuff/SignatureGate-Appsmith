@@ -59,8 +59,13 @@ export default {
     await qCashDepositCashOnHand.run();
   },
 
-  async excludeDonationFromReconciliation() {
-    const donation = this.selectedDonation();
+  async excludeDonationFromReconciliation(donationId) {
+    const clickedId = String(donationId || "").trim();
+    const donation = clickedId
+      ? (tblCashDeposits.processedTableData || []).find(
+          row => String(row.donation_id || "").trim() === clickedId
+        ) || {}
+      : this.selectedDonation();
     const reviewerId = this.requireDonationsReviewer();
 
     if (!reviewerId) return;
@@ -83,6 +88,36 @@ export default {
     });
 
     showAlert("Cash donation excluded from deposit reconciliation.", "success");
+    await qCashDepositCashOnHand.run();
+  },
+
+  async reviveDonationFromReconciliation(donationId) {
+    const clickedId = String(donationId || "").trim();
+    const donation = clickedId
+      ? (tblCashDeposits.processedTableData || []).find(
+          row => String(row.donation_id || "").trim() === clickedId
+        ) || {}
+      : this.selectedDonation();
+    const reviewerId = this.requireDonationsReviewer();
+
+    if (!reviewerId) return;
+
+    if (!donation.donation_id) {
+      showAlert("Select an excluded cash donation to revive.", "warning");
+      return;
+    }
+
+    if (donation.operational_status !== "deposit_reconciliation_excluded") {
+      showAlert("Only an excluded cash donation can be revived.", "warning");
+      return;
+    }
+
+    await qReviveCashDonation.run({
+      donation_id: donation.donation_id,
+      actor_id: reviewerId
+    });
+
+    showAlert("Cash donation revived and returned to Cash on Hand.", "success");
     await qCashDepositCashOnHand.run();
   },
 
