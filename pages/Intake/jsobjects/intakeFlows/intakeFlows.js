@@ -84,12 +84,12 @@ export default {
     // This prevents a deterministic downstream validation failure from
     // leaving a partially-created Member behind.
     let delivery = null;
-    let practitionerMemberId = null;
+    let practitionerPersonId = null;
     let agreementType = null;
     let agreementTemplate = null;
     if (member) {
       delivery = selAgreementDelivery.selectedOptionValue;
-      practitionerMemberId = selIntakePractitioner.selectedOptionValue;
+      practitionerPersonId = selIntakePractitioner.selectedOptionValue;
       agreementType = selAgreementType.selectedOptionValue;
       agreementTemplate = selAgreementTemplate.selectedOptionValue;
 
@@ -188,7 +188,7 @@ export default {
 
         await qAssignMemberPractitioner.run({
           member_id: memberId,
-          practitioner_member_id: practitionerMemberId,
+          practitioner_person_id: practitionerPersonId,
           reason: "Initial member enrollment",
           notes: ""
         });
@@ -289,7 +289,7 @@ export default {
 
       agreementResult = await qCreateIntakeAgreement.run({
         member_id: memberId,
-        practitioner_member_id: practitionerMemberId,
+        practitioner_person_id: practitionerPersonId,
         agreement_template_id: delivery === "Digital" ? agreementTemplate : "",
         signature_method: delivery === "Digital" ? "documenso" : "paper",
         status: delivery === "Digital" ? "pending_email_send" : "pending_review",
