@@ -59,8 +59,13 @@ export default {
     await qCashDepositCashOnHand.run();
   },
 
-  async excludeDonationFromReconciliation() {
-    const donation = this.selectedDonation();
+  async excludeDonationFromReconciliation(donationId) {
+    const clickedId = String(donationId || "").trim();
+    const donation = clickedId
+      ? (tblCashDeposits.processedTableData || []).find(
+          row => String(row.donation_id || "").trim() === clickedId
+        ) || {}
+      : this.selectedDonation();
     const reviewerId = this.requireDonationsReviewer();
 
     if (!reviewerId) return;
