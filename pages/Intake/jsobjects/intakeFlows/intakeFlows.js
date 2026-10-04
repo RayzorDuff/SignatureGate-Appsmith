@@ -229,6 +229,11 @@ export default {
             contributor_id: contributorId, member_id: memberId,
             actor_member_id: actor.member_id, reason
           });
+					
+					const queueAfterLink = await qCheckContributorListmonkQueue.run({
+						contributor_email_id: contributorEmail?.[0]?.contributor_email_id
+					});
+					console.log("Contributor Listmonk queue after member link:", queueAfterLink);
 
         }
       } else {
