@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "INSERT INTO public.member_phones(member_id,phone,is_primary,is_verified,source,notes) VALUES ({{ this.params.member_id }}::uuid,{{ this.params.phone }},true,false,'intake',{{ this.params.notes || null }}) ON CONFLICT (phone_normalized) WHERE phone_normalized IS NOT NULL AND phone_normalized<>'' AND status='active' DO NOTHING RETURNING *;",
+      "body": "INSERT INTO public.member_phones(member_id,phone,is_primary,is_verified,source,notes)\nSELECT\n  {{ this.params.member_id }}::uuid,\n  {{ this.params.phone }},\n  true,\n  false,\n  'intake',\n  {{ this.params.notes || null }}\nWHERE NOT EXISTS (\n  SELECT 1\n  FROM public.member_phones existing\n  WHERE existing.phone_normalized = public.normalize_us_phone({{ this.params.phone }})\n    AND existing.phone_normalized IS NOT NULL\n    AND existing.phone_normalized <> ''\n    AND existing.status = 'active'\n)\nRETURNING *;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
