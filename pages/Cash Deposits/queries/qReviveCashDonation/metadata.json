@@ -30,6 +30,8 @@
     "name": "qReviveCashDonation",
     "pageId": "Cash Deposits",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": false,
+    "gitSyncId": "cash-deposits-qReviveCashDonation",
+    "id": "Cash Deposits_qReviveCashDonation"
   }
 }
