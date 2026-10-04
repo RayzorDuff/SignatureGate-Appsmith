@@ -157,14 +157,20 @@ export default {
           date_of_birth: dob, created_by_facilitator_id: actor.member_id
         });
         memberId = created?.[0]?.member_id;
-        memberPersonId = created?.[0]?.person_id;
         const duplicateBlocked = created?.[0]?.duplicate_blocked === true;
         if (duplicateBlocked) {
           showAlert("Member creation was blocked because the database detected a duplicate.", "error");
           return;
         }
-        if (!memberId || !memberPersonId) {
-          showAlert("Member creation returned an incomplete result. No duplicate was reported, but the new member identity could not be resolved.", "error");
+        if (!memberId) {
+          showAlert("Member creation returned an incomplete result. No duplicate was reported, but the new member could not be resolved.", "error");
+          return;
+        }
+
+        const memberPersonRows = await qGetMemberPerson.run({ member_id: memberId });
+        memberPersonId = memberPersonRows?.[0]?.person_id || null;
+        if (!memberPersonId) {
+          showAlert("Member was created, but its person identity could not be resolved.", "error");
           return;
         }
 

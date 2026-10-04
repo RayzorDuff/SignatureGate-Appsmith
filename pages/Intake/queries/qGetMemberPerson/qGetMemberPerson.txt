@@ -1,0 +1,3 @@
+SELECT m.person_id
+FROM public.members m
+WHERE m.member_id = {{ this.params.member_id }};
