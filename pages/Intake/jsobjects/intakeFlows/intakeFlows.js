@@ -176,12 +176,15 @@ export default {
           phoneId = p?.[0]?.member_phone_id || null;
         }
 
-        const addressResult = await qAddMembershipAddress.run({
-          person_id: memberPersonId, address_1: address, address_2: "",
-          city, state, postal_code: postal, reason: "Initial Intake"
-        });
-        const memberAddressId = addressResult?.[0]?.member_address_id ||
-          addressResult?.[0]?.issue19_add_membership_address || null;
+        let memberAddressId = null;
+        if (hasCompleteAddress) {
+          const addressResult = await qAddMembershipAddress.run({
+            person_id: memberPersonId, address_1: address, address_2: "",
+            city, state, postal_code: postal, reason: "Initial Intake"
+          });
+          memberAddressId = addressResult?.[0]?.member_address_id ||
+            addressResult?.[0]?.issue19_add_membership_address || null;
+        }
 
         await qAssignMemberPractitioner.run({
           member_id: memberId,
@@ -224,10 +227,12 @@ export default {
         memberPersonId = created?.[0]?.party_id;
         if (!contributorId || !memberPersonId) throw new Error("Contributor creation did not return the new individual identity.");
 
-        await qAddContributorAddress.run({
-          party_kind: "individual", party_id: memberPersonId,
-          address_1: address, address_2: "", city, state, postal_code: postal, reason
-        });
+        if (hasCompleteAddress) {
+          await qAddContributorAddress.run({
+            party_kind: "individual", party_id: memberPersonId,
+            address_1: address, address_2: "", city, state, postal_code: postal, reason
+          });
+        }
       }
     } else if (company) {
       const companyName = (inpIntakeCompanyName.text || "").trim();
@@ -246,10 +251,12 @@ export default {
       const organizationId = created?.[0]?.party_id;
       if (!contributorId || !organizationId) throw new Error("Company contributor creation did not return the organization identity.");
 
-      await qAddContributorAddress.run({
-        party_kind: "organization", party_id: organizationId,
-        address_1: address, address_2: "", city, state, postal_code: postal, reason
-      });
+      if (hasCompleteAddress) {
+        await qAddContributorAddress.run({
+          party_kind: "organization", party_id: organizationId,
+          address_1: address, address_2: "", city, state, postal_code: postal, reason
+        });
+      }
     }
 
     if (member) {
