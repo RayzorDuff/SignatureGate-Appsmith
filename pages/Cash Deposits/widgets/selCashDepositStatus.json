@@ -1,0 +1,61 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 17,
+  "boxShadow": "none",
+  "defaultOptionValue": "ALL",
+  "dynamicBindingPathList": [
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "uwfouzossk",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Cash donation status",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 36,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 15,
+  "mobileTopRow": 29,
+  "needsErrorInfo": false,
+  "optionLabel": "name",
+  "optionValue": "code",
+  "originalBottomRow": 21,
+  "originalTopRow": 14,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "All cash donations",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 18,
+  "serverSideFiltering": false,
+  "sourceData": "[\n  {\"name\":\"All cash donations\",\"code\":\"ALL\"},\n  {\"name\":\"Pending Review\",\"code\":\"pending_review\"},\n  {\"name\":\"Verified\",\"code\":\"verified\"},\n  {\"name\":\"Rejected\",\"code\":\"rejected\"},\n  {\"name\":\"Cash on Hand\",\"code\":\"cash_on_hand\"},\n  {\"name\":\"Assigned to Deposit Batch\",\"code\":\"assigned_to_deposit_batch\"},\n  {\"name\":\"Deposit Prepared\",\"code\":\"deposit_prepared\"},\n  {\"name\":\"Deposit Confirmed\",\"code\":\"deposit_confirmed\"}\n]",
+  "tooltip": "Filter cash donations by their current operational status.",
+  "topRow": 10,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "mhg3s8yuwi",
+  "widgetName": "selCashDepositStatus"
+}

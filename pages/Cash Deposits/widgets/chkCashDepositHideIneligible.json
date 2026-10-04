@@ -1,0 +1,40 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 17,
+  "defaultCheckedState": true,
+  "dynamicBindingPathList": [],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onCheckChange"
+    }
+  ],
+  "isDisabled": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "cashDepositHideIneligible",
+  "label": "Hide ineligible donations",
+  "labelPosition": "Left",
+  "leftColumn": 18,
+  "minWidth": 120,
+  "mobileBottomRow": 20,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 30,
+  "mobileTopRow": 16,
+  "onCheckChange": "{{cashDepositFlows.setHideIneligible(chkCashDepositHideIneligible.isChecked)}}",
+  "parentColumnSpace": 19.125,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 34,
+  "topRow": 13,
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "verticalAlignment": "CENTER",
+  "widgetId": "cashDepositHideIneligible",
+  "widgetName": "chkCashDepositHideIneligible"
+}

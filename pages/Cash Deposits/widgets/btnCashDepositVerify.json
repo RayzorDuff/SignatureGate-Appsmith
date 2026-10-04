@@ -1,0 +1,70 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 67,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !tblCashDeposits.selectedRow?.donation_id || tblCashDeposits.selectedRow?.operational_status !== \"pending_review\" || !qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer }}",
+  "isLoading": false,
+  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "key": "bkfm8aymy0",
+  "leftColumn": 1,
+  "minWidth": 120,
+  "mobileBottomRow": 59,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 6,
+  "mobileTopRow": 55,
+  "needsErrorInfo": false,
+  "onClick": "{{ cashDepositFlows.verifyDonation() }}",
+  "originalBottomRow": 75,
+  "originalTopRow": 68,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 14,
+  "text": "Verify Donation",
+  "tooltip": "Mark the selected cash donation as verified and eligible for cash handling.",
+  "topRow": 63,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "gnvvtx734k",
+  "widgetName": "btnCashDepositVerify"
+}

@@ -1,0 +1,74 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 126,
+  "boxShadow": "none",
+  "closeOnSelection": true,
+  "dateFormat": "LL",
+  "datePickerType": "DATE_PICKER",
+  "defaultDate": "{{ moment().format(\"YYYY-MM-DD\") }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "defaultDate"
+    },
+    {
+      "key": "minDate"
+    },
+    {
+      "key": "maxDate"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "firstDayOfWeek": 0,
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ !!tblCashDepositBatches.selectedRow?.deposit_batch_id || !!appsmith.store.cash_deposit_batch_id }}",
+  "key": "cdepdate01",
+  "label": "Deposit Date",
+  "labelAlignment": "left",
+  "labelPosition": "Auto",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 2,
+  "maxDate": "{{ moment().format(\"YYYY-MM-DD\") }}",
+  "maxDynamicHeight": 9000,
+  "minDate": "{{ moment().subtract(5, \"year\").format(\"YYYY-MM-DD\") }}",
+  "minDynamicHeight": 4,
+  "minWidth": 180,
+  "mobileBottomRow": 146,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 12,
+  "mobileTopRow": 138,
+  "originalBottomRow": 146,
+  "originalTopRow": 138,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 16,
+  "shortcuts": false,
+  "timePrecision": "None",
+  "topRow": 119,
+  "type": "DATE_PICKER_WIDGET2",
+  "version": 2,
+  "widgetId": "cdepdate01",
+  "widgetName": "inpCashDepositDate"
+}

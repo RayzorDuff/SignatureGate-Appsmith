@@ -13,8 +13,8 @@
     },
     "themeSetting": {
       "appMaxWidth": "LARGE",
-      "density": 1.0,
-      "sizing": 1.0
+      "density": 1,
+      "sizing": 1
     }
   },
   "applicationVersion": 2,
@@ -81,6 +81,10 @@
     {
       "id": "Company Profile",
       "isDefault": false
+    },
+    {
+      "id": "Cash Deposits",
+      "isDefault": false
     }
   ],
   "staticUrlSettings": {
@@ -100,8 +104,8 @@
     },
     "themeSetting": {
       "appMaxWidth": "LARGE",
-      "density": 1.0,
-      "sizing": 1.0
+      "density": 1,
+      "sizing": 1
     }
   }
 }

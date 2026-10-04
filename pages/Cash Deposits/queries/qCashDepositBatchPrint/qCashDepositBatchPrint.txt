@@ -1,0 +1,4 @@
+SELECT *
+FROM public.cash_deposit_batch_print
+WHERE deposit_batch_id = {{ this.params.deposit_batch_id }}::uuid
+ORDER BY donated_at NULLS LAST, donation_id;
