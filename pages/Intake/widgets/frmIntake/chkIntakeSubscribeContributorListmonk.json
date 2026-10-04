@@ -1,0 +1,58 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 72,
+  "defaultCheckedState": true,
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "{{ !(inpIntakeEmail.text || '').trim() }}",
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "key": "intake-subscribe-contributor-listmonk",
+  "label": "Subscribe to Contributor mailing list",
+  "labelPosition": "Right",
+  "leftColumn": 33,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 78,
+  "mobileLeftColumn": 28,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 63,
+  "needsErrorInfo": false,
+  "parentColumnSpace": 13.875,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "topRow": 63,
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "widgetId": "intake-subscribe-contributor-listmonk",
+  "widgetName": "chkIntakeSubscribeContributorListmonk"
+}
