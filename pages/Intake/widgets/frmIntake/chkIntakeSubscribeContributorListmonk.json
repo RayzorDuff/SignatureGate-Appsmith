@@ -31,7 +31,7 @@
   "isDisabled": "{{ !(inpIntakeEmail.text || '').trim() }}",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "key": "intake-subscribe-contributor-listmonk",
   "label": "Subscribe to Contributor mailing list",
   "labelPosition": "Right",
