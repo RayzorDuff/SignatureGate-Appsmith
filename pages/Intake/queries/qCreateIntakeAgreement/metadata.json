@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT * FROM public.issue19_create_member_agreement(\n  {{ appsmith.user.email }},\n  {{ this.params.member_id }}::uuid,\n  {{ this.params.practitioner_person_id }}::uuid,\n  {{ this.params.agreement_template_id || null }}::uuid,\n  {{ this.params.signature_method }},\n  {{ this.params.status }},\n  COALESCE({{ this.params.evidence_json || \"[]\" }}::jsonb,'[]'::jsonb),\n  {{ this.params.member_email_id || null }}::uuid\n);\n",
+      "body": "SELECT * FROM public.issue19_create_member_agreement(\n  {{ appsmith.user.email }},\n  {{ this.params.member_id }}::uuid,\n  (SELECT person_id FROM public.members WHERE member_id={{ this.params.practitioner_member_id }}::uuid),\n  {{ this.params.agreement_template_id || null }}::uuid,\n  {{ this.params.signature_method }},\n  {{ this.params.status }},\n  COALESCE({{ this.params.evidence_json || \"[]\" }}::jsonb,'[]'::jsonb),\n  {{ this.params.member_email_id || null }}::uuid\n);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
