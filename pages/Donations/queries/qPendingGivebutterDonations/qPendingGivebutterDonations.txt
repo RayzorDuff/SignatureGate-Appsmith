@@ -33,7 +33,7 @@ LEFT JOIN LATERAL (
   FROM public.audit_log x
   WHERE x.entity_type = 'donation'
     AND x.entity_id = d.donation_id::text
-    AND x.details ? 'raw'
+    AND jsonb_exists(x.details, 'raw')
   ORDER BY x.created_at DESC, x.audit_log_id DESC
   LIMIT 1
 ) al ON TRUE
