@@ -1,0 +1,62 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "autoFocus": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 126,
+  "boxShadow": "none",
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "iconAlign": "left",
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ tblCashDepositBatches.selectedRow?.status === \"draft\" || qCashDepositBatches.data?.find(r => r.deposit_batch_id === appsmith.store.cash_deposit_batch_id)?.status === \"draft\" }}",
+  "key": "cdepbank01",
+  "label": "Destination Bank Account",
+  "labelAlignment": "left",
+  "labelPosition": "Auto",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 34,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 180,
+  "mobileBottomRow": 146,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 12,
+  "mobileTopRow": 138,
+  "originalBottomRow": 146,
+  "originalTopRow": 138,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "resetOnSubmit": false,
+  "responsiveBehavior": "fill",
+  "rightColumn": 49,
+  "showStepArrows": false,
+  "topRow": 119,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "cdepbank01",
+  "widgetName": "inpCashDepositBankAccount"
+}
