@@ -1,0 +1,68 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "autoFocus": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 126,
+  "boxShadow": "none",
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "errorMessage": "Enter a positive dollar amount",
+  "iconAlign": "left",
+  "inputType": "NUMBER",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ tblCashDepositBatches.selectedRow?.status === \"prepared\" || qCashDepositBatches.data?.find(r => r.deposit_batch_id === appsmith.store.cash_deposit_batch_id)?.status === \"prepared\" }}",
+  "key": "cdepamt01",
+  "label": "Actual Amount (USD)",
+  "labelAlignment": "left",
+  "labelPosition": "Auto",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 52,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 180,
+  "mobileBottomRow": 146,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 12,
+  "mobileTopRow": 138,
+  "originalBottomRow": 146,
+  "originalTopRow": 138,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "regex": "^\\d+(\\.\\d{1,2})?$",
+  "renderMode": "CANVAS",
+  "resetOnSubmit": false,
+  "responsiveBehavior": "fill",
+  "rightColumn": 63,
+  "showStepArrows": false,
+  "topRow": 119,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{ !inpCashDepositActualAmount.text || Number(inpCashDepositActualAmount.text) > 0 }}",
+  "version": 2,
+  "widgetId": "cdepamt01",
+  "widgetName": "inpCashDepositActualAmount"
+}
