@@ -32,8 +32,8 @@
   "isLoading": false,
   "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
-  "key": "intake-subscribe-listmonk",
-  "label": "Add email to mailing list",
+  "key": "intake-subscribe-member-listmonk",
+  "label": "Subscribe to Member mailing lists",
   "labelPosition": "Right",
   "leftColumn": 33,
   "maxDynamicHeight": 9000,
@@ -53,6 +53,6 @@
   "topRow": 53,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
-  "widgetId": "intake-subscribe-listmonk",
-  "widgetName": "chkIntakeSubscribeListmonk"
+  "widgetId": "intake-subscribe-member-listmonk",
+  "widgetName": "chkIntakeSubscribeMemberListmonk"
 }
