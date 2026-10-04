@@ -199,6 +199,16 @@ export default {
           }))?.[0]?.contributor_id;
           if (!contributorId) throw new Error("Contributor capacity was not created.");
 
+          const contributorEmail = await qAddContributorEmailForDualCapacity.run({
+            person_id: memberPersonId,
+            email: individualEmail,
+            reason,
+            subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
+          });
+          if (!contributorEmail?.[0]?.contributor_email_id) {
+            throw new Error("Contributor email was not created.");
+          }
+
           await qLinkContributorMember.run({
             contributor_id: contributorId, member_id: memberId,
             actor_member_id: actor.member_id, reason
