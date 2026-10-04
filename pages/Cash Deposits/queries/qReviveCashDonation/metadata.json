@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "cash-deposits-qExcludeCashDonation",
-  "id": "Cash Deposits_qExcludeCashDonation",
+  "gitSyncId": "cash-deposits-qReviveCashDonation",
+  "id": "Cash Deposits_qReviveCashDonation",
   "pluginId": "postgres-plugin",
   "pluginType": "DB",
   "unpublishedAction": {
