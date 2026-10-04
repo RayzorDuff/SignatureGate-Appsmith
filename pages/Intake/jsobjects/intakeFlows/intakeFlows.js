@@ -167,7 +167,7 @@ export default {
           member_id: memberId,
           email: individualEmail,
           notes: "Created from Intake",
-          subscribe_to_mailing_list: chkIntakeSubscribeListmonk.isChecked
+          subscribe_to_mailing_list: chkIntakeSubscribeMemberListmonk.isChecked
         });
         memberEmailId = e?.[0]?.member_email_id || null;
         let phoneId = null;
@@ -218,7 +218,7 @@ export default {
         const created = await qCreateContributor.run({
           party_kind: "individual", first_name: first, last_name: last,
           email: individualEmail, phone, reason,
-          subscribe_to_mailing_list: chkIntakeSubscribeListmonk.isChecked
+          subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
         });
         contributorId = created?.[0]?.contributor_id;
         memberPersonId = created?.[0]?.party_id;
@@ -322,6 +322,8 @@ export default {
       "FilePickerAgreement",
       "chkIntakeMember",
       "chkIntakeContributor",
+      "chkIntakeSubscribeMemberListmonk",
+      "chkIntakeSubscribeContributorListmonk",
       "chkCompanyContributor",
       "selIntakeEntityType"
     ];
