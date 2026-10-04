@@ -93,7 +93,7 @@ export default {
       agreementType = selAgreementType.selectedOptionValue;
       agreementTemplate = selAgreementTemplate.selectedOptionValue;
 
-      if (!practitionerMemberId) {
+      if (!practitionerPersonId) {
         showAlert("Spiritual Practitioner is required for member enrollment.", "warning");
         return;
       }
