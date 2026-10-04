@@ -240,7 +240,7 @@ export default {
         first_name: "", last_name: "",
         email: (inpIntakeEmail.text || "").trim(),
         phone: (inpIntakePhone.text || "").trim(), reason,
-        subscribe_to_mailing_list: chkIntakeSubscribeListmonk.isChecked
+        subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
       });
       contributorId = created?.[0]?.contributor_id;
       const organizationId = created?.[0]?.party_id;
