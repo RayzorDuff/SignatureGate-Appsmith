@@ -216,6 +216,11 @@ export default {
             reason,
             subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
           });
+					const queueCheck = await qCheckContributorListmonkQueue.run({
+						contributor_email_id: contributorEmail?.[0]?.contributor_email_id
+					});
+					console.log("Contributor Listmonk queue immediately after enqueue:", queueCheck);
+					
           if (!contributorEmail?.[0]?.contributor_email_id) {
             throw new Error("Contributor email was not created.");
           }
@@ -286,6 +291,15 @@ export default {
         evidence = JSON.stringify(attachments);
       }
 
+			console.log("Intake agreement parameters:", {
+				member_id: memberId,
+				practitioner_person_id: practitionerPersonId,
+				agreement_template_id: delivery === "Digital" ? agreementTemplate : "",
+				signature_method: delivery === "Digital" ? "documenso" : "paper",
+				status: delivery === "Digital" ? "pending_email_send" : "pending_review",
+				member_email_id: memberEmailId || ""
+			});
+			
       agreementResult = await qCreateIntakeAgreement.run({
         member_id: memberId,
         practitioner_person_id: practitionerPersonId,

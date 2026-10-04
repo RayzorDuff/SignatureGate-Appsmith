@@ -1,0 +1,12 @@
+SELECT
+  listmonk_sync_queue_id,
+  status,
+  event_type,
+  contributor_email_id,
+  email_normalized,
+  source,
+  created_at,
+  updated_at
+FROM public.listmonk_sync_queue
+WHERE contributor_email_id = {{ this.params.contributor_email_id }}::uuid
+ORDER BY created_at DESC;
