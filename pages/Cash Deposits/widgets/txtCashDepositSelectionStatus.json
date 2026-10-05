@@ -5,6 +5,9 @@
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -33,7 +36,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldTruncate": false,
-  "text": "Select a cash donation to perform an action.",
+  "text": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true ? \"Select a cash donation to perform an action.\" : \"Only an active Donations Reviewer can access cash-deposit financial information.\" }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
   "topRow": 59,
