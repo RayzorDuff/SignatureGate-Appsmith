@@ -1,4 +1,13 @@
+WITH access AS (
+  SELECT public.can_view_donation_financials(mp.member_id) AS allowed
+  FROM public.member_profiles mp
+  WHERE lower(mp.email) = lower({{ appsmith.user.email }})
+    AND mp.status = 'active'
+  LIMIT 1
+)
 SELECT *
-FROM public.cash_deposit_batch_print
-WHERE deposit_batch_id = {{ this.params.deposit_batch_id }}::uuid
-ORDER BY donated_at NULLS LAST, donation_id;
+FROM public.cash_deposit_batch_print p
+CROSS JOIN access a
+WHERE a.allowed
+  AND p.deposit_batch_id = {{ this.params.deposit_batch_id }}::uuid
+ORDER BY p.donated_at NULLS LAST, p.donation_id;
