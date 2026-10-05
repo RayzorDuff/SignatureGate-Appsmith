@@ -130,18 +130,8 @@ scoped_donations AS (
   SELECT d.*
   FROM public.donations d
   CROSS JOIN auth a
-  WHERE d.donor_kind IN ('identified', 'anonymous')
-    AND (
-      a.is_donations_reviewer IS TRUE
-      OR (
-        d.donor_kind = 'identified'
-        AND d.member_id IN (SELECT member_id FROM scoped_members)
-      )
-      OR (
-        d.donor_kind = 'anonymous'
-        AND d.facilitator_id = a.viewer_member_id
-      )
-    )
+  WHERE a.is_donations_reviewer IS TRUE
+    AND d.donor_kind IN ('identified', 'anonymous')
 ),
 
 selected_metrics AS (
@@ -158,11 +148,25 @@ selected_metrics AS (
     UNION ALL SELECT 'members_created', 'Members created', 90
   ) m
   CROSS JOIN bounds b
-  WHERE jsonb_array_length(b.metric_keys_json) = 0
-     OR m.metric_key IN (
-       SELECT value::text
-       FROM jsonb_array_elements_text(b.metric_keys_json)
-     )
+  CROSS JOIN auth a
+  WHERE (
+    a.is_donations_reviewer IS TRUE
+    OR m.metric_key NOT IN (
+      'donations_count',
+      'donations_dollars',
+      'member_donations_count',
+      'member_donations_dollars',
+      'anonymous_donations_count',
+      'anonymous_donations_dollars'
+    )
+  )
+  AND (
+    jsonb_array_length(b.metric_keys_json) = 0
+    OR m.metric_key IN (
+      SELECT value::text
+      FROM jsonb_array_elements_text(b.metric_keys_json)
+    )
+  )
 ),
 
 agreement_counts AS (
