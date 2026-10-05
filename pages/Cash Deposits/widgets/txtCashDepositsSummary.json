@@ -5,6 +5,9 @@
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -33,7 +36,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldTruncate": false,
-  "text": "Review cash donations and prepare and confirm cash deposits.",
+  "text": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true ? \"Review cash donations and prepare and confirm cash deposits.\" : \"Cash deposit and donation financial information is restricted to Donations Reviewers.\" }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
   "topRow": 6,
