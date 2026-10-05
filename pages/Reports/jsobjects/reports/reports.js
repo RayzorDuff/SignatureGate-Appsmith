@@ -2,7 +2,7 @@ export default {
   MAX_BUCKETS: 120,
 
   metricOptions() {
-    return [
+    const options = [
       { label: "Agreements signed", value: "agreements_signed" },
       { label: "Releases sent", value: "releases_sent" },
       { label: "Number of donations received", value: "donations_count" },
@@ -13,6 +13,21 @@ export default {
       { label: "Anonymous cash donation dollars", value: "anonymous_donations_dollars" },
       { label: "Members created", value: "members_created" },
     ];
+
+    const donationMetrics = new Set([
+      "donations_count",
+      "donations_dollars",
+      "member_donations_count",
+      "member_donations_dollars",
+      "anonymous_donations_count",
+      "anonymous_donations_dollars",
+    ]);
+
+    return options.filter(
+      option =>
+        !donationMetrics.has(option.value) ||
+        appsmith.store.facilitator_is_donations_reviewer === true
+    );
   },
 
   bucketOptions() {
@@ -55,8 +70,8 @@ export default {
 		const donations = appsmith.store.facilitator_is_donations_reviewer === true;
 		if (documents && donations) return "Scope: all members and donations";
 		if (donations) return "Scope: all donations; assigned members for other metrics";
-		if (documents) return "Scope: all members; anonymous cash recorded by you";
-		return "Scope: assigned members and anonymous cash recorded by you";
+		if (documents) return "Scope: all members; donation financials restricted";
+		return "Scope: assigned members; donation financials restricted";
 	},
 	
 	async verifyaccess() {
