@@ -1,3 +1,10 @@
+WITH access AS (
+  SELECT public.can_view_donation_financials(mp.member_id) AS allowed
+  FROM public.member_profiles mp
+  WHERE lower(mp.email) = lower({{ appsmith.user.email }})
+    AND mp.status = 'active'
+  LIMIT 1
+)
 SELECT
   d.donation_id,
   d.created_at,
@@ -37,18 +44,13 @@ LEFT JOIN LATERAL (
   ORDER BY x.created_at DESC, x.audit_log_id DESC
   LIMIT 1
 ) al ON TRUE
-WHERE d.status = 'pending_review'
+CROSS JOIN access a
+WHERE a.allowed
+  AND d.status = 'pending_review'
   AND (
-    (
-      d.provider = 'cash'
-      AND d.donor_kind IN ('identified', 'anonymous')
-    )
+    (d.provider = 'cash' AND d.donor_kind IN ('identified', 'anonymous'))
     OR
-    (
-      d.provider = 'givebutter'
-      AND d.donor_kind = 'unresolved'
-      AND d.contributor_id IS NULL
-      AND d.member_id IS NULL
-    )
+    (d.provider = 'givebutter' AND d.donor_kind = 'unresolved'
+      AND d.contributor_id IS NULL AND d.member_id IS NULL)
   )
 ORDER BY d.donated_at DESC NULLS LAST, d.created_at DESC;
