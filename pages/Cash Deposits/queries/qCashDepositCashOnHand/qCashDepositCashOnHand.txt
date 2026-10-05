@@ -1,3 +1,10 @@
+WITH access AS (
+  SELECT public.can_view_donation_financials(mp.member_id) AS allowed
+  FROM public.member_profiles mp
+  WHERE lower(mp.email) = lower({{ appsmith.user.email }})
+    AND mp.status = 'active'
+  LIMIT 1
+)
 SELECT
   d.donation_id,
   d.created_at,
@@ -48,7 +55,9 @@ LEFT JOIN LATERAL (
 ) b ON TRUE
 LEFT JOIN public.cash_deposit_donation_exclusions e
   ON e.donation_id = d.donation_id
-WHERE d.provider = 'cash'
+CROSS JOIN access a
+WHERE a.allowed
+  AND d.provider = 'cash'
   AND d.donor_kind IN ('identified', 'anonymous')
   AND (
     '{{ selCashDepositStatus.selectedOptionValue || "ALL" }}' = 'ALL'
