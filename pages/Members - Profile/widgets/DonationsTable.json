@@ -181,6 +181,9 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -236,7 +239,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": true,
+  "isVisible": "{{ qMemberDonations.data?.length > 0 || appsmith.store.facilitator_is_donations_reviewer === true }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,
