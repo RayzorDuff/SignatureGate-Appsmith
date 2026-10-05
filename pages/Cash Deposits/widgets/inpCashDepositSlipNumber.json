@@ -29,7 +29,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ !!tblCashDepositBatches.selectedRow?.deposit_batch_id || !!appsmith.store.cash_deposit_batch_id }}",
+  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
   "key": "cdepslip01",
   "label": "Deposit Slip / Reference",
   "labelAlignment": "left",
