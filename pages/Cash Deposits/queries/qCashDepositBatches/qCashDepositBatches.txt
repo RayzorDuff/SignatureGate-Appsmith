@@ -1,23 +1,32 @@
+WITH access AS (
+  SELECT public.can_view_donation_financials(mp.member_id) AS allowed
+  FROM public.member_profiles mp
+  WHERE lower(mp.email) = lower({{ appsmith.user.email }})
+    AND mp.status = 'active'
+  LIMIT 1
+)
 SELECT DISTINCT
-  deposit_batch_id,
-  status,
-  batch_created_at,
-  batch_updated_at,
-  deposit_date,
-  deposit_slip_number,
-  destination_bank_account,
-  preparer_id,
-  preparer_email,
-  prepared_by,
-  prepared_at,
-  verifier_id,
-  verifier_email,
-  confirmed_at,
-  cancelled_at,
-  cancelled_by,
-  expected_amount_cents,
-  actual_amount_cents,
-  item_count,
-  item_total_cents
-FROM public.cash_deposit_batch_tally
-ORDER BY batch_created_at DESC, deposit_batch_id;
+  t.deposit_batch_id,
+  t.status,
+  t.batch_created_at,
+  t.batch_updated_at,
+  t.deposit_date,
+  t.deposit_slip_number,
+  t.destination_bank_account,
+  t.preparer_id,
+  t.preparer_email,
+  t.prepared_by,
+  t.prepared_at,
+  t.verifier_id,
+  t.verifier_email,
+  t.confirmed_at,
+  t.cancelled_at,
+  t.cancelled_by,
+  t.expected_amount_cents,
+  t.actual_amount_cents,
+  t.item_count,
+  t.item_total_cents
+FROM public.cash_deposit_batch_tally t
+CROSS JOIN access a
+WHERE a.allowed
+ORDER BY t.batch_created_at DESC, t.deposit_batch_id;
