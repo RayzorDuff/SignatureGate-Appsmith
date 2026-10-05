@@ -172,7 +172,7 @@ export default {
   },
 
   async createBatch() {
-    const preparerId = this.requireFacilitator();
+    const preparerId = this.requireDonationsReviewer();
     if (!preparerId) return;
 
     const result = await qCreateCashDepositBatch.run({
@@ -196,7 +196,7 @@ export default {
   async addSelectedDonationToBatch() {
     const donation = this.selectedDonation();
     const batch = this.selectedBatch();
-    const actorId = this.requireFacilitator();
+    const actorId = this.requireDonationsReviewer();
 
     if (!actorId) return;
 
@@ -229,6 +229,9 @@ export default {
   },
 
   async printBatch(batchId) {
+    const reviewerId = this.requireDonationsReviewer();
+    if (!reviewerId) return;
+
     const id = String(
       batchId || this.selectedBatch()?.deposit_batch_id || ""
     ).trim();
@@ -446,7 +449,7 @@ export default {
 
   async prepareBatch() {
     const batch = this.selectedBatch();
-    const actorId = this.requireFacilitator();
+    const actorId = this.requireDonationsReviewer();
 
     if (!actorId) return;
 
