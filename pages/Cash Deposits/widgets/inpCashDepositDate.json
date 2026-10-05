@@ -39,7 +39,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ !!tblCashDepositBatches.selectedRow?.deposit_batch_id || !!appsmith.store.cash_deposit_batch_id }}",
+  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
   "key": "cdepdate01",
   "label": "Deposit Date",
   "labelAlignment": "left",
