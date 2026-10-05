@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.cash_deposit_batch_print\nWHERE deposit_batch_id = {{ this.params.deposit_batch_id }}::uuid\nORDER BY donated_at NULLS LAST, donation_id;\n",
+      "body": "WITH access AS (\n  SELECT public.can_view_donation_financials(mp.member_id) AS allowed\n  FROM public.member_profiles mp\n  WHERE lower(mp.email) = lower({{ appsmith.user.email }})\n    AND mp.status = 'active'\n  LIMIT 1\n)\nSELECT *\nFROM public.cash_deposit_batch_print p\nCROSS JOIN access a\nWHERE a.allowed\n  AND p.deposit_batch_id = {{ this.params.deposit_batch_id }}::uuid\nORDER BY p.donated_at NULLS LAST, p.donation_id;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
