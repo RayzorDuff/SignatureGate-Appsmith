@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT DISTINCT\n  deposit_batch_id,\n  status,\n  batch_created_at,\n  batch_updated_at,\n  deposit_date,\n  deposit_slip_number,\n  destination_bank_account,\n  preparer_id,\n  preparer_email,\n  prepared_by,\n  prepared_at,\n  verifier_id,\n  verifier_email,\n  confirmed_at,\n  cancelled_at,\n  cancelled_by,\n  expected_amount_cents,\n  actual_amount_cents,\n  item_count,\n  item_total_cents\nFROM public.cash_deposit_batch_tally\nORDER BY batch_created_at DESC, deposit_batch_id;\n",
+      "body": "WITH access AS (\n  SELECT public.can_view_donation_financials(mp.member_id) AS allowed\n  FROM public.member_profiles mp\n  WHERE lower(mp.email) = lower({{ appsmith.user.email }})\n    AND mp.status = 'active'\n  LIMIT 1\n)\nSELECT DISTINCT\n  t.deposit_batch_id,\n  t.status,\n  t.batch_created_at,\n  t.batch_updated_at,\n  t.deposit_date,\n  t.deposit_slip_number,\n  t.destination_bank_account,\n  t.preparer_id,\n  t.preparer_email,\n  t.prepared_by,\n  t.prepared_at,\n  t.verifier_id,\n  t.verifier_email,\n  t.confirmed_at,\n  t.cancelled_at,\n  t.cancelled_by,\n  t.expected_amount_cents,\n  t.actual_amount_cents,\n  t.item_count,\n  t.item_total_cents\nFROM public.cash_deposit_batch_tally t\nCROSS JOIN access a\nWHERE a.allowed\nORDER BY t.batch_created_at DESC, t.deposit_batch_id;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
