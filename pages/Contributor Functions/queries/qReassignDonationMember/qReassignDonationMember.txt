@@ -1,10 +1,27 @@
-UPDATE public.donations
+WITH selected AS (
+  SELECT CASE
+    WHEN left(COALESCE({{ this.params.contributor_choice || "" }}, ''), 12) = 'contributor:'
+      THEN substring({{ this.params.contributor_choice || "" }} from 13)::uuid
+    WHEN left(COALESCE({{ this.params.contributor_choice || "" }}, ''), 7) = 'member:'
+      THEN public.ensure_member_contributor(substring({{ this.params.contributor_choice || "" }} from 8)::uuid)
+    ELSE NULL
+  END AS contributor_id
+),
+target AS (
+  SELECT c.contributor_id, cml.member_id
+  FROM selected s
+  JOIN public.contributors c
+    ON c.contributor_id = s.contributor_id
+   AND c.status = 'active'
+  LEFT JOIN public.contributor_member_links cml
+    ON cml.contributor_id = c.contributor_id
+   AND cml.status = 'active'
+)
+UPDATE public.donations d
 SET
-  contributor_id = public.ensure_member_contributor({{ this.params.new_member_id }}::uuid),
-  member_id = {{ this.params.new_member_id }}::uuid,
+  contributor_id = target.contributor_id,
+  member_id = target.member_id,
   donor_kind = 'identified'
-WHERE donation_id = {{ this.params.donation_id }}::uuid
-RETURNING
-  donation_id,
-  contributor_id,
-  member_id;
+FROM target
+WHERE d.donation_id = {{ this.params.donation_id }}::uuid
+RETURNING d.donation_id, d.contributor_id, d.member_id;

@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "UPDATE public.donations\nSET\n  contributor_id = public.ensure_member_contributor({{ this.params.new_member_id }}::uuid),\n  member_id = {{ this.params.new_member_id }}::uuid,\n  donor_kind = 'identified'\nWHERE donation_id = {{ this.params.donation_id }}::uuid\nRETURNING\n  donation_id,\n  contributor_id,\n  member_id;",
+      "body": "WITH selected AS (\n  SELECT CASE\n    WHEN left(COALESCE({{ this.params.contributor_choice || \"\" }}, ''), 12) = 'contributor:'\n      THEN substring({{ this.params.contributor_choice || \"\" }} from 13)::uuid\n    WHEN left(COALESCE({{ this.params.contributor_choice || \"\" }}, ''), 7) = 'member:'\n      THEN public.ensure_member_contributor(substring({{ this.params.contributor_choice || \"\" }} from 8)::uuid)\n    ELSE NULL\n  END AS contributor_id\n),\ntarget AS (\n  SELECT c.contributor_id, cml.member_id\n  FROM selected s\n  JOIN public.contributors c\n    ON c.contributor_id = s.contributor_id\n   AND c.status = 'active'\n  LEFT JOIN public.contributor_member_links cml\n    ON cml.contributor_id = c.contributor_id\n   AND cml.status = 'active'\n)\nUPDATE public.donations d\nSET\n  contributor_id = target.contributor_id,\n  member_id = target.member_id,\n  donor_kind = 'identified'\nFROM target\nWHERE d.donation_id = {{ this.params.donation_id }}::uuid\nRETURNING d.donation_id, d.contributor_id, d.member_id;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

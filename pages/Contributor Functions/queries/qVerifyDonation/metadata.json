@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "UPDATE public.donations\nSET\n  status = {{ this.params.new_status }}, -- 'verified' or 'rejected'\n  reviewer_id = {{ appsmith.store.facilitator_id }}::uuid,\n  reviewed_at = now(),\n\treview_notes = {{ this.params.review_notes }}\nWHERE donation_id = {{ this.params.donation_id }}::uuid\nRETURNING donation_id;",
+      "body": "SELECT *\nFROM public.review_pending_donation(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_reviewer_id => {{ appsmith.store.facilitator_id }}::uuid,\n  p_new_status => {{ this.params.new_status }},\n  p_review_notes => {{ this.params.review_notes || null }}\n);",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
