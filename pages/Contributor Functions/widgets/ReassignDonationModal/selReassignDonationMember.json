@@ -4,7 +4,7 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 19,
   "boxShadow": "none",
-  "defaultOptionValue": "GREEN",
+  "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
@@ -34,7 +34,7 @@
   "key": "vxymv7f5ur",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Reassign Donation To",
+  "labelText": "Contributor",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 1,
@@ -53,12 +53,12 @@
   "parentColumnSpace": 6.9375,
   "parentId": "iiax55mfcd",
   "parentRowSpace": 10,
-  "placeholderText": "Select option",
+  "placeholderText": "Select contributor",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 62,
   "serverSideFiltering": false,
-  "sourceData": "{{ (qMembersDirectory.data || []).slice().sort((a, b) => `${a.last_name || ''} ${a.first_name || ''}`.localeCompare(`${b.last_name || ''} ${b.first_name || ''}`)).map(item => ({ label: `${item.first_name || ''} ${item.last_name || ''}${item.email ? ' (' + item.email + ')' : ''}`.trim(), value: item.member_id })) }}",
+  "sourceData": "{{ (qMembersDirectory.data || []).slice().sort((a, b) => String(a.display_name || a.selection_label || '').localeCompare(String(b.display_name || b.selection_label || ''))).map(item => ({ label: `${item.selection_label}${item.email ? ' — ' + item.email : ''}`, value: item.selection_value })) }}",
   "topRow": 12,
   "type": "SELECT_WIDGET",
   "version": 1,
