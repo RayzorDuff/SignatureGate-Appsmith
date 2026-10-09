@@ -32,13 +32,13 @@
   "mobileTopRow": 0,
   "needsErrorInfo": false,
   "onClick": "{{closeModal(ReassignDonationModal.name);}}",
-  "parentId": "vlzz1vgpdr",
+  "parentId": "iiax55mfcd",
   "renderMode": "CANVAS",
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "topRow": 0,
   "type": "ICON_BUTTON_WIDGET",
   "version": 1,
-  "widgetId": "9w04mdtk43",
+  "widgetId": "q06cxgmd6c",
   "widgetName": "ReassignDonationCloseButton"
 }

@@ -3,7 +3,7 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 261,
+  "bottomRow": 71,
   "defaultCheckedState": false,
   "dynamicBindingPathList": [
     {
@@ -46,18 +46,18 @@
   "mobileRightColumn": 59,
   "mobileTopRow": 250,
   "needsErrorInfo": false,
-  "onCheckChange": "{{ memberProfile.refreshDonations() }}",
-  "originalBottomRow": 261,
-  "originalTopRow": 257,
+  "onCheckChange": "{{ cashDonationFlows.refreshDonations() }}",
+  "originalBottomRow": 71,
+  "originalTopRow": 67,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 64,
-  "topRow": 257,
+  "topRow": 67,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
-  "widgetId": "2uqsekvsry",
+  "widgetId": "hzayht5zgl",
   "widgetName": "chkShowRejectedDonations"
 }

@@ -20,6 +20,7 @@ export default {
 		await Promise.allSettled([
 			qMembersDirectory.run(),
 			qPendingGivebutterDonations.run(),
+			cashDonationFlows.refreshDonations(),
 		]);
 
 		const initialMemberId =
@@ -30,6 +31,16 @@ export default {
 			await storeValue("member_id", initialMemberId);
 		}
 	},
+	
+	async refreshDonations() {
+		const showRejected =
+			typeof chkShowRejectedDonations !== "undefined" &&
+			Boolean(chkShowRejectedDonations.isChecked);
+
+		return qMemberDonations.run({
+			show_rejected: showRejected
+		});
+	},	
 	
 	async verifyaccess() {
 		try {
@@ -262,6 +273,153 @@ export default {
 		}
 	},
 
+	async verifyDonation(
+		donationId,
+		reviewNotes,
+		newStatus,
+		memberId,
+		amountCents,
+		donatedAt
+	) {
+		const notes = String(reviewNotes || "").trim();
+
+		if (!notes) {
+			showAlert(
+				"Enter review notes before verifying or rejecting a donation.",
+				"warning"
+			);
+			return;
+		}
+
+		await qVerifyDonation.run({
+			donation_id: donationId,
+			review_notes: notes,
+			new_status: newStatus
+		});
+
+		await this.auditLog(
+			"donation." + newStatus,
+			"donation",
+			donationId,
+			{
+				member_id: memberId || appsmith.store.member_id,
+				status: newStatus,
+				review_notes: notes,
+				amount_cents: amountCents,
+				donated_at: donatedAt
+			}
+		);
+
+		await this.refreshDonations();
+
+		showAlert(
+			newStatus === "rejected"
+				? "Donation rejected."
+				: "Donation verified.",
+			"success"
+		);
+	},	
+
+ async openReassignModal(cur_donation_id, cur_donated_at, cur_provider, cur_amount_cents, cur_currency, cur_status, cur_member) {
+    // Requires at least one target lot selected in tblLots
+    const id = appsmith.store.donation_reassign_row ||
+				DonationsTable?.selectedRow ||
+				{};
+		
+    if (!id) {
+      showAlert('Select one or more Donation in the Donations table first.', 'warning');
+      return;
+    }
+		
+		const donated_at = cur_donated_at ? moment(cur_donated_at).format("YYYY-MM-DD") : "";
+    const provider = cur_provider || "";
+    const amount = cur_amount_cents ? Math.round(cur_amount_cents / 100 ) + " " + cur_currency : "";
+    const status = cur_status  || "";
+		
+		selReassignDonationMember.setSelectedOption(cur_member || "");
+		
+		
+		//if (!await this.verifyInoculateLots()) return showAlert("Select valid lots to package.", "warning");
+		
+		txtReassignDonationContent.setText(`${donated_at} | ${provider} | ${amount} | ${status}`.trim());
+		txtReassignDonationID.setText(cur_donation_id);
+		
+    // Refresh source lots list + locations
+    Promise.allSettled([qMembersDirectory.run()]).finally(() => {
+      showModal(ReassignDonationModal.name);
+    });
+  },
+
+	async reassignDonation() {
+		try {
+			if (!appsmith.store.facilitator_is_donations_reviewer) {
+				showAlert("You do not have permission to reassign donations.", "error");
+				return;
+			}
+
+			const row =
+				appsmith.store.donation_reassign_row ||
+				DonationsTable?.selectedRow ||
+				{};
+
+			const donationId = row.donation_id || txtReassignDonationID.text || "";
+			const oldMemberId = row.member_id;
+			const newMemberId = selReassignDonationMember?.selectedOptionValue;
+
+			if (!donationId) {
+				showAlert("No donation is selected.", "error");
+				return;
+			}
+
+			if (!newMemberId) {
+				showAlert("Please select the new member.", "warning");
+				return;
+			}
+
+			if (String(oldMemberId || "") === String(newMemberId || "")) {
+				showAlert("That donation is already assigned to this member.", "warning");
+				return;
+			}
+
+			const res = await qReassignDonationMember.run({
+				donation_id: donationId,
+				new_member_id: newMemberId
+			});
+
+			await memberProfile.auditLog(
+				"donation.reassigned",
+				"donation",
+				donationId,
+				{
+					donation_id: donationId,
+					from_member_id: oldMemberId ?? null,
+					to_member_id: newMemberId,
+					page: "Members - Profile"
+				}
+			);
+
+			showAlert("Donation reassigned.", "success");
+			closeModal(ReassignDonationModal.name);
+
+			await this.refreshDonations();
+
+			if (typeof qDonationSummary !== "undefined") {
+				await qDonationSummary.run();
+			}
+
+			if (typeof qMemberById !== "undefined") {
+				await qMemberById.run();
+			}
+
+			return res;
+			
+		} catch (e) {
+			console.error("reassignDonation failed:", e);
+			showAlert("Failed to reassign donation: " + (e?.message || e), "error");
+			throw e;
+		}
+	},
+	
 	async ignorePendingDonation() {
 		const donation = tblPendingGivebutterDonations.selectedRow;
 		if (!donation?.donation_id) {

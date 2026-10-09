@@ -1,6 +1,6 @@
 {
   "gitSyncId": "696c1696ef6f963f4d13c813_4e2628b2-4791-4061-b07b-5ad2d6208e84",
-  "id": "Members - Profile_qMemberDonations",
+  "id": "Donations_qMemberDonations",
   "pluginId": "postgres-plugin",
   "pluginType": "DB",
   "unpublishedAction": {
@@ -28,7 +28,7 @@
       }
     ],
     "name": "qMemberDonations",
-    "pageId": "Members - Profile",
+    "pageId": "Donations",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }

@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 413,
+  "bottomRow": 355,
   "boxShadow": "none",
   "canEscapeKeyClose": true,
   "canOutsideClickClose": true,
@@ -37,7 +37,7 @@
       "mobileTopRow": 0,
       "needsErrorInfo": false,
       "parentColumnSpace": 1,
-      "parentId": "0ba81wngp7",
+      "parentId": "jwninnx2qp",
       "parentRowSpace": 1,
       "renderMode": "CANVAS",
       "responsiveBehavior": "fill",
@@ -46,8 +46,8 @@
       "topRow": 0,
       "type": "CANVAS_WIDGET",
       "version": 1,
-      "widgetId": "vlzz1vgpdr",
-      "widgetName": "Canvas2"
+      "widgetId": "iiax55mfcd",
+      "widgetName": "Canvas2Copy"
     }
   ],
   "detachFromLayout": true,
@@ -76,10 +76,10 @@
   "renderMode": "CANVAS",
   "rightColumn": 19,
   "shouldScrollContents": true,
-  "topRow": 163,
+  "topRow": 105,
   "type": "MODAL_WIDGET",
   "version": 2,
-  "widgetId": "0ba81wngp7",
+  "widgetId": "jwninnx2qp",
   "widgetName": "ReassignDonationModal",
   "width": 456
 }

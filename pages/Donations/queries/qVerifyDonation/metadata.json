@@ -1,11 +1,11 @@
 {
-  "gitSyncId": "696e976bef6f963f4d13cbc6_0a737229-0704-412b-b50a-1cd8143ab3dc",
-  "id": "Members - Profile_qReassignDonationMember",
+  "gitSyncId": "696c3f53ef6f963f4d13c88d_d1c4d7aa-cbdf-4e38-bc5f-157799f12f97",
+  "id": "Donations_qVerifyDonation",
   "pluginId": "postgres-plugin",
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "UPDATE public.donations\nSET\n  contributor_id = public.ensure_member_contributor({{ this.params.new_member_id }}::uuid),\n  member_id = {{ this.params.new_member_id }}::uuid,\n  donor_kind = 'identified'\nWHERE donation_id = {{ this.params.donation_id }}::uuid\nRETURNING\n  donation_id,\n  contributor_id,\n  member_id;",
+      "body": "UPDATE public.donations\nSET\n  status = {{ this.params.new_status }}, -- 'verified' or 'rejected'\n  reviewer_id = {{ appsmith.store.facilitator_id }}::uuid,\n  reviewed_at = now(),\n\treview_notes = {{ this.params.review_notes }}\nWHERE donation_id = {{ this.params.donation_id }}::uuid\nRETURNING donation_id;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -27,8 +27,8 @@
         "key": "body"
       }
     ],
-    "name": "qReassignDonationMember",
-    "pageId": "Members - Profile",
+    "name": "qVerifyDonation",
+    "pageId": "Donations",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false
   }

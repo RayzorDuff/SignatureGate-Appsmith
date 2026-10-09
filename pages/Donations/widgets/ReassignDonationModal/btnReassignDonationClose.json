@@ -4,26 +4,15 @@
   "bottomRow": 23,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
-  "buttonStyle": "PRIMARY_BUTTON",
-  "buttonVariant": "PRIMARY",
+  "buttonStyle": "PRIMARY",
+  "buttonVariant": "SECONDARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
-    {
-      "key": "isDisabled"
-    },
     {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    }
-  ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "isDisabled"
-    },
-    {
-      "key": "onClick"
     }
   ],
   "dynamicTriggerPathList": [
@@ -32,31 +21,31 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": "{{!selReassignDonationMember.selectedOptionValue}}",
+  "isDisabled": false,
   "isLoading": false,
   "isVisible": true,
   "key": "w6htcz7gcy",
-  "leftColumn": 47,
+  "leftColumn": 31,
   "minWidth": 120,
   "mobileBottomRow": 22,
-  "mobileLeftColumn": 47,
-  "mobileRightColumn": 63,
+  "mobileLeftColumn": 31,
+  "mobileRightColumn": 47,
   "mobileTopRow": 18,
   "needsErrorInfo": false,
-  "onClick": "{{ memberProfile.reassignDonation() }}",
+  "onClick": "{{closeModal(ReassignDonationModal.name);}}",
   "originalBottomRow": 24,
   "originalTopRow": 20,
-  "parentId": "vlzz1vgpdr",
+  "parentId": "iiax55mfcd",
   "placement": "CENTER",
   "recaptchaType": "V3",
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 63,
-  "text": "Reassign",
+  "rightColumn": 47,
+  "text": "Close",
   "topRow": 19,
   "type": "BUTTON_WIDGET",
   "version": 1,
-  "widgetId": "1o445p0d9f",
-  "widgetName": "btnReassignDonationConfirm"
+  "widgetId": "hgyg8iwnge",
+  "widgetName": "btnReassignDonationClose"
 }
