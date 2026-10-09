@@ -43,7 +43,7 @@
   "mobileRightColumn": 63,
   "mobileTopRow": 18,
   "needsErrorInfo": false,
-  "onClick": "{{ memberProfile.reassignDonation() }}",
+  "onClick": "{{ cashDonationFlows.reassignDonation() }}",
   "originalBottomRow": 24,
   "originalTopRow": 20,
   "parentId": "iiax55mfcd",

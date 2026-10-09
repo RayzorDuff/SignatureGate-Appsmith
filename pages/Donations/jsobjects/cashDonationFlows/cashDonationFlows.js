@@ -324,10 +324,10 @@ export default {
     // Requires at least one target lot selected in tblLots
     const id = appsmith.store.donation_reassign_row ||
 				DonationsTable?.selectedRow ||
-				{};
+				null;
 		
-    if (!id) {
-      showAlert('Select one or more Donation in the Donations table first.', 'warning');
+    if (!id?.donation_id) {
+      showAlert('Select a donation in the Donations table first.', 'warning');
       return;
     }
 		
@@ -386,7 +386,7 @@ export default {
 				new_member_id: newMemberId
 			});
 
-			await memberProfile.auditLog(
+			await this.auditLog(
 				"donation.reassigned",
 				"donation",
 				donationId,
@@ -394,7 +394,7 @@ export default {
 					donation_id: donationId,
 					from_member_id: oldMemberId ?? null,
 					to_member_id: newMemberId,
-					page: "Members - Profile"
+					page: "Donations"
 				}
 			);
 
@@ -403,13 +403,6 @@ export default {
 
 			await this.refreshDonations();
 
-			if (typeof qDonationSummary !== "undefined") {
-				await qDonationSummary.run();
-			}
-
-			if (typeof qMemberById !== "undefined") {
-				await qMemberById.run();
-			}
 
 			return res;
 			

@@ -11,15 +11,17 @@ WITH me AS (
 SELECT d.*
 FROM public.donations d
 CROSS JOIN me
-WHERE d.member_id = {{ appsmith.store.member_id }}::uuid
-  AND (
+WHERE (
     me.is_donations_reviewer
-    OR EXISTS (
-      SELECT 1
-      FROM public.member_facilitators mf
-      WHERE mf.member_id = d.member_id
-        AND mf.facilitator_id = me.member_id
-        AND mf.status = 'active'
+    OR (
+      d.member_id IS NOT NULL
+      AND EXISTS (
+        SELECT 1
+        FROM public.member_facilitators mf
+        WHERE mf.member_id = d.member_id
+          AND mf.facilitator_id = me.member_id
+          AND mf.status = 'active'
+      )
     )
   )
   AND (
