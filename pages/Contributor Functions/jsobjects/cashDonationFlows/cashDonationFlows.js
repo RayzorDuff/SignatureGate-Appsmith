@@ -328,7 +328,7 @@ export default {
 		);
 	},	
 
- async openReassignModal(cur_donation_id, cur_donated_at, cur_provider, cur_amount_cents, cur_currency, cur_status, cur_member) {
+ async openReassignModal(cur_donation_id, cur_donated_at, cur_provider, cur_amount_cents, cur_currency, cur_status, cur_member, cur_contributor) {
     // Requires at least one target lot selected in tblLots
     const id = appsmith.store.donation_reassign_row ||
 				DonationsTable?.selectedRow ||
@@ -344,7 +344,11 @@ export default {
     const amount = cur_amount_cents ? Math.round(cur_amount_cents / 100 ) + " " + cur_currency : "";
     const status = cur_status  || "";
 		
-		selReassignDonationMember.setSelectedOption(cur_member || "");
+		const currentSelection = (qMembersDirectory.data || []).find(item =>
+      (cur_contributor && String(item.contributor_id || "") === String(cur_contributor)) ||
+      (!cur_contributor && cur_member && String(item.member_id || "") === String(cur_member))
+    );
+    selReassignDonationMember.setSelectedOption(currentSelection?.selection_value || "");
 		
 		
 		//if (!await this.verifyInoculateLots()) return showAlert("Select valid lots to package.", "warning");
@@ -371,28 +375,35 @@ export default {
 				{};
 
 			const donationId = row.donation_id || txtReassignDonationID.text || "";
-			const oldMemberId = row.member_id;
-			const newMemberId = selReassignDonationMember?.selectedOptionValue;
+			const oldMemberId = row.member_id || null;
+			const oldContributorId = row.contributor_id || null;
+			const contributorChoice = selReassignDonationMember?.selectedOptionValue;
 
 			if (!donationId) {
 				showAlert("No donation is selected.", "error");
 				return;
 			}
 
-			if (!newMemberId) {
-				showAlert("Please select the new member.", "warning");
+			if (!contributorChoice) {
+				showAlert("Please select the contributor to assign this donation to.", "warning");
 				return;
 			}
 
-			if (String(oldMemberId || "") === String(newMemberId || "")) {
-				showAlert("That donation is already assigned to this member.", "warning");
+			const currentChoice = oldContributorId
+				? `contributor:${oldContributorId}`
+				: oldMemberId ? `member:${oldMemberId}` : "";
+			if (currentChoice && currentChoice === contributorChoice) {
+				showAlert("That donation is already assigned to this contributor.", "warning");
 				return;
 			}
 
 			const res = await qReassignDonationMember.run({
 				donation_id: donationId,
-				new_member_id: newMemberId
+				contributor_choice: contributorChoice
 			});
+			if (!Array.isArray(res) || !res[0]?.donation_id) {
+				throw new Error("The donation was not reassigned. Confirm the selected contributor is active and try again.");
+			}
 
 			await this.auditLog(
 				"donation.reassigned",
@@ -400,9 +411,12 @@ export default {
 				donationId,
 				{
 					donation_id: donationId,
-					from_member_id: oldMemberId ?? null,
-					to_member_id: newMemberId,
-					page: "Donations"
+					from_member_id: oldMemberId,
+					from_contributor_id: oldContributorId,
+					to_contributor_choice: contributorChoice,
+					to_contributor_id: res[0].contributor_id || null,
+					to_member_id: res[0].member_id || null,
+					page: "Contributor Functions"
 				}
 			);
 
@@ -499,7 +513,7 @@ export default {
 			qPendingGivebutterDonations.run(),
 			qMembersDirectory.run()
 		]);
-		navigateTo("Members - Profile", { member_id: member.member_id }, "SAME_WINDOW");
+		navigateTo("Member Functions", { member_id: member.member_id }, "SAME_WINDOW");
 	},
 	
 

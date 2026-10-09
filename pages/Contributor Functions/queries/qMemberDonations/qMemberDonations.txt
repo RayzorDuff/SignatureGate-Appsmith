@@ -8,8 +8,18 @@ WITH me AS (
     AND status = 'active'
   LIMIT 1
 )
-SELECT d.*
+SELECT
+  d.*,
+  c.display_name AS contributor_name,
+  c.contributor_type,
+  CASE
+    WHEN d.donor_kind = 'anonymous' THEN 'Anonymous'
+    WHEN d.donor_kind = 'unresolved' THEN 'Unresolved'
+    ELSE COALESCE(c.display_name, 'Contributor identity missing')
+  END AS donor_display_name
 FROM public.donations d
+LEFT JOIN public.contributor_profiles c
+  ON c.contributor_id = d.contributor_id
 CROSS JOIN me
 WHERE (
     me.is_donations_reviewer
