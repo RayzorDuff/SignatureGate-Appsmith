@@ -27,7 +27,7 @@
       "isDefault": true
     },
     {
-      "id": "Members - Profile",
+      "id": "Member Functions",
       "isDefault": false
     },
     {
@@ -39,7 +39,7 @@
       "isDefault": false
     },
     {
-      "id": "Donations",
+      "id": "Contributor Functions",
       "isDefault": false
     },
     {
