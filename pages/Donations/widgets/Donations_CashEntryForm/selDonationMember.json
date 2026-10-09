@@ -58,7 +58,7 @@
   "mobileTopRow": 10,
   "needsErrorInfo": false,
   "onFilterUpdate": "{{\n            qListFacilitators.run();\n            \n          }}",
-  "onOptionChange": "{{ storeValue(\"donation_donor_selection\", selDonationMember.selectedOptionValue || \"\") }}",
+  "onOptionChange": "{{\n  storeValue(\"donation_donor_selection\", selDonationMember.selectedOptionValue || \"\");\n  cashDonationFlows.refreshDonations();\n}}",
   "optionLabel": "label",
   "optionValue": "value",
   "originalBottomRow": 23,

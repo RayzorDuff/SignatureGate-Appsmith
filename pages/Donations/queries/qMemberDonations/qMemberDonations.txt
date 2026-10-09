@@ -25,6 +25,17 @@ WHERE (
     )
   )
   AND (
+    CASE
+      WHEN left(COALESCE({{ this.params.selection_value || "" }}, ''), 12) = 'contributor:'
+        THEN d.contributor_id = substring({{ this.params.selection_value || "" }} from 13)::uuid
+      WHEN left(COALESCE({{ this.params.selection_value || "" }}, ''), 7) = 'member:'
+        THEN d.member_id = substring({{ this.params.selection_value || "" }} from 8)::uuid
+      WHEN {{ this.params.selection_value || "" }} = '__anonymous__'
+        THEN COALESCE(d.donor_kind, '') = 'anonymous'
+      ELSE FALSE
+    END
+  )
+  AND (
     {{ Boolean(this.params.show_rejected) }}
     OR lower(COALESCE(d.status, '')) <> 'rejected'
   )

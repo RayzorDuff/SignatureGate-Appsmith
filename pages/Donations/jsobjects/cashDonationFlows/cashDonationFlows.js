@@ -20,7 +20,6 @@ export default {
 		await Promise.allSettled([
 			qMembersDirectory.run(),
 			qPendingGivebutterDonations.run(),
-			cashDonationFlows.refreshDonations(),
 		]);
 
 		const initialMemberId =
@@ -30,6 +29,8 @@ export default {
 		if (initialMemberId) {
 			await storeValue("member_id", initialMemberId);
 		}
+
+		await cashDonationFlows.refreshDonations();
 	},
 	
 	async refreshDonations() {
@@ -37,8 +38,15 @@ export default {
 			typeof chkShowRejectedDonations !== "undefined" &&
 			Boolean(chkShowRejectedDonations.isChecked);
 
+		const selectionValue = String(
+			selDonationMember?.selectedOptionValue ||
+			appsmith.store.donation_donor_selection ||
+			""
+		).trim();
+
 		return qMemberDonations.run({
-			show_rejected: showRejected
+			show_rejected: showRejected,
+			selection_value: selectionValue
 		});
 	},	
 	
