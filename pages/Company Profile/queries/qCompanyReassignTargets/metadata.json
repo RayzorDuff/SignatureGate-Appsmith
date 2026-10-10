@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT d.party_id::text AS organization_id,d.display_name\nFROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nWHERE d.party_kind='organization' AND d.contributor_id IS NOT NULL\nAND d.contributor_status='active'\nAND d.party_id<> {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid\nAND public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer')\nORDER BY d.display_name;",
+      "body": "SELECT d.party_id::text AS organization_id,d.display_name\nFROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nWHERE d.party_kind='organization' AND d.contributor_id IS NOT NULL\nAND d.contributor_status='active'\nAND d.party_id<> {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid\nAND public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer')\nORDER BY d.display_name;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

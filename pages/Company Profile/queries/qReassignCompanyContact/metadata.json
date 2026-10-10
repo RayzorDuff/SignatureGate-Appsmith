@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT public.issue19_reassign_organization_contact(\n{{ appsmith.user.email }}::text,{{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid,\n{{ selCompanyDonorContactKind.selectedOptionValue }}::text,\n{{ selCompanyDonorContactToArchive.selectedOptionValue || null }}::uuid,\n{{ selCompanyContactReassignTarget.selectedOptionValue || null }}::uuid,\n{{ inpCompanyDonorContactReason.text || '' }}::text\n) AS reassigned;",
+      "body": "SELECT public.issue19_reassign_organization_contact(\n{{ appsmith.user.email }}::text,{{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid,\n{{ selCompanyDonorContactKind.selectedOptionValue }}::text,\n{{ selCompanyDonorContactToArchive.selectedOptionValue || null }}::uuid,\n{{ selCompanyContactReassignTarget.selectedOptionValue || null }}::uuid,\n{{ inpCompanyDonorContactReason.text || '' }}::text\n) AS reassigned;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
