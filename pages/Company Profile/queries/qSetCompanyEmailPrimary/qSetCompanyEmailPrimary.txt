@@ -1,1 +1,26 @@
-WITH updated AS (UPDATE public.contributor_emails e SET is_primary=true,updated_at=now() WHERE e.contributor_email_id={{ selCompanyDonorContactToArchive.selectedOptionValue || null }}::uuid AND e.status='active' AND e.contributor_id=(SELECT c.contributor_id FROM public.contributors c WHERE c.organization_id={{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid AND c.contributor_type='organization' AND c.status='active') AND public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer') RETURNING e.contributor_email_id), audit AS (INSERT INTO public.audit_log(actor,action,entity_type,entity_id,details) SELECT lower({{ appsmith.user.email }}),'contributor.email.primary','contributor_email',updated.contributor_email_id::text,'{}'::jsonb FROM updated RETURNING audit_log_id) SELECT updated.contributor_email_id::text AS contact_id FROM updated;
+WITH target AS (
+ SELECT e.contributor_email_id,e.contributor_id
+ FROM public.contributor_emails e
+ JOIN public.contributors c ON c.contributor_id=e.contributor_id
+ WHERE e.contributor_email_id={{ selCompanyDonorContactToArchive.selectedOptionValue || null }}::uuid
+   AND e.status='active' AND c.status='active' AND c.contributor_type='organization'
+   AND c.organization_id={{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid
+   AND public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer')
+), cleared AS (
+ UPDATE public.contributor_emails e SET is_primary=false,updated_at=now()
+ WHERE e.contributor_id=(SELECT contributor_id FROM target)
+   AND e.contributor_email_id<>(SELECT contributor_email_id FROM target)
+   AND e.status='active' AND e.is_primary=true
+ RETURNING e.contributor_email_id
+), updated AS (
+ UPDATE public.contributor_emails e SET is_primary=true,updated_at=now()
+ WHERE e.contributor_email_id=(SELECT contributor_email_id FROM target)
+   AND (SELECT count(*) FROM cleared)>=0
+ RETURNING e.contributor_email_id
+), audit AS (
+ INSERT INTO public.audit_log(actor,action,entity_type,entity_id,details)
+ SELECT lower({{ appsmith.user.email }}),'contributor.email.primary','contributor_email',
+ updated.contributor_email_id::text,'{}'::jsonb FROM updated
+ RETURNING audit_log_id
+)
+SELECT updated.contributor_email_id::text AS contact_id FROM updated;
