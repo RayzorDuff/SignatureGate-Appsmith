@@ -3,21 +3,18 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 60,
+  "bottomRow": 50,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "isDisabled"
-    },
     {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "inputType"
@@ -35,9 +32,6 @@
       "key": "isVisible"
     },
     {
-      "key": "isDisabled"
-    },
-    {
       "key": "inputType"
     },
     {
@@ -50,40 +44,40 @@
   "dynamicTriggerPathList": [],
   "iconAlign": "left",
   "inputType": "EMAIL",
-  "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' ? (qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' && qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) }}",
+  "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ (qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) && selIndividualRoleContactKind.selectedOptionValue === 'email' }}",
-  "key": "413efd9c13",
+  "isVisible": "{{ selCompanyDonorContactKind.selectedOptionValue === 'email' && qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "key": "9483364084",
   "label": "Email address",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 0,
+  "leftColumn": 32,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 170,
-  "mobileLeftColumn": 0,
+  "mobileBottomRow": 86,
+  "mobileLeftColumn": 32,
   "mobileRightColumn": 64,
-  "mobileTopRow": 164,
+  "mobileTopRow": 80,
   "needsErrorInfo": false,
-  "originalBottomRow": 194,
-  "originalTopRow": 188,
+  "originalBottomRow": 50,
+  "originalTopRow": 44,
   "parentColumnSpace": 10.25,
-  "parentId": "oi4pw3ksy4",
+  "parentId": "6mi04nz8p0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "resetOnSubmit": true,
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "showStepArrows": false,
-  "topRow": 54,
+  "topRow": 44,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
-  "widgetId": "c00e73dca0",
-  "widgetName": "inpIndividualRoleContactValue",
-  "validation": "{{ !inpIndividualRoleContactValue.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIndividualRoleContactValue.text) }}"
+  "widgetId": "141ac7c7ea",
+  "widgetName": "inpCompanyDonorEmail",
+  "validation": "{{ !inpCompanyDonorEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpCompanyDonorEmail.text) }}"
 }
