@@ -13,7 +13,8 @@ export default {
       return;
     }
     try {
-      if (!qIndividualProfile.data?.[0]?.party_id) {
+      const profileRows = await qIndividualProfile.run();
+      if (!profileRows?.[0]?.party_id) {
         await qIndividualProfileDiagnostic.run();
         const d = qIndividualProfileDiagnostic.data?.[0] || {};
         showAlert(
@@ -22,7 +23,7 @@ export default {
         );
         return;
       }
-      const profile = qIndividualProfile.data?.[0];
+      const profile = profileRows[0];
       await Promise.all([qIndividualContacts.run(), qIndividualRoles.run(),
         qIndividualAccount.run(), qDirectoryCanManage.run(),
         qProfileCanCreateContributor.run(),

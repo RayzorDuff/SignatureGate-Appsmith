@@ -7,8 +7,17 @@ export default {
       showAlert('Your account has not loaded. Refresh this page.', 'error');
       return;
     }
+    const organizationId = String(appsmith.URL?.queryParams?.organization_id || '').trim();
+    if (!organizationId) {
+      showAlert('No company was selected. Return to Directory and choose View Profile.', 'error');
+      return;
+    }
     try {
-      await qCompanyProfile.run();
+      const profileRows = await qCompanyProfile.run();
+      if (!profileRows?.[0]?.party_id) {
+        showAlert('Company lookup returned no accessible record. Check the organization_id URL parameter and reviewer permissions.', 'error');
+        return;
+      }
       await Promise.all([qCompanyContacts.run(),
         qCompanyCanEditDonorContacts.run(), qCompanyDonorContacts.run(), qCompanyDonorAddresses.run(),
         qCompanyContributionHistory.run(), qCompanyProviderIdentities.run(),
