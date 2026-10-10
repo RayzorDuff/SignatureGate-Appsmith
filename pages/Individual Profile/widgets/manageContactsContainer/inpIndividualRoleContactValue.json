@@ -18,6 +18,15 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "inputType"
+    },
+    {
+      "key": "label"
+    },
+    {
+      "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -27,17 +36,26 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "inputType"
+    },
+    {
+      "key": "label"
+    },
+    {
+      "key": "validation"
     }
   ],
   "dynamicTriggerPathList": [],
   "iconAlign": "left",
-  "inputType": "TEXT",
+  "inputType": "{{ selIndividualRoleContactKind.selectedOptionValue === 'email' ? 'EMAIL' : 'TEXT' }}",
   "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' ? (qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' && qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) }}",
   "isLoading": false,
   "isRequired": true,
   "isVisible": "{{ (qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) && selIndividualRoleContactKind.selectedOptionValue !== 'address' }}",
   "key": "413efd9c13",
-  "label": "Contact value",
+  "label": "{{ selIndividualRoleContactKind.selectedOptionValue === 'email' ? 'Email address' : 'Phone number' }}",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
@@ -66,5 +84,6 @@
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "c00e73dca0",
-  "widgetName": "inpIndividualRoleContactValue"
+  "widgetName": "inpIndividualRoleContactValue",
+  "validation": "{{ (() => { const v=String(inpIndividualRoleContactValue.text || '').trim(); if(!v) return true; const kind=selIndividualRoleContactKind.selectedOptionValue; if(kind==='email') return /^[^\\\\s@]+@[^\\\\s@]+\\\\.[^\\\\s@]+$/.test(v); if(kind==='phone') return /^(\\\\+\\\\d{1,2}\\\\s?)?\\\\(?\\\\d{3}\\\\)?[\\\\s.-]?\\\\d{3}[\\\\s.-]?\\\\d{4}$/.test(v); return true; })() }}"
 }

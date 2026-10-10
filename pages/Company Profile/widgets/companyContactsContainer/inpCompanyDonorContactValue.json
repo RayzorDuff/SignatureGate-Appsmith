@@ -15,23 +15,41 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "inputType"
+    },
+    {
+      "key": "label"
+    },
+    {
+      "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "inputType"
+    },
+    {
+      "key": "label"
+    },
+    {
+      "key": "validation"
     }
   ],
   "dynamicTriggerPathList": [],
   "iconAlign": "left",
-  "inputType": "TEXT",
+  "inputType": "{{ selCompanyDonorContactKind.selectedOptionValue === 'email' ? 'EMAIL' : 'TEXT' }}",
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
   "isVisible": "{{ selCompanyDonorContactKind.selectedOptionValue !== 'address' && qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
   "key": "9483364084",
-  "label": "Contact value",
+  "label": "{{ selCompanyDonorContactKind.selectedOptionValue === 'email' ? 'Email address' : 'Phone number' }}",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
@@ -60,5 +78,6 @@
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "141ac7c7ea",
-  "widgetName": "inpCompanyDonorContactValue"
+  "widgetName": "inpCompanyDonorContactValue",
+  "validation": "{{ (() => { const v=String(inpCompanyDonorContactValue.text || '').trim(); if(!v) return true; const kind=selCompanyDonorContactKind.selectedOptionValue; if(kind==='email') return /^[^\\\\s@]+@[^\\\\s@]+\\\\.[^\\\\s@]+$/.test(v); if(kind==='phone') return /^(\\\\+\\\\d{1,2}\\\\s?)?\\\\(?\\\\d{3}\\\\)?[\\\\s.-]?\\\\d{3}[\\\\s.-]?\\\\d{4}$/.test(v); return true; })() }}"
 }
