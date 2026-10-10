@@ -17,20 +17,34 @@ export default {
 	},
 
 	async refresh() {
-		await Promise.allSettled([
-			qMemberStorageLocations?.run?.(), 
-			qDistinctStorageLocationNames?.run?.(),
-			
+		const selectedId =
+			String(appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id || "").trim();
+
+		if (!selectedId) return [];
+
+		await storeValue("selected_facilitator_id", selectedId);
+
+		return Promise.allSettled([
+			qMemberById.run(),
+			qMemberStorageLocations.run(),
+			qDistinctStorageLocationNames.run()
 		]);
+	},
 
-		const initialMemberId =
-			String(appsmith.store.member_id || "").trim() ||
-			String(appsmith.URL.queryParams.member_id || "").trim();
+	async setSelectedFacilitatorId(value) {
+		const selectedId = String(value || "").trim();
+		await storeValue("selected_facilitator_id", selectedId || null);
 
-		if (initialMemberId) {
-			await storeValue("member_id", initialMemberId);
+		if (!selectedId) {
+			return null;
 		}
 
+		await Promise.allSettled([
+			qMemberById.run(),
+			qMemberStorageLocations.run()
+		]);
+
+		return selectedId;
 	},
 	
 	async assignStorageLocation() {
@@ -73,7 +87,7 @@ export default {
 				"member",
 				facilitator.member_id,
 				{
-					facilitator_id: member.member_id,
+					facilitator_id: facilitator.member_id,
 					storage_location_name: storageLocationName.trim(),
 					assigned_by_member_id: appsmith.store.facilitator_id,
 					page: "Facilitator Functions",
@@ -115,13 +129,13 @@ export default {
 			await facilitatorFlows.auditLog(
 				"facilitator_storage_location.removed",
 				"member",
-				appsmith.store.member_id,
+				appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id,
 				{
-					facilitator_id: appsmith.store.member_id,
+					facilitator_id: appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id,
 					facilitator_storage_location_access_id,
 					storage_location_name,
 					removed_by_member_id: appsmith.store.facilitator_id,
-					page: "Members - Profile"
+					page: "Facilitator Functions"
 				}
 			);
 
