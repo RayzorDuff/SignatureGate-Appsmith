@@ -2,9 +2,9 @@ WITH member_change AS (
   UPDATE public.member_emails e
   SET is_verified = true, verified_at = now(),
       verified_by = NULL, verification_source = 'individual_profile',
-      verification_notes = NULLIF({{ inpIndividualRoleContactReason.text || '' }}, ''),
+      verification_notes = NULLIF({{ inpIndividualRoleContactReason.text || '' }}::text, ''),
       updated_at = now()
-  WHERE {{ selIndividualContactCapacity.selectedOptionValue || '' }} = 'member'
+  WHERE {{ selIndividualContactCapacity.selectedOptionValue || '' }}::text = 'member'
     AND e.member_email_id = {{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid
     AND e.status = 'active'
     AND e.member_id = (
@@ -12,13 +12,13 @@ WITH member_change AS (
       WHERE m.person_id = {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
         AND m.status = 'active'
     )
-    AND public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')
+    AND public.issue19_has_role({{ appsmith.user.email }}::text, 'document_reviewer')
   RETURNING e.member_email_id AS contact_id
 ),
 contributor_change AS (
   UPDATE public.contributor_emails e
   SET is_verified = true
-  WHERE {{ selIndividualContactCapacity.selectedOptionValue || '' }} = 'contributor'
+  WHERE {{ selIndividualContactCapacity.selectedOptionValue || '' }}::text = 'contributor'
     AND e.contributor_email_id = {{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid
     AND e.status = 'active'
     AND e.contributor_id = (
@@ -26,7 +26,7 @@ contributor_change AS (
       WHERE c.person_id = {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
         AND c.status = 'active' AND c.contributor_type = 'individual'
     )
-    AND public.issue19_has_role({{ appsmith.user.email }}, 'donations_reviewer')
+    AND public.issue19_has_role({{ appsmith.user.email }}::text, 'donations_reviewer')
   RETURNING e.contributor_email_id AS contact_id
 )
 SELECT COALESCE((SELECT contact_id FROM member_change),
