@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{\n  \"deposit_batch_id\": \"{{ this.params.deposit_batch_id }}\",\n  \"mode\": \"{{ this.params.mode || \"production\" }}\"\n}",
+      "body": "{\n  \"deposit_batch_id\": \"{{ this.params.deposit_batch_id }}\",\n  \"mode\": \"{{ this.params.mode || \"production\" }}\"\n}\n",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {
