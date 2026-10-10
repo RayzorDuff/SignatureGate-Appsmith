@@ -64,7 +64,7 @@ export default {
       return null;
     }
 		
-		storeValue("facilitator_id", facilitatorId);
+		// The selected agreement facilitator is not the authenticated audit actor.
     return facilitatorId;
   },
 	
@@ -145,8 +145,8 @@ export default {
     });
     if (!Array.isArray(rows)) rows = [];
     const me = rows[0];
-    if (!me?.member_id) {
-      showAlert("Access denied: not an active facilitator for " + email, "error");
+    if (!me?.email || !me?.is_document_reviewer) {
+      showAlert("Access denied: document reviewer permission required for " + email, "error");
       await memberProfile.auditLog("auth.denied", "facilitator", "", {
         email,
         page: appsmith.URL?.pathname,

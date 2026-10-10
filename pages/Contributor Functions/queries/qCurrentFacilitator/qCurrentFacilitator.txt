@@ -1,8 +1,13 @@
-SELECT member_id, email, first_name, last_name,
-       is_document_reviewer,
-       is_donations_reviewer
-FROM public.member_profiles
-WHERE lower(email) = lower({{ this.params.email }})
-  AND is_facilitator IS TRUE
-  AND status = 'active'
+SELECT m.member_id, account.email, p.first_name,p.last_name,
+public.issue19_has_role({{ this.params.email }}, 'document_reviewer') AS is_document_reviewer,
+public.issue19_has_role({{ this.params.email }}, 'donations_reviewer') AS is_donations_reviewer
+FROM public.person_app_accounts account
+JOIN public.people p ON p.person_id=account.person_id
+LEFT JOIN LATERAL (
+ SELECT member_id FROM public.members
+ WHERE person_id=account.person_id AND status='active'
+ ORDER BY created_at DESC LIMIT 1
+) m ON true
+WHERE account.email_normalized=lower({{ this.params.email }})
+AND account.status='active'
 LIMIT 1;

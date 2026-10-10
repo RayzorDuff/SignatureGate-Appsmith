@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT member_id, email, first_name, last_name, is_document_reviewer, is_donations_reviewer\nFROM public.member_profiles\nWHERE lower(email) = lower({{ this.params.email }})\n  AND is_facilitator IS TRUE\n  AND status = 'active'\nLIMIT 1;",
+      "body": "SELECT m.member_id, account.email, p.first_name,p.last_name,\npublic.issue19_has_role({{ this.params.email }}, 'document_reviewer') AS is_document_reviewer,\npublic.issue19_has_role({{ this.params.email }}, 'donations_reviewer') AS is_donations_reviewer\nFROM public.person_app_accounts account\nJOIN public.people p ON p.person_id=account.person_id\nLEFT JOIN LATERAL (\n SELECT member_id FROM public.members\n WHERE person_id=account.person_id AND status='active'\n ORDER BY created_at DESC LIMIT 1\n) m ON true\nWHERE account.email_normalized=lower({{ this.params.email }})\nAND account.status='active'\nLIMIT 1;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

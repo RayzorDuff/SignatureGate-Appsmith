@@ -22,14 +22,7 @@ export default {
 			qPendingGivebutterDonations.run(),
 		]);
 
-		const initialMemberId =
-			String(appsmith.store.member_id || "").trim() ||
-			String(appsmith.URL.queryParams.member_id || "").trim();
-
-		if (initialMemberId) {
-			await storeValue("member_id", initialMemberId);
-		}
-
+		// Contributor donor selection is independent of the global Member Functions selection.
 		await cashDonationFlows.refreshDonations();
 	},
 	
@@ -76,8 +69,8 @@ export default {
 
       const me = rows[0];	
 
-			if (!me?.member_id) {
-				showAlert("Access denied: not an active facilitator for " + email, "error");
+			if (!me?.email || !(me.is_document_reviewer || me.is_donations_reviewer)) {
+				showAlert("Access denied: reviewer permission required for " + email, "error");
 				
 				await this.auditLog("auth.denied","facilitator","", { email, page: appsmith.URL?.pathname, mode: appsmith.mode });if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 					//Only redirect when not in editor
@@ -113,7 +106,7 @@ export default {
 			return;
 		}
 		
-		this.refresh();
+		return await this.refresh();
 		
 	},
 	
