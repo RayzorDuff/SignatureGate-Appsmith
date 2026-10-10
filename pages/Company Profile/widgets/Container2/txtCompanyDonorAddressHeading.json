@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 109,
+  "bottomRow": 73,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -38,11 +38,11 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 71,
   "needsErrorInfo": false,
-  "originalBottomRow": 109,
-  "originalTopRow": 105,
+  "originalBottomRow": 73,
+  "originalTopRow": 69,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
-  "parentId": "0",
+  "parentId": "6mi04nz8p0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
@@ -51,7 +51,7 @@
   "text": "Mailing address fields (select Mailing address above)",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 105,
+  "topRow": 69,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
