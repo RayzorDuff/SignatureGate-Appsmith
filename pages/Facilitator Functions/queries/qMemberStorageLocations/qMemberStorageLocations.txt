@@ -12,7 +12,7 @@ SELECT
 FROM public.facilitator_storage_location_access fsla
 LEFT JOIN public.member_profiles ab
   ON ab.member_id = fsla.assigned_by_member_id
-WHERE fsla.facilitator_id = {{ appsmith.store.member_id }}::uuid
+WHERE fsla.facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid
 ORDER BY
   CASE WHEN fsla.status = 'active' THEN 0 ELSE 1 END,
   fsla.storage_location_name;

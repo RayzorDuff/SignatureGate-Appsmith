@@ -1,5 +1,1 @@
-SELECT member_id, first_name, last_name, email
-FROM public.member_profiles
-WHERE is_facilitator IS TRUE
-  AND status = 'active'
-ORDER BY last_name, first_name;
+SELECT member_id, first_name, last_name, email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status='active' AND public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') ORDER BY last_name, first_name;

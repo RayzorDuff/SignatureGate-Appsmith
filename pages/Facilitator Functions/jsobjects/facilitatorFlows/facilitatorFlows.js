@@ -35,8 +35,8 @@ export default {
 
 			const me = rows[0];
 
-			if (!me?.member_id) {
-				showAlert("Access denied: not an active facilitator for " + email, "error");
+			if (!me?.email || !me?.is_document_reviewer) {
+				showAlert("Access denied: document reviewer permission required for " + email, "error");
 				await this.auditLog("auth.denied", "facilitator", "", {
 					email,
 					page: appsmith.URL?.pathname,
@@ -68,8 +68,10 @@ export default {
 
 	async refresh() {
 		const selectedId =
-			String(appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id || "").trim();
+			String(appsmith.store.selected_facilitator_id || "").trim();
 
+		if (!appsmith.store.facilitator_is_reviewer) return [];
+		await qListFacilitators.run();
 		if (!selectedId) return [];
 
 		await storeValue("selected_facilitator_id", selectedId);
@@ -179,9 +181,9 @@ export default {
 			await facilitatorFlows.auditLog(
 				"facilitator_storage_location.removed",
 				"member",
-				appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id,
+				appsmith.store.selected_facilitator_id,
 				{
-					facilitator_id: appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id,
+					facilitator_id: appsmith.store.selected_facilitator_id,
 					facilitator_storage_location_access_id,
 					storage_location_name,
 					removed_by_member_id: appsmith.store.facilitator_id,
