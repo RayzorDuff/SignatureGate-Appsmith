@@ -16,6 +16,56 @@ export default {
 					}
 	},
 
+	async verifyaccess() {
+		try {
+			let email = null;
+			for (let i = 0; i < 20; i++) {
+				email = (appsmith.user?.email ?? "").trim().toLowerCase();
+				if (email) break;
+				await new Promise(resolve => setTimeout(resolve, 150));
+			}
+
+			if (!email) {
+				showAlert("Unknown user: appsmith.user.email not available.", "error");
+				return;
+			}
+
+			let rows = await qCurrentFacilitator.run({ email });
+			if (!Array.isArray(rows)) rows = [];
+
+			const me = rows[0];
+
+			if (!me?.member_id) {
+				showAlert("Access denied: not an active facilitator for " + email, "error");
+				await this.auditLog("auth.denied", "facilitator", "", {
+					email,
+					page: appsmith.URL?.pathname,
+					mode: appsmith.mode
+				});
+				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
+					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				}
+				return;
+			}
+
+			await Promise.all([
+				storeValue("facilitator_id", me.member_id),
+				storeValue("facilitator_email", (me.email ?? "").trim().toLowerCase()),
+				storeValue("facilitator_is_reviewer", me.is_document_reviewer),
+				storeValue("facilitator_is_donations_reviewer", me.is_donations_reviewer),
+				storeValue("facilitator_full_name", `${me.first_name} ${me.last_name}`.trim())
+			]);
+
+			return await this.refresh();
+		} catch (e) {
+			showAlert("Access check failed: " + (e?.message || e), "error");
+			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
+				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+			}
+			return;
+		}
+	},
+
 	async refresh() {
 		const selectedId =
 			String(appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id || "").trim();
