@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "WITH me AS (\n  SELECT\n    member_id,\n    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer\n  FROM public.member_profiles\n  WHERE lower(email) = lower({{ appsmith.user.email }})\n    AND status = 'active'\n  LIMIT 1\n)\nSELECT m.*\nFROM public.member_profiles m\nCROSS JOIN me\nWHERE m.member_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid\n  AND (\n    me.is_document_reviewer = TRUE\n    OR EXISTS (\n      SELECT 1\n      FROM public.member_facilitators mf\n      WHERE mf.member_id = m.member_id\n        AND mf.facilitator_id = me.member_id\n        AND mf.status = 'active'\n    )\n  );",
+      "body": "SELECT m.* FROM public.member_profiles m\nWHERE m.member_id={{ appsmith.store.selected_facilitator_id || null }}::uuid\nAND m.status='active'\nAND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

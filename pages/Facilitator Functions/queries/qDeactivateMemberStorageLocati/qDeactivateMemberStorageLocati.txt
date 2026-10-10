@@ -3,7 +3,8 @@ SET
   status = 'inactive',
   updated_at = now(),
   notes = COALESCE({{ this.params.notes }}, notes)
-WHERE facilitator_storage_location_access_id =
+WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')
+  AND facilitator_storage_location_access_id =
   {{ this.params.facilitator_storage_location_access_id }}::uuid
   AND facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid
 RETURNING
