@@ -60,6 +60,10 @@
     {
       "label": "Phone",
       "value": "phone"
+    },
+    {
+      "label": "Mailing address",
+      "value": "address"
     }
   ],
   "topRow": 80,

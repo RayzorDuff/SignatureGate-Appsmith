@@ -39,7 +39,7 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ qAddCompanyDonorAddress.isLoading }}",
   "isLoading": false,
-  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "isVisible": "{{ false }}",
   "key": "bf397b0bb9",
   "leftColumn": 44,
   "minWidth": 120,
