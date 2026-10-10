@@ -1,0 +1,4 @@
+{
+  "deposit_batch_id": "{{ this.params.deposit_batch_id }}",
+  "mode": "{{ this.params.mode || "production" }}"
+}

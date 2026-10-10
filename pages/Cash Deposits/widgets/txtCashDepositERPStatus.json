@@ -1,0 +1,51 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 126,
+  "dynamicBindingPathList": [
+    {
+      "key": "fontFamily"
+    },
+    {
+      "key": "text"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "0.875rem",
+  "fontStyle": "NORMAL",
+  "isLoading": false,
+  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true && !!tblCashDepositBatches.selectedRow?.deposit_batch_id }}",
+  "key": "cashdepositerpstatus",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 95,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 91,
+  "needsErrorInfo": false,
+  "originalBottomRow": 126,
+  "originalTopRow": 120,
+  "overflow": "NONE",
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "shouldTruncate": false,
+  "text": "{{ (() => { const b = tblCashDepositBatches.selectedRow || {}; if (!b.deposit_batch_id) return ''; if (b.status !== 'confirmed') return 'ERP sync: available after confirmation.'; const s = b.erp_sync_status || 'pending'; const doc = [b.erp_doctype, b.erp_name].filter(Boolean).join(' '); const err = b.erp_sync_last_error ? ' — ' + b.erp_sync_last_error : ''; return 'ERP sync: ' + s + (doc ? ' — ' + doc : '') + err; })() }}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 120,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "cashdepositerpstatuswidget",
+  "widgetName": "txtCashDepositERPStatus"
+}
