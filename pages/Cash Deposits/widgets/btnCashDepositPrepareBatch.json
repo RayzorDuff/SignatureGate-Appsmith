@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 119,
+  "bottomRow": 116,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -59,7 +59,7 @@
   "rightColumn": 15,
   "text": "Prepare",
   "tooltip": "Prepare the selected batch for physical deposit.",
-  "topRow": 115,
+  "topRow": 112,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "t2d1grucjh",

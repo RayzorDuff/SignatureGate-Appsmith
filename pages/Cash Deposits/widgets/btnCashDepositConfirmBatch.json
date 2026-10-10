@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 119,
+  "bottomRow": 116,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -59,7 +59,7 @@
   "rightColumn": 30,
   "text": "Confirm",
   "tooltip": "Record the completed bank deposit, including the deposit date, destination account, and reference.",
-  "topRow": 115,
+  "topRow": 112,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "7844wsrynp",
