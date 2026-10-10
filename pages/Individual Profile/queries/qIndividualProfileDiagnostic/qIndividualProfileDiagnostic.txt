@@ -1,5 +1,5 @@
 WITH target AS (
-  SELECT NULLIF({{ appsmith.URL.queryParams.person_id || "" }}, '')::uuid AS person_id
+  SELECT NULLIF(COALESCE(NULLIF({{ appsmith.URL.queryParams.person_id || '' }}::text,''),{{ appsmith.store.selected_individual_profile_id || '' }}::text),'')::uuid AS person_id
 ),
 directory AS (
   SELECT d.*
