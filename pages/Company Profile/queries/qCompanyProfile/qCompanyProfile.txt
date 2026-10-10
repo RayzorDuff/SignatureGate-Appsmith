@@ -1,3 +1,4 @@
 SELECT d.* FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
-WHERE d.party_kind = 'organization' AND d.party_id = NULLIF(COALESCE(NULLIF({{ appsmith.URL.queryParams.organization_id || '' }}::text, ''), {{ appsmith.store.selected_organization_profile_id || '' }}::text), '')::uuid
+WHERE d.party_kind = 'organization' AND d.party_id = NULLIF({{ appsmith.URL.queryParams.organization_id || appsmith.store.selected_organization_profile_id || '' }}, '')::uuid
 LIMIT 1;
+

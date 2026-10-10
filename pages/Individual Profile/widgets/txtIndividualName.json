@@ -35,7 +35,7 @@
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 64,
+  "rightColumn": 46,
   "shouldTruncate": false,
   "text": "{{ qIndividualProfile.data?.[0]?.display_name || 'Individual Profile' }}",
   "textAlign": "LEFT",

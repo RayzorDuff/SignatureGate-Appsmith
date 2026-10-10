@@ -27,7 +27,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": "{{ !!qCompanyProfile.data?.[0]?.party_id }}",
+  "isVisible": false,
   "key": "d7fe06d6f2",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

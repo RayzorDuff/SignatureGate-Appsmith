@@ -98,7 +98,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": "{{ !!qCompanyProfile.data?.[0]?.party_id }}",
+  "isVisible": false,
   "isVisibleDownload": false,
   "isVisibleFilters": true,
   "isVisiblePagination": true,
