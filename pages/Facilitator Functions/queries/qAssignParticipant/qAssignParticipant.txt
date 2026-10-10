@@ -1,0 +1,3 @@
+SELECT public.issue19_assign_member_practitioner({{ appsmith.user.email }},{{ this.params.person_id }}::uuid,
+(SELECT person_id FROM public.members WHERE member_id={{ appsmith.store.selected_facilitator_id || null }}::uuid),
+{{ this.params.notes }},{{ this.params.reason }}) AS assignment_id;

@@ -79,7 +79,9 @@ export default {
 		return Promise.allSettled([
 			qMemberById.run(),
 			qMemberStorageLocations.run(),
-			qDistinctStorageLocationNames.run()
+			qDistinctStorageLocationNames.run(),
+			qAssignedParticipants.run(),
+			qParticipantCandidates.run()
 		]);
 	},
 
@@ -93,7 +95,9 @@ export default {
 
 		await Promise.allSettled([
 			qMemberById.run(),
-			qMemberStorageLocations.run()
+			qMemberStorageLocations.run(),
+			qAssignedParticipants.run(),
+			qParticipantCandidates.run()
 		]);
 
 		return selectedId;
@@ -202,4 +206,62 @@ export default {
 	},
 	
 		
-}
+
+	async assignParticipant() {
+		if (!appsmith.store.facilitator_is_reviewer) {
+			showAlert("Document reviewer permission required.", "error");
+			return;
+		}
+		const personId = selParticipantToAssign.selectedOptionValue;
+		const reason = String(inpParticipantAssignmentReason.text || "").trim();
+		if (!appsmith.store.selected_facilitator_id || !personId || !reason) {
+			showAlert("Select a facilitator and participant and enter a reason.", "warning");
+			return;
+		}
+		try {
+			const r = await qAssignParticipant.run({
+				person_id: personId,
+				notes: String(inpParticipantAssignmentNotes.text || "").trim(),
+				reason
+			});
+			if (!r?.[0]?.assignment_id) throw new Error("Assignment was not confirmed.");
+			showAlert("Participant assigned.", "success");
+			await Promise.all([qAssignedParticipants.run(), qParticipantCandidates.run()]);
+			resetWidget("selParticipantToAssign", true);
+			resetWidget("inpParticipantAssignmentNotes", true);
+		} catch (e) {
+			showAlert("Assignment failed: " + (e?.message || e), "error");
+			throw e;
+		}
+	},
+
+	async removeParticipant(row) {
+		if (!appsmith.store.facilitator_is_reviewer) {
+			showAlert("Document reviewer permission required.", "error");
+			return;
+		}
+		const reason = String(inpParticipantAssignmentReason.text || "").trim();
+		if (!reason) {
+			showAlert("Enter a reason before ending an assignment.", "warning");
+			return;
+		}
+		if (!row?.member_practitioner_assignment_id || row.status !== "active" ||
+			String(row.practitioner_member_id || "") !== String(appsmith.store.selected_facilitator_id || "")) {
+			showAlert("The active assignment does not belong to the selected facilitator.", "warning");
+			return;
+		}
+		try {
+			const r = await qEndParticipantAssignment.run({
+				person_id: row.participant_person_id,
+				assignment_id: row.member_practitioner_assignment_id,
+				reason
+			});
+			if (!r?.[0]?.assignment_id) throw new Error("Ending the assignment was not confirmed.");
+			showAlert("Assignment ended.", "success");
+			await Promise.all([qAssignedParticipants.run(), qParticipantCandidates.run()]);
+		} catch (e) {
+			showAlert("Unable to end assignment: " + (e?.message || e), "error");
+			throw e;
+		}
+	}
+};
