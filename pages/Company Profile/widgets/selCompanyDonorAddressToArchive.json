@@ -30,7 +30,7 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "isVisible": "{{ false }}",
   "key": "7ac886e503",
   "label": "Address to archive",
   "labelAlignment": "left",

@@ -33,7 +33,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "isVisible": "{{ selCompanyDonorContactKind.selectedOptionValue === 'address' && qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
   "key": "102d6998b8",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

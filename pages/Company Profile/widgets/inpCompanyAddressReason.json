@@ -29,7 +29,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "isVisible": "{{ false }}",
   "key": "7ad4e45658",
   "label": "Reason to add or archive an address",
   "labelAlignment": "left",
