@@ -85,5 +85,5 @@
   "version": 2,
   "widgetId": "c00e73dca0",
   "widgetName": "inpIndividualRoleContactValue",
-  "validation": "{{ (() => { const v=String(inpIndividualRoleContactValue.text || '').trim(); if(!v) return true; const kind=selIndividualRoleContactKind.selectedOptionValue; if(kind==='email') return /^[^\\\\s@]+@[^\\\\s@]+\\\\.[^\\\\s@]+$/.test(v); if(kind==='phone') return /^(\\\\+\\\\d{1,2}\\\\s?)?\\\\(?\\\\d{3}\\\\)?[\\\\s.-]?\\\\d{3}[\\\\s.-]?\\\\d{4}$/.test(v); return true; })() }}"
+  "validation": "{{ (() => { const v=String(inpIndividualRoleContactValue.text || '').trim(); if(!v) return true; const kind=selIndividualRoleContactKind.selectedOptionValue; if(kind==='email') return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(v); if(kind==='phone') return /^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$/.test(v); return true; })() }}"
 }
