@@ -40,15 +40,15 @@ export default {
 				return;
 			}
 
-			const member = qMemberById.data?.[0];
+			const facilitator = qMemberById.data?.[0];
 
-			if (!member?.member_id) {
-				showAlert("No member selected.", "error");
+			if (!facilitator?.member_id) {
+				showAlert("No facilitator selected.", "error");
 				return;
 			}
 
-			if (!member?.is_facilitator) {
-				showAlert("Storage locations can only be assigned to members who are facilitators.", "warning");
+			if (!facilitator?.is_facilitator) {
+				showAlert("The selected person is not an active facilitator.", "warning");
 				return;
 			}
 
@@ -71,12 +71,12 @@ export default {
 			await facilitatorFlows.auditLog(
 				"facilitator_storage_location.assigned",
 				"member",
-				member.member_id,
+				facilitator.member_id,
 				{
 					facilitator_id: member.member_id,
 					storage_location_name: storageLocationName.trim(),
 					assigned_by_member_id: appsmith.store.facilitator_id,
-					page: "Members - Profile",
+					page: "Facilitator Functions",
 					notes
 				}
 			);
