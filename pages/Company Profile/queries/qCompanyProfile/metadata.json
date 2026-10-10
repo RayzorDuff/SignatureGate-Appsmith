@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT d.* FROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nWHERE d.party_kind = 'organization' AND d.party_id = NULLIF(COALESCE(NULLIF({{ appsmith.URL.queryParams.organization_id || '' }}::text, ''), {{ appsmith.store.selected_organization_profile_id || '' }}::text), '')::uuid\nLIMIT 1;",
+      "body": "SELECT d.* FROM public.issue19_directory_entries({{ appsmith.user.email }}) d\nWHERE d.party_kind = 'organization' AND d.party_id = NULLIF(COALESCE(NULLIF({{ appsmith.URL.queryParams.organization_id || '' }}::text, ''), {{ appsmith.store.selected_organization_profile_id || '' }}::text), '')::uuid\nLIMIT 1;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
