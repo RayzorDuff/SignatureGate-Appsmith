@@ -43,13 +43,13 @@
   ],
   "dynamicTriggerPathList": [],
   "iconAlign": "left",
-  "inputType": "{{ selCompanyDonorContactKind.selectedOptionValue === 'email' ? 'EMAIL' : 'TEXT' }}",
+  "inputType": "EMAIL",
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ selCompanyDonorContactKind.selectedOptionValue !== 'address' && qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "isVisible": "{{ selCompanyDonorContactKind.selectedOptionValue === 'email' && qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
   "key": "9483364084",
-  "label": "{{ selCompanyDonorContactKind.selectedOptionValue === 'email' ? 'Email address' : 'Phone number' }}",
+  "label": "Email address",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
@@ -79,5 +79,5 @@
   "version": 2,
   "widgetId": "141ac7c7ea",
   "widgetName": "inpCompanyDonorContactValue",
-  "validation": "{{ (() => { const v=String(inpCompanyDonorContactValue.text || '').trim(); if(!v) return true; const kind=selCompanyDonorContactKind.selectedOptionValue; if(kind==='email') return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(v); if(kind==='phone') return /^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$/.test(v); return true; })() }}"
+  "validation": "{{ !inpCompanyDonorContactValue.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpCompanyDonorContactValue.text) }}"
 }

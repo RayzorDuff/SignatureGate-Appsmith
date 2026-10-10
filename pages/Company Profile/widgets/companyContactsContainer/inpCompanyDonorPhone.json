@@ -5,7 +5,7 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 103,
+  "bottomRow": 50,
   "boxShadow": "none",
   "defaultDialCode": "+1",
   "defaultText": "",
@@ -18,24 +18,40 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
     }
   ],
   "dynamicHeight": "FIXED",
-  "dynamicPropertyPathList": [],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "validation"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
   "dynamicTriggerPathList": [],
   "iconAlign": "left",
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": true,
+  "isVisible": "{{ selCompanyDonorContactKind.selectedOptionValue === 'phone' && qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true }}",
   "key": "8xeaaatwzq",
-  "label": "New Phone",
+  "label": "Phone number",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 22,
+  "leftColumn": 32,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -45,16 +61,18 @@
   "mobileTopRow": 15,
   "needsErrorInfo": false,
   "parentColumnSpace": 13.875,
-  "parentId": "oi4pw3ksy4",
+  "parentId": "6mi04nz8p0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "resetOnSubmit": true,
   "responsiveBehavior": "fill",
-  "rightColumn": 42,
-  "topRow": 96,
+  "rightColumn": 64,
+  "topRow": 44,
   "type": "PHONE_INPUT_WIDGET",
-  "validation": "{{\n  !inpNewMemberPhone.text ||\n  /^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$/.test(inpNewMemberPhone.text)\n}}",
+  "validation": "{{ !inpCompanyDonorPhone.text || /^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$/.test(inpCompanyDonorPhone.text) }}",
   "version": 1,
-  "widgetId": "kv6w5v2qda",
-  "widgetName": "inpNewMemberPhone"
+  "widgetId": "h8gvcgg6sj",
+  "widgetName": "inpCompanyDonorPhone",
+  "originalTopRow": 44,
+  "originalBottomRow": 50
 }

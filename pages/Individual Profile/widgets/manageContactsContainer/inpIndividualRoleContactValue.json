@@ -49,13 +49,13 @@
   ],
   "dynamicTriggerPathList": [],
   "iconAlign": "left",
-  "inputType": "{{ selIndividualRoleContactKind.selectedOptionValue === 'email' ? 'EMAIL' : 'TEXT' }}",
+  "inputType": "EMAIL",
   "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' ? (qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' && qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) }}",
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ (qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) && selIndividualRoleContactKind.selectedOptionValue !== 'address' }}",
+  "isVisible": "{{ (qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) && selIndividualRoleContactKind.selectedOptionValue === 'email' }}",
   "key": "413efd9c13",
-  "label": "{{ selIndividualRoleContactKind.selectedOptionValue === 'email' ? 'Email address' : 'Phone number' }}",
+  "label": "Email address",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
@@ -85,5 +85,5 @@
   "version": 2,
   "widgetId": "c00e73dca0",
   "widgetName": "inpIndividualRoleContactValue",
-  "validation": "{{ (() => { const v=String(inpIndividualRoleContactValue.text || '').trim(); if(!v) return true; const kind=selIndividualRoleContactKind.selectedOptionValue; if(kind==='email') return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(v); if(kind==='phone') return /^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$/.test(v); return true; })() }}"
+  "validation": "{{ !inpIndividualRoleContactValue.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIndividualRoleContactValue.text) }}"
 }
