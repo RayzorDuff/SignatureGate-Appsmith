@@ -13,7 +13,7 @@ export default {
       return;
     }
     try {
-      const profileRows = await qCompanyProfile.run();
+      const profileRows = await qCompanyProfile.run({party_id: organizationId});
       if (!profileRows?.[0]?.party_id) {
         showAlert('Company lookup returned no accessible record. Check the organization_id URL parameter and reviewer permissions.', 'error');
         return;

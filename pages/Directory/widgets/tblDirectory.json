@@ -291,7 +291,7 @@
       "label": "Open profile",
       "labelColor": "#FFFFFF",
       "notation": "standard",
-      "onClick": "{{ issue19DirectoryFlows.openProfile(currentRow) }}",
+      "onClick": "{{ issue19DirectoryFlows.openProfile(tblDirectory.triggeredRow) }}",
       "originalId": "customColumn1",
       "sticky": "",
       "textSize": "0.875rem",

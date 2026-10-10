@@ -1,6 +1,6 @@
 export default {
   async load() {
-    for (let attempt = 0; attempt < 30 && (!appsmith.user?.email || !appsmith.URL?.queryParams?.person_id); attempt++) {
+    for (let attempt = 0; attempt < 30 && !appsmith.user?.email; attempt++) {
       await new Promise(resolve => setTimeout(resolve, 150));
     }
     if (!appsmith.user?.email) {
@@ -13,7 +13,7 @@ export default {
       return;
     }
     try {
-      const profileRows = await qIndividualProfile.run();
+      const profileRows = await qIndividualProfile.run({party_id: personId});
       if (!profileRows?.[0]?.party_id) {
         await qIndividualProfileDiagnostic.run();
         const d = qIndividualProfileDiagnostic.data?.[0] || {};
