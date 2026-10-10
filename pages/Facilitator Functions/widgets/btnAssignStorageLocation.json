@@ -48,7 +48,7 @@
   "mobileRightColumn": 36,
   "mobileTopRow": 265,
   "needsErrorInfo": false,
-  "onClick": "{{ memberProfile.assignStorageLocation() }}",
+  "onClick": "{{ facilitatorFlows.assignStorageLocation() }}",
   "originalBottomRow": 65,
   "originalTopRow": 61,
   "parentColumnSpace": 14.1875,
