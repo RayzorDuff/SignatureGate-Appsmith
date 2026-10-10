@@ -5,6 +5,7 @@ SET
   notes = COALESCE({{ this.params.notes }}, notes)
 WHERE facilitator_storage_location_access_id =
   {{ this.params.facilitator_storage_location_access_id }}::uuid
+  AND facilitator_id = {{ appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id }}::uuid
 RETURNING
   facilitator_storage_location_access_id,
   facilitator_id,
