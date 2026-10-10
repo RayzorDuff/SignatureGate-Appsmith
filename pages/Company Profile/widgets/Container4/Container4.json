@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 205,
+  "bottomRow": 36,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "children": [
     {
@@ -34,20 +34,20 @@
       "minWidth": 450,
       "mobileBottomRow": 100,
       "mobileLeftColumn": 0,
-      "mobileRightColumn": 141.875,
+      "mobileRightColumn": 184.4375,
       "mobileTopRow": 0,
       "needsErrorInfo": false,
       "parentColumnSpace": 1,
-      "parentId": "iw42gh38m5",
+      "parentId": "xien781vt3",
       "parentRowSpace": 1,
       "renderMode": "CANVAS",
       "responsiveBehavior": "fill",
-      "rightColumn": 141.875,
+      "rightColumn": 184.4375,
       "topRow": 0,
       "type": "CANVAS_WIDGET",
       "version": 1,
-      "widgetId": "zwtwelf6nt",
-      "widgetName": "Canvas2"
+      "widgetId": "1ufvybsm1b",
+      "widgetName": "Canvas4"
     }
   ],
   "containerStyle": "card",
@@ -57,44 +57,35 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
-  "dynamicPropertyPathList": [
-    {
-      "key": "isVisible"
-    }
-  ],
-  "dynamicTriggerPathList": [],
   "flexVerticalAlignment": "stretch",
   "isCanvas": true,
   "isLoading": false,
-  "isVisible": "{{ qDirectoryCanManage.data?.[0]?.can_manage === true && qProfileCanCreateContributor.data?.[0]?.can_create === true && !!qIndividualProfile.data?.[0]?.party_id && !qIndividualProfile.data?.[0]?.contributor_id }}",
+  "isVisible": true,
   "key": "2espflvptr",
-  "leftColumn": 0,
+  "leftColumn": 23,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 10,
   "minWidth": 450,
-  "mobileBottomRow": 107,
-  "mobileLeftColumn": 0,
-  "mobileRightColumn": 10,
-  "mobileTopRow": 97,
+  "mobileBottomRow": 36,
+  "mobileLeftColumn": 23,
+  "mobileRightColumn": 36,
+  "mobileTopRow": 26,
   "needsErrorInfo": false,
-  "originalBottomRow": 205,
-  "originalTopRow": 195,
+  "originalBottomRow": 36,
+  "originalTopRow": 26,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 64,
+  "rightColumn": 36,
   "shouldScrollContents": true,
-  "topRow": 195,
+  "topRow": 26,
   "type": "CONTAINER_WIDGET",
   "version": 1,
-  "widgetId": "iw42gh38m5",
-  "widgetName": "enableContributorContainer"
+  "widgetId": "xien781vt3",
+  "widgetName": "Container4"
 }

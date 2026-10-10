@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 166,
+  "bottomRow": 159,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -38,8 +38,8 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 162,
   "needsErrorInfo": false,
-  "originalBottomRow": 166,
-  "originalTopRow": 162,
+  "originalBottomRow": 159,
+  "originalTopRow": 155,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -51,7 +51,7 @@
   "text": "Contribution history",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 162,
+  "topRow": 155,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

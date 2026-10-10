@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 238,
+  "bottomRow": 231,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -38,8 +38,8 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 234,
   "needsErrorInfo": false,
-  "originalBottomRow": 238,
-  "originalTopRow": 234,
+  "originalBottomRow": 231,
+  "originalTopRow": 227,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -51,7 +51,7 @@
   "text": "Contributor status",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 234,
+  "topRow": 227,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

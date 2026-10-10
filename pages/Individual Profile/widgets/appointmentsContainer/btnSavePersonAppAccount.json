@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 27,
+  "bottomRow": 28,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -55,7 +55,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "Link account",
-  "topRow": 23,
+  "topRow": 24,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "a9a46ae246",
