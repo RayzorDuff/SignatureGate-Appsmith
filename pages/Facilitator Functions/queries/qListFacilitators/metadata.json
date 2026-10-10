@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT member_id, first_name, last_name, email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status='active' AND public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') ORDER BY last_name, first_name;\n",
+      "body": "SELECT m.member_id,m.first_name,m.last_name,m.email,\nEXISTS(SELECT 1 FROM public.person_roles r WHERE r.person_id=m.person_id AND r.role_key='practitioner') AS has_practitioner_appointment\nFROM public.member_profiles m\nWHERE m.is_facilitator IS TRUE AND m.status='active'\nAND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')\nORDER BY m.last_name,m.first_name;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

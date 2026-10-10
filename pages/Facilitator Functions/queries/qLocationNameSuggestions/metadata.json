@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT DISTINCT\n  storage_location_name\nFROM public.facilitator_storage_location_access \nWHERE {{ (inpAssignStorageLocation.text || \"\").trim().length >= 2 }}\n  AND storage_location_name IS NOT NULL\n  AND trim(storage_location_name) <> ''\n  AND lower(storage_location_name) LIKE lower({{ \"%\" + (inpAssignStorageLocation.text || \"\").trim() + \"%\" }})\nORDER BY storage_location_name;",
+      "body": "SELECT DISTINCT storage_location_name FROM public.facilitator_storage_location_access\nWHERE public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')\nAND storage_location_name IS NOT NULL AND trim(storage_location_name)<>''\nORDER BY storage_location_name;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

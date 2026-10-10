@@ -1,1 +1,6 @@
-SELECT member_id, first_name, last_name, email FROM public.member_profiles WHERE is_facilitator IS TRUE AND status='active' AND public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') ORDER BY last_name, first_name;
+SELECT m.member_id,m.first_name,m.last_name,m.email,
+EXISTS(SELECT 1 FROM public.person_roles r WHERE r.person_id=m.person_id AND r.role_key='practitioner') AS has_practitioner_appointment
+FROM public.member_profiles m
+WHERE m.is_facilitator IS TRUE AND m.status='active'
+AND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')
+ORDER BY m.last_name,m.first_name;

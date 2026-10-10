@@ -69,7 +69,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 22,
   "serverSideFiltering": false,
-  "sourceData": "{{ (qListFacilitators.data || []).map(f => ({ label: `${f.first_name || ''} ${f.last_name || ''}`.trim(), value:f.member_id })) }}",
+  "sourceData": "{{ (qListFacilitators.data || []).map(f => ({label: `${f.first_name || ''} ${f.last_name || ''}${f.has_practitioner_appointment ? '' : ' (appointment needed)'}`.trim(), value:f.member_id})) }}",
   "topRow": 0,
   "type": "SELECT_WIDGET",
   "version": 1,

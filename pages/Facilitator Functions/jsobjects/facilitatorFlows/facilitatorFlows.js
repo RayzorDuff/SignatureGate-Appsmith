@@ -77,6 +77,7 @@ export default {
 		await storeValue("selected_facilitator_id", selectedId);
 
 		return Promise.allSettled([
+			apiAvailableStorageProducts.run(),
 			qMemberById.run(),
 			qMemberStorageLocations.run(),
 			qDistinctStorageLocationNames.run(),
@@ -216,6 +217,11 @@ export default {
 		const reason = String(inpParticipantAssignmentReason.text || "").trim();
 		if (!appsmith.store.selected_facilitator_id || !personId || !reason) {
 			showAlert("Select a facilitator and participant and enter a reason.", "warning");
+			return;
+		}
+		const facilitator = (qListFacilitators.data || []).find(f => f.member_id === appsmith.store.selected_facilitator_id);
+		if (!facilitator?.has_practitioner_appointment) {
+			showAlert("Selected facilitator has no practitioner appointment. Assign the Practitioner role in Individual Profile before assigning participants.", "warning");
 			return;
 		}
 		try {

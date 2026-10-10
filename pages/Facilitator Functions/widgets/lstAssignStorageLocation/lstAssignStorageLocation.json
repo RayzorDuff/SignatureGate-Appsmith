@@ -100,7 +100,7 @@
   "itemSpacing": 8,
   "key": "sd4a6l11zo",
   "leftColumn": 0,
-  "listData": "{{ \n(qLocationNameSuggestions.data || []).map(v => ({ id: v.storage_location_name, name: v.storage_location_name }) || [] ) }}",
+  "listData": "{{ (() => {\nconst entered = String(inpAssignStorageLocation.text || '').trim().toLowerCase();\nif (entered.length < 2) return [];\nconst historic = (qLocationNameSuggestions.data || []).map(x => x.storage_location_name);\nconst raw = apiAvailableStorageProducts.data?.data || [];\nconst products = Array.isArray(raw) ? raw : [];\nconst locations = products.flatMap(p => [p.storage_location, ...(Array.isArray(p.storage_locations) ? p.storage_locations : [])]);\nreturn [...new Set([...historic, ...locations].map(x => String(x || '').trim()).filter(Boolean))]\n.filter(name => name.toLowerCase().includes(entered))\n.sort((a,b) => a.localeCompare(b)).slice(0, 30)\n.map(name => ({id:name,name}));\n})() }}",
   "mainCanvasId": "pxq80o3eib",
   "mainContainerId": "56vj99a07g",
   "minWidth": 450,

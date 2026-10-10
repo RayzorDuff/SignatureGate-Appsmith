@@ -15,6 +15,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
     }
   ],
   "dynamicPropertyPathList": [
@@ -23,6 +26,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
     }
   ],
   "dynamicTriggerPathList": [
@@ -31,7 +37,7 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": "{{ !(qListFacilitators.data || []).some(f => f.member_id === appsmith.store.selected_facilitator_id && f.has_practitioner_appointment) }}",
   "isLoading": false,
   "isVisible": "{{ appsmith.store.facilitator_is_reviewer }}",
   "key": "partbutton1",
