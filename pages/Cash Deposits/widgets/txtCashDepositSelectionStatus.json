@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 63,
+  "bottomRow": 61,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -39,7 +39,7 @@
   "text": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true ? \"Select a cash donation to perform an action.\" : \"Only an active Donations Reviewer can access cash-deposit financial information.\" }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 59,
+  "topRow": 57,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

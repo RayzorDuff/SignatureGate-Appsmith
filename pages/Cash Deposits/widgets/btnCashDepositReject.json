@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 67,
+  "bottomRow": 65,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -62,7 +62,7 @@
   "rightColumn": 30,
   "text": "Reject Donation",
   "tooltip": "Mark the selected cash donation as rejected or unverified.",
-  "topRow": 63,
+  "topRow": 61,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "ivfuejvd4i",

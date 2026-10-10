@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 67,
+  "bottomRow": 65,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -44,7 +44,7 @@
   "rightColumn": 45,
   "text": "Cash on Hand",
   "tooltip": "Cash on Hand is a derived status: a verified cash donation that is not assigned to an active deposit batch.",
-  "topRow": 63,
+  "topRow": 61,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "4acdskdgjc",

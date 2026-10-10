@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 126,
+  "bottomRow": 120,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -42,7 +42,7 @@
   "text": "{{ (() => { const b = tblCashDepositBatches.selectedRow || {}; if (!b.deposit_batch_id) return ''; if (b.status !== 'confirmed') return 'ERP sync: available after confirmation.'; const s = b.erp_sync_status || 'pending'; const doc = [b.erp_doctype, b.erp_name].filter(Boolean).join(' '); const raw = String(b.erp_sync_last_error || '').trim(); let err = ''; if (raw) { if (/\\b502\\b|bad gateway/i.test(raw)) err = ' — temporary ERP connection error (502)'; else { const clean = raw.replace(/\\s+/g, ' '); err = ' — ' + clean.slice(0, 180) + (clean.length > 180 ? '…' : ''); } } return 'ERP sync: ' + s + (doc ? ' — ' + doc : '') + err; })() }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 120,
+  "topRow": 116,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
