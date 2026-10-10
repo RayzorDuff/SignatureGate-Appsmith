@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  fsla.facilitator_storage_location_access_id,\n  fsla.facilitator_id,\n  fsla.storage_location_name,\n  fsla.status,\n  fsla.created_at,\n  fsla.updated_at,\n  fsla.assigned_by_member_id,\n  fsla.notes,\n  ab.first_name AS assigned_by_first_name,\n  ab.last_name AS assigned_by_last_name\nFROM public.facilitator_storage_location_access fsla\nLEFT JOIN public.member_profiles ab\n  ON ab.member_id = fsla.assigned_by_member_id\nWHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')\n  AND fsla.facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid\nORDER BY\n  CASE WHEN fsla.status = 'active' THEN 0 ELSE 1 END,\n  fsla.storage_location_name;",
+      "body": "SELECT\n  fsla.facilitator_storage_location_access_id,\n  fsla.facilitator_id,\n  fsla.storage_location_name,\n  fsla.status,\n  fsla.created_at,\n  fsla.updated_at,\n  fsla.assigned_by_member_id,\n  fsla.notes,\n  ab.first_name AS assigned_by_first_name,\n  ab.last_name AS assigned_by_last_name\nFROM public.facilitator_storage_location_access fsla\nLEFT JOIN public.member_profiles ab\n  ON ab.member_id = fsla.assigned_by_member_id\nWHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')\n  AND fsla.facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid\nORDER BY\n  CASE WHEN fsla.status = 'active' THEN 0 ELSE 1 END,\n  fsla.storage_location_name;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

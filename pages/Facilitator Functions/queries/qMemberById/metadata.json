@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT m.* FROM public.member_profiles m\nWHERE m.member_id={{ appsmith.store.selected_facilitator_id || null }}::uuid\nAND m.status='active'\nAND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');",
+      "body": "SELECT m.* FROM public.member_profiles m\nWHERE m.member_id={{ appsmith.store.selected_facilitator_id || null }}::uuid\nAND m.status='active'\nAND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
