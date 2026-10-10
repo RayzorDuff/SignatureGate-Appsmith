@@ -1,10 +1,10 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 8,
+  "bottomRow": 13,
   "dynamicBindingPathList": [
     {
-      "key": "text"
+      "key": "truncateButtonColor"
     },
     {
       "key": "fontFamily"
@@ -13,43 +13,48 @@
       "key": "borderRadius"
     },
     {
-      "key": "truncateButtonColor"
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
   "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": true,
-  "key": "37012781f2",
+  "isVisible": "{{ qCompanyPartyIdentity.data?.[0]?.can_edit === true }}",
+  "key": "ca4a5ad42e",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 4,
+  "mobileBottomRow": 13,
   "mobileLeftColumn": 0,
-  "mobileRightColumn": 10,
-  "mobileTopRow": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 9,
   "needsErrorInfo": false,
-  "originalBottomRow": 8,
-  "originalTopRow": 4,
+  "originalBottomRow": 13,
+  "originalTopRow": 9,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
-  "parentId": "0",
+  "parentId": "u54kyq37ju",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldTruncate": false,
-  "text": "{{ (() => { const p = qCompanyProfile.data?.[0]; return p ? (p.party_kind === 'individual' ? ('Membership: ' + (p.membership_status || 'No') + '  ·  Contributor: ' + (p.contributor_status || 'No')) : ('Contributor: ' + (p.contributor_status || 'No'))) : 'Record not found or you do not have access'; })() }}",
+  "text": "Edit company identity",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 4,
+  "topRow": 9,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
-  "widgetId": "34f4b62760",
-  "widgetName": "txtCompanyRoles"
+  "widgetId": "e2a53915d1",
+  "widgetName": "txtCompanyIdentityHeading"
 }
