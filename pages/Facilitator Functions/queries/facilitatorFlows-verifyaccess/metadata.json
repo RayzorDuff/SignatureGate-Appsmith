@@ -3,13 +3,6 @@
   "id": "Facilitator Functions_facilitatorFlows.verifyaccess",
   "pluginId": "js-plugin",
   "pluginType": "JS",
-  "unpublishedCollection": {
-    "name": "facilitatorFlows",
-    "pageId": "Facilitator Functions",
-    "pluginId": "js-plugin",
-    "pluginType": "JS",
-    "variables": []
-  },
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,

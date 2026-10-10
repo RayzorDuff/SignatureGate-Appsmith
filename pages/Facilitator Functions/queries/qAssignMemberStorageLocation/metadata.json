@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "INSERT INTO public.facilitator_storage_location_access (\n  facilitator_id,\n  storage_location_name,\n  assigned_by_member_id,\n  status,\n  notes\n)\nVALUES (\n  {{ appsmith.store.member_id }}::uuid,\n  {{ this.params.storage_location_name }},\n  {{ appsmith.store.facilitator_id }}::uuid,\n  'active',\n  {{ this.params.notes || null }}\n)\nON CONFLICT (facilitator_id, storage_location_name)\nDO UPDATE SET\n  status = 'active',\n  updated_at = now(),\n  assigned_by_member_id = EXCLUDED.assigned_by_member_id,\n  notes = EXCLUDED.notes\nRETURNING\n  facilitator_storage_location_access_id,\n  facilitator_id,\n  storage_location_name,\n  status;",
+      "body": "INSERT INTO public.facilitator_storage_location_access (\n  facilitator_id,\n  storage_location_name,\n  assigned_by_member_id,\n  status,\n  notes\n)\nVALUES (\n  {{ appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id }}::uuid,\n  {{ this.params.storage_location_name }},\n  {{ appsmith.store.facilitator_id }}::uuid,\n  'active',\n  {{ this.params.notes || null }}\n)\nON CONFLICT (facilitator_id, storage_location_name)\nDO UPDATE SET\n  status = 'active',\n  updated_at = now(),\n  assigned_by_member_id = EXCLUDED.assigned_by_member_id,\n  notes = EXCLUDED.notes\nRETURNING\n  facilitator_storage_location_access_id,\n  facilitator_id,\n  storage_location_name,\n  status;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
