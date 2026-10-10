@@ -52,9 +52,10 @@
     "customColumn1",
     "customColumn2",
     "notes",
-    "address_fingerprint"
+    "address_fingerprint",
+    "address_identity_key"
   ],
-  "columnUpdatedAt": 1785099648233,
+  "columnUpdatedAt": 1791673165297,
   "columnWidthMap": {
     "customColumn1": 96
   },
@@ -159,6 +160,9 @@
     },
     {
       "key": "primaryColumns.address_fingerprint.computedValue"
+    },
+    {
+      "key": "primaryColumns.address_identity_key.computedValue"
     }
   ],
   "dynamicPropertyPathList": [
@@ -305,6 +309,40 @@
       "label": "address_fingerprint",
       "notation": "standard",
       "originalId": "address_fingerprint",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "address_identity_key": {
+      "alias": "address_identity_key",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblMemberAddresses.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"address_identity_key\"])) : address_identity_key })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "address_identity_key",
+      "index": 19,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "address_identity_key",
+      "notation": "standard",
+      "originalId": "address_identity_key",
       "sticky": "",
       "textColor": "",
       "textSize": "0.875rem",

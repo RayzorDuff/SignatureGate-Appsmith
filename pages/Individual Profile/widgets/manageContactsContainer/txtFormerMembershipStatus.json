@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 104,
+  "bottomRow": 108,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -51,7 +51,7 @@
   "text": "{{ 'Membership ended on ' + new Date(qProfileMembershipState.data?.[0]?.membership_ended_at).toLocaleDateString() + '. This individual remains a contributor; past agreements, releases and donations are preserved.' }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 99,
+  "topRow": 103,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 77,
+  "bottomRow": 71,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -57,7 +57,7 @@
   "text": "{{ (qCompanyDonorAddresses.data || []).map(a => (a.is_primary ? 'Primary: ' : '') + a.address_1 + (a.address_2 ? ', ' + a.address_2 : '') + ', ' + a.city + ', ' + a.state + ' ' + a.postal_code + ' ' + a.country).join('\\n') || 'No contributor mailing addresses yet.' }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 73,
+  "topRow": 67,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
