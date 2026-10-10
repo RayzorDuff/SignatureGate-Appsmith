@@ -324,7 +324,7 @@
       "label": "Remove",
       "labelColor": "#FFFFFF",
       "notation": "standard",
-      "onClick": "{{\nmemberProfile.removeStorageLocation(\n  currentRow.facilitator_storage_location_access_id,\n  currentRow.storage_location_name\n)\n}}",
+      "onClick": "{{ facilitatorFlows.removeStorageLocation(currentRow.facilitator_storage_location_access_id, currentRow.storage_location_name) }}",
       "originalId": "customColumn1",
       "sticky": "",
       "textSize": "0.875rem",
