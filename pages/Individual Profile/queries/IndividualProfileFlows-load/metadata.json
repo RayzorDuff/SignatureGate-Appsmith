@@ -25,7 +25,7 @@
     "fullyQualifiedName": "IndividualProfileFlows.load",
     "name": "load",
     "pageId": "Individual Profile",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "ON_PAGE_LOAD",
     "userSetOnLoad": true
   }
 }

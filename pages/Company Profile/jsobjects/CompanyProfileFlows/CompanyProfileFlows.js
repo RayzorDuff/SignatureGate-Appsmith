@@ -18,10 +18,12 @@ export default {
         showAlert('Company lookup returned no accessible record. Check the organization_id URL parameter and reviewer permissions.', 'error');
         return;
       }
+			const profile = profileRows[0];
       await Promise.all([qCompanyContacts.run(),
         qCompanyCanEditDonorContacts.run(), qCompanyDonorContacts.run(), qCompanyDonorAddresses.run(),
         qCompanyContributionHistory.run(), qCompanyProviderIdentities.run(),
         qCompanyContributorStatusState.run(), qCompanyPartyIdentity.run(),qCompanyReassignTargets.run()]);
+			return profile;
     } catch (error) {
       showAlert('Directory could not load: ' + (error?.message || error), 'error');
     }
