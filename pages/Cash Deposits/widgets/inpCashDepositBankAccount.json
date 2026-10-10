@@ -1,12 +1,20 @@
 {
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
-  "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 126,
   "boxShadow": "none",
-  "defaultText": "",
+  "defaultOptionValue": "{{ cashDepositFlows.selectedBatch()?.destination_bank_account || \"\" }}",
   "dynamicBindingPathList": [
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
     {
       "key": "isVisible"
     },
@@ -20,20 +28,27 @@
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
       "key": "isVisible"
     }
   ],
-  "dynamicTriggerPathList": [],
-  "iconAlign": "left",
-  "inputType": "TEXT",
-  "isDisabled": false,
+  "isDisabled": "{{ [\"prepared\", \"confirmed\"].includes(cashDepositFlows.selectedBatch()?.status) }}",
+  "isFilterable": true,
   "isLoading": false,
-  "isRequired": false,
+  "isRequired": true,
   "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
   "key": "cdepbank01",
-  "label": "Destination Bank Account",
   "labelAlignment": "left",
   "labelPosition": "Auto",
+  "labelText": "Destination Bank Account",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 34,
@@ -44,19 +59,24 @@
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
   "mobileTopRow": 138,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
   "originalBottomRow": 146,
   "originalTopRow": 138,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
+  "placeholderText": "Select an ERPNext bank account",
   "renderMode": "CANVAS",
-  "resetOnSubmit": false,
   "responsiveBehavior": "fill",
   "rightColumn": 49,
-  "showStepArrows": false,
+  "serverSideFiltering": false,
+  "sourceData": "{{ (() => { const response = apiCashDepositBankAccounts.data?.message || apiCashDepositBankAccounts.data || {}; const options = (response.accounts || []).map(a => ({ label: a.label, value: a.value })); const current = String(cashDepositFlows.selectedBatch()?.destination_bank_account || \"\").trim(); if (current && !options.some(o => o.value === current)) options.unshift({ label: current + \" (historical)\", value: current }); return options; })() }}",
+  "tooltip": "Select an active Rooted Psyche Bank Account from ERPNext.",
   "topRow": 119,
-  "type": "INPUT_WIDGET_V2",
-  "version": 2,
+  "type": "SELECT_WIDGET",
+  "version": 1,
   "widgetId": "cdepbank01",
   "widgetName": "inpCashDepositBankAccount"
 }
