@@ -4,7 +4,8 @@ export default {
     await Promise.allSettled([
       qCashDepositCurrentFacilitator.run(),
       qCashDepositCashOnHand.run(),
-      qCashDepositBatches.run()
+      qCashDepositBatches.run(),
+      apiCashDepositBankAccounts.run()
     ]);
   },
 
@@ -467,7 +468,9 @@ export default {
     }
 
     const slip = (inpCashDepositSlipNumber.text || "").trim();
-    const bankAccount = (inpCashDepositBankAccount.text || "").trim();
+    const bankAccount = String(
+      inpCashDepositBankAccount.selectedOptionValue || ""
+    ).trim();
     const depositDate = inpCashDepositDate.selectedDate
       ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")
       : moment().format("YYYY-MM-DD");
@@ -478,7 +481,7 @@ export default {
     }
 
     if (!bankAccount) {
-      showAlert("Enter the destination bank account before preparing the batch.", "warning");
+      showAlert("Select the destination ERPNext bank account before preparing the batch.", "warning");
       return;
     }
 
