@@ -27,19 +27,23 @@
       "isDefault": true
     },
     {
-      "id": "Member Functions",
-      "isDefault": false
-    },
-    {
       "id": "Members – Intake",
       "isDefault": false
     },
     {
-      "id": "Sacrament Release",
+      "id": "Member Functions",
       "isDefault": false
     },
     {
       "id": "Contributor Functions",
+      "isDefault": false
+    },
+    {
+      "id": "Facilitator Functions",
+      "isDefault": false
+    },
+    {
+      "id": "Sacrament Release",
       "isDefault": false
     },
     {
@@ -75,6 +79,10 @@
       "isDefault": false
     },
     {
+      "id": "Intake",
+      "isDefault": false
+    },
+    {
       "id": "Individual Profile",
       "isDefault": false
     },
@@ -84,10 +92,6 @@
     },
     {
       "id": "Terminology Administration",
-      "isDefault": false
-    },
-    {
-      "id": "Intake",
       "isDefault": false
     },
     {

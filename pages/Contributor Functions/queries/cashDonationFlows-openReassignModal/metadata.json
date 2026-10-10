@@ -27,6 +27,9 @@
         },
         {
           "name": "cur_member"
+        },
+        {
+          "name": "cur_contributor"
         }
       ],
       "paginationType": "NONE",

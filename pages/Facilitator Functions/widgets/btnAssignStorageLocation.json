@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 65,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{\n  !appsmith.store.facilitator_is_reviewer ||\n  !qMemberById.data?.[0]?.is_facilitator ||\n  !(\n inpAssignStorageLocation?.text\n  )\n}}",
+  "isLoading": false,
+  "isVisible": "{{ appsmith.store.facilitator_is_reviewer && qMemberById.data?.[0]?.is_facilitator }}",
+  "key": "ax5nzwquzc",
+  "leftColumn": 21,
+  "minWidth": 120,
+  "mobileBottomRow": 269,
+  "mobileLeftColumn": 20,
+  "mobileRightColumn": 36,
+  "mobileTopRow": 265,
+  "needsErrorInfo": false,
+  "onClick": "{{ memberProfile.assignStorageLocation() }}",
+  "originalBottomRow": 65,
+  "originalTopRow": 61,
+  "parentColumnSpace": 14.1875,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 38,
+  "text": "Assign Storage Location",
+  "topRow": 61,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "hzgthhsh8d",
+  "widgetName": "btnAssignStorageLocation"
+}

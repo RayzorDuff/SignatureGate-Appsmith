@@ -1,23 +1,23 @@
 {
-  "gitSyncId": "69546c483d3106150e1d4549_ce413fb7-e7bd-48f0-b999-fc22f93dcfed",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_83607670-6dce-43b7-a162-9f9396e17727",
   "unpublishedPage": {
     "isHidden": false,
     "layouts": [
       {
         "dsl": {
           "backgroundColor": "none",
-          "bottomRow": 3480,
+          "bottomRow": 770,
           "canExtend": true,
           "containerStyle": "none",
           "detachFromLayout": true,
           "dynamicBindingPathList": [],
           "leftColumn": 0,
-          "minHeight": 450,
+          "minHeight": 640,
           "parentColumnSpace": 1,
           "parentRowSpace": 1,
           "rightColumn": 1224,
           "snapColumns": 64,
-          "snapRows": 43,
+          "snapRows": 62,
           "topRow": 0,
           "type": "CANVAS_WIDGET",
           "version": 94,
@@ -26,8 +26,7 @@
         }
       }
     ],
-    "name": "Member Functions",
-    "slug": "member-functions",
-    "uniqueSlug": "members-profile"
+    "name": "Facilitator Functions",
+    "slug": "facilitator-functions"
   }
 }
