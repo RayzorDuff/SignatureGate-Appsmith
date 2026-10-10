@@ -7,7 +7,7 @@ export default {
       showAlert('Your account has not loaded. Refresh this page.', 'error');
       return;
     }
-    const organizationId = String(appsmith.URL?.queryParams?.organization_id || '').trim();
+    const organizationId = String(appsmith.URL?.queryParams?.organization_id || appsmith.store.selected_organization_profile_id || '').trim();
     if (!organizationId) {
       showAlert('No company was selected. Return to Directory and choose View Profile.', 'error');
       return;

@@ -7,7 +7,7 @@ export default {
       showAlert('Your account has not loaded. Refresh this page.', 'error');
       return;
     }
-    const personId = String(appsmith.URL?.queryParams?.person_id || '').trim();
+    const personId = String(appsmith.URL?.queryParams?.person_id || appsmith.store.selected_individual_profile_id || '').trim();
     if (!personId) {
       showAlert('No individual was selected. Return to Directory and choose View Profile.', 'error');
       return;
