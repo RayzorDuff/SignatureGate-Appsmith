@@ -1,7 +1,7 @@
 WITH me AS (
   SELECT
     member_id,
-    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer
+    public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer') AS is_document_reviewer
   FROM public.member_profiles
   WHERE lower(email) = lower({{ appsmith.user.email }})
     AND status = 'active'
