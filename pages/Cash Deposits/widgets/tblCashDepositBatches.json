@@ -773,7 +773,7 @@
       "isDisabled": "{{tblCashDepositBatches.processedTableData.map((currentRow, currentIndex) => ( currentRow.status !== 'prepared' && currentRow.status !== 'confirmed'))}}",
       "isVisible": true,
       "label": "Print",
-      "onClick": "{{cashDepositFlows.printBatch(currentRow.deposit_batch_id)}}",
+      "onClick": "{{cashDepositFlows.printBatch(tblCashDepositBatches.triggeredRow.deposit_batch_id)}}",
       "originalId": "print",
       "sticky": "right",
       "textSize": "0.875rem",
