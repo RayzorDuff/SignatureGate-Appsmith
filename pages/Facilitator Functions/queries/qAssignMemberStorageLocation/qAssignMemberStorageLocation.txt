@@ -6,7 +6,7 @@ INSERT INTO public.facilitator_storage_location_access (
   notes
 )
 VALUES (
-  {{ appsmith.store.member_id }}::uuid,
+  {{ appsmith.store.selected_facilitator_id || appsmith.store.facilitator_id }}::uuid,
   {{ this.params.storage_location_name }},
   {{ appsmith.store.facilitator_id }}::uuid,
   'active',
