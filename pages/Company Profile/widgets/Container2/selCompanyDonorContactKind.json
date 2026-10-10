@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 86,
+  "bottomRow": 50,
   "boxShadow": "none",
   "defaultOptionValue": "email",
   "dynamicBindingPathList": [
@@ -42,10 +42,10 @@
   "needsErrorInfo": false,
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 86,
-  "originalTopRow": 80,
+  "originalBottomRow": 50,
+  "originalTopRow": 44,
   "parentColumnSpace": 9.9375,
-  "parentId": "0",
+  "parentId": "6mi04nz8p0",
   "parentRowSpace": 10,
   "placeholderText": "Select option",
   "renderMode": "CANVAS",
@@ -66,7 +66,7 @@
       "value": "address"
     }
   ],
-  "topRow": 80,
+  "topRow": 44,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "37d24ab3fd",
