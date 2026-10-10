@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 88,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qArchiveCompanyDonorContact.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "key": "coReassignBtn2026",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 99,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 95,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async()=>{try{\nconst kind=selCompanyDonorContactKind.selectedOptionValue;\nconst contact=selCompanyDonorContactToArchive.selectedOptionValue;\nconst target=selCompanyContactReassignTarget.selectedOptionValue;\nconst reason=inpCompanyDonorContactReason.text?.trim();\nif(!['email','phone','address'].includes(kind)||!contact||!target||!reason){showAlert('Select a contact, destination company and reason.','warning');return;}\nconst rows=await qReassignCompanyContact.run();\nif(rows?.[0]?.reassigned!==true)throw new Error('Reassignment was not confirmed.');\nawait Promise.all([qCompanyDonorContacts.run(),qCompanyDonorAddresses.run(),qCompanyContacts.run(),qCompanyReassignTargets.run()]);\nresetWidget('selCompanyContactReassignTarget',true);\nshowAlert('Company contact reassigned.','success');\n}catch(e){showAlert('Contact reassignment failed: '+(e?.message||e),'error');}})() }}",
+  "originalBottomRow": 88,
+  "originalTopRow": 84,
+  "parentColumnSpace": 10.25,
+  "parentId": "6mi04nz8p0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Reassign contact",
+  "topRow": 84,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "coReassignBtn2026",
+  "widgetName": "btnReassignCompanyContact"
+}

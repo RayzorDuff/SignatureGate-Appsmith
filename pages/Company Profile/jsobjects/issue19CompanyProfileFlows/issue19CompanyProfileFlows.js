@@ -12,7 +12,7 @@ export default {
       await Promise.all([qCompanyContacts.run(),
         qCompanyCanEditDonorContacts.run(), qCompanyDonorContacts.run(), qCompanyDonorAddresses.run(),
         qCompanyContributionHistory.run(), qCompanyProviderIdentities.run(),
-        qCompanyContributorStatusState.run(), qCompanyPartyIdentity.run()]);
+        qCompanyContributorStatusState.run(), qCompanyPartyIdentity.run(),qCompanyReassignTargets.run()]);
     } catch (error) {
       showAlert('Directory could not load: ' + (error?.message || error), 'error');
     }
