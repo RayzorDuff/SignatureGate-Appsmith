@@ -3,7 +3,7 @@
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 12,
-  "defaultOptionValue": "",
+  "defaultOptionValue": "{{ (selAgreementTemplate.sourceData || [])[0]?.template_id || '' }}",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"

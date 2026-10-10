@@ -180,7 +180,7 @@ export default {
 		} catch (e) {
 			showAlert("Access check failed: " + (e?.message || e), "error");
 			// Helpful: show query error if present
-			showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? {}), "error");
+			showAlert("Query error: " + JSON.stringify(({})), "error");
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 				//Only redirect when not in editor
 				navigateTo("Unauthorized", {}, "SAME_WINDOW");

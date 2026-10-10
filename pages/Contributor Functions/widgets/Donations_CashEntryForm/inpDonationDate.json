@@ -7,7 +7,7 @@
   "closeOnSelection": true,
   "dateFormat": "LL",
   "datePickerType": "DATE_PICKER",
-  "defaultDate": "{{ moment().format(\"YYYY-MM-DD\") }}",
+  "defaultDate": "{{ moment().format('YYYY-MM-DDTHH:mm:ss.SSSZ') }}",
   "dynamicBindingPathList": [
     {
       "key": "accentColor"

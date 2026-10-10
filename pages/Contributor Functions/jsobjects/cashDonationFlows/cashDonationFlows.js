@@ -98,7 +98,7 @@ export default {
 		} catch (e) {
 			showAlert("Access check failed: " + (e?.message || e), "error");
 			// Helpful: show query error if present
-			showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? {}), "error");
+			showAlert("Query error: " + JSON.stringify(({})), "error");
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 				//Only redirect when not in editor
 				navigateTo("Unauthorized", {}, "SAME_WINDOW");
@@ -261,14 +261,14 @@ export default {
 		} catch (e) {
 			const rawMessage =
 				e?.message ||
-				qInsertCashDonation?.error?.message ||
-				qInsertCashDonation?.error ||
+				e?.message ||
+				e ||
 				"Cash donation could not be recorded.";
 			const message =
 				typeof rawMessage === "string"
 					? rawMessage
 					: JSON.stringify(rawMessage);
-			console.error("Cash donation submission failed:", e, qInsertCashDonation?.error);
+			console.error("Cash donation submission failed:", e, e);
 			showAlert("Cash donation could not be recorded: " + message, "error");
 			return "";
 		}
