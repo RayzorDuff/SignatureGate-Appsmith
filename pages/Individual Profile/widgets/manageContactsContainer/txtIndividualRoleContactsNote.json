@@ -1,0 +1,60 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 40,
+  "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "fontFamily"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1rem",
+  "fontStyle": "",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id) }}",
+  "key": "a88013f642",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 156,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 152,
+  "needsErrorInfo": false,
+  "originalBottomRow": 174,
+  "originalTopRow": 170,
+  "overflow": "NONE",
+  "parentColumnSpace": 10.25,
+  "parentId": "oi4pw3ksy4",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "shouldTruncate": false,
+  "text": "{{ selIndividualContactCapacity.selectedOptionValue === 'member' ? 'Editing membership contacts.' : (selIndividualContactCapacity.selectedOptionValue === 'contributor' ? 'Editing contributor contacts.' : 'Select a contact role.') }}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 36,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "d785bf96d2",
+  "widgetName": "txtIndividualRoleContactsNote"
+}

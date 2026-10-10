@@ -1,0 +1,63 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 20,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": false,
+  "isLoading": false,
+  "isVisible": "{{ qDirectoryCanManage.data?.[0]?.can_manage === true && !!qIndividualProfile.data?.[0]?.party_id }}",
+  "key": "de50761af2",
+  "leftColumn": 32,
+  "minWidth": 120,
+  "mobileBottomRow": 103,
+  "mobileLeftColumn": 17,
+  "mobileRightColumn": 33,
+  "mobileTopRow": 99,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { if (!inpPersonAccessReason.text?.trim()) { showAlert('Enter a reason first.', 'warning'); return; } const rows = await qSetIndividualRole.run({ role: selPersonAccessRole.selectedOptionValue, enabled: false, reason: inpPersonAccessReason.text.trim() }); await Promise.all([qIndividualRoles.run(), qIndividualProfile.run()]); showAlert(rows?.[0]?.changed ? 'Role updated.' : 'Role was already in that state.', 'success'); } catch (e) { showAlert('Role change failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 102,
+  "originalTopRow": 98,
+  "parentColumnSpace": 10.25,
+  "parentId": "cwxicmaja1",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Remove role",
+  "topRow": 16,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "28bc86e741",
+  "widgetName": "btnRemovePersonRole"
+}

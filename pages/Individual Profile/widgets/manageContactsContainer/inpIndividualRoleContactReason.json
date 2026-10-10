@@ -3,12 +3,15 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 33,
+  "bottomRow": 81,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
     },
     {
       "key": "accentColor"
@@ -21,17 +24,20 @@
   "dynamicPropertyPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
     }
   ],
   "dynamicTriggerPathList": [],
   "iconAlign": "left",
   "inputType": "TEXT",
-  "isDisabled": false,
+  "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' ? (qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' && qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) }}",
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qIndividualPartyIdentity.data?.[0]?.can_edit === true }}",
-  "key": "cc53fef8c4",
-  "label": "Reason for identity change",
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id) }}",
+  "key": "1893bc63db",
+  "label": "Reason for action (required for archive and verify)",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",
@@ -41,24 +47,24 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 34,
+  "mobileBottomRow": 191,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 42,
-  "mobileTopRow": 28,
+  "mobileTopRow": 185,
   "needsErrorInfo": false,
-  "originalBottomRow": 34,
-  "originalTopRow": 28,
+  "originalBottomRow": 215,
+  "originalTopRow": 209,
   "parentColumnSpace": 10.25,
-  "parentId": "0",
+  "parentId": "oi4pw3ksy4",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
-  "resetOnSubmit": false,
+  "resetOnSubmit": true,
   "responsiveBehavior": "fill",
   "rightColumn": 42,
   "showStepArrows": false,
-  "topRow": 27,
+  "topRow": 75,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
-  "widgetId": "09b9054ef7",
-  "widgetName": "inpIndividualIdentityReason"
+  "widgetId": "552545a574",
+  "widgetName": "inpIndividualRoleContactReason"
 }

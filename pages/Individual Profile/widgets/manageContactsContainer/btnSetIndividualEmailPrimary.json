@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 90,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !(selIndividualRoleContactToArchive.selectedOptionValue && (((selIndividualContactCapacity.selectedOptionValue === 'member' ? qIndividualMembershipContacts.data : qIndividualDonorContacts.data) || []).find(c => c.contact_id === selIndividualRoleContactToArchive.selectedOptionValue)?.contact_kind === 'email') ) }}",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id) }}",
+  "key": "btnSetIndividualEmailPrimary-issue19",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 212,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 206,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const row=((selIndividualContactCapacity.selectedOptionValue === 'member' ? qIndividualMembershipContacts.data : qIndividualDonorContacts.data) || []).find(c=>c.contact_id===selIndividualRoleContactToArchive.selectedOptionValue); if (!row || row.contact_kind !== 'email') { showAlert('Select an email first.','warning'); return; } const r=await qSetIndividualEmailPrimary.run(); if (!r?.[0]?.contact_id) throw new Error('The email was not made primary.'); await Promise.all([qIndividualMembershipContacts.run(),qIndividualDonorContacts.run(),qIndividualContacts.run()]); showAlert('Primary email updated.','success'); } catch(e) { showAlert('Primary email update failed: '+(e?.message||e),'error'); } })() }}",
+  "originalBottomRow": 242,
+  "originalTopRow": 235,
+  "parentColumnSpace": 10.25,
+  "parentId": "oi4pw3ksy4",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Set primary",
+  "topRow": 86,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "btnSetIndividualEmailPrimary-issue19",
+  "widgetName": "btnSetIndividualEmailPrimary"
+}

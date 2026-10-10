@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 17,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qEnableProfileMembership.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qDirectoryCanManage.data?.[0]?.can_manage === true && qProfileCanCreateMember.data?.[0]?.can_create === true && !!qIndividualProfile.data?.[0]?.party_id && !qIndividualProfile.data?.[0]?.member_id && !qProfileMembershipState.data?.[0]?.member_id }}",
+  "key": "ce245dfe59",
+  "leftColumn": 43,
+  "minWidth": 120,
+  "mobileBottomRow": 143,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 139,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const first = inpEnrollmentFirstName.text?.trim(); const last = inpEnrollmentLastName.text?.trim(); const reason = inpEnrollmentReason.text?.trim(); if (!first || !last || !reason) { showAlert('Enter reviewed first and last names and a reason.', 'warning'); return; } const rows = await qEnableProfileMembership.run({ first, last, reason }); if (!rows?.[0]?.member_id) throw new Error('No member was returned.'); await Promise.all([qIndividualProfile.run(), qMembershipIdentity.run()]); showAlert('Membership enabled. Add membership contact details and agreements in Members - Profile.', 'success'); } catch (e) { showAlert('Membership enrollment failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 162,
+  "originalTopRow": 158,
+  "parentColumnSpace": 10.25,
+  "parentId": "oy9qh2vagt",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 63,
+  "text": "Enable membership",
+  "topRow": 13,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "072c6a044c",
+  "widgetName": "btnEnablePersonMembership"
+}

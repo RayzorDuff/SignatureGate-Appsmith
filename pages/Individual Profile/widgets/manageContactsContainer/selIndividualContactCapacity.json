@@ -1,0 +1,73 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 47,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true ? 'member' : (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id ? 'contributor' : '') }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "defaultOptionValue"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "defaultOptionValue"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id) }}",
+  "key": "19a0d11010",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Contact role",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 163,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 30,
+  "mobileTopRow": 157,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 181,
+  "originalTopRow": 175,
+  "parentColumnSpace": 9.9375,
+  "parentId": "oi4pw3ksy4",
+  "parentRowSpace": 10,
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 30,
+  "serverSideFiltering": false,
+  "sourceData": "{{ [ ...(qIndividualMemberOperationsState.data?.[0]?.can_view === true ? [{label: 'Membership', value: 'member'}] : []), ...(qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id ? [{label: 'Contributor', value: 'contributor'}] : []) ] }}",
+  "topRow": 41,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "19a0c11010",
+  "widgetName": "selIndividualContactCapacity"
+}

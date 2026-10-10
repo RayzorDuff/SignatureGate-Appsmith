@@ -1,67 +1,86 @@
 {
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
-  "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 27,
+  "bottomRow": 20,
   "boxShadow": "none",
-  "defaultText": "{{ qIndividualPartyIdentity.data?.[0]?.date_of_birth || '' }}",
+  "closeOnSelection": true,
+  "dateFormat": "LL",
+  "datePickerType": "DATE_PICKER",
+  "defaultDate": "{{ qIndividualPartyIdentity.data?.[0]?.date_of_birth || '' }}",
   "dynamicBindingPathList": [
     {
-      "key": "defaultText"
+      "key": "defaultDate"
     },
     {
-      "key": "isVisible"
+      "key": "minDate"
+    },
+    {
+      "key": "maxDate"
     },
     {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
+      "key": "maxDate"
+    },
+    {
+      "key": "minDate"
+    },
+    {
+      "key": "defaultDate"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
       "key": "isVisible"
     }
   ],
   "dynamicTriggerPathList": [],
-  "iconAlign": "left",
-  "inputType": "TEXT",
-  "isDisabled": false,
+  "firstDayOfWeek": 0,
+  "isDisabled": "",
   "isLoading": false,
   "isRequired": false,
   "isVisible": "{{ qIndividualPartyIdentity.data?.[0]?.can_edit === true }}",
-  "key": "43ff5c13de",
-  "label": "Birth date (YYYY-MM-DD)",
+  "key": "7vrj7m8u4k",
+  "label": "Date of Birth",
   "labelAlignment": "left",
-  "labelPosition": "Top",
-  "labelStyle": "",
+  "labelPosition": "Auto",
   "labelTextSize": "0.875rem",
+  "labelTooltip": "Date of Birth is optional.  Please ensure member is 21 years old.",
   "labelWidth": 5,
-  "leftColumn": 32,
+  "leftColumn": 45,
+  "maxDate": "{{ moment().subtract(21, 'years').format('YYYY-MM-DD') }}",
   "maxDynamicHeight": 9000,
+  "minDate": "{{moment().subtract(120, 'year').format()}}",
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 27,
-  "mobileLeftColumn": 32,
-  "mobileRightColumn": 64,
-  "mobileTopRow": 21,
+  "mobileBottomRow": 31,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 12,
+  "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 27,
-  "originalTopRow": 21,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
-  "resetOnSubmit": false,
   "responsiveBehavior": "fill",
   "rightColumn": 64,
-  "showStepArrows": false,
-  "topRow": 21,
-  "type": "INPUT_WIDGET_V2",
+  "shortcuts": false,
+  "timePrecision": "None",
+  "topRow": 13,
+  "type": "DATE_PICKER_WIDGET2",
   "version": 2,
-  "widgetId": "bffd7e2b59",
+  "widgetId": "11ve3tb9dc",
   "widgetName": "inpIndividualIdentityBirthDate"
 }

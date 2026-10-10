@@ -1,0 +1,54 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 113,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "fontFamily"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1rem",
+  "fontStyle": "BOLD",
+  "isLoading": false,
+  "isVisible": "{{ qCanAssignPersonContact.data?.[0]?.can_assign === true && !!qIndividualProfile.data?.[0]?.party_id }}",
+  "key": "a88013f642",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 122,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 118,
+  "needsErrorInfo": false,
+  "originalBottomRow": 112,
+  "originalTopRow": 108,
+  "overflow": "NONE",
+  "parentColumnSpace": 10.25,
+  "parentId": "oi4pw3ksy4",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 63,
+  "shouldTruncate": false,
+  "text": "Use an existing email, phone, or address for another active role. Contacts from ended memberships remain available.",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 108,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "c00f813d8e",
+  "widgetName": "txtPersonContactReuseNote"
+}

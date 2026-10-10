@@ -1,0 +1,75 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 98,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' && selIndividualRoleContactToArchive.selectedOptionValue && (((qIndividualMembershipContacts.data || []).find(c => c.contact_id === selIndividualRoleContactToArchive.selectedOptionValue)?.contact_kind) === 'email')) }}",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active' }}",
+  "key": "btnToggleIndividualEmailSubscription-issue19",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 219,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 213,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { if (selIndividualContactCapacity.selectedOptionValue !== 'member') { showAlert('Mailing subscription is a membership email setting.','warning'); return; } const row=(qIndividualMembershipContacts.data || []).find(c=>c.contact_id===selIndividualRoleContactToArchive.selectedOptionValue); if (!row || row.contact_kind !== 'email') { showAlert('Select a membership email first.','warning'); return; } if (row.mailing_subscription_status === 'subscribed') { await qUnsubscribeIndividualEmail.run(); showAlert('Email unsubscribed.','success'); } else { await qSubscribeIndividualEmail.run(); showAlert('Email subscribed.','success'); } await Promise.all([qIndividualMembershipContacts.run(),qIndividualContacts.run()]); } catch(e) { showAlert('Mailing subscription change failed: '+(e?.message||e),'error'); } })() }}",
+  "originalBottomRow": 255,
+  "originalTopRow": 248,
+  "parentColumnSpace": 10.25,
+  "parentId": "oi4pw3ksy4",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "{{ (() => { const row=(qIndividualMembershipContacts.data || []).find(c=>c.contact_id===selIndividualRoleContactToArchive.selectedOptionValue); if (!row || row.contact_kind !== 'email') return 'Mailing subscription'; return row.mailing_subscription_status === 'subscribed' ? 'Unsubscribe (currently subscribed)' : 'Subscribe (currently unsubscribed)'; })() }}",
+  "topRow": 94,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "btnToggleIndividualEmailSubscription-issue19",
+  "widgetName": "btnToggleIndividualEmailSubscription"
+}

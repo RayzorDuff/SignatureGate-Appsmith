@@ -1,0 +1,67 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 15,
+  "boxShadow": "none",
+  "defaultOptionValue": "practitioner",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ qDirectoryCanManage.data?.[0]?.can_manage === true && !!qIndividualProfile.data?.[0]?.party_id }}",
+  "key": "7cb80fb097",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Permission",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 98,
+  "mobileLeftColumn": 45,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 92,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 97,
+  "originalTopRow": 91,
+  "parentColumnSpace": 9.9375,
+  "parentId": "cwxicmaja1",
+  "parentRowSpace": 10,
+  "placeholderText": "Select option",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 30,
+  "serverSideFiltering": false,
+  "sourceData": "{{ [\n  { label: qIndividualProfile.data?.[0]?.practitioner_singular_label || 'Practitioner', value: 'practitioner' },\n  { label: 'Document Reviewer', value: 'document_reviewer' },\n  { label: 'Donations Reviewer', value: 'donations_reviewer' }\n] }}",
+  "topRow": 9,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "cf5334754d",
+  "widgetName": "selPersonAccessRole"
+}

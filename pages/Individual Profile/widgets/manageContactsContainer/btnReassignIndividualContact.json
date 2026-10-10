@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 94,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !(selIndividualContactCapacity.selectedOptionValue === 'member' ? (qIndividualMemberOperationsState.data?.[0]?.can_manage === true && qIndividualMemberOperationsState.data?.[0]?.membership_status === 'active') : (selIndividualContactCapacity.selectedOptionValue === 'contributor' && qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id)) || !selIndividualRoleContactToArchive.selectedOptionValue || !selIndividualContactReassignTarget.selectedOptionValue || !inpIndividualRoleContactReason.text?.trim() || qReassignIndividualContact.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id) }}",
+  "key": "e35901a7a1",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 214,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 208,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try { const capacity = selIndividualContactCapacity.selectedOptionValue; const kind = selIndividualRoleContactKind.selectedOptionValue; const contactId = selIndividualRoleContactToArchive.selectedOptionValue; const targetPersonId = selIndividualContactReassignTarget.selectedOptionValue; const reason = inpIndividualRoleContactReason.text?.trim(); if (!capacity || !kind || !contactId || !targetPersonId || !reason) { showAlert('Select a capacity, contact, target individual, and enter a reason.', 'warning'); return; } const target = (qIndividualReassignTargets.data || []).find(p => String(p.person_id) === String(targetPersonId)); if (!target) { showAlert('Refresh the target list and select an active target individual.', 'warning'); return; } const result = await qReassignIndividualContact.run(); if (result?.[0]?.reassigned !== true) throw new Error('The selected contact was not reassigned.'); await Promise.allSettled([qIndividualMembershipContacts.run(), qIndividualMembershipAddresses.run(), qIndividualDonorContacts.run(), qIndividualDonorAddresses.run(), qIndividualContacts.run(), qIndividualProfile.run(), qReusablePersonContacts.run(), qIndividualReassignTargets.run()]); resetWidget('selIndividualContactReassignTarget', true); showAlert((capacity === 'member' ? 'Membership' : 'Contributor') + ' ' + (kind === 'address' ? 'address' : kind) + ' reassigned.', 'success'); } catch (e) { showAlert('Contact reassignment failed: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 248,
+  "originalTopRow": 242,
+  "parentColumnSpace": 10.25,
+  "parentId": "oi4pw3ksy4",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Reassign selected",
+  "topRow": 90,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "e35901a7a1",
+  "widgetName": "btnReassignIndividualContact"
+}
