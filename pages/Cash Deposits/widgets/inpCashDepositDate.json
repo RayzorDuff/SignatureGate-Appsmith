@@ -7,7 +7,7 @@
   "closeOnSelection": true,
   "dateFormat": "LL",
   "datePickerType": "DATE_PICKER",
-  "defaultDate": "{{ moment().format(\"YYYY-MM-DD\") }}",
+  "defaultDate": "{{ cashDepositFlows.selectedBatch()?.deposit_date ? moment(cashDepositFlows.selectedBatch().deposit_date).format(\"YYYY-MM-DD\") : moment().format(\"YYYY-MM-DD\") }}",
   "dynamicBindingPathList": [
     {
       "key": "defaultDate"
