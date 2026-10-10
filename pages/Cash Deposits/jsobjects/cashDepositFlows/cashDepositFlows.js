@@ -533,7 +533,93 @@ export default {
     });
 
     await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
-    showAlert("Deposit batch confirmed.", "success");
+
+    try {
+      const response = await apiSyncCashDepositToERPNext.run({
+        deposit_batch_id: batch.deposit_batch_id,
+        mode: "production"
+      });
+      const result = response?.message || response || {};
+
+      if (result.ok === true && result.status === "succeeded") {
+        const erpDocument = [result.erp_doctype, result.erp_name]
+          .filter(Boolean)
+          .join(" ");
+        showAlert(
+          "Deposit batch confirmed and synchronized to ERPNext"
+            + (erpDocument ? " as " + erpDocument + "." : "."),
+          "success"
+        );
+      } else if (result.ok === true && result.status === "test_skipped") {
+        showAlert(
+          "Deposit batch confirmed. ERP synchronization was intentionally skipped in test mode.",
+          "info"
+        );
+      } else {
+        showAlert(
+          "Deposit batch confirmed, but ERP synchronization did not complete. "
+            + "Use Retry ERP Sync after reviewing the synchronization status.",
+          "warning"
+        );
+      }
+    } catch (error) {
+      showAlert(
+        "Deposit batch confirmed, but the ERP synchronization request failed. "
+          + "The confirmed deposit is retained and can be retried.",
+        "warning"
+      );
+    }
+
+    await this.refresh();
+  },
+
+  async retryERPSync() {
+    const batch = this.selectedBatch();
+    const reviewerId = this.requireDonationsReviewer();
+
+    if (!reviewerId) return;
+
+    if (!batch.deposit_batch_id || batch.status !== "confirmed") {
+      showAlert("Select a confirmed deposit batch to retry ERP synchronization.", "warning");
+      return;
+    }
+
+    if (batch.erp_sync_status === "succeeded") {
+      showAlert("This deposit batch is already synchronized to ERPNext.", "info");
+      return;
+    }
+
+    try {
+      const response = await apiSyncCashDepositToERPNext.run({
+        deposit_batch_id: batch.deposit_batch_id,
+        mode: "production"
+      });
+      const result = response?.message || response || {};
+
+      if (result.ok === true && result.status === "succeeded") {
+        const erpDocument = [result.erp_doctype, result.erp_name]
+          .filter(Boolean)
+          .join(" ");
+        showAlert(
+          "ERP synchronization completed"
+            + (erpDocument ? " as " + erpDocument + "." : "."),
+          "success"
+        );
+      } else if (result.ok === true && result.status === "test_skipped") {
+        showAlert("ERP synchronization was intentionally skipped in test mode.", "info");
+      } else {
+        showAlert(
+          "ERP synchronization did not complete. Review the synchronization status and retry when appropriate.",
+          "warning"
+        );
+      }
+    } catch (error) {
+      showAlert(
+        "ERP synchronization request failed. The confirmed deposit remains available for retry.",
+        "error"
+      );
+    }
+
     await this.refresh();
   }
 };
