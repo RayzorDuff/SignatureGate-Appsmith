@@ -1,6 +1,6 @@
 export default {
   async load() {
-    for (let attempt = 0; attempt < 20 && !appsmith.user?.email; attempt++) {
+    for (let attempt = 0; attempt < 30 && !appsmith.user?.email; attempt++) {
       await new Promise(resolve => setTimeout(resolve, 150));
     }
     if (!appsmith.user?.email) {
@@ -15,7 +15,7 @@ export default {
     try {
       const profileRows = await qCompanyProfile.run({party_id: organizationId});
       if (!profileRows?.[0]?.party_id) {
-        showAlert('Company lookup returned no accessible record. Check the organization_id URL parameter and reviewer permissions.', 'error');
+        showAlert('Company lookup returned no accessible record for the selected organization.', 'error');
         return;
       }
 			const profile = profileRows[0];

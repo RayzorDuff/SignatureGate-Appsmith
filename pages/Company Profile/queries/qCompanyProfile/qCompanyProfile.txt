@@ -1,5 +1,5 @@
-SELECT d.* FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
-WHERE d.party_kind = 'organization' AND d.party_id = NULLIF({{ this.params?.party_id || appsmith.URL?.queryParams?.organization_id || appsmith.store.selected_organization_profile_id || '' }}::text,'')::uuid
+SELECT d.party_id, d.party_kind, d.display_name, d.created_at, d.member_id, d.contributor_id, d.membership_status, d.contributor_status, d.email, d.phone, d.can_view_membership, d.can_view_contributions
+FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+WHERE d.party_kind = 'organization'
+  AND d.party_id = NULLIF({{ this.params?.party_id || appsmith.URL?.queryParams?.organization_id || appsmith.store.selected_organization_profile_id || '' }}::text,'')::uuid
 LIMIT 1;
-
-
