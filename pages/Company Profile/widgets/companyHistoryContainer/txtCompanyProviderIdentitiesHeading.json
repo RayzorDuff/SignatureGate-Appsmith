@@ -4,16 +4,7 @@
   "bottomRow": 40,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
-    },
-    {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",

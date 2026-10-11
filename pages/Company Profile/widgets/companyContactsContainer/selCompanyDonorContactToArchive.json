@@ -7,13 +7,13 @@
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
-      "key": "borderRadius"
+      "key": "sourceData"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "sourceData"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

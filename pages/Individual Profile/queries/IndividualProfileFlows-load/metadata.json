@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "696aaf6bef6f963f4d13c7a7_3c8c4fd7-03b4-49b3-9b84-76ce69ee9063",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_5568e98d-0594-4e8e-8f3f-fca79bfc4693",
   "id": "Individual Profile_IndividualProfileFlows.load",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -25,7 +25,7 @@
     "fullyQualifiedName": "IndividualProfileFlows.load",
     "name": "load",
     "pageId": "Individual Profile",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

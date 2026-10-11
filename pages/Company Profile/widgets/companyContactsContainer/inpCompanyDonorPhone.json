@@ -14,16 +14,13 @@
       "key": "validation"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "isDisabled"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -60,6 +57,8 @@
   "mobileRightColumn": 41,
   "mobileTopRow": 15,
   "needsErrorInfo": false,
+  "originalBottomRow": 50,
+  "originalTopRow": 44,
   "parentColumnSpace": 13.875,
   "parentId": "6mi04nz8p0",
   "parentRowSpace": 10,
@@ -72,7 +71,5 @@
   "validation": "{{ !inpCompanyDonorPhone.text || /^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$/.test(inpCompanyDonorPhone.text) }}",
   "version": 1,
   "widgetId": "h8gvcgg6sj",
-  "widgetName": "inpCompanyDonorPhone",
-  "originalTopRow": 44,
-  "originalBottomRow": 50
+  "widgetName": "inpCompanyDonorPhone"
 }

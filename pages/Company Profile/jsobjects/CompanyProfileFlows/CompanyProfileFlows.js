@@ -1,7 +1,4 @@
 export default {
-  async initialize() {
-    return await this.load();
-  },
   async load() {
     for (let attempt = 0; attempt < 30 && !appsmith.user?.email; attempt++) {
       await new Promise(resolve => setTimeout(resolve, 150));

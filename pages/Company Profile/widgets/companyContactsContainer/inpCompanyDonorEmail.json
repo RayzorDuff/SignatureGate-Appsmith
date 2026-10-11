@@ -8,22 +8,16 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "validation"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "inputType"
+      "key": "accentColor"
     },
     {
-      "key": "label"
-    },
-    {
-      "key": "validation"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -76,8 +70,8 @@
   "showStepArrows": false,
   "topRow": 44,
   "type": "INPUT_WIDGET_V2",
+  "validation": "{{ !inpCompanyDonorEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpCompanyDonorEmail.text) }}",
   "version": 2,
   "widgetId": "141ac7c7ea",
-  "widgetName": "inpCompanyDonorEmail",
-  "validation": "{{ !inpCompanyDonorEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpCompanyDonorEmail.text) }}"
+  "widgetName": "inpCompanyDonorEmail"
 }

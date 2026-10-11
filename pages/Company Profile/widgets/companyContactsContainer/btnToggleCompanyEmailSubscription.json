@@ -8,6 +8,9 @@
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "text"
+    },
+    {
       "key": "isVisible"
     },
     {
@@ -18,9 +21,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [

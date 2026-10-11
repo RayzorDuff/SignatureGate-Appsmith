@@ -8,12 +8,6 @@
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "truncateButtonColor"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",

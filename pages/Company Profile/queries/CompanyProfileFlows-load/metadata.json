@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "696aaf6bef6f963f4d13c7a7_78889753-1831-4a50-a6a8-fbf3f6049ed6",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_91f4732f-4549-4215-9291-883915342ad3",
   "id": "Company Profile_CompanyProfileFlows.load",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -25,7 +25,7 @@
     "fullyQualifiedName": "CompanyProfileFlows.load",
     "name": "load",
     "pageId": "Company Profile",
-    "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "runBehaviour": "ON_PAGE_LOAD",
+    "userSetOnLoad": true
   }
 }

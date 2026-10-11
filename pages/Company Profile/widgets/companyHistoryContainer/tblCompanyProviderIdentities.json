@@ -52,19 +52,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
       "key": "tableData"
     },
     {
       "key": "primaryColumns.provider.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.source.computedValue"
     },
     {
       "key": "primaryColumns.provider_identity.computedValue"
@@ -73,13 +70,13 @@
       "key": "primaryColumns.status.computedValue"
     },
     {
-      "key": "primaryColumns.source.computedValue"
+      "key": "accentColor"
     },
     {
-      "key": "primaryColumns.created_at.computedValue"
+      "key": "borderRadius"
     },
     {
-      "key": "isVisible"
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [

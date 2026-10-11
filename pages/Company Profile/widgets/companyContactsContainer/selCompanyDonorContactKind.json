@@ -7,10 +7,10 @@
   "defaultOptionValue": "email",
   "dynamicBindingPathList": [
     {
-      "key": "borderRadius"
+      "key": "isVisible"
     },
     {
-      "key": "isVisible"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
