@@ -322,7 +322,7 @@
       "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": true,
-      "isDisabled": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => (!(currentRow.party_kind === \"individual\" && currentRow.member_id && currentRow.membership_status === \"active\")))}}",
+      "isDisabled": "{{ (tblDirectory.processedTableData || []).map(row => !(row.party_kind === 'individual' && row.member_id && row.membership_status === 'active')) }}",
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
