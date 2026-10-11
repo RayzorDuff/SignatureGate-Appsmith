@@ -52,21 +52,17 @@ params AS (
 ),
 
 me AS (
-  SELECT
-    member_id,
-    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer,
-    COALESCE(is_donations_reviewer, FALSE) AS is_donations_reviewer
-  FROM public.member_profiles
-  WHERE lower(email) = (SELECT current_email FROM params)
-    AND is_facilitator IS TRUE
-    AND status = 'active'
-  LIMIT 1
+  SELECT person_id, member_id, is_practitioner,
+         is_document_reviewer, is_donations_reviewer
+  FROM public.issue19_current_release_actor((SELECT current_email FROM params))
+  WHERE is_practitioner OR is_document_reviewer OR is_donations_reviewer
 ),
 
 auth AS (
   SELECT
     p.*,
-    me.member_id AS viewer_member_id,
+    me.person_id AS viewer_person_id,
+    me.is_practitioner,
     me.is_document_reviewer,
     me.is_donations_reviewer
   FROM params p
@@ -116,22 +112,29 @@ scoped_members AS (
   WHERE lower(COALESCE(m.status, 'active')) = 'active'
     AND (
       a.is_document_reviewer IS TRUE
-      OR EXISTS (
+      OR (a.is_practitioner AND EXISTS (
         SELECT 1
-        FROM public.member_facilitators mf
-        WHERE mf.member_id = m.member_id
-          AND mf.facilitator_id = a.viewer_member_id
-          AND mf.status = 'active'
-      )
+        FROM public.member_practitioner_assignments assignment
+        WHERE assignment.member_id = m.member_id
+          AND assignment.practitioner_person_id = a.viewer_person_id
+          AND assignment.status = 'active'
+      ))
     )
 ),
 
 scoped_donations AS (
-  SELECT d.*
+  SELECT d.*, contributor.contributor_type,
+         EXISTS (
+           SELECT 1 FROM public.members participant
+           WHERE participant.person_id = contributor.person_id
+             AND participant.status = 'active'
+         ) AS has_participant_capacity
   FROM public.donations d
+  LEFT JOIN public.contributors contributor
+    ON contributor.contributor_id = d.contributor_id
   CROSS JOIN auth a
   WHERE a.is_donations_reviewer IS TRUE
-    AND d.donor_kind IN ('identified', 'anonymous')
+    AND d.donor_kind IN ('identified', 'anonymous', 'unresolved')
 ),
 
 selected_metrics AS (
@@ -141,11 +144,17 @@ selected_metrics AS (
     UNION ALL SELECT 'releases_sent', 'Releases sent', 20
     UNION ALL SELECT 'donations_count', 'Donations received', 30
     UNION ALL SELECT 'donations_dollars', 'Donation dollars', 40
-    UNION ALL SELECT 'member_donations_count', 'Member-linked donations', 50
-    UNION ALL SELECT 'member_donations_dollars', 'Member-linked donation dollars', 60
+    UNION ALL SELECT 'member_donations_count', 'Participant-linked donations', 50
+    UNION ALL SELECT 'member_donations_dollars', 'Participant-linked donation dollars', 60
     UNION ALL SELECT 'anonymous_donations_count', 'Anonymous cash donations', 70
     UNION ALL SELECT 'anonymous_donations_dollars', 'Anonymous cash donation dollars', 80
-    UNION ALL SELECT 'members_created', 'Members created', 90
+    UNION ALL SELECT 'individual_donations_count', 'Individual contributor donations', 90
+    UNION ALL SELECT 'individual_donations_dollars', 'Individual contributor donation dollars', 100
+    UNION ALL SELECT 'organization_donations_count', 'Company contributor donations', 110
+    UNION ALL SELECT 'organization_donations_dollars', 'Company contributor donation dollars', 120
+    UNION ALL SELECT 'unresolved_donations_count', 'Unresolved donations', 130
+    UNION ALL SELECT 'unresolved_donations_dollars', 'Unresolved donation dollars', 140
+    UNION ALL SELECT 'members_created', 'Participants created', 150
   ) m
   CROSS JOIN bounds b
   CROSS JOIN auth a
@@ -157,7 +166,10 @@ selected_metrics AS (
       'member_donations_count',
       'member_donations_dollars',
       'anonymous_donations_count',
-      'anonymous_donations_dollars'
+      'anonymous_donations_dollars',
+      'individual_donations_count', 'individual_donations_dollars',
+      'organization_donations_count', 'organization_donations_dollars',
+      'unresolved_donations_count', 'unresolved_donations_dollars'
     )
   )
   AND (
@@ -197,88 +209,40 @@ release_counts AS (
   GROUP BY b.bucket_start
 ),
 
-donation_counts AS (
-  SELECT
-    b.bucket_start,
-    'donations_count'::text AS metric_key,
-    COUNT(d.donation_id)::numeric AS value
+donation_metrics AS (
+  SELECT b.bucket_start, category.metric_key,
+         CASE WHEN category.is_dollars
+           THEN COALESCE(SUM(d.amount_cents), 0)::numeric / 100.0
+           ELSE COUNT(d.donation_id)::numeric
+         END AS value
   FROM buckets b
+  CROSS JOIN (VALUES
+    ('donations_count', 'all', false), ('donations_dollars', 'all', true),
+    ('member_donations_count', 'participant', false),
+    ('member_donations_dollars', 'participant', true),
+    ('anonymous_donations_count', 'anonymous', false),
+    ('anonymous_donations_dollars', 'anonymous', true),
+    ('individual_donations_count', 'individual', false),
+    ('individual_donations_dollars', 'individual', true),
+    ('organization_donations_count', 'organization', false),
+    ('organization_donations_dollars', 'organization', true),
+    ('unresolved_donations_count', 'unresolved', false),
+    ('unresolved_donations_dollars', 'unresolved', true)
+  ) category(metric_key, kind, is_dollars)
   LEFT JOIN scoped_donations d
     ON COALESCE(d.donated_at, d.created_at) >= b.bucket_start
    AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
    AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
-  GROUP BY b.bucket_start
-),
-
-donation_dollars AS (
-  SELECT
-    b.bucket_start,
-    'donations_dollars'::text AS metric_key,
-    COALESCE(SUM(d.amount_cents), 0)::numeric / 100.0 AS value
-  FROM buckets b
-  LEFT JOIN scoped_donations d
-    ON COALESCE(d.donated_at, d.created_at) >= b.bucket_start
-   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
-   AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
-  GROUP BY b.bucket_start
-),
-
-member_donation_counts AS (
-  SELECT
-    b.bucket_start,
-    'member_donations_count'::text AS metric_key,
-    COUNT(d.donation_id)::numeric AS value
-  FROM buckets b
-  LEFT JOIN scoped_donations d
-    ON d.donor_kind = 'identified'
-   AND d.member_id IS NOT NULL
-   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
-   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
-   AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
-  GROUP BY b.bucket_start
-),
-
-member_donation_dollars AS (
-  SELECT
-    b.bucket_start,
-    'member_donations_dollars'::text AS metric_key,
-    COALESCE(SUM(d.amount_cents), 0)::numeric / 100.0 AS value
-  FROM buckets b
-  LEFT JOIN scoped_donations d
-    ON d.donor_kind = 'identified'
-   AND d.member_id IS NOT NULL
-   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
-   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
-   AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
-  GROUP BY b.bucket_start
-),
-
-anonymous_donation_counts AS (
-  SELECT
-    b.bucket_start,
-    'anonymous_donations_count'::text AS metric_key,
-    COUNT(d.donation_id)::numeric AS value
-  FROM buckets b
-  LEFT JOIN scoped_donations d
-    ON d.donor_kind = 'anonymous'
-   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
-   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
-   AND lower(COALESCE(d.status, '')) IN ('verified', 'pending_review')
-  GROUP BY b.bucket_start
-),
-
-anonymous_donation_dollars AS (
-  SELECT
-    b.bucket_start,
-    'anonymous_donations_dollars'::text AS metric_key,
-    COALESCE(SUM(d.amount_cents), 0)::numeric / 100.0 AS value
-  FROM buckets b
-  LEFT JOIN scoped_donations d
-    ON d.donor_kind = 'anonymous'
-   AND COALESCE(d.donated_at, d.created_at) >= b.bucket_start
-   AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
-   AND lower(COALESCE(d.status, '')) IN ('verified', 'pending_review')
-  GROUP BY b.bucket_start
+   AND (category.kind = 'all'
+     OR (category.kind = 'participant' AND d.donor_kind = 'identified'
+         AND d.contributor_type = 'individual' AND d.has_participant_capacity)
+     OR (category.kind = 'individual' AND d.donor_kind = 'identified'
+         AND d.contributor_type = 'individual')
+     OR (category.kind = 'organization' AND d.donor_kind = 'identified'
+         AND d.contributor_type = 'organization')
+     OR (category.kind IN ('anonymous', 'unresolved')
+         AND d.donor_kind = category.kind))
+  GROUP BY b.bucket_start, category.metric_key, category.is_dollars
 ),
 
 member_counts AS (
@@ -298,12 +262,7 @@ member_counts AS (
 all_metric_values AS (
   SELECT * FROM agreement_counts
   UNION ALL SELECT * FROM release_counts
-  UNION ALL SELECT * FROM donation_counts
-  UNION ALL SELECT * FROM donation_dollars
-  UNION ALL SELECT * FROM member_donation_counts
-  UNION ALL SELECT * FROM member_donation_dollars
-  UNION ALL SELECT * FROM anonymous_donation_counts
-  UNION ALL SELECT * FROM anonymous_donation_dollars
+  UNION ALL SELECT * FROM donation_metrics
   UNION ALL SELECT * FROM member_counts
 )
 

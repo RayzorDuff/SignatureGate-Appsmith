@@ -304,7 +304,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "searchKey": "",
-  "tableData": "{{qReportTimeSeries.data}}",
+  "tableData": "{{ appsmith.store.reports_actor_email === String(appsmith.user?.email || \"\").trim().toLowerCase() ? (qReportTimeSeries.data || []).filter(row => reports.selectedMetricKeys().includes(row.metric_key)) : [] }}",
   "textSize": "0.875rem",
   "topRow": 51,
   "totalRecordsCount": 0,

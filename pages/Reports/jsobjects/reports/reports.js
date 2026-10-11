@@ -7,11 +7,17 @@ export default {
       { label: "Releases sent", value: "releases_sent" },
       { label: "Number of donations received", value: "donations_count" },
       { label: "Dollars in donations received", value: "donations_dollars" },
-      { label: "Member-linked donation count", value: "member_donations_count" },
-      { label: "Member-linked donation dollars", value: "member_donations_dollars" },
+      { label: "Participant-linked donation count", value: "member_donations_count" },
+      { label: "Participant-linked donation dollars", value: "member_donations_dollars" },
       { label: "Anonymous cash donation count", value: "anonymous_donations_count" },
       { label: "Anonymous cash donation dollars", value: "anonymous_donations_dollars" },
-      { label: "Members created", value: "members_created" },
+      { label: "Individual contributor donation count", value: "individual_donations_count" },
+      { label: "Individual contributor donation dollars", value: "individual_donations_dollars" },
+      { label: "Company contributor donation count", value: "organization_donations_count" },
+      { label: "Company contributor donation dollars", value: "organization_donations_dollars" },
+      { label: "Unresolved donation count", value: "unresolved_donations_count" },
+      { label: "Unresolved donation dollars", value: "unresolved_donations_dollars" },
+      { label: "Participants created", value: "members_created" },
     ];
 
     const donationMetrics = new Set([
@@ -21,12 +27,16 @@ export default {
       "member_donations_dollars",
       "anonymous_donations_count",
       "anonymous_donations_dollars",
+      "individual_donations_count", "individual_donations_dollars",
+      "organization_donations_count", "organization_donations_dollars",
+      "unresolved_donations_count", "unresolved_donations_dollars",
     ]);
 
     return options.filter(
       option =>
         !donationMetrics.has(option.value) ||
-        appsmith.store.facilitator_is_donations_reviewer === true
+        (appsmith.store.reports_actor_email === String(appsmith.user?.email || "").trim().toLowerCase()
+          && appsmith.store.facilitator_is_donations_reviewer === true)
     );
   },
 
@@ -40,10 +50,9 @@ export default {
   },
 
   selectedMetricKeys() {
+    const allowed = this.metricOptions().map(x => x.value);
     const selected = msReportMetrics.selectedOptionValues || [];
-    return selected.length
-      ? selected
-      : this.metricOptions().map(x => x.value);
+    return selected.length ? selected.filter(key => allowed.includes(key)) : allowed;
   },
 
   selectedMetricKeysJson() {
@@ -68,13 +77,22 @@ export default {
 	scopeLabel() {
 		const documents = appsmith.store.facilitator_is_reviewer === true;
 		const donations = appsmith.store.facilitator_is_donations_reviewer === true;
-		if (documents && donations) return "Scope: all members and donations";
-		if (donations) return "Scope: all donations; assigned members for other metrics";
-		if (documents) return "Scope: all members; donation financials restricted";
-		return "Scope: assigned members; donation financials restricted";
+		if (documents && donations) return "Scope: all participants and donations";
+		if (donations) return "Scope: all donations; assigned participants for other metrics";
+		if (documents) return "Scope: all participants; donation financials restricted";
+		return "Scope: assigned participants; donation financials restricted";
 	},
 	
 	async verifyaccess() {
+    // Clear prior page/account state before accepting the current canonical actor.
+    await Promise.all([
+      storeValue("reports_actor_email", ""),
+      storeValue("facilitator_id", ""),
+      storeValue("facilitator_email", ""),
+      storeValue("facilitator_is_reviewer", false),
+      storeValue("facilitator_is_donations_reviewer", false),
+      storeValue("facilitator_full_name", "")
+    ]);
 		try {
 			let email = null;
 
@@ -94,8 +112,8 @@ export default {
 
 			const me = rows[0];
 
-			if (!me?.member_id) {
-				showAlert("Access denied: not an active facilitator.", "error");
+			if (!me?.person_id || !(me.is_practitioner === true || me.is_document_reviewer === true || me.is_donations_reviewer === true)) {
+				showAlert("Access denied: practitioner or reviewer permission required.", "error");
 
 				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 					navigateTo("Unauthorized", {}, "SAME_WINDOW");
@@ -104,7 +122,7 @@ export default {
 				return false;
 			}
 
-			await storeValue("facilitator_id", me.member_id);
+			await storeValue("facilitator_id", me.member_id || "");
 			await storeValue("facilitator_email", (me.email || "").trim().toLowerCase());
 			await storeValue("facilitator_is_reviewer", !!me.is_document_reviewer);
 			await storeValue("facilitator_is_donations_reviewer", !!me.is_donations_reviewer);
@@ -113,6 +131,7 @@ export default {
 				`${me.first_name || ""} ${me.last_name || ""}`.trim()
 			);
 
+			await storeValue("reports_actor_email", email);
 			return true;
 		} catch (e) {
 			showAlert("Access check failed: " + (e?.message || e), "error");
@@ -176,7 +195,8 @@ export default {
   },
 
   chartOptions() {
-    const rows = qReportTimeSeries.data || [];
+    const sameActor = appsmith.store.reports_actor_email === String(appsmith.user?.email || "").trim().toLowerCase();
+    const rows = sameActor ? (qReportTimeSeries.data || []) : [];
     const metricKeys = this.selectedMetricKeys();
     const metricMeta = Object.fromEntries(
       this.metricOptions().map(x => [x.value, x])
@@ -233,6 +253,8 @@ export default {
   },
 
   totalFor(metricKey) {
+    if (appsmith.store.reports_actor_email !== String(appsmith.user?.email || "").trim().toLowerCase()
+        || !this.metricOptions().some(option => option.value === metricKey)) return 0;
     return (qReportTimeSeries.data || [])
       .filter(r => r.metric_key === metricKey)
       .reduce((sum, r) => sum + Number(r.value || 0), 0);
