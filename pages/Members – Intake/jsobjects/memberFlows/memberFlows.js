@@ -231,7 +231,7 @@ export default {
 			const existingName = [existing.first_name, existing.last_name].filter(Boolean).join(" ") || "Existing member";
 			const existingId = existing.member_id ? ` (ID ${existing.member_id})` : "";
 			showAlert(
-				`Member already exists in your accessible member list: ${existingName}${existingId}. Matched ${summarizeFields(hardDupes)}. Open Members - Directory to continue with the existing record.`,
+				`Member already exists in your accessible member list: ${existingName}${existingId}. Matched ${summarizeFields(hardDupes)}. Open Directory to continue with the existing record.`,
 				"error"
 			);
 			await this.auditLog("member.create_blocked_duplicate", "member", existing.member_id || "", {
@@ -300,7 +300,7 @@ export default {
 				)
 				: (
 					`An active member with the same ${latestFields} already exists. ` +
-					"No new member was created. Open Members - Directory to continue with the existing record."
+					"No new member was created. Open Directory to continue with the existing record."
 				);
 
 			await this.auditLog("member.create_blocked_duplicate", "member", "", {

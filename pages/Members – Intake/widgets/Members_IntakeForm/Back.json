@@ -36,7 +36,7 @@
   "mobileRightColumn": 54,
   "mobileTopRow": 1,
   "needsErrorInfo": false,
-  "onClick": "{{ navigateTo(\"Members - Directory\") }}",
+  "onClick": "{{ navigateTo(\"Directory\", {}, \"SAME_WINDOW\") }}",
   "originalBottomRow": 41,
   "originalTopRow": 37,
   "parentColumnSpace": 10.25,
