@@ -26,7 +26,7 @@ export default {
     return [];
   }
 
-	return Promise.allSettled([directoryPromise, qMemberById.run(), qMemberAgreements.run(), qMemberReleases.run(), qListFacilitators?.run?.(), qMemberFacilitators?.run?.(), qMemberAddresses?.run?.(), qMemberPhones?.run?.(), qMemberEmails?.run?.(), qAgreementTypesList.run(), selAgreementType?.selectedOptionValue ? qAgreementTemplatesByType.run({
+	return Promise.allSettled([directoryPromise, qMemberById.run(), qMemberAgreements.run(), qMemberReleases.run(), qListFacilitators?.run?.(), qMemberFacilitators?.run?.(), qMemberEmails?.run?.(), qAgreementTypesList.run(), selAgreementType?.selectedOptionValue ? qAgreementTemplatesByType.run({
 			type_key: selAgreementType.selectedOptionValue
 		}) : Promise.resolve([])]);
 	},
@@ -98,7 +98,7 @@ export default {
 		const allowed = Array.isArray(rows) ? rows[0]?.allowed : rows?.allowed;
 		if (!allowed) {
 			showAlert("You do not have access to this member.", "error");
-			navigateTo("Members - Directory", {}, "SAME_WINDOW");
+			navigateTo("Directory", {}, "SAME_WINDOW");
 			return false;
 		}
 		return true;
@@ -167,7 +167,7 @@ export default {
 			]);
 		} catch (e) {
 			showAlert("Access check failed: " + (e?.message || e), "error");
-			showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? ({})), "error");
+			console.error("Member Functions initialization failed:", e);
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 				navigateTo("Unauthorized", {}, "SAME_WINDOW");
 			}
@@ -670,45 +670,6 @@ export default {
 		return voided;
 	},
 
-  _normText(v) {
-    if (v === null || v === undefined) return "";
-    return String(v).trim();
-  },
-
-  _normEmail(v) {
-    return this._normText(v).toLowerCase();
-  },
-
-	_toDateOnly(v) {
-		if (v === null || v === undefined) return "";
-		const s = String(v).trim();
-		if (!s) return "";
-
-		// If it's already YYYY-MM-DD, keep it
-		if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
-
-		// If it's ISO datetime, parse and convert to YYYY-MM-DD (UTC-safe)
-		const d = new Date(s);
-		if (isNaN(d.getTime())) return "";
-
-		return d.toISOString().slice(0, 10); // YYYY-MM-DD
-	},
-
-  _diff(oldObj, newObj) {
-    const changes = {};
-    for (const k of Object.keys(newObj)) {
-      const a = oldObj?.[k];
-      const b = newObj?.[k];
-
-      // Normalize null/undefined/"" equivalence for diff readability
-      const na = (a === null || a === undefined) ? "" : String(a);
-      const nb = (b === null || b === undefined) ? "" : String(b);
-
-      if (na !== nb) changes[k] = { from: a ?? null, to: b ?? null };
-    }
-    return changes;
-  },
-			
 
 	async assignFacilitator() {
 		try {
