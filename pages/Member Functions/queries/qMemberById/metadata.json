@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "WITH actor AS (\n  SELECT member_id\n  FROM public.member_profiles\n  WHERE lower(email)=lower({{ appsmith.user.email }})\n    AND status='active'\n  LIMIT 1\n)\nSELECT m.*\nFROM public.member_profiles m\nWHERE m.member_id = {{ appsmith.store.member_id || null }}::uuid\n  AND (\n    public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')\n    OR EXISTS (\n      SELECT 1 FROM public.member_facilitators mf\n      JOIN actor ON actor.member_id=mf.facilitator_id\n      WHERE mf.member_id=m.member_id AND mf.status='active'\n    )\n  );",
+      "body": "WITH actor AS (\n  SELECT member_id\n  FROM public.member_profiles\n  WHERE lower(email)=lower({{ appsmith.user.email }})\n    AND status='active'\n  LIMIT 1\n)\nSELECT m.*\nFROM public.member_profiles m\nWHERE m.member_id = {{ appsmith.store.member_id || null }}::uuid\n  AND (\n    public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')\n    OR EXISTS (\n      SELECT 1 FROM public.member_facilitators mf\n      JOIN actor ON actor.member_id=mf.facilitator_id\n      WHERE mf.member_id=m.member_id AND mf.status='active'\n    )\n  );\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
