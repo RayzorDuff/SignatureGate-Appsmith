@@ -1,0 +1,30 @@
+{
+  "widgetName": "btnSaveCompanyNotes",
+  "widgetId": "identity-notes-organization-save",
+  "key": "identity-notes-save-organization",
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "parentId": "u54kyq37ju",
+  "topRow": 34,
+  "bottomRow": 40,
+  "leftColumn": 44,
+  "rightColumn": 64,
+  "text": "Save notes",
+  "buttonVariant": "PRIMARY",
+  "isVisible": "{{ qCompanyIdentityNotes.data?.[0]?.can_edit === true }}",
+  "isDisabled": "{{ qSaveCompanyIdentityNotes.isLoading }}",
+  "onClick": "{{ (async () => { const reason = inpCompanyNotesReason.text.trim(); if (!reason) return showAlert('Provide a reason for changing notes.', 'warning'); try { await qSaveCompanyIdentityNotes.run({ notes: inpCompanyNotes.text, reason }); await qCompanyIdentityNotes.run(); showAlert('Identity notes saved.', 'success'); } catch(e) { showAlert('Unable to save identity notes: ' + (e?.message || e), 'error'); } })() }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
+}

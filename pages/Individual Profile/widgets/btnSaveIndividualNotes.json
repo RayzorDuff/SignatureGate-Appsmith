@@ -1,0 +1,30 @@
+{
+  "widgetName": "btnSaveIndividualNotes",
+  "widgetId": "identity-notes-individual-save",
+  "key": "identity-notes-save-individual",
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "parentId": "0",
+  "topRow": 42,
+  "bottomRow": 48,
+  "leftColumn": 44,
+  "rightColumn": 64,
+  "text": "Save notes",
+  "buttonVariant": "PRIMARY",
+  "isVisible": "{{ qIndividualIdentityNotes.data?.[0]?.can_edit === true }}",
+  "isDisabled": "{{ qSaveIndividualIdentityNotes.isLoading }}",
+  "onClick": "{{ (async () => { const reason = inpIndividualNotesReason.text.trim(); if (!reason) return showAlert('Provide a reason for changing notes.', 'warning'); try { await qSaveIndividualIdentityNotes.run({ notes: inpIndividualNotes.text, reason }); await qIndividualIdentityNotes.run(); showAlert('Identity notes saved.', 'success'); } catch(e) { showAlert('Unable to save identity notes: ' + (e?.message || e), 'error'); } })() }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ]
+}
