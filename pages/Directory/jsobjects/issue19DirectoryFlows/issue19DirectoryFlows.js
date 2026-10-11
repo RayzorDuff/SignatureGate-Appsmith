@@ -48,7 +48,8 @@ export default {
       return;
     }
     try {
-      await Promise.all([qPartyDirectory.run(), qDirectoryCanCreateContributor.run()]);
+      await Promise.all([qPartyDirectory.run(),
+			]);
     } catch (error) {
       showAlert('Directory could not load: ' + (error?.message || error), 'error');
     }

@@ -23,7 +23,7 @@
   "evaluationVersion": 2,
   "pages": [
     {
-      "id": "Members - Directory",
+      "id": "Directory",
       "isDefault": true
     },
     {
@@ -72,10 +72,6 @@
     },
     {
       "id": "Reports",
-      "isDefault": false
-    },
-    {
-      "id": "Directory",
       "isDefault": false
     },
     {

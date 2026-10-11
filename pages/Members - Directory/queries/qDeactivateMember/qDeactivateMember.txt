@@ -1,4 +1,0 @@
-UPDATE members
-SET status = 'inactive'
-WHERE member_id = {{ tblMembers.selectedRow.member_id }}::uuid
-RETURNING member_id;
