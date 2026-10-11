@@ -571,7 +571,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = DonationsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( (currentRow.donated_at ? new Date(currentRow.donated_at).toLocaleString() : '') )) :  (currentRow.donated_at ? new Date(currentRow.donated_at).toLocaleString() : [] })()}}",
+      "computedValue": "{{ (DonationsTable.processedTableData || []).map(row => row.donated_at ? new Date(row.donated_at).toLocaleString() : \"\") }}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
