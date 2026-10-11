@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT notes,can_edit FROM public.issue19_party_notes({{ appsmith.user.email }}, 'individual', {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid);",
+      "body": "SELECT notes,can_edit FROM public.issue19_party_notes({{ appsmith.user.email }}, 'individual', {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
