@@ -1,0 +1,1 @@
+SELECT public.issue19_set_party_notes({{ appsmith.user.email }}, {{ this.params.party_kind }}, {{ this.params.party_id }}::uuid, {{ this.params.notes }}, {{ this.params.reason }})::text AS party_id;

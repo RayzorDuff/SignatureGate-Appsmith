@@ -74,6 +74,7 @@ export default {
       }
     }
 
+    const identityNotes = (inpIntakeIdentityNotes.text || "").trim();
     const reason = contributor ? (inpContributorReason.text || "").trim() : "";
     if (contributor && !reason) {
       showAlert("Contributor enrollment reason is required.", "warning");
@@ -142,7 +143,13 @@ export default {
         const hard = dupes.filter(d => String(d.match_severity || "").toLowerCase() === "hard");
         if (hard.length) {
           const existing = hard[0];
-          showAlert("An active member already matches this intake. No new member was created.", "error");
+          const inaccessible = hard.filter(d => d.is_accessible !== true && String(d.is_accessible).toLowerCase() !== "true");
+          const fields = [...new Set(hard.map(d => ({ email: "email address", "members.email": "email address", phone: "phone number", "members.phone": "phone number", "name+dob": "name and date of birth", name: "name" })[String(d.matched_field || "").toLowerCase()] || "identifying information"))].join(", ");
+          const elsewhere = inaccessible.some(d => d.access_scope === "other_facilitator");
+          const detail = inaccessible.length
+            ? (elsewhere ? "The matching member is assigned to another practitioner." : "The matching member is outside your accessible directory.")
+            : "An existing member is accessible in Directory.";
+          showAlert(`An active member already matches on ${fields}. ${detail} No new member was created. Contact a document reviewer for access or reassignment if needed.`, "error");
           await this.auditLog("member.create_blocked_duplicate", "member", existing.member_id || "", {
             match_fields: [...new Set(hard.map(d => d.matched_field))], page: "Intake"
           });
@@ -173,6 +180,8 @@ export default {
           showAlert("Member was created, but its person identity could not be resolved.", "error");
           return;
         }
+
+        if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "individual", party_id: memberPersonId, notes: identityNotes, reason: "Initial intake"});
 
         const e = await qAddMemberEmail.run({
           member_id: memberId,
@@ -246,6 +255,8 @@ export default {
         memberPersonId = created?.[0]?.party_id;
         if (!contributorId || !memberPersonId) throw new Error("Contributor creation did not return the new individual identity.");
 
+        if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "individual", party_id: memberPersonId, notes: identityNotes, reason: "Initial intake"});
+
         if (hasCompleteAddress) {
           await qAddContributorAddress.run({
             party_kind: "individual", party_id: memberPersonId,
@@ -269,6 +280,8 @@ export default {
       contributorId = created?.[0]?.contributor_id;
       const organizationId = created?.[0]?.party_id;
       if (!contributorId || !organizationId) throw new Error("Company contributor creation did not return the organization identity.");
+
+      if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "organization", party_id: organizationId, notes: identityNotes, reason: "Initial intake"});
 
       if (hasCompleteAddress) {
         await qAddContributorAddress.run({
@@ -343,6 +356,7 @@ export default {
       "inpIntakeLastName",
       "inpIntakeEmail",
       "inpIntakePhone",
+      "inpIntakeIdentityNotes",
       "inpIntakeCompanyName",
       "dateIntakeBirthDate",
       "inpIntakeAddress",

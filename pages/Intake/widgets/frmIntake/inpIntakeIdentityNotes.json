@@ -1,0 +1,39 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 77,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "inputType": "MULTI_LINE_TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "label": "Identity notes (optional)",
+  "leftColumn": 0,
+  "originalBottomRow": 77,
+  "originalTopRow": 70,
+  "parentColumnSpace": 10.25,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "rightColumn": 64,
+  "tooltip": "Administrative notes about this individual or company. Notes are stored with the identity, not the membership.",
+  "topRow": 70,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "",
+  "version": 2,
+  "widgetId": "intake-identity-notes",
+  "widgetName": "inpIntakeIdentityNotes",
+  "key": "intake-notes"
+}
