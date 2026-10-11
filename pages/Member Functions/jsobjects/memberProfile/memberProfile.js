@@ -129,72 +129,72 @@ export default {
 	*/
 	
   async init () {
-  try {
-    let email = null;
-    for (let i = 0; i < 20; i++) {
-      email = (appsmith.user?.email ?? "").trim().toLowerCase();
-      if (email) break;
-      await new Promise(r => setTimeout(r, 150));
-    }
-    if (!email) {
-      showAlert("Unknown user: appsmith.user.email not available.", "error");
-      return;
-    }
-    let rows = await qCurrentFacilitator.run({
-      email
-    });
-    if (!Array.isArray(rows)) rows = [];
-    const me = rows[0];
-    if (!me?.email || !me?.is_document_reviewer) {
-      showAlert("Access denied: document reviewer permission required for " + email, "error");
-      await memberProfile.auditLog("auth.denied", "facilitator", "", {
-        email,
-        page: appsmith.URL?.pathname,
-        mode: appsmith.mode
-      });
-      if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-        navigateTo("Unauthorized", {}, "SAME_WINDOW");
-      }
-      return;
-    }
-    await Promise.all([
-      storeValue("facilitator_id", me.member_id),
-      storeValue("facilitator_email", (me.email ?? "").trim().toLowerCase()),
-      storeValue("facilitator_is_reviewer", me.is_document_reviewer),
-      storeValue("facilitator_is_donations_reviewer", me.is_donations_reviewer),
-      storeValue("facilitator_full_name", `${me.first_name} ${me.last_name}`.trim()),
-      storeValue("NC_PUBLIC_URL", "https://nocodb.danks.store")
-    ]);
-  } catch (e) {
-    showAlert("Access check failed: " + (e?.message || e), "error");
-    showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? ({})), "error");
-    if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-      navigateTo("Unauthorized", {}, "SAME_WINDOW");
-    }
-    return;
-  }
+		try {
+			let email = null;
+			for (let i = 0; i < 20; i++) {
+				email = (appsmith.user?.email ?? "").trim().toLowerCase();
+				if (email) break;
+				await new Promise(r => setTimeout(r, 150));
+			}
+			if (!email) {
+				showAlert("Unknown user: appsmith.user.email not available.", "error");
+				return;
+			}
+			let rows = await qCurrentFacilitator.run({
+				email
+			});
+			if (!Array.isArray(rows)) rows = [];
+			const me = rows[0];
+			if (!me?.email || !me?.is_document_reviewer) {
+				showAlert("Access denied: document reviewer permission required for " + email, "error");
+				await memberProfile.auditLog("auth.denied", "facilitator", "", {
+					email,
+					page: appsmith.URL?.pathname,
+					mode: appsmith.mode
+				});
+				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
+					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				}
+				return;
+			}
+			await Promise.all([
+				storeValue("facilitator_id", me.member_id),
+				storeValue("facilitator_email", (me.email ?? "").trim().toLowerCase()),
+				storeValue("facilitator_is_reviewer", me.is_document_reviewer),
+				storeValue("facilitator_is_donations_reviewer", me.is_donations_reviewer),
+				storeValue("facilitator_full_name", `${me.first_name} ${me.last_name}`.trim()),
+				storeValue("NC_PUBLIC_URL", "https://nocodb.danks.store")
+			]);
+		} catch (e) {
+			showAlert("Access check failed: " + (e?.message || e), "error");
+			showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? ({})), "error");
+			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
+				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+			}
+			return;
+		}
 
-  const directoryRows = await qMembersDirectory.run();
-  const directory = Array.isArray(directoryRows) ? directoryRows : [];
-  const urlMemberId = String(appsmith.URL.queryParams.member_id || "").trim();
-  const storedMemberId = String(appsmith.store.member_id || "").trim();
-  const candidate = urlMemberId || storedMemberId;
-  const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(candidate);
-  const isAccessible = isUuid && directory.some(row => String(row.member_id || "") === candidate);
+		const directoryRows = await qMembersDirectory.run();
+		const directory = Array.isArray(directoryRows) ? directoryRows : [];
+		const urlMemberId = String(appsmith.URL.queryParams.member_id || "").trim();
+		const storedMemberId = String(appsmith.store.member_id || "").trim();
+		const candidate = urlMemberId || storedMemberId;
+		const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(candidate);
+		const isAccessible = isUuid && directory.some(row => String(row.member_id || "") === candidate);
 
-  if (!isAccessible) {
-    await storeValue("member_id", "");
-    if (candidate && isUuid) {
-      showAlert("The selected member is not in your accessible member list.", "warning");
-    }
-    return directory;
-  }
+		if (!isAccessible) {
+			await storeValue("member_id", "");
+			if (candidate && isUuid) {
+				showAlert("The selected member is not in your accessible member list.", "warning");
+			}
+			return directory;
+		}
 
-  await storeValue("member_id", candidate);
-  const ok = await memberProfile.ensureMemberAccess();
-  if (!ok) return;
-  return memberProfile.refresh();
-},
+		await storeValue("member_id", candidate);
+		const ok = await memberProfile.ensureMemberAccess();
+		if (!ok) return;
+		return memberProfile.refresh();
+	},
 
 	_normalizeUploadResponse(uploadRes) {
 		const r = uploadRes?.data ?? uploadRes;
@@ -709,54 +709,6 @@ export default {
     return changes;
   },
 			
-	async submitMemberUpdate() {
-    const memberId = this._requireMemberId();
-
-		if (!memberId) {
-			showAlert("Internal error - no memberID.", "warning");
-			return;
-		}
-
-    const oldRow = (qMemberById?.data && qMemberById.data[0]) ? qMemberById.data[0] : {};
-
-		const ui = {
-			first_name: String(inpFirstName.text || "").trim(),
-			last_name: String(inpLastName.text || "").trim(),
-			date_of_birth: this._toDateOnly(inpDOB.selectedDate || ""),
-			notes: String(inpNotes.text || "").trim()
-		};
-		
-    const changes = this._diff(
-      {
-        first_name: oldRow.first_name ?? "",
-        last_name: oldRow.last_name ?? "",
-        date_of_birth: oldRow.date_of_birth ?? "",
-        notes: oldRow.notes ?? ""
-      },
-      ui
-    );
-
-    if (Object.keys(changes).length === 0) {
-      showAlert("No changes to save.", "info");
-      return;
-    }
-
-    const res = await qMemberUpdate.run({
-      member_id: memberId,
-      ...ui
-    });
-
-    showAlert("Member updated.", "success");
-
-    await this.auditLog("member.updated", "member", memberId, {
-      member_id: memberId,
-      changes,
-      updated_from_page: "Members - Profile"
-    });
-
-    await this.refresh();
-    return res;
-  },
 
 	async assignFacilitator() {
 		try {
@@ -838,454 +790,6 @@ export default {
 			showAlert("Failed to remove facilitator: " + (e?.message || e), "error");
 			throw e;
 		}
-	},
-
-	async unsubscribeMemberEmail(row, reason = "Unsubscribed from Members - Profile") {
-		const memberId = row.member_id || appsmith.store.member_id;
-
-		if (!memberId) {
-			showAlert("No member email selected.", "error");
-			return;
-		}		
-
-		const res = await qUnsubscribeMemberEmail.run({
-			member_email_id: row.member_email_id,
-			reason
-		});
-
-		await this.auditLog("member.email.mailing_unsubscribed", "member", memberId, {
-			member_id: memberId,
-			member_email_id: row.member_email_id,
-			email: row.email,
-			reason,
-			source: "signaturegate_interface"
-		});
-
-		showAlert("Email unsubscribed from mailing list.", "success");
-		await qMemberEmails.run();
-		return Array.isArray(res) ? res[0] : res;
-	},
-
-	async setPrimaryMemberEmail(row) {
-		const memberId = row.member_id || appsmith.store.member_id;
-
-		await qSetPrimaryMemberEmail.run({
-			member_email_id: row.member_email_id
-		});
-
-		await this.auditLog("member.email.primary_set", "member", memberId, {
-			member_id: memberId,
-			member_email_id: row.member_email_id,
-			email: row.email,
-			page: "Members - Profile"
-		});
-
-		showAlert("Primary email updated.", "success");
-		await Promise.allSettled([qMemberEmails.run(), qMemberById.run()]);
-	},
-	
-	async subscribeMemberEmail(row, reason = "Subscribed from Members - Profile") {
-		const memberId = row.member_id || appsmith.store.member_id;
-
-		if (!memberId) {
-			showAlert("No member email selected.", "error");
-			return;
-		}
-
-		const res = await qSubscribeMemberEmail.run({
-			member_email_id: row.member_email_id,
-			reason
-		});
-		
-		await this.auditLog("member.email.mailing_subscribed", "member", memberId, {
-			member_id: memberId,
-			member_email_id: row.member_email_id,
-			email: row.email,
-			reason,
-			source: "signaturegate_interface"
-		});		
-
-		showAlert("Email subscribed to mailing list.", "success");
-		await qMemberEmails.run();
-		return Array.isArray(res) ? res[0] : res;
-	},
-	
-	async addMemberEmail() {
-		const memberId = appsmith.store.member_id;
-
-		const res = await qAddMemberEmail.run({
-			member_id: memberId,
-			email: inpNewMemberEmail.text,
-			is_primary:
-				chkNewMemberEmailPrimary.isChecked,
-			notes: inpNewMemberEmailNotes.text,
-			subscribe_to_mailing_list:
-				chkNewMemberEmailSubscribeList.isChecked
-		});
-
-		const row =
-			Array.isArray(res) ? res[0] : res;
-
-		if (!row?.member_email_id) {
-			showAlert(
-				"Email was not added. It is already active on another member; use the Reassign Email action from the existing row if that is intentional.",
-				"warning"
-			);
-			return;
-		}
-
-		await this.auditLog(
-			"member.email.added",
-			"member",
-			memberId,
-			{
-				member_id: memberId,
-				member_email_id:
-					row.member_email_id,
-				email: inpNewMemberEmail.text,
-				is_primary:
-					chkNewMemberEmailPrimary.isChecked,
-				mailing_subscription_status:
-					row?.mailing_subscription_status || null,
-				notes:
-					inpNewMemberEmailNotes.text || null
-			}
-		);
-
-		showAlert("Email added.", "success");
-
-		await Promise.allSettled([
-			qMemberEmails.run(),
-			qMemberById.run()
-		]);
-
-		resetWidget("frmAddMemberEmail", true);
-	},
-
-	async addMemberPhone() {
-		const memberId = appsmith.store.member_id;
-
-		const res = await qAddMemberPhone.run({
-			member_id: memberId,
-			phone: inpNewMemberPhone.text,
-			is_primary:
-				chkNewMemberPhonePrimary.isChecked,
-			notes: inpNewMemberPhoneNotes.text
-		});
-
-		const row =
-			Array.isArray(res) ? res[0] : res;
-
-		if (!row?.member_phone_id) {
-			showAlert(
-				"Phone was not added because this member already has that active phone number.",
-				"info"
-			);
-			return;
-		}
-
-		await this.auditLog(
-			"member.phone.added",
-			"member",
-			memberId,
-			{
-				member_id: memberId,
-				member_phone_id:
-					row.member_phone_id,
-				phone: inpNewMemberPhone.text,
-				is_primary:
-					chkNewMemberPhonePrimary.isChecked,
-				notes:
-					inpNewMemberPhoneNotes.text || null
-			}
-		);
-
-		showAlert("Phone added.", "success");
-
-		await Promise.allSettled([
-			qMemberPhones.run(),
-			qMemberById.run()
-		]);
-
-		resetWidget("frmAddMemberPhone", true);
-	},
-
-	async addMemberAddress() {
-		const memberId = appsmith.store.member_id;
-
-		const res = await qAddMemberAddress.run({
-			member_id: memberId,
-
-			address_type:
-				inpNewMemberAddressType?.selectedOptionValue ||
-				inpNewMemberAddressType?.text ||
-				"home",
-
-			address_1:
-				inpNewMemberAddress1.text,
-
-			address_2:
-				inpNewMemberAddress2.text,
-
-			city:
-				inpNewMemberCity.text,
-
-			state:
-				inpNewMemberState.text,
-
-			postal_code:
-				inpNewMemberPostalCode.text,
-
-			country:
-				inpNewMemberCountry.text || "USA",
-
-			is_primary:
-				chkNewMemberAddressPrimary.isChecked,
-
-			notes:
-				inpNewMemberAddressNotes.text
-		});
-
-		const row =
-			Array.isArray(res) ? res[0] : res;
-
-		if (!row?.member_address_id) {
-			showAlert(
-				"Address was not added.",
-				"warning"
-			);
-			return;
-		}
-
-		const wasCreated =
-			String(row.created_at || "") ===
-			String(row.updated_at || "");
-
-		await this.auditLog(
-			wasCreated
-				? "member.address.added"
-				: "member.address.updated",
-			"member",
-			memberId,
-			{
-				member_id: memberId,
-				member_address_id:
-					row.member_address_id,
-				address_identity_key:
-					row.address_identity_key || null,
-				was_created: wasCreated,
-
-				address_1:
-					inpNewMemberAddress1.text,
-
-				address_2:
-					inpNewMemberAddress2.text || null,
-
-				city:
-					inpNewMemberCity.text,
-
-				state:
-					inpNewMemberState.text,
-
-				postal_code:
-					inpNewMemberPostalCode.text,
-
-				country:
-					inpNewMemberCountry.text || "USA",
-
-				is_primary:
-					chkNewMemberAddressPrimary.isChecked,
-
-				notes:
-					inpNewMemberAddressNotes.text || null
-			}
-		);
-
-		showAlert(
-			wasCreated
-				? "Address added."
-				: "Existing address updated without creating a duplicate.",
-			"success"
-		);
-
-		await Promise.allSettled([
-			qMemberAddresses.run(),
-			qMemberById.run()
-		]);
-
-		resetWidget("frmAddMemberAddress", true);
-	},
-
-	async archiveMemberEmail(row, reason = "Archived from Members - Profile") {
-		const oldMemberId = row.member_id || appsmith.store.member_id;
-
-		const res = await qArchiveMemberEmail.run({
-			member_email_id: row.member_email_id,
-			reason
-		});
-
-		await this.auditLog("member.email.archived", "member", oldMemberId, {
-			member_id: oldMemberId,
-			member_email_id: row.member_email_id,
-			email: row.email,
-			reason
-		});
-
-		showAlert("Email archived.", "success");
-		await qMemberEmails.run();
-	},
-
-	async archiveMemberPhone(row, reason = "Archived from Members - Profile") {
-		const oldMemberId = row.member_id || appsmith.store.member_id;
-
-		await qArchiveMemberPhone.run({
-			member_phone_id: row.member_phone_id,
-			reason
-		});
-
-		await this.auditLog("member.phone.archived", "member", oldMemberId, {
-			member_id: oldMemberId,
-			member_phone_id: row.member_phone_id,
-			phone: row.phone,
-			reason
-		});
-
-		showAlert("Phone archived.", "success");
-		await qMemberPhones.run();
-	},
-
-	async archiveMemberAddress(row, reason = "Archived from Members - Profile") {
-		const oldMemberId = row.member_id || appsmith.store.member_id;
-
-		await qArchiveMemberAddress.run({
-			member_address_id: row.member_address_id,
-			reason
-		});
-
-		await this.auditLog("member.address.archived", "member", oldMemberId, {
-			member_id: oldMemberId,
-			member_address_id: row.member_address_id,
-			address_1: row.address_1,
-			city: row.city,
-			state: row.state,
-			postal_code: row.postal_code,
-			reason
-		});
-
-		showAlert("Address archived.", "success");
-		await qMemberAddresses.run();
-	},
-
-	async reassignMemberEmail(row, newMemberId) {
-		const oldMemberId = row.member_id || appsmith.store.member_id;
-
-		await qReassignMemberEmail.run({
-			member_email_id: row.member_email_id,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId
-		});
-
-		await this.auditLog("member.email.reassigned", "member", oldMemberId, {
-			member_email_id: row.member_email_id,
-			email: row.email,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId
-		});
-
-		await this.auditLog("member.email.received_reassignment", "member", newMemberId, {
-			member_email_id: row.member_email_id,
-			email: row.email,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId
-		});
-
-		showAlert("Email reassigned.", "success");
-		await qMemberEmails.run();
-	},
-
-	async reassignMemberPhone(row, newMemberId) {
-		const oldMemberId = row.member_id || appsmith.store.member_id;
-
-		await qReassignMemberPhone.run({
-			member_phone_id: row.member_phone_id,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId
-		});
-
-		await this.auditLog("member.phone.reassigned", "member", oldMemberId, {
-			member_phone_id: row.member_phone_id,
-			phone: row.phone,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId
-		});
-
-		await this.auditLog("member.phone.received_reassignment", "member", newMemberId, {
-			member_phone_id: row.member_phone_id,
-			phone: row.phone,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId
-		});
-
-		showAlert("Phone reassigned.", "success");
-		await qMemberPhones.run();
-	},
-
-	async reassignMemberAddress(row, newMemberId) {
-		const oldMemberId = row.member_id || appsmith.store.member_id;
-
-		await qReassignMemberAddress.run({
-			member_address_id: row.member_address_id,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId
-		});
-
-		await this.auditLog("member.address.reassigned", "member", oldMemberId, {
-			member_address_id: row.member_address_id,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId,
-			address_1: row.address_1,
-			city: row.city,
-			state: row.state,
-			postal_code: row.postal_code
-		});
-
-		await this.auditLog("member.address.received_reassignment", "member", newMemberId, {
-			member_address_id: row.member_address_id,
-			old_member_id: oldMemberId,
-			new_member_id: newMemberId,
-			address_1: row.address_1,
-			city: row.city,
-			state: row.state,
-			postal_code: row.postal_code
-		});
-
-		showAlert("Address reassigned.", "success");
-		await qMemberAddresses.run();
-	},
-	
-	async verifyMemberEmail(row, source = "document_reviewer", notes = "Verified by document reviewer") {
-		if (!appsmith.store.facilitator_is_reviewer) {
-			showAlert("Only document reviewers can verify emails.", "error");
-			return;
-		}
-
-		await qVerifyMemberEmail.run({
-			member_email_id: row.member_email_id,
-			source,
-			notes
-		});
-
-		await this.auditLog("member.email.verified", "member", row.member_id || appsmith.store.member_id, {
-			member_id: row.member_id || appsmith.store.member_id,
-			member_email_id: row.member_email_id,
-			email: row.email,
-			source,
-			notes
-		});
-
-		showAlert("Email verified.", "success");
-		await qMemberEmails.run();
-	},
-	
+	},	
 
 };
