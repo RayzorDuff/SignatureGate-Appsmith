@@ -30,6 +30,6 @@
     "name": "qCompanyProfile",
     "pageId": "Company Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }
