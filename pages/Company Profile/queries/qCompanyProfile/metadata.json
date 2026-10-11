@@ -29,7 +29,7 @@
     ],
     "name": "qCompanyProfile",
     "pageId": "Company Profile",
-    "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "runBehaviour": "AUTOMATIC",
+    "userSetOnLoad": false
   }
 }
