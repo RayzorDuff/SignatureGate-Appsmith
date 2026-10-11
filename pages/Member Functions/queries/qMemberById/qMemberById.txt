@@ -1,23 +1,18 @@
-WITH me AS (
-  SELECT
-    member_id,
-    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer
+WITH actor AS (
+  SELECT member_id
   FROM public.member_profiles
-  WHERE lower(email) = lower({{ appsmith.user.email }})
-    AND status = 'active'
+  WHERE lower(email)=lower({{ appsmith.user.email }})
+    AND status='active'
   LIMIT 1
 )
 SELECT m.*
 FROM public.member_profiles m
-CROSS JOIN me
-WHERE m.member_id = {{ appsmith.store.member_id }}::uuid
+WHERE m.member_id = {{ appsmith.store.member_id || null }}::uuid
   AND (
-    me.is_document_reviewer = TRUE
+    public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')
     OR EXISTS (
-      SELECT 1
-      FROM public.member_facilitators mf
-      WHERE mf.member_id = m.member_id
-        AND mf.facilitator_id = me.member_id
-        AND mf.status = 'active'
+      SELECT 1 FROM public.member_facilitators mf
+      JOIN actor ON actor.member_id=mf.facilitator_id
+      WHERE mf.member_id=m.member_id AND mf.status='active'
     )
   );
