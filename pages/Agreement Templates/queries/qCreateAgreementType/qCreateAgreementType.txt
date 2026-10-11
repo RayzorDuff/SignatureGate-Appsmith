@@ -1,0 +1,8 @@
+SELECT * FROM public.create_agreement_type(
+  {{ appsmith.user.email }}::text,
+  {{ this.params.type_key }}::text,
+  {{ this.params.display_name }}::text,
+  {{ this.params.sort_order }}::integer,
+  {{ this.params.active }}::boolean,
+  {{ this.params.description }}::text
+);

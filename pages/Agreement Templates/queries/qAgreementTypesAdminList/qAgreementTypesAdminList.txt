@@ -1,0 +1,4 @@
+SELECT type_key, display_name, description, sort_order, active
+FROM public.agreement_types
+WHERE public.issue19_has_role({{ appsmith.user.email }}::text, 'document_reviewer')
+ORDER BY sort_order, display_name, type_key;

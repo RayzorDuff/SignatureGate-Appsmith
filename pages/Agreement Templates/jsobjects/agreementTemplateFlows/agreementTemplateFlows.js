@@ -20,6 +20,7 @@ export default {
 		await Promise.allSettled([
 			qAgreementTemplatesList.run(),
 			qAgreementTypesList.run(),
+      qAgreementTypesAdminList.run(),
 		]);
 	},
 
@@ -42,8 +43,8 @@ export default {
 
 			const me = rows[0];
 
-			if (!me?.member_id) {
-				showAlert("Access denied: not an active facilitator for " + email, "error");
+			if (!me?.person_id) {
+				showAlert("Access denied: no authorized application account for " + email, "error");
 				await this.auditLog("auth.denied", "facilitator", "", {
 					email,
 					page: appsmith.URL?.pathname,
@@ -55,7 +56,7 @@ export default {
 				return;
 			}
 
-			const facilitator_id = me.member_id;
+			const facilitator_id = me.member_id || "";
 			const facilitator_email = (me.email ?? "").trim().toLowerCase();
 			const is_document_reviewer = me.is_document_reviewer;
 			const is_donations_reviewer = me.is_donations_reviewer;
@@ -75,8 +76,62 @@ export default {
 			return;
 		}
 
-		this.refresh();
+		await this.refresh();
 	},
+
+  canCreateAgreementType() {
+    return qCurrentFacilitator.data?.[0]?.is_document_reviewer === true;
+  },
+
+  async createAgreementTypeFromForm() {
+    if (!this.canCreateAgreementType()) {
+      showAlert("Document reviewer permission is required to create Agreement Types.", "error");
+      return null;
+    }
+    const typeKey = String(inpAgreementTypeKey.text || "").trim().toLowerCase();
+    const displayName = String(inpAgreementTypeName.text || "").trim();
+    const sortText = String(inpAgreementTypeOrder.text ?? "").trim();
+    const sortOrder = Number(sortText);
+    if (!/^[a-z][a-z0-9_]{0,63}$/.test(typeKey)) {
+      showAlert("Type key must start with a letter and use letters, digits or underscores (maximum 64 characters).", "warning");
+      return null;
+    }
+    if (!displayName) {
+      showAlert("Display name is required.", "warning");
+      return null;
+    }
+    if (!/^-?\d+$/.test(sortText) || !Number.isInteger(sortOrder) || sortOrder < -2147483648 || sortOrder > 2147483647) {
+      showAlert("Sort order must be a whole number between -2147483648 and 2147483647.", "warning");
+      return null;
+    }
+    if ((qAgreementTypesAdminList.data || []).some(row => String(row.type_key).trim().toLowerCase() === typeKey)) {
+      showAlert("That Type key already exists. Choose a different key.", "warning");
+      return null;
+    }
+    let created;
+    try {
+      const rows = await qCreateAgreementType.run({
+        type_key: typeKey,
+        display_name: displayName,
+        sort_order: sortOrder,
+        active: inpAgreementTypeActive.isChecked === true,
+        description: String(inpAgreementTypeDescription.text || "").trim() || null
+      });
+      created = rows?.[0];
+      if (!created?.type_key) throw new Error("No created Agreement Type was returned.");
+    } catch (error) {
+      showAlert("Agreement Type could not be created: " + (error?.message || error), "error");
+      return null;
+    }
+    resetWidget("frmNewAgreementType", true);
+    try {
+      await Promise.all([qAgreementTypesList.run(), qAgreementTypesAdminList.run()]);
+      showAlert("Agreement Type created" + (created.active ? ". It is available in the template selector." : " as inactive. It is not offered in template selectors."), "success");
+    } catch (error) {
+      showAlert("Agreement Type was created, but the selectors could not refresh. Use Refresh before continuing.", "warning");
+    }
+    return created;
+  },
 
 	linkify(inputText) {
 		const s = String(inputText || "");

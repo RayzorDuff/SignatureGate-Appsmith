@@ -1,0 +1,64 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 29,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": true,
+  "dynamicBindingPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isLoading"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ !agreementTemplateFlows.canCreateAgreementType() || qCreateAgreementType.isLoading }}",
+  "isLoading": "{{ qCreateAgreementType.isLoading }}",
+  "isVisible": true,
+  "key": "c8f45f5b34",
+  "leftColumn": 48,
+  "minWidth": 120,
+  "mobileBottomRow": 29,
+  "mobileLeftColumn": 48,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 25,
+  "needsErrorInfo": false,
+  "onClick": "{{ agreementTemplateFlows.createAgreementTypeFromForm() }}",
+  "originalBottomRow": 29,
+  "originalTopRow": 25,
+  "parentId": "d79bc86254",
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Create type",
+  "topRow": 25,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "1749e3cb0e",
+  "widgetName": "btnCreateAgreementType"
+}
