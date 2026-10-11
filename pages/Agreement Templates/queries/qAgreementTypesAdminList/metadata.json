@@ -29,7 +29,7 @@
     ],
     "name": "qAgreementTypesAdminList",
     "pageId": "Agreement Templates",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": false
   }
 }
