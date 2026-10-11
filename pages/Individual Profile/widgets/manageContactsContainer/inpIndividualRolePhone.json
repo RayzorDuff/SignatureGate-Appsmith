@@ -14,16 +14,16 @@
       "key": "validation"
     },
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
       "key": "isVisible"
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -60,6 +60,8 @@
   "mobileRightColumn": 41,
   "mobileTopRow": 15,
   "needsErrorInfo": false,
+  "originalBottomRow": 194,
+  "originalTopRow": 188,
   "parentColumnSpace": 13.875,
   "parentId": "oi4pw3ksy4",
   "parentRowSpace": 10,
@@ -72,7 +74,5 @@
   "validation": "{{ !inpIndividualRolePhone.text || /^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$/.test(inpIndividualRolePhone.text) }}",
   "version": 1,
   "widgetId": "kv6w5v2qda",
-  "widgetName": "inpIndividualRolePhone",
-  "originalTopRow": 188,
-  "originalBottomRow": 194
+  "widgetName": "inpIndividualRolePhone"
 }

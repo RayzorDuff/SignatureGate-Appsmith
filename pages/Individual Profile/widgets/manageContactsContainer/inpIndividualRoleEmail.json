@@ -8,6 +8,9 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
+      "key": "validation"
+    },
+    {
       "key": "isVisible"
     },
     {
@@ -18,15 +21,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "inputType"
-    },
-    {
-      "key": "label"
-    },
-    {
-      "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -82,8 +76,8 @@
   "showStepArrows": false,
   "topRow": 54,
   "type": "INPUT_WIDGET_V2",
+  "validation": "{{ !inpIndividualRoleEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIndividualRoleEmail.text) }}",
   "version": 2,
   "widgetId": "c00e73dca0",
-  "widgetName": "inpIndividualRoleEmail",
-  "validation": "{{ !inpIndividualRoleEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIndividualRoleEmail.text) }}"
+  "widgetName": "inpIndividualRoleEmail"
 }

@@ -27,5 +27,6 @@ export default {
     } catch (error) {
       showAlert('Directory could not load: ' + (error?.message || error), 'error');
     }
-  }
+  },
+	
 }

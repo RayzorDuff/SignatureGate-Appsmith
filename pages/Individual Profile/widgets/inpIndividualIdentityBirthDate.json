@@ -19,13 +19,13 @@
       "key": "maxDate"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
