@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.member_emails\nWHERE member_id = {{ appsmith.store.member_id }}::uuid\n  AND COALESCE(status, 'active') = 'active'\nORDER BY is_primary DESC, is_verified DESC, created_at DESC\nLIMIT 1;",
+      "body": "SELECT *\nFROM public.member_emails\nWHERE member_id = NULLIF({{ appsmith.store.member_id || '' }},'')::uuid\n  AND COALESCE(status, 'active') = 'active'\nAND public.application_member_access({{ appsmith.user.email }},NULLIF({{ appsmith.store.member_id || '' }},'')::uuid,false)\nORDER BY is_primary DESC, is_verified DESC, created_at DESC\nLIMIT 1;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

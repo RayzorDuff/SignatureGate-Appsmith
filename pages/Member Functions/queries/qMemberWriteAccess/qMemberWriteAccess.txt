@@ -1,0 +1,1 @@
+SELECT public.application_member_access({{ appsmith.user.email }},NULLIF({{ appsmith.store.member_id || "" }},'')::uuid,true) AS allowed;

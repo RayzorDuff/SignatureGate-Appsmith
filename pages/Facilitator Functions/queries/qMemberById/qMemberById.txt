@@ -1,4 +1,4 @@
-SELECT m.* FROM public.member_profiles m
-WHERE m.member_id={{ appsmith.store.selected_facilitator_id || null }}::uuid
-AND m.status='active'
+SELECT p.person_id AS member_id,p.person_id,p.first_name,p.last_name,p.display_name,true AS is_facilitator
+FROM public.people p JOIN public.person_roles role USING(person_id) WHERE role.role_key='practitioner'
+AND p.person_id=NULLIF({{ appsmith.store.selected_facilitator_id || "" }},'')::uuid
 AND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');

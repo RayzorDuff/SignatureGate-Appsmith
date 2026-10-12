@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  member_id,\n  duplicate_blocked\nFROM public.create_member_from_intake(\n  NULLIF(btrim({{ this.params.first_name || \"\" }}), ''),\n  NULLIF(btrim({{ this.params.last_name || \"\" }}), ''),\n  NULLIF(lower(btrim({{ this.params.email || \"\" }})), ''),\n  NULLIF(btrim({{ this.params.phone || \"\" }}), ''),\n  NULLIF({{ this.params.date_of_birth || \"\" }}, '')::date,\n  NULLIF(btrim({{ this.params.notes || \"\" }}), ''),\n  COALESCE({{ this.params.is_facilitator }}, false)::boolean,\n  NULLIF(btrim({{ this.params.created_by_facilitator_id || \"\" }}), '')::uuid\n);",
+      "body": "SELECT * FROM public.application_create_participant(\n {{ appsmith.user.email }}::text, {{ this.params.first_name }}::text, {{ this.params.last_name }}::text,\n NULLIF({{ this.params.email || \"\" }}::text,''), NULLIF({{ this.params.phone || \"\" }}::text,''),\n NULLIF({{ this.params.date_of_birth || \"\" }}::text,'')::date)\nWHERE public.application_require_permission({{ appsmith.user.email }}::text,'intake.participant');\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

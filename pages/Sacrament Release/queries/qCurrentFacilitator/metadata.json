@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  actor.person_id AS member_id,\n  actor.person_id,\n  actor.member_id AS legacy_member_id,\n  actor.email,\n  actor.first_name,\n  actor.last_name,\n  actor.display_name,\n  actor.is_document_reviewer,\n  actor.is_donations_reviewer,\n  actor.practitioner_singular_label,\n  actor.practitioner_plural_label\nFROM public.issue19_current_release_actor({{ this.params.email }}) actor\nWHERE actor.is_practitioner\nLIMIT 1;",
+      "body": "SELECT * FROM public.application_access({{ appsmith.user.email }}::text);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -30,6 +30,6 @@
     "name": "qCurrentFacilitator",
     "pageId": "Sacrament Release",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

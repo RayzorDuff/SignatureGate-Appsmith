@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT member_id, email, first_name, last_name,\n       is_document_reviewer,\n       is_donations_reviewer\nFROM public.member_profiles\nWHERE lower(email) = lower({{ appsmith.user.email }})\n  AND is_facilitator IS TRUE\n  AND status = 'active'\nLIMIT 1;\n",
+      "body": "SELECT person_id AS member_id,email,first_name,last_name,is_document_reviewer,is_donations_reviewer FROM public.application_access({{ appsmith.user.email }}) WHERE can_cash_deposits;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

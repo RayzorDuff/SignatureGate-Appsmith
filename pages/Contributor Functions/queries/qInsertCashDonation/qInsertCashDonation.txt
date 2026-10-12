@@ -1,9 +1,5 @@
-SELECT *
-FROM public.record_cash_donation_identity(
-  p_choice => '{{ this.params.contributor_choice }}',
-  p_is_anonymous => COALESCE({{ this.params.is_anonymous }}, false),
-  p_amount_cents => {{ this.params.amount_cents }}::integer,
-  p_donated_at => '{{ this.params.donated_at }}'::timestamptz,
-  p_notes => {{ this.params.notes ? "'" + String(this.params.notes).split("'").join("''") + "'" : "NULL" }},
-  p_facilitator_id => '{{ appsmith.store.facilitator_id }}'::uuid
-);
+SELECT * FROM public.application_record_cash(
+ {{ appsmith.user.email }}::text, {{ this.params.contributor_choice }}::text,
+ COALESCE({{ this.params.is_anonymous }}::boolean,false), {{ this.params.amount_cents }}::integer,
+ NULLIF({{ this.params.donated_at || "" }}::text,'')::timestamptz,
+ NULLIF({{ this.params.notes || "" }}::text,''));

@@ -1,0 +1,73 @@
+// Isolated source-query integration tests; every fixture is artificial.
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {pathToFileURL} from 'node:url';
+const [modulePath,extensionPath,schemaPath]=process.argv.slice(2);
+const {PGlite}=await import(pathToFileURL(modulePath));const {uuid_ossp}=await import(pathToFileURL(extensionPath));
+const db=new PGlite({extensions:{uuid_ossp}});await db.waitReady;
+const source=(page,name)=>fs.readFileSync(new URL('../pages/'+page+'/queries/'+name+'/'+name+'.txt',import.meta.url),'utf8');
+let target,actorId,donationId,selectedContributor,currentAction;
+async function action(page,name,email,params={}) {
+ const values=[],context={params:{email,member_id:target,donation_id:donationId,contributor_choice:'__anonymous__',is_anonymous:true,amount_cents:100,donated_at:'2026-01-01',notes:'Synthetic',selection_value:'__anonymous__',show_rejected:false,new_status:'verified',review_notes:'Synthetic review',first_name:'Synthetic',last_name:'Denied',phone:'5550109001',date_of_birth:'',...params},
+ appsmith:{user:{email},store:{member_id:target,facilitator_id:actorId,facilitator_is_donations_reviewer:true,cash_deposit_hide_ineligible:false,selected_facilitator_id:actorId}},selCashDepositStatus:{selectedOptionValue:'ALL'},Boolean,String,JSON};
+ const sql=source(page,name).replace(/{{(.*?)}}/gs,(_,e)=>{values.push(vm.runInNewContext(e,context));return '$'+values.length;});
+ currentAction=page+'/'+name;
+ await db.exec('SAVEPOINT source_action');
+ try {const result=await db.query(sql,values);await db.exec('RELEASE SAVEPOINT source_action');return result.rows;}
+ catch(error){await db.exec('ROLLBACK TO SAVEPOINT source_action');await db.exec('RELEASE SAVEPOINT source_action');throw error;}
+}
+async function make(label,roles,member=false) {
+ const id=(await db.query('INSERT INTO public.people(display_name) VALUES ($1) RETURNING person_id',['Synthetic Query '+label])).rows[0].person_id;
+ const email='query-'+label+'@example.invalid';await db.query('INSERT INTO public.person_app_accounts(person_id,email) VALUES ($1,$2)',[id,email]);
+ for(const role of roles)await db.query('INSERT INTO public.person_roles(person_id,role_key,assigned_by) VALUES ($1,$2,$3)',[id,role,'synthetic']);
+ let memberId;if(member)memberId=(await db.query('INSERT INTO public.members(person_id,email,is_facilitator,is_document_reviewer,is_donations_reviewer) VALUES ($1,$2,true,true,true) RETURNING member_id',[id,email])).rows[0].member_id;
+ return {id,email,memberId};
+}
+try {
+ await db.exec(fs.readFileSync(schemaPath,'utf8').replace(/^\\.*$/gm,''));await db.exec('BEGIN');
+ const self=await make('self',[],true),other=await make('other',[],true),doc=await make('documents',['document_reviewer']),don=await make('donations',['donations_reviewer']),practitioner=await make('practitioner',['practitioner']);
+ actorId=don.id;target=self.memberId;
+ await db.query('INSERT INTO public.member_practitioner_assignments(member_id,practitioner_person_id) VALUES ($1,$2)',[target,practitioner.id]);
+ donationId=(await db.query("SELECT (public.application_record_cash($1,'__anonymous__',true,100,now(),'Synthetic')).donation_id",[doc.email])).rows[0].donation_id;
+ for(const name of ['qCashDepositCashOnHand','qCashDepositBatches','qCashDepositBatchPrint'])assert.equal((await action('Cash Deposits',name,self.email,{deposit_batch_id:null})).length,0,'Participant/stale flags deny '+name);
+ assert.equal((await action('Cash Deposits','qCashDepositCashOnHand',don.email)).length,1);
+ assert.equal((await action('Contributor Functions','qPendingGivebutterDonations',doc.email)).length,0);
+ assert.equal((await action('Contributor Functions','qPendingGivebutterDonations',don.email)).length,1);
+ assert.equal((await action('Contributor Functions','qMembersDirectory',doc.email)).length,2);
+ assert.equal((await action('Contributor Functions','qMembersDirectory',practitioner.email)).length,1);
+ assert.equal((await action('Contributor Functions','qMembersDirectory',self.email)).length,0);
+ assert.equal((await action('Contributor Functions','qMemberDonations',doc.email)).length,1,'document reviewer sees own recorded cash');
+ assert.equal((await action('Contributor Functions','qMemberDonations',self.email)).length,0,'Participant cannot read staff contribution history');
+ for(const name of ['qMembersDirectory','qMemberById','qMemberEmails','qMemberAgreements','qMemberReleases','qMemberFacilitators'])await action('Member Functions',name,self.email);
+ assert.equal((await action('Member Functions','qMembersDirectory',self.email)).length,1);
+ assert.equal((await action('Member Functions','qMembersDirectory',doc.email)).length,2);
+ target=other.memberId;assert.equal((await action('Member Functions','qMemberById',self.email)).length,0,'forged target denied');
+ target=self.memberId;
+ const count=Number((await db.query('SELECT count(*) AS count FROM public.donations')).rows[0].count);
+ await assert.rejects(action('Contributor Functions','qInsertCashDonation',self.email));
+ assert.equal(Number((await db.query('SELECT count(*) AS count FROM public.donations')).rows[0].count),count);
+ await assert.rejects(action('Intake','qCreateMember',self.email));
+ await assert.rejects(action('Members – Intake','qCreateMember',self.email));
+ await assert.rejects(action('Members – Intake','qCheckMemberDuplicate',self.email));
+ await assert.rejects(action('Member Functions','qAuditLogInsert',self.email,{action:'synthetic.event',entity_type:'member',entity_id:target}));
+ const audit=(await action('Member Functions','qAuditLogInsert',doc.email,{actor_email:'forged@example.invalid',action:'synthetic.event',entity_type:'member',entity_id:target}))[0];
+ assert.equal((await db.query('SELECT actor FROM public.audit_log WHERE audit_log_id=$1',[audit.audit_log_id])).rows[0].actor,doc.email,'audit actor is signed account, not caller parameter');
+ target=other.memberId;
+ await assert.rejects(action('Member Functions','qAuditLogInsert',practitioner.email,{action:'synthetic.event',entity_type:'member',entity_id:target}));
+ target=self.memberId;
+ assert.equal((await action('Members – Intake','qCreateMember',doc.email,{email:'synthetic-intake@example.invalid',phone:'5550109292'})).length,1,'canonical nonmember reviewer creates Participant through legacy action');
+ const duplicate=await action('Members – Intake','qCheckMemberDuplicate',doc.email,{email:'synthetic-intake@example.invalid',phone:'5550109292'});
+ assert.ok(duplicate.some(row=>row.is_accessible===true),'canonical nonmember reviewer sees authorized duplicate');
+ await assert.rejects(action('Intake','qAddMemberEmail',self.email,{email:'synthetic-added@example.invalid'}));
+ assert.equal((await action('Contributor Functions','qInsertCashDonation',doc.email)).length,1,'nonmember document reviewer records anonymous');
+ actorId=practitioner.id;
+ for(const name of ['qListFacilitators','qMemberById','qMemberStorageLocations','qAssignedParticipants','qParticipantCandidates','qLocationNameSuggestions','qDistinctStorageLocationNames'])await action('Facilitator Functions',name,doc.email);
+ assert.equal((await action('Facilitator Functions','qListFacilitators',doc.email)).length,1);
+ assert.equal((await action('Facilitator Functions','qListFacilitators',self.email)).length,0);
+ for(const who of [self,doc,don,practitioner])await action('Audit Log','qAuditLogList',who.email);
+ assert.equal((await action('Audit Log','qAuditLogList',self.email)).length,0);
+ assert.equal((await action('Audit Log','qAuditLogList',doc.email)).filter(r=>r.entity_type==='donation').length,0,'document reviewer cannot browse financial audits');
+ assert.ok((await action('Audit Log','qAuditLogList',don.email)).some(r=>r.entity_type==='donation'));
+ await db.exec('ROLLBACK');console.log('PASS actual source queries: stale financial flags, self/forged targets, canonical reviewers, cash recording, raw Intake mutation denial and financial audit scope');
+} catch(error){console.error(JSON.stringify({action:currentAction,message:error.message,code:error.code}));process.exitCode=1;} finally {await db.close();}

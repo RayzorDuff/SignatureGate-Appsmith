@@ -22,7 +22,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": "{{ appsmith.store.facilitator_is_reviewer && qMemberById.data?.[0]?.is_facilitator }}",
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_practitioner_admin === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (appsmith.store.facilitator_is_reviewer && qMemberById.data?.[0]?.is_facilitator) }}",
   "key": "rzq85hlaf7",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

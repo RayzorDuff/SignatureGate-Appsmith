@@ -11,7 +11,7 @@ SELECT
   COALESCE({{ this.params.is_primary }}, false),
   'givebutter_review',
   {{ this.params.notes || null }}
-WHERE NULLIF(public.normalize_us_phone({{ this.params.phone }}), '') IS NOT NULL
+WHERE public.application_require_permission({{ appsmith.user.email }},'contributions.review') AND NULLIF(public.normalize_us_phone({{ this.params.phone }}), '') IS NOT NULL
   AND NOT EXISTS (
     SELECT 1
     FROM public.member_phones mp

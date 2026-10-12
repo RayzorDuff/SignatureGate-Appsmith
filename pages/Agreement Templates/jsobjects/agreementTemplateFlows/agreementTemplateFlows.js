@@ -51,7 +51,7 @@ export default {
 					mode: appsmith.mode
 				});
 				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+					/* Access denied in place; keep navigation available. */
 				}
 				return;
 			}
@@ -71,7 +71,7 @@ export default {
 			showAlert("Access check failed: " + (e?.message || e), "error");
 			showAlert("Query error: " + 'See qCurrentFacilitator execution logs', "error");
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				/* Access denied in place; keep navigation available. */
 			}
 			return;
 		}

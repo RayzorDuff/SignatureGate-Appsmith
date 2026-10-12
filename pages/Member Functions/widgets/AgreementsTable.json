@@ -199,6 +199,18 @@
     },
     {
       "key": "primaryColumns.expired_at.computedValue"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "primaryColumns.customColumn1.isVisible"
+    },
+    {
+      "key": "primaryColumns.customColumn2.isVisible"
+    },
+    {
+      "key": "primaryColumns.customColumn3.isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -260,7 +272,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,
@@ -481,13 +493,13 @@
       "id": "customColumn1",
       "index": 10,
       "isCellEditable": false,
-      "isCellVisible": "{{(() => { const tableData = AgreementsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (  appsmith.store.facilitator_is_reviewer )) :   appsmith.store.facilitator_is_reviewer  })()}}",
+      "isCellVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "isDerived": true,
       "isDisabled": "{{(() => {\n  const tableData = AgreementsTable.processedTableData || [];\n  const disabled = (currentRow) =>\n    currentRow[\"status\"] !== \"pending_review\" ||\n    !String(currentRow[\"review_notes\"] || \"\").trim();\n\n  return tableData.length > 0\n    ? tableData.map((currentRow, currentIndex) => disabled(currentRow))\n    : disabled(currentRow);\n})()}}",
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": true,
+      "isVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "label": "Approve",
       "labelColor": "#FFFFFF",
       "notation": "standard",
@@ -525,13 +537,13 @@
       "id": "customColumn2",
       "index": 10,
       "isCellEditable": false,
-      "isCellVisible": "{{(() => { const tableData = AgreementsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( appsmith.store.facilitator_is_reviewer )) :  appsmith.store.facilitator_is_reviewer  })()}}",
+      "isCellVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "isDerived": true,
       "isDisabled": "{{(() => {\n  const tableData = AgreementsTable.processedTableData || [];\n  const disabled = (currentRow) =>\n    currentRow[\"status\"] !== \"pending_review\" ||\n    !String(currentRow[\"review_notes\"] || \"\").trim();\n\n  return tableData.length > 0\n    ? tableData.map((currentRow, currentIndex) => disabled(currentRow))\n    : disabled(currentRow);\n})()}}",
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": true,
+      "isVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "label": "Reject",
       "labelColor": "#FFFFFF",
       "notation": "standard",
@@ -564,13 +576,13 @@
       "id": "customColumn3",
       "index": 10,
       "isCellEditable": false,
-      "isCellVisible": "{{(() => {\n  const tableData = AgreementsTable.processedTableData || [];\n  const visible = (currentRow) =>\n    appsmith.store.facilitator_is_reviewer === true &&\n    currentRow.signature_method === \"documenso\" &&\n    currentRow.status === \"pending_signature\";\n\n  return tableData.length > 0\n    ? tableData.map((currentRow, currentIndex) => visible(currentRow))\n    : visible(currentRow);\n})()}}",
+      "isCellVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "isDerived": true,
       "isDisabled": "{{(() => {\n  const tableData = AgreementsTable.processedTableData || [];\n  const disabled = (currentRow) =>\n    !(\n      currentRow.signature_method === \"documenso\" &&\n      currentRow.status === \"pending_signature\" &&\n      currentRow.documenso_document_id &&\n      String(currentRow.review_notes || \"\").trim()\n    );\n\n  return tableData.length > 0\n    ? tableData.map((currentRow, currentIndex) => disabled(currentRow))\n    : disabled(currentRow);\n})()}}",
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": true,
+      "isVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "label": "Cancel",
       "labelColor": "#FFFFFF",
       "notation": "standard",

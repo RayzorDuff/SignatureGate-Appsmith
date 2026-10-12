@@ -36,7 +36,7 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !qCashDepositCurrentFacilitator.data?.[0]?.member_id }}",
   "isLoading": false,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true) }}",
   "key": "bkfm8aymy0",
   "leftColumn": 52,
   "minWidth": 120,

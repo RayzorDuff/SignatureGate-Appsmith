@@ -1,1 +1,1 @@
-SELECT * FROM public.issue19_current_release_actor({{ this.params.email || appsmith.user.email }}::text);
+SELECT * FROM public.application_access({{ appsmith.user.email }}) WHERE is_document_reviewer;

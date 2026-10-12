@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "UPDATE public.member_facilitators\nSET\n  status = 'inactive',\n  updated_at = now(),\n  notes = COALESCE({{ this.params.notes }}, notes)\nWHERE member_facilitator_id = {{ this.params.member_facilitator_id }}::uuid\nRETURNING member_facilitator_id, member_id, facilitator_id, status;",
+      "body": "SELECT public.issue19_end_member_practitioner({{ appsmith.user.email }},\n(SELECT person_id FROM public.members WHERE member_id={{ appsmith.store.member_id }}::uuid),{{ this.params.member_facilitator_id }}::uuid,\nCOALESCE(NULLIF({{ this.params.notes || \"\" }},''),'Participant practitioner assignment ended')) AS member_facilitator_id;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

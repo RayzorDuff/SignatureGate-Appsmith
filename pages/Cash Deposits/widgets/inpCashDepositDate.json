@@ -42,7 +42,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true) }}",
   "key": "cdepdate01",
   "label": "{{ cashDepositFlows.selectedBatch()?.status === \"draft\" ? \"Planned Deposit Date\" : [\"prepared\", \"confirmed\"].includes(cashDepositFlows.selectedBatch()?.status) ? \"Actual Deposit Date\" : \"Deposit Date\" }}",
   "labelAlignment": "left",

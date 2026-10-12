@@ -17,6 +17,9 @@
     },
     {
       "key": "defaultOptionValue"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -40,12 +43,12 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_contributor_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "key": "tcvabvv6qz",
   "label": "Contributor, Member, or Anonymous",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Contributor, Member, or Anonymous",
+  "labelText": "Contributor, Participant (creates Contributor capacity), or Anonymous",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 0,
@@ -71,7 +74,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 40,
   "serverSideFiltering": false,
-  "sourceData": "{{ [\n  { label: \"Anonymous cash donor\", value: \"__anonymous__\" },\n  ...(tblPendingGivebutterDonations.selectedRow?.provider === \"givebutter\" ? [\n    { label: \"Create new individual contributor from donation\", value: \"__new_individual__\" },\n    { label: \"Create new organization contributor from donation\", value: \"__new_organization__\" }\n  ] : []),\n  ...(qMembersDirectory.data || []).map(item => ({\n    label: `${item.selection_label}${item.email ? \" — \" + item.email : \"\"}`,\n    value: item.selection_value\n  }))\n] }}",
+  "sourceData": "{{ [\n ...(qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_donations_reviewer === true ? [{label:\"Anonymous cash donor\",value:\"__anonymous__\"}] : []),\n ...(qPageAccess.data?.[0]?.is_donations_reviewer === true && tblPendingGivebutterDonations.selectedRow?.provider === \"givebutter\" ? [{label:\"Create new individual contributor\",value:\"__new_individual__\"},{label:\"Create new company contributor\",value:\"__new_organization__\"}] : []),\n ...(qMembersDirectory.data || []).map(item=>({label:item.selection_label,value:item.selection_value}))\n] }}",
   "topRow": 0,
   "type": "SELECT_WIDGET",
   "version": 1,

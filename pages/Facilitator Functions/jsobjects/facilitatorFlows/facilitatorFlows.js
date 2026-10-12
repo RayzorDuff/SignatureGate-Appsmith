@@ -17,6 +17,8 @@ export default {
 	},
 
 	async verifyaccess() {
+    await Promise.all([storeValue("facilitator_id", ""), storeValue("facilitator_is_reviewer", false), storeValue("facilitator_is_donations_reviewer", false)]);
+
 		try {
 			let email = null;
 			for (let i = 0; i < 20; i++) {
@@ -30,7 +32,8 @@ export default {
 				return;
 			}
 
-			let rows = await qCurrentFacilitator.run({ email });
+			await qPageAccess.run();
+            let rows = await qCurrentFacilitator.run({ email });
 			if (!Array.isArray(rows)) rows = [];
 
 			const me = rows[0];
@@ -43,13 +46,13 @@ export default {
 					mode: appsmith.mode
 				});
 				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+					/* Access denied in place; keep navigation available. */
 				}
 				return;
 			}
 
 			await Promise.all([
-				storeValue("facilitator_id", me.member_id),
+				storeValue("facilitator_id", me.member_id || ""),
 				storeValue("facilitator_email", (me.email ?? "").trim().toLowerCase()),
 				storeValue("facilitator_is_reviewer", me.is_document_reviewer),
 				storeValue("facilitator_is_donations_reviewer", me.is_donations_reviewer),
@@ -60,7 +63,7 @@ export default {
 		} catch (e) {
 			showAlert("Access check failed: " + (e?.message || e), "error");
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				/* Access denied in place; keep navigation available. */
 			}
 			return;
 		}
@@ -71,8 +74,8 @@ export default {
 			String(appsmith.store.selected_facilitator_id || "").trim();
 
 		if (!appsmith.store.facilitator_is_reviewer) return [];
-		await qListFacilitators.run();
-		if (!selectedId) return [];
+		const practitioners = await qListFacilitators.run();
+        if (!selectedId || !(practitioners || []).some(person => person.member_id === selectedId)) { await storeValue("selected_facilitator_id", null); return []; }
 
 		await storeValue("selected_facilitator_id", selectedId);
 

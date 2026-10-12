@@ -1,3 +1,4 @@
+SELECT guarded.* FROM (
 WITH input AS (
   SELECT
     NULLIF(lower(btrim({{ this.params.first_name || "" }})), '') AS first_name,
@@ -203,4 +204,5 @@ ORDER BY
   CASE WHEN match_severity = 'hard' THEN 0 ELSE 1 END,
   score DESC,
   matched_field
-LIMIT 10;
+LIMIT 10
+) guarded WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');

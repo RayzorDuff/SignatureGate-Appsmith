@@ -26,6 +26,8 @@ export default {
   },
 
   async verifyaccess() {
+    await Promise.all([storeValue("release_scope_member_id", ""),storeValue("facilitator_id", ""), storeValue("facilitator_is_reviewer", false), storeValue("facilitator_is_donations_reviewer", false)]);
+
       try {
         let email = null;
         for (let i = 0; i < 20; i++) {
@@ -37,14 +39,15 @@ export default {
           showAlert("Unknown user: appsmith.user.email not available.", "error");
           return;
         }
-        let rows = await qCurrentFacilitator.run({ email });
+        await qPageAccess.run();
+            let rows = await qCurrentFacilitator.run({ email });
         if (!Array.isArray(rows)) rows = [];
         const me = rows[0];
-        if (!me?.person_id) {
+        if (!me?.person_id || me.can_release !== true) {
           showAlert("Access denied: a practitioner appointment is required for " + email, "error");
           await releaseFlows.auditLog("auth.denied", "person", "", { email, required_role: "practitioner", page: appsmith.URL?.pathname, mode: appsmith.mode });
           if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-            navigateTo("Unauthorized", {}, "SAME_WINDOW");
+            /* Access denied in place; keep navigation available. */
           }
           return;
         }
@@ -63,7 +66,7 @@ export default {
         showAlert("Access check failed: " + (e?.message || e), "error");
         showAlert("Query error: " + JSON.stringify(({})), "error");
         if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-          navigateTo("Unauthorized", {}, "SAME_WINDOW");
+          /* Access denied in place; keep navigation available. */
         }
         return;
       }
@@ -98,10 +101,13 @@ export default {
       if (selectedPractitioner) {
         await selFacilitator.setSelectedOption(selectedPractitioner);
       }
-      await qAccessibleStorageLocations.run({
+      await storeValue("release_scope_member_id", "");
+      const locations = await qAccessibleStorageLocations.run({
         member_id: selectedMember,
         practitioner_person_id: selectedPractitioner || null
       });
+      if (!(locations || []).length) { showAlert("No storage locations are granted to the selected practitioner for this Participant.", "info"); return gateRows; }
+      await storeValue("release_scope_member_id", selectedMember);
       await apiListAvailableProducts.run();
       return gateRows;
   },

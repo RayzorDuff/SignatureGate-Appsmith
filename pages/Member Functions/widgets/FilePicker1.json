@@ -14,6 +14,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -39,7 +42,7 @@
   "isDisabled": "{{!(\n\tselMember?.selectedOptionValue\n)\t}}",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": true,
+  "isVisible": false,
   "key": "67f2brnxij",
   "label": "Select Files",
   "leftColumn": 19,

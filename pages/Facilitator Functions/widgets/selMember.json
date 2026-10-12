@@ -14,6 +14,9 @@
     },
     {
       "key": "defaultOptionValue"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -40,7 +43,7 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_practitioner_admin === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "key": "mjehiralxq",
   "labelAlignment": "left",
   "labelPosition": "Top",

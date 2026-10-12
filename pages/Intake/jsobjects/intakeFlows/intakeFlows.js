@@ -1,4 +1,8 @@
 export default {
+  async loadAccess() {
+    for(let i=0;i<20 && !(appsmith.user?.email || "").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));
+    return qPageAccess.run();
+  },
   
 	async auditLog(action, entity_type, entity_id, payload) {
     try {
@@ -11,6 +15,10 @@ export default {
   },
 
   async submit() {
+    const access = (await qPageAccess.run())?.[0];
+    if (access?.can_intake !== true) { showAlert("Intake requires reviewer permission.", "error"); return; }
+    const contactEmail = String(inpIntakeEmail.text || "").trim();
+    if (contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) { showAlert("Enter a valid email address.", "warning"); return; }
     const entity = selIntakeEntityType.selectedOptionValue;
     const individual = entity === "Individual";
     const company = entity === "Company";
@@ -28,8 +36,8 @@ export default {
     if (member) {
       const actorRows = await qCurrentFacilitator.run({ email });
       actor = Array.isArray(actorRows) ? actorRows[0] : null;
-      if (!actor?.member_id) {
-        showAlert("The current user is not an active facilitator.", "error");
+      if (!actor?.person_id || actor.is_document_reviewer !== true) {
+        showAlert("Document Reviewer permission required.", "error");
         return;
       }
     }
@@ -183,12 +191,12 @@ export default {
 
         if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "individual", party_id: memberPersonId, notes: identityNotes, reason: "Initial intake"});
 
-        const e = await qAddMemberEmail.run({
+        const e = individualEmail ? await qAddMemberEmail.run({
           member_id: memberId,
           email: individualEmail,
           notes: "Created from Intake",
           subscribe_to_mailing_list: chkIntakeSubscribeMemberListmonk.isChecked
-        });
+        }) : [];
         memberEmailId = e?.[0]?.member_email_id || null;
         let phoneId = null;
         if (phone) {
@@ -219,18 +227,14 @@ export default {
           }))?.[0]?.contributor_id;
           if (!contributorId) throw new Error("Contributor capacity was not created.");
 
-          const contributorEmail = await qAddContributorEmailForDualCapacity.run({
+          const contributorEmail = individualEmail ? await qAddContributorEmailForDualCapacity.run({
             person_id: memberPersonId,
             email: individualEmail,
             reason,
             subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
-          });
-					const queueCheck = await qCheckContributorListmonkQueue.run({
-						contributor_email_id: contributorEmail?.[0]?.contributor_email_id
-					});
-					console.log("Contributor Listmonk queue immediately after enqueue:", queueCheck);
+          }) : [];
 					
-          if (!contributorEmail?.[0]?.contributor_email_id) {
+          if (individualEmail && !contributorEmail?.[0]?.contributor_email_id) {
             throw new Error("Contributor email was not created.");
           }
 
@@ -238,11 +242,6 @@ export default {
             contributor_id: contributorId, member_id: memberId,
             actor_member_id: actor.member_id, reason
           });
-					
-					const queueAfterLink = await qCheckContributorListmonkQueue.run({
-						contributor_email_id: contributorEmail?.[0]?.contributor_email_id
-					});
-					console.log("Contributor Listmonk queue after member link:", queueAfterLink);
 
         }
       } else {

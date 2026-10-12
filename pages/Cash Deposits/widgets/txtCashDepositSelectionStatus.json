@@ -8,6 +8,9 @@
     },
     {
       "key": "text"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -15,7 +18,7 @@
   "fontSize": "0.875rem",
   "fontStyle": "NORMAL",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "key": "524eopy7ij",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

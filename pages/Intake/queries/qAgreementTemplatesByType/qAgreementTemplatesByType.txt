@@ -1,1 +1,3 @@
-SELECT agreement_template_id, name, version, required_for, active, documenso_template_envelope_id FROM public.agreement_templates WHERE active = true AND {{ selAgreementType.selectedOptionValue || this.params.type_key }} = ANY(required_for) ORDER BY name, version DESC, created_at DESC;
+SELECT role_policy_guard.* FROM (
+SELECT agreement_template_id, name, version, required_for, active, documenso_template_envelope_id FROM public.agreement_templates WHERE active = true AND {{ selAgreementType.selectedOptionValue || this.params.type_key }} = ANY(required_for) ORDER BY name, version DESC, created_at DESC
+) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');

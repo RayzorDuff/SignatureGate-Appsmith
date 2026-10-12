@@ -130,6 +130,9 @@
     },
     {
       "key": "primaryColumns.detail_facilitator_name.computedValue"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -173,7 +176,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_page === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": true,
   "isVisiblePagination": true,

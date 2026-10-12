@@ -18,6 +18,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -36,7 +39,7 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{\n  (() => {\n    const selectedMember = selMember.selectedOptionValue || appsmith.URL.queryParams.member_id || appsmith.store.member_id;\n    const hasAgreement = qGateCheckAgreement.data && qGateCheckAgreement.data.length > 0;\n    const isReviewer = appsmith.store.facilitator_is_reviewer === true;\n    const hasNotes = !!(inpNotes.text && inpNotes.text.trim());\n    const hasFacilitator = !!selFacilitator.selectedOptionValue;\n\n    if (!selectedMember) return true;\n    if (!hasFacilitator) return true;\n    if (hasAgreement) return false;\n    if (!isReviewer) return true;\n    if (!hasNotes) return true;\n\n    return false;\n  })()\n}}",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_release === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "key": "vdp8i20knw",
   "leftColumn": 15,
   "minWidth": 120,

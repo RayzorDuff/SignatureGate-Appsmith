@@ -25,7 +25,7 @@
     "fullyQualifiedName": "cashDepositFlows.refresh",
     "name": "refresh",
     "pageId": "Cash Deposits",
-    "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "runBehaviour": "ON_PAGE_LOAD",
+    "userSetOnLoad": true
   }
 }

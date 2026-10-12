@@ -36,7 +36,7 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !tblCashDepositBatches.selectedRow?.deposit_batch_id || tblCashDepositBatches.selectedRow?.status !== \"prepared\" || !inpCashDepositActualAmount.text }}",
   "isLoading": false,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true) }}",
   "key": "bkfm8aymy0",
   "leftColumn": 17,
   "minWidth": 120,

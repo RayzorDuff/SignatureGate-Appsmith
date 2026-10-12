@@ -1,11 +1,4 @@
-SELECT *
-FROM public.create_member_from_intake(
-  NULLIF(btrim({{ this.params.first_name || "" }}),''),
-  NULLIF(btrim({{ this.params.last_name || "" }}),''),
-  NULLIF(lower(btrim({{ this.params.email || "" }})),''),
-  NULLIF(btrim({{ this.params.phone || "" }}),''),
-  NULLIF({{ this.params.date_of_birth || "" }},'')::date,
-  NULLIF(btrim({{ this.params.notes || "" }}),''),
-  false,
-  NULLIF(btrim({{ this.params.created_by_facilitator_id || "" }}),'')::uuid
-);
+SELECT * FROM public.application_create_participant(
+ {{ appsmith.user.email }}::text, {{ this.params.first_name }}::text, {{ this.params.last_name }}::text,
+ NULLIF({{ this.params.email || "" }}::text,''), NULLIF({{ this.params.phone || "" }}::text,''),
+ NULLIF({{ this.params.date_of_birth || "" }}::text,'')::date);

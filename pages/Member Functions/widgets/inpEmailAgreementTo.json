@@ -20,6 +20,9 @@
     },
     {
       "key": "defaultOptionValue"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -39,7 +42,7 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": true,
+  "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "wxsck82x94",
   "labelAlignment": "left",
   "labelPosition": "Top",

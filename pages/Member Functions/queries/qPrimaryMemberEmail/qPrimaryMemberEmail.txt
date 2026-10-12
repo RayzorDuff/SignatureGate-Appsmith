@@ -1,6 +1,7 @@
 SELECT *
 FROM public.member_emails
-WHERE member_id = {{ appsmith.store.member_id }}::uuid
+WHERE member_id = NULLIF({{ appsmith.store.member_id || '' }},'')::uuid
   AND COALESCE(status, 'active') = 'active'
+AND public.application_member_access({{ appsmith.user.email }},NULLIF({{ appsmith.store.member_id || '' }},'')::uuid,false)
 ORDER BY is_primary DESC, is_verified DESC, created_at DESC
 LIMIT 1;

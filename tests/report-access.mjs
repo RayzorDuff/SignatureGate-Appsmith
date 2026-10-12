@@ -28,7 +28,7 @@ for(const options of [{},{error:true}]) {
  assert.equal(context.appsmith.store.facilitator_is_donations_reviewer,false);
  assert.equal(context.appsmith.store.reports_actor_email,'');
  assert.equal(reports.totalFor('donations_dollars'),0);
- assert.equal(calls.redirects,1);
+ assert.equal(calls.redirects,0,'permission denial preserves page navigation');
 }
 {
  const {reports}=fixture({person_id:'synthetic-person',is_directory_manager:true});

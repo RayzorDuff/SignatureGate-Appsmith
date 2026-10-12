@@ -1,3 +1,4 @@
+SELECT role_policy_guard.* FROM (
 SELECT
   member_id,
   first_name,
@@ -6,4 +7,5 @@ SELECT
 FROM public.member_profiles
 WHERE is_facilitator IS TRUE
   AND status = 'active'
-ORDER BY last_name, first_name;
+ORDER BY last_name, first_name
+) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');

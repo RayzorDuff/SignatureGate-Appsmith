@@ -1,11 +1,11 @@
 {
   "gitSyncId": "69546c483d3106150e1d4549_efa65feb-b0e8-4011-8143-9f576d7e4cef",
-  "id": "Members – Intake_qCurrentFacilitator",
+  "id": "Members \u2013 Intake_qCurrentFacilitator",
   "pluginId": "postgres-plugin",
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT member_id, email, first_name, last_name, is_document_reviewer, is_donations_reviewer\nFROM public.member_profiles\nWHERE lower(email) = lower({{ this.params.email }})\n  AND is_facilitator IS TRUE\n  AND status = 'active'\nLIMIT 1;",
+      "body": "SELECT * FROM public.application_access({{ appsmith.user.email }}::text);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -28,7 +28,7 @@
       }
     ],
     "name": "qCurrentFacilitator",
-    "pageId": "Members – Intake",
+    "pageId": "Members \u2013 Intake",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }

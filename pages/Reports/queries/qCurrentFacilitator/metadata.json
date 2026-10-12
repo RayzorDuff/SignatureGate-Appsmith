@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.issue19_current_release_actor({{ this.params.email }}::text)\nWHERE is_practitioner OR is_document_reviewer OR is_donations_reviewer;\n",
+      "body": "SELECT * FROM public.application_access({{ appsmith.user.email }}) WHERE is_document_reviewer OR is_donations_reviewer OR is_practitioner;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

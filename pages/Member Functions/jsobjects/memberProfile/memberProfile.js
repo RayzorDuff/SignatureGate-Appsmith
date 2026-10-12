@@ -6,7 +6,7 @@ export default {
 				action,
 				entity_type,
 				entity_id: entity_id ?? "",
-				actor_member_id: appsmith.store.facilitator_id ?? "",
+				member_id: appsmith.store.member_id ?? "",
 				actor_email: ((appsmith.user?.email ?? "").trim().toLowerCase()),
 				mode: appsmith.mode ?? "",
 				details_json: JSON.stringify(payload ?? {}),
@@ -98,7 +98,7 @@ export default {
 		const allowed = Array.isArray(rows) ? rows[0]?.allowed : rows?.allowed;
 		if (!allowed) {
 			showAlert("You do not have access to this member.", "error");
-			navigateTo("Directory", {}, "SAME_WINDOW");
+			await storeValue("member_id", "");
 			return false;
 		}
 		return true;
@@ -129,6 +129,8 @@ export default {
 	*/
 	
   async init () {
+    await Promise.all([storeValue("facilitator_id", ""), storeValue("facilitator_is_reviewer", false), storeValue("facilitator_is_donations_reviewer", false)]);
+
 		try {
 			let email = null;
 			for (let i = 0; i < 20; i++) {
@@ -140,12 +142,13 @@ export default {
 				showAlert("Unknown user: appsmith.user.email not available.", "error");
 				return;
 			}
-			let rows = await qCurrentFacilitator.run({
+			await qPageAccess.run();
+            let rows = await qCurrentFacilitator.run({
 				email
 			});
 			if (!Array.isArray(rows)) rows = [];
 			const me = rows[0];
-			if (!me?.email || !me?.is_document_reviewer) {
+			if (!me?.email || !me?.can_member_functions) {
 				showAlert("Access denied: document reviewer permission required for " + email, "error");
 				await memberProfile.auditLog("auth.denied", "facilitator", "", {
 					email,
@@ -153,12 +156,12 @@ export default {
 					mode: appsmith.mode
 				});
 				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+					/* Access denied in place; keep navigation available. */
 				}
 				return;
 			}
 			await Promise.all([
-				storeValue("facilitator_id", me.member_id),
+				storeValue("facilitator_id", me.member_id || ""),
 				storeValue("facilitator_email", (me.email ?? "").trim().toLowerCase()),
 				storeValue("facilitator_is_reviewer", me.is_document_reviewer),
 				storeValue("facilitator_is_donations_reviewer", me.is_donations_reviewer),
@@ -169,7 +172,7 @@ export default {
 			showAlert("Access check failed: " + (e?.message || e), "error");
 			console.error("Member Functions initialization failed:", e);
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				/* Access denied in place; keep navigation available. */
 			}
 			return;
 		}
@@ -178,7 +181,9 @@ export default {
 		const directory = Array.isArray(directoryRows) ? directoryRows : [];
 		const urlMemberId = String(appsmith.URL.queryParams.member_id || "").trim();
 		const storedMemberId = String(appsmith.store.member_id || "").trim();
-		const candidate = urlMemberId || storedMemberId;
+		const access = qPageAccess.data?.[0] || {};
+        const staff = access.is_document_reviewer === true || access.is_practitioner === true;
+        const candidate = staff ? (urlMemberId || storedMemberId) : String(access.member_id || '');
 		const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(candidate);
 		const isAccessible = isUuid && directory.some(row => String(row.member_id || "") === candidate);
 
@@ -219,6 +224,9 @@ export default {
 	},
 	
 	async sendDigitalAgreement() {
+    const permission = (await qMemberWriteAccess.run())?.[0];
+    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+
 		const memberId = this._requireMemberId();
 		const facilitatorId = this._requireFacilitator();
 		const agreementTemplateId = this._requireAgreementTemplate();
@@ -302,184 +310,16 @@ export default {
 	},
 
 	async openPaperUpload() {
-		const memberId = this._requireMemberId();
-		const facilitatorId = this._requireFacilitator();
-		const agreementTypeId = this._requireAgreementType();
-		const agreementTemplateId =
-			selAgreementTemplate?.selectedOptionValue;
+    const permission = (await qMemberWriteAccess.run())?.[0];
+    if (permission?.allowed !== true) {
+      showAlert("Staff permission is required; Participant access is read-only.", "error");
+      return;
+    }
+    // Fail closed until the upload destination and authorization are validated.
+    showAlert("Paper evidence upload is pending integration validation. No file was sent.", "warning");
+    return;
+  },
 
-		if (!facilitatorId) {
-			showAlert("Invalid Facilitator.", "error");
-			return;
-		}
-
-		if (!memberId) {
-			showAlert("Invalid Member.", "error");
-			return;
-		}
-
-		if (!agreementTypeId) {
-			showAlert("Invalid Agreement Type.", "error");
-			return;
-		}
-
-		// This FilePicker is configured for Base64. Use .files, not
-		// .selectedFiles, so each object includes the encoded data n8n needs.
-		const raw = FilePicker1?.files || [];
-		console.log("FilePicker1.files raw:", raw);
-
-		const files = raw.filter(file =>
-			file &&
-			typeof file === "object" &&
-			typeof file.name === "string" &&
-			typeof file.size === "number" &&
-			file.size >= 0
-		);
-
-		if (!files.length) {
-			showAlert(
-				"Please choose at least one valid file to upload for the paper agreement.",
-				"warning"
-			);
-			return;
-		}
-
-		if (files.length !== raw.length) {
-			showAlert(
-				"Some selected items were invalid. Remove them and re-select the file(s).",
-				"warning"
-			);
-			return;
-		}
-
-		showAlert(`Uploading ${files.length} file(s)...`, "info");
-
-		try {
-			const attachments = [];
-
-			// Send one Base64 file per request. This avoids combining all encoded
-			// files into one oversized JSON body and gives each file its own timeout.
-			for (let i = 0; i < files.length; i++) {
-				const file = files[i];
-
-				const encodedData =
-					file.data ||
-					file.base64 ||
-					file.content ||
-					file.fileData ||
-					file.file;
-
-				if (
-					!encodedData ||
-					typeof encodedData !== "string"
-				) {
-					throw new Error(
-						`File "${file.name}" does not contain Base64 upload data.`
-					);
-				}
-
-				showAlert(
-					`Uploading file ${i + 1} of ${files.length}: ${file.name}`,
-					"info"
-				);
-
-				try {
-					const uploadRes =
-						await apiUploadEvidenceViaN8n.run({
-							files: [
-								{
-									name: file.name,
-									type:
-										file.type ||
-										file.mimeType ||
-										file.mimetype ||
-										"application/octet-stream",
-									size: file.size,
-									data: encodedData
-								}
-							]
-						});
-
-					attachments.push(
-						...this._normalizeUploadResponse(uploadRes)
-					);
-				} catch (e) {
-					throw new Error(
-						`Upload failed for "${file.name}" ` +
-						`(${i + 1} of ${files.length}): ` +
-						`${e?.message ?? e}`
-					);
-				}
-			}
-
-			const evidenceJson = JSON.stringify(attachments);
-
-			const ins = await qCreatePendingAgreement.run({
-				member_id: memberId,
-				facilitator_id: facilitatorId,
-				agreement_template_id:
-					agreementTemplateId || null,
-				signature_method: "paper",
-				status: "pending_review",
-				evidence_json: evidenceJson
-			});
-
-			const agreementId =
-				ins?.[0]?.member_agreement_id ||
-				ins?.member_agreement_id ||
-				"";
-
-			await this.auditLog(
-				"member_agreement.created",
-				"member_agreement",
-				agreementId,
-				{
-					member_id: memberId,
-					facilitator_id: facilitatorId,
-					agreement_template_id:
-						agreementTemplateId || null,
-					signature_method: "paper",
-					status: "pending_review"
-				}
-			);
-
-			await this.auditLog(
-				"member_agreement.evidence_uploaded",
-				"member_agreement",
-				agreementId,
-				{
-					member_id: memberId,
-					facilitator_id: facilitatorId,
-					agreement_template_id:
-						agreementTemplateId || null,
-					attachments: attachments.length
-				}
-			);
-
-			showAlert(
-				"Paper agreement uploaded and queued for review.",
-				"success"
-			);
-
-			await qMemberAgreements.run();
-			resetWidget("FilePicker1", true);
-
-			return {
-				attachments,
-				ins
-			};
-		} catch (e) {
-			console.error("Paper upload failed:", e);
-
-			showAlert(
-				`Upload failed: ${e?.message ?? e}`,
-				"error"
-			);
-
-			throw e;
-		}
-	},
-	
 	evidenceLinks(evidenceCell) {
 		// evidenceCell might be:
 		// - an array of file objects
@@ -542,6 +382,9 @@ export default {
 	},
 
 	async cancelDocumensoAgreement(row) {
+    const permission = (await qMemberWriteAccess.run())?.[0];
+    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+
 		if (!row?.member_agreement_id) {
 			showAlert("No agreement selected.", "error");
 			return;
@@ -577,6 +420,10 @@ export default {
 	},
 	
 	async verifyAgreement(agreementId, reviewNotes, newStatus, memberId, rowEvidence, agreementType) {
+    const permission = (await qMemberWriteAccess.run())?.[0];
+    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
+
 		const notes = (reviewNotes || "").trim();
 
 		if (!notes) {
@@ -627,6 +474,10 @@ export default {
 		airtableRecordId,
 		storageLocationName
 	) {
+    const permission = (await qMemberWriteAccess.run())?.[0];
+    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
+
 		if (!voidReleaseId) {
 			showAlert("Please choose a release to void.", "warning");
 			return;
@@ -672,6 +523,10 @@ export default {
 
 
 	async assignFacilitator() {
+    const permission = (await qMemberWriteAccess.run())?.[0];
+    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
+
 		try {
 			if (!appsmith.store.facilitator_is_reviewer) {
 				showAlert("Only document reviewers can assign facilitators.", "error");
@@ -719,6 +574,10 @@ export default {
 	},
 	
 	async removeFacilitator(member_facilitator_id, facilitator_id, facilitator_name) {
+    const permission = (await qMemberWriteAccess.run())?.[0];
+    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
+
 		try {
 			if (!appsmith.store.facilitator_is_reviewer) {
 				showAlert("Only document reviewers can remove facilitators.", "error");

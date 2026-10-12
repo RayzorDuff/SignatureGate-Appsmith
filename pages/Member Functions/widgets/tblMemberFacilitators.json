@@ -129,6 +129,9 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "primaryColumns.customColumn1.isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -160,7 +163,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": "{{ appsmith.store.facilitator_is_reviewer }}",
+  "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (appsmith.store.facilitator_is_reviewer)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,
@@ -293,13 +296,13 @@
       "id": "customColumn1",
       "index": 10,
       "isCellEditable": false,
-      "isCellVisible": "{{(() => { const tableData = tblMemberFacilitators.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( appsmith.store.facilitator_is_reviewer )) :  appsmith.store.facilitator_is_reviewer  })()}}",
+      "isCellVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "isDerived": true,
       "isDisabled": "{{(() => { const tableData = tblMemberFacilitators.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( currentRow.status !== \"active\" )) :  currentRow.status !== \"active\"  })()}}",
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": true,
+      "isVisible": "{{ qPageAccess.data?.[0]?.is_document_reviewer === true }}",
       "label": "Remove",
       "labelColor": "#FFFFFF",
       "notation": "standard",

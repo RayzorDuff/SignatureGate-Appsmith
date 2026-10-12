@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  agreement_template_id,\n  name,\n  version,\n  required_for,\n  doc_url,\n  active,\n  created_at,\n  updated_at,\n  documenso_template_id,\n  documenso_template_envelope_id,\n  documenso_member_recipient_id,\n  documenso_facilitator_recipient_id\nFROM public.agreement_templates\nORDER BY name, version DESC;",
+      "body": "SELECT guarded.* FROM (\nSELECT\n  agreement_template_id,\n  name,\n  version,\n  required_for,\n  doc_url,\n  active,\n  created_at,\n  updated_at,\n  documenso_template_id,\n  documenso_template_envelope_id,\n  documenso_member_recipient_id,\n  documenso_facilitator_recipient_id\nFROM public.agreement_templates\nORDER BY name, version DESC\n) guarded WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -22,7 +22,11 @@
       "name": "signaturegate-postgres-test",
       "pluginId": "postgres-plugin"
     },
-    "dynamicBindingPathList": [],
+    "dynamicBindingPathList": [
+      {
+        "key": "body"
+      }
+    ],
     "fullyQualifiedName": "qAgreementTemplatesList",
     "name": "qAgreementTemplatesList",
     "pageId": "Agreement Templates",

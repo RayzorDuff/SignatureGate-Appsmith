@@ -156,7 +156,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": "{{ appsmith.store.facilitator_is_reviewer }}",
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_practitioner_admin === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (appsmith.store.facilitator_is_reviewer) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,

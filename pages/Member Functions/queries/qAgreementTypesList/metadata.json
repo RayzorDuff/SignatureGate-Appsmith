@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT type_key, display_name\nFROM public.agreement_types\nWHERE active = true\nORDER BY sort_order, display_name;\n",
+      "body": "SELECT role_policy_guard.* FROM (\nSELECT type_key, display_name\nFROM public.agreement_types\nWHERE active = true\nORDER BY sort_order, display_name\n) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -22,10 +22,14 @@
       "name": "signaturegate-postgres-test",
       "pluginId": "postgres-plugin"
     },
-    "dynamicBindingPathList": [],
+    "dynamicBindingPathList": [
+      {
+        "key": "body"
+      }
+    ],
     "name": "qAgreementTypesList",
     "pageId": "Member Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  fsla.facilitator_storage_location_access_id,\n  fsla.facilitator_id,\n  fsla.storage_location_name,\n  fsla.status,\n  fsla.created_at,\n  fsla.updated_at,\n  fsla.assigned_by_member_id,\n  fsla.notes,\n  ab.first_name AS assigned_by_first_name,\n  ab.last_name AS assigned_by_last_name\nFROM public.facilitator_storage_location_access fsla\nLEFT JOIN public.member_profiles ab\n  ON ab.member_id = fsla.assigned_by_member_id\nWHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')\n  AND fsla.facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid\nORDER BY\n  CASE WHEN fsla.status = 'active' THEN 0 ELSE 1 END,\n  fsla.storage_location_name;\n",
+      "body": "SELECT location_access.practitioner_storage_location_access_id AS facilitator_storage_location_access_id,\n location_access.practitioner_person_id AS facilitator_id,location_access.storage_location_name,location_access.status,location_access.created_at,location_access.updated_at,location_access.notes,\n actor.first_name AS assigned_by_first_name,actor.last_name AS assigned_by_last_name\nFROM public.practitioner_storage_location_access location_access LEFT JOIN public.people actor ON actor.person_id=location_access.assigned_by_person_id\nWHERE location_access.practitioner_person_id=NULLIF({{ appsmith.store.selected_facilitator_id || \"\" }},'')::uuid\nAND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer') ORDER BY location_access.status,location_access.storage_location_name;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -29,7 +29,7 @@
     ],
     "name": "qMemberStorageLocations",
     "pageId": "Facilitator Functions",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": false
   }
 }

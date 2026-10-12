@@ -251,7 +251,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": "{{ qMemberDonations.data?.length > 0 || appsmith.store.facilitator_is_donations_reviewer === true }}",
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_contributor_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qMemberDonations.data?.length > 0 || appsmith.store.facilitator_is_donations_reviewer === true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,

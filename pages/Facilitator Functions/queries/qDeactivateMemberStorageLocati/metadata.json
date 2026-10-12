@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "UPDATE public.facilitator_storage_location_access\nSET\n  status = 'inactive',\n  updated_at = now(),\n  notes = COALESCE({{ this.params.notes }}, notes)\nWHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')\n  AND facilitator_storage_location_access_id =\n  {{ this.params.facilitator_storage_location_access_id }}::uuid\n  AND facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid\nRETURNING\n  facilitator_storage_location_access_id,\n  facilitator_id,\n  storage_location_name,\n  status;\n",
+      "body": "SELECT public.issue19_set_practitioner_storage_location({{ appsmith.user.email }},{{ appsmith.store.selected_facilitator_id }}::uuid,\n(SELECT storage_location_name FROM public.practitioner_storage_location_access WHERE practitioner_storage_location_access_id={{ this.params.facilitator_storage_location_access_id }}::uuid\nAND practitioner_person_id={{ appsmith.store.selected_facilitator_id }}::uuid),false,{{ this.params.notes || null }},COALESCE(NULLIF({{ this.params.notes || \"\" }},''),'Removed through practitioner administration')) AS facilitator_storage_location_access_id;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

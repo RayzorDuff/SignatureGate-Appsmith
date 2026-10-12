@@ -5,7 +5,11 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 15,
   "defaultCheckedState": true,
-  "dynamicBindingPathList": [],
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
   "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [
     {
@@ -14,7 +18,7 @@
   ],
   "isDisabled": false,
   "isRequired": false,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "key": "cashDepositHideIneligible",
   "label": "Hide ineligible donations",
   "labelPosition": "Left",

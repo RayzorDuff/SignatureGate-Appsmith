@@ -13,7 +13,7 @@ SELECT
   false,
   'intake',
   {{ this.params.notes || null }}
-WHERE NOT EXISTS (
+WHERE public.application_require_permission({{ appsmith.user.email }},'intake.participant') AND NOT EXISTS (
   SELECT 1
   FROM public.member_phones existing
   WHERE existing.phone_normalized =

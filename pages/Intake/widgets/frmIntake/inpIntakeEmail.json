@@ -36,7 +36,7 @@
   "tooltip": "Email is one of three contact methods. At least two of email, phone, and mailing address are required. Email is required when sending a Digital Agreement.",
   "topRow": 39,
   "type": "INPUT_WIDGET_V2",
-  "validation": "{{ !inpIntakeEmail.text || /^[^\\\\s@]+@[^\\\\s@]+\\\\.[A-Za-z]{2,}$/.test(inpIntakeEmail.text.trim()) }}",
+  "validation": "{{ !inpIntakeEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIntakeEmail.text.trim()) }}",
   "version": 2,
   "widgetId": "intake-email",
   "widgetName": "inpIntakeEmail"

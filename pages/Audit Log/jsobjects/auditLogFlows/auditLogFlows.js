@@ -151,17 +151,17 @@ export default {
 
       const me = rows[0];	
 
-			if (!me?.member_id) {
+			if (!me?.person_id) {
 				showAlert("Access denied: not an active facilitator for " + email, "error");
 				
 				await this.auditLog("auth.denied","facilitator","", { email, page: appsmith.URL?.pathname, mode: appsmith.mode });if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 					//Only redirect when not in editor
-					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+					/* Access denied in place; keep navigation available. */
 				}
 				return;
 			}
 
-			const facilitator_id = me.member_id;
+			const facilitator_id = me.member_id || "";
 			const facilitator_email = (me.email ?? "").trim().toLowerCase();
 			const is_document_reviewer = me.is_document_reviewer;
 			const is_donations_reviewer = me.is_donations_reviewer;
@@ -183,7 +183,7 @@ export default {
 			showAlert("Query error: " + JSON.stringify(({})), "error");
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 				//Only redirect when not in editor
-				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				/* Access denied in place; keep navigation available. */
 			}
 			return;
 		}

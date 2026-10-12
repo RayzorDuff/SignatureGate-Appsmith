@@ -1,23 +1,8 @@
-SELECT
-  mf.member_facilitator_id,
-  mf.member_id,
-  mf.facilitator_id,
-  mf.status,
-  mf.created_at,
-  mf.updated_at,
-  mf.notes,
-  f.first_name,
-  f.last_name,
-  f.email,
-  ab.first_name AS assigned_by_first_name,
-  ab.last_name  AS assigned_by_last_name
-FROM public.member_facilitators mf
-JOIN public.member_profiles f
-  ON f.member_id = mf.facilitator_id
-LEFT JOIN public.member_profiles ab
-  ON ab.member_id = mf.assigned_by_member_id
-WHERE mf.member_id = {{ appsmith.store.member_id }}::uuid
-ORDER BY
-  CASE WHEN mf.status = 'active' THEN 0 ELSE 1 END,
-  f.last_name,
-  f.first_name;
+SELECT assignment.member_practitioner_assignment_id AS member_facilitator_id,assignment.member_id,
+ assignment.practitioner_person_id AS facilitator_id,assignment.status,assignment.created_at,assignment.updated_at,assignment.notes,p.first_name,p.last_name,a.email,
+ actor.first_name AS assigned_by_first_name,actor.last_name AS assigned_by_last_name
+FROM public.member_practitioner_assignments assignment JOIN public.people p ON p.person_id=assignment.practitioner_person_id
+LEFT JOIN public.person_app_accounts a ON a.person_id=p.person_id AND a.status='active'
+LEFT JOIN public.people actor ON actor.person_id=assignment.assigned_by_person_id
+WHERE assignment.member_id=NULLIF({{ appsmith.store.member_id || "" }},'')::uuid
+AND public.application_member_access({{ appsmith.user.email }},assignment.member_id,false) ORDER BY assignment.status,p.display_name;

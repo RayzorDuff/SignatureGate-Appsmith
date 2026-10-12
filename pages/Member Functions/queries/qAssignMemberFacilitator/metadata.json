@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "INSERT INTO public.member_facilitators (\n  member_id,\n  facilitator_id,\n  assigned_by_member_id,\n  status,\n  notes\n)\nVALUES (\n  {{ appsmith.store.member_id }}::uuid,\n  {{ this.params.facilitator_id }}::uuid,\n  {{ appsmith.store.facilitator_id }}::uuid,\n  'active',\n  {{ this.params.notes || null }}\n)\nON CONFLICT (member_id, facilitator_id)\nDO UPDATE SET\n  status = 'active',\n  updated_at = now(),\n  assigned_by_member_id = EXCLUDED.assigned_by_member_id,\n  notes = EXCLUDED.notes\nRETURNING member_facilitator_id, member_id, facilitator_id, status;",
+      "body": "SELECT public.issue19_assign_member_practitioner({{ appsmith.user.email }},\n(SELECT person_id FROM public.members WHERE member_id={{ appsmith.store.member_id }}::uuid),{{ this.params.facilitator_id }}::uuid,\n{{ this.params.notes || \"\" }},COALESCE(NULLIF({{ this.params.notes || \"\" }},''),'Participant practitioner assignment')) AS member_facilitator_id;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

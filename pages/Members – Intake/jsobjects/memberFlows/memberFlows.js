@@ -54,6 +54,7 @@ export default {
 			}
 
 			// IMPORTANT: use return value of run(), not qCurrentFacilitator.data
+      await qPageAccess.run();
       let rows = await qCurrentFacilitator.run({ email });
 
       // 🔴 Appsmith bug fix
@@ -62,12 +63,12 @@ export default {
 
       const me = rows[0];	
 
-			if (!me?.member_id) {
+			if (!me?.person_id || me.is_document_reviewer !== true) {
 				showAlert("Access denied: not an active facilitator for " + email, "error");
 				
 				await this.auditLog("auth.denied","facilitator","", { email, page: appsmith.URL?.pathname, mode: appsmith.mode });if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 					//Only redirect when not in editor
-					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+					/* Access denied in place; keep navigation available. */
 				}
 				return;
 			}
@@ -94,7 +95,7 @@ export default {
 			showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? {}), "error");
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 				//Only redirect when not in editor
-				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				/* Access denied in place; keep navigation available. */
 			}
 			return;
 		}

@@ -15,6 +15,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -31,9 +34,9 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": "{{FilePicker1.files.length === 0 || !inpFacilitator.selectedOptionValue || !selAgreementType.selectedOptionValue}}",
+  "isDisabled": true,
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "zy8x2yht2q",
   "leftColumn": 19,
   "minWidth": 120,

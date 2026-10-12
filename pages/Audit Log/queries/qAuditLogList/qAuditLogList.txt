@@ -1,13 +1,4 @@
-WITH me AS (
-  SELECT
-    member_id,
-    lower(email) AS email,
-    COALESCE(is_document_reviewer, FALSE) AS is_document_reviewer
-  FROM public.member_profiles
-  WHERE lower(email) = lower({{ appsmith.user.email }})
-    AND status = 'active'
-  LIMIT 1
-),
+WITH me AS (SELECT * FROM public.application_access({{ appsmith.user.email }}) WHERE is_document_reviewer OR is_donations_reviewer OR is_practitioner),
 audit_rows AS (
   SELECT
     al.*,
@@ -73,12 +64,16 @@ LEFT JOIN public.contributor_member_links donation_contributor_link
  AND donation_contributor_link.status = 'active'
 
 WHERE
-  me.is_document_reviewer = TRUE
+ (me.is_donations_reviewer OR (al.entity_type NOT IN ('donation','cash_deposit_batch','cash_deposit_item','cash_deposit_sync','contributor')
+  AND al.action !~ '^(donation[.]|cash_|givebutter[.]|contributor[.])'))
+ AND (
+  (me.is_document_reviewer AND al.entity_type NOT IN ('donation','cash_deposit_batch','cash_deposit_item','cash_deposit_sync','contributor') AND al.action !~ '^(donation[.]|cash_|givebutter[.]|contributor[.])')
+  OR (me.is_donations_reviewer AND (al.entity_type IN ('donation','cash_deposit_batch','cash_deposit_item','cash_deposit_sync','contributor') OR al.action ~ '^(donation[.]|cash_|givebutter[.]|contributor[.])'))
   OR lower(al.actor) = me.email
   OR EXISTS (
     SELECT 1
-    FROM public.member_facilitators mf
-    WHERE mf.facilitator_id = me.member_id
+    FROM public.member_practitioner_assignments mf
+    WHERE me.is_practitioner AND mf.practitioner_person_id = me.person_id
       AND mf.status = 'active'
       AND mf.member_id = COALESCE(
         al.scoped_detail_member_id,
@@ -89,5 +84,6 @@ WHERE
       )
   )
 
+ )
 ORDER BY al.created_at DESC
 LIMIT 500;

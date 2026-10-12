@@ -30,6 +30,6 @@
     "name": "qGateCheckAgreement",
     "pageId": "Sacrament Release",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

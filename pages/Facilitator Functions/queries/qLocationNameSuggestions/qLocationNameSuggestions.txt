@@ -1,4 +1,6 @@
+SELECT role_policy_guard.* FROM (
 SELECT DISTINCT storage_location_name FROM public.facilitator_storage_location_access
 WHERE public.issue19_has_role({{ appsmith.user.email }}, 'document_reviewer')
 AND storage_location_name IS NOT NULL AND trim(storage_location_name)<>''
-ORDER BY storage_location_name;
+ORDER BY storage_location_name
+) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');

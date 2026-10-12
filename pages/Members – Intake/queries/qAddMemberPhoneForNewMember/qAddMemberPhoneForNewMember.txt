@@ -13,7 +13,7 @@ SELECT
   false,
   'members_intake',
   {{ this.params.notes || null }}
-WHERE NULLIF(public.normalize_us_phone({{ this.params.phone }}), '') IS NOT NULL
+WHERE public.application_require_permission({{ appsmith.user.email }},'intake.participant') AND NULLIF(public.normalize_us_phone({{ this.params.phone }}), '') IS NOT NULL
   AND NOT EXISTS (
     SELECT 1
     FROM public.member_phones mp

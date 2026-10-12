@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "UPDATE public.releases\nSET\n  status = 'voided',\n  voided_at = now(),\n  voided_by = {{ appsmith.store.facilitator_id }}::uuid,\n  void_reason = {{ this.params.void_reason }}\nWHERE release_id = {{ this.params.release_id }}::uuid\nRETURNING release_id;\n",
+      "body": "UPDATE public.releases\nSET\n  status = 'voided',\n  voided_at = now(),\n  voided_by = (SELECT member_id FROM public.application_access({{ appsmith.user.email }})),\n  void_reason = {{ this.params.void_reason }}\nWHERE public.application_require_permission({{ appsmith.user.email }},'participant.review',{{ appsmith.store.member_id || null }}::uuid) AND release_id = {{ this.params.release_id }}::uuid\nRETURNING release_id;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

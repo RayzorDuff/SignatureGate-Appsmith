@@ -1,14 +1,3 @@
-UPDATE public.facilitator_storage_location_access
-SET
-  status = 'inactive',
-  updated_at = now(),
-  notes = COALESCE({{ this.params.notes }}, notes)
-WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')
-  AND facilitator_storage_location_access_id =
-  {{ this.params.facilitator_storage_location_access_id }}::uuid
-  AND facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid
-RETURNING
-  facilitator_storage_location_access_id,
-  facilitator_id,
-  storage_location_name,
-  status;
+SELECT public.issue19_set_practitioner_storage_location({{ appsmith.user.email }},{{ appsmith.store.selected_facilitator_id }}::uuid,
+(SELECT storage_location_name FROM public.practitioner_storage_location_access WHERE practitioner_storage_location_access_id={{ this.params.facilitator_storage_location_access_id }}::uuid
+AND practitioner_person_id={{ appsmith.store.selected_facilitator_id }}::uuid),false,{{ this.params.notes || null }},COALESCE(NULLIF({{ this.params.notes || "" }},''),'Removed through practitioner administration')) AS facilitator_storage_location_access_id;

@@ -44,6 +44,8 @@ export default {
 	},	
 	
 	async verifyaccess() {
+    await Promise.all([storeValue("facilitator_id", ""), storeValue("facilitator_is_reviewer", false), storeValue("facilitator_is_donations_reviewer", false)]);
+
 		try {
 			//showAlert("Beginning init. mode=" + appsmith.mode, "warning");
 
@@ -61,7 +63,8 @@ export default {
 			}
 
 			// IMPORTANT: use return value of run(), not qCurrentFacilitator.data
-      let rows = await qCurrentFacilitator.run({ email });
+      await qPageAccess.run();
+            let rows = await qCurrentFacilitator.run({ email });
 
       // 🔴 Appsmith bug fix
       if (!Array.isArray(rows)) rows = [];
@@ -69,17 +72,17 @@ export default {
 
       const me = rows[0];	
 
-			if (!me?.email || !(me.is_document_reviewer || me.is_donations_reviewer)) {
+			if (!me?.email || !me.can_contributor_functions) {
 				showAlert("Access denied: reviewer permission required for " + email, "error");
 				
 				await this.auditLog("auth.denied","facilitator","", { email, page: appsmith.URL?.pathname, mode: appsmith.mode });if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 					//Only redirect when not in editor
-					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+					/* Access denied in place; keep navigation available. */
 				}
 				return;
 			}
 
-			const facilitator_id = me.member_id;
+			const facilitator_id = me.member_id || "";
 			const facilitator_email = (me.email ?? "").trim().toLowerCase();
 			const is_document_reviewer = me.is_document_reviewer;
 			const is_donations_reviewer = me.is_donations_reviewer;
@@ -87,10 +90,10 @@ export default {
 			//showAlert("Access granted for " + facilitator_email + " id=" + facilitator_id + " document reviewer=" + is_document_reviewer + " donations reviewer=" + is_donations_reviewer, "success");
 
 			// May want these enabled in deployed mode:
-			storeValue("facilitator_id", facilitator_id);
-			storeValue("facilitator_email", facilitator_email);
-			storeValue("facilitator_is_reviewer", is_document_reviewer );
-			storeValue("facilitator_is_donations_reviewer", is_donations_reviewer);
+			await storeValue("facilitator_id", facilitator_id);
+			await storeValue("facilitator_email", facilitator_email);
+			await storeValue("facilitator_is_reviewer", is_document_reviewer );
+			await storeValue("facilitator_is_donations_reviewer", is_donations_reviewer);
 			storeValue("facilitator_full_name", `${me.first_name} ${me.last_name}`.trim());	
 
 		
@@ -101,7 +104,7 @@ export default {
 			showAlert("Query error: " + JSON.stringify(({})), "error");
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 				//Only redirect when not in editor
-				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				/* Access denied in place; keep navigation available. */
 			}
 			return;
 		}
@@ -208,7 +211,10 @@ export default {
 	},
 
 	async submitDonation() {
+    let recordedId = "";
 		try {
+      const actor = (await qPageAccess.run())?.[0];
+      if (actor?.can_contributor_functions !== true) { showAlert("Cash entry requires reviewer or assigned practitioner permission.", "error"); return ""; }
 			const choice =
 				selDonationMember.selectedOptionValue ||
 				"";
@@ -241,23 +247,20 @@ export default {
 			});
 			const donation = res?.[0] || {};
 
-			await this.auditLog("donation.cash.created", "donation", donation.donation_id || "", {
-				donor_kind: isAnonymous ? "anonymous" : "identified",
-				contributor_id: donation.contributor_id || null,
-				member_id: donation.member_id || null,
-				amount_cents,
-				donated_at,
-				notes
-			});
+      recordedId = donation.donation_id || "";
+      if (!recordedId) throw new Error("Cash entry returned no donation identifier.");
 
+			const refreshes = await Promise.allSettled([this.refreshDonations(), actor.is_donations_reviewer ? qPendingGivebutterDonations.run() : Promise.resolve([])]);
+      if (refreshes.some(result => result.status === "rejected")) showAlert("Cash donation was recorded, but a list could not refresh. Refresh the page; do not record it again.", "warning");
+      else {
 			showAlert(
 				isAnonymous
 					? "Anonymous cash donation recorded (pending review)."
 					: "Contributor cash donation recorded (pending review).",
 				"success"
 			);
-			await qPendingGivebutterDonations.run();
-			return donation.donation_id || "";
+      }
+			return recordedId;
 		} catch (e) {
 			const rawMessage =
 				e?.message ||
@@ -269,8 +272,8 @@ export default {
 					? rawMessage
 					: JSON.stringify(rawMessage);
 			console.error("Cash donation submission failed:", e, e);
-			showAlert("Cash donation could not be recorded: " + message, "error");
-			return "";
+			showAlert(recordedId ? "Cash donation was recorded, but the display could not refresh. Do not record it again." : "Cash donation could not be recorded: " + message, recordedId ? "warning" : "error");
+			return recordedId || "";
 		}
 	},
 

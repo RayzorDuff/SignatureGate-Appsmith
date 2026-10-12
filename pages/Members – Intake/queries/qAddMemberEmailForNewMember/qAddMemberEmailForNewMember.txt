@@ -8,7 +8,7 @@ INSERT INTO public.member_emails (
   mailing_subscription_status,
   mailing_subscription_source
 )
-VALUES (
+SELECT
   {{ this.params.member_id }}::uuid,
   lower(NULLIF(btrim({{ this.params.email }}), '')),
   COALESCE({{ this.params.is_primary }}, true),
@@ -18,7 +18,9 @@ VALUES (
   CASE WHEN COALESCE({{ this.params.subscribe_to_mailing_list }}, true)
        THEN 'subscribed' ELSE 'not_subscribed' END,
   'members_intake'
-)
+
+WHERE public.application_require_permission({{ appsmith.user.email }},'intake.participant',{{ this.params.member_id || appsmith.store.member_id || null }}::uuid)
+
 ON CONFLICT (email_normalized)
 WHERE email_normalized IS NOT NULL
   AND email_normalized <> ''

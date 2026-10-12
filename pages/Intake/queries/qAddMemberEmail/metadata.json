@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "INSERT INTO public.member_emails(member_id,email,is_primary,is_verified,source,notes,mailing_subscription_status,mailing_subscription_source) VALUES ({{ this.params.member_id }}::uuid,lower(NULLIF(btrim({{ this.params.email }}),'')),true,false,'intake',{{ this.params.notes || null }},'not_subscribed','intake') ON CONFLICT (email_normalized) WHERE email_normalized IS NOT NULL AND email_normalized<>'' AND status='active' DO NOTHING RETURNING *;",
+      "body": "INSERT INTO public.member_emails(member_id,email,is_primary,is_verified,source,notes,mailing_subscription_status,mailing_subscription_source) SELECT {{ this.params.member_id }}::uuid,lower(NULLIF(btrim({{ this.params.email }}),'')),true,false,'intake',{{ this.params.notes || null }},'not_subscribed','intake'\nWHERE public.application_require_permission({{ appsmith.user.email }},'intake.participant',{{ this.params.member_id || appsmith.store.member_id || null }}::uuid)\n ON CONFLICT (email_normalized) WHERE email_normalized IS NOT NULL AND email_normalized<>'' AND status='active' DO NOTHING RETURNING *;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

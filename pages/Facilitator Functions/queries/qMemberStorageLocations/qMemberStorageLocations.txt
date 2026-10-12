@@ -1,19 +1,6 @@
-SELECT
-  fsla.facilitator_storage_location_access_id,
-  fsla.facilitator_id,
-  fsla.storage_location_name,
-  fsla.status,
-  fsla.created_at,
-  fsla.updated_at,
-  fsla.assigned_by_member_id,
-  fsla.notes,
-  ab.first_name AS assigned_by_first_name,
-  ab.last_name AS assigned_by_last_name
-FROM public.facilitator_storage_location_access fsla
-LEFT JOIN public.member_profiles ab
-  ON ab.member_id = fsla.assigned_by_member_id
-WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer')
-  AND fsla.facilitator_id = {{ appsmith.store.selected_facilitator_id || null }}::uuid
-ORDER BY
-  CASE WHEN fsla.status = 'active' THEN 0 ELSE 1 END,
-  fsla.storage_location_name;
+SELECT location_access.practitioner_storage_location_access_id AS facilitator_storage_location_access_id,
+ location_access.practitioner_person_id AS facilitator_id,location_access.storage_location_name,location_access.status,location_access.created_at,location_access.updated_at,location_access.notes,
+ actor.first_name AS assigned_by_first_name,actor.last_name AS assigned_by_last_name
+FROM public.practitioner_storage_location_access location_access LEFT JOIN public.people actor ON actor.person_id=location_access.assigned_by_person_id
+WHERE location_access.practitioner_person_id=NULLIF({{ appsmith.store.selected_facilitator_id || "" }},'')::uuid
+AND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer') ORDER BY location_access.status,location_access.storage_location_name;

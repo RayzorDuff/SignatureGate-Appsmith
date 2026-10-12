@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.revive_cash_donation_from_deposit(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_actor_id => {{ this.params.actor_id }}::uuid\n);\n",
+      "body": "SELECT *\nFROM public.revive_cash_donation_from_deposit(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_actor_id => public.application_cash_actor_id({{ appsmith.user.email }})\n);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

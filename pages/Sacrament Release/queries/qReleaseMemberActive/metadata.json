@@ -30,6 +30,6 @@
     "name": "qReleaseMemberActive",
     "pageId": "Sacrament Release",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

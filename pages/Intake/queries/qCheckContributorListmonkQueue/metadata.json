@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  listmonk_sync_queue_id,\n  status,\n  event_type,\n  contributor_email_id,\n  email_normalized,\n  source,\n  created_at,\n  updated_at\nFROM public.listmonk_sync_queue\nWHERE contributor_email_id = {{ this.params.contributor_email_id }}::uuid\nORDER BY created_at DESC;",
+      "body": "SELECT guarded.* FROM (\nSELECT\n  listmonk_sync_queue_id,\n  status,\n  event_type,\n  contributor_email_id,\n  email_normalized,\n  source,\n  created_at,\n  updated_at\nFROM public.listmonk_sync_queue\nWHERE contributor_email_id = {{ this.params.contributor_email_id }}::uuid\nORDER BY created_at DESC\n) guarded WHERE public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer');\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

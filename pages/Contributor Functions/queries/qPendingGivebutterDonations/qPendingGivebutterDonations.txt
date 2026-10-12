@@ -1,9 +1,5 @@
 WITH access AS (
-  SELECT public.can_view_donation_financials(mp.member_id) AS allowed
-  FROM public.member_profiles mp
-  WHERE lower(mp.email) = lower({{ appsmith.user.email }})
-    AND mp.status = 'active'
-  LIMIT 1
+ SELECT public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer') AS allowed
 )
 SELECT
   d.donation_id,

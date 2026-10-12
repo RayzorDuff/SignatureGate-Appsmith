@@ -7,7 +7,7 @@ INSERT INTO public.audit_log (
 )
 VALUES (
   NULLIF({{ this.params.actor_email }}, ''),
-  {{ this.params.action }},		
+  {{ this.params.action }},
   {{ this.params.entity_type }},
   COALESCE(NULLIF({{ this.params.entity_id }}, ''), 'unknown'),
   COALESCE({{ this.params.details_json }}::jsonb, '{}'::jsonb)

@@ -1,7 +1,3 @@
-UPDATE public.member_facilitators
-SET
-  status = 'inactive',
-  updated_at = now(),
-  notes = COALESCE({{ this.params.notes }}, notes)
-WHERE member_facilitator_id = {{ this.params.member_facilitator_id }}::uuid
-RETURNING member_facilitator_id, member_id, facilitator_id, status;
+SELECT public.issue19_end_member_practitioner({{ appsmith.user.email }},
+(SELECT person_id FROM public.members WHERE member_id={{ appsmith.store.member_id }}::uuid),{{ this.params.member_facilitator_id }}::uuid,
+COALESCE(NULLIF({{ this.params.notes || "" }},''),'Participant practitioner assignment ended')) AS member_facilitator_id;

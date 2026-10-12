@@ -99,6 +99,9 @@
     },
     {
       "key": "primaryColumns.package_class.computedValue"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -114,7 +117,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_release === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,
@@ -445,7 +448,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "searchKey": "",
-  "tableData": "{{apiListAvailableProducts.data.data}}",
+  "tableData": "{{ qPageAccess.data?.[0]?.can_release === true && appsmith.store.release_scope_member_id === appsmith.store.member_id ? ((apiListAvailableProducts.data?.data || apiListAvailableProducts.data || []).filter(p => (qAccessibleStorageLocations.data || []).some(loc => String(loc.storage_location_name).trim().toLowerCase() === String(p.storage_location || \"\").trim().toLowerCase()))) : [] }}",
   "textSize": "0.875rem",
   "topRow": 24,
   "totalRecordsCount": 0,

@@ -116,7 +116,7 @@ export default {
 				showAlert("Access denied: practitioner or reviewer permission required.", "error");
 
 				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-					navigateTo("Unauthorized", {}, "SAME_WINDOW");
+					/* Access denied in place; keep navigation available. */
 				}
 
 				return false;
@@ -137,7 +137,7 @@ export default {
 			showAlert("Access check failed: " + (e?.message || e), "error");
 
 			if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-				navigateTo("Unauthorized", {}, "SAME_WINDOW");
+				/* Access denied in place; keep navigation available. */
 			}
 
 			return false;

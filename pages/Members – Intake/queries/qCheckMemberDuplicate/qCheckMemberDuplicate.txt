@@ -1,3 +1,5 @@
+WITH permission AS MATERIALIZED (SELECT public.application_require_permission({{ appsmith.user.email }}::text, 'intake.participant') AS allowed)
+SELECT guarded.* FROM permission CROSS JOIN (
 WITH input AS (
   SELECT
     NULLIF(lower(btrim({{ this.params.first_name || "" }})), '') AS first_name,
@@ -7,14 +9,9 @@ WITH input AS (
     NULLIF({{ this.params.date_of_birth || "" }}, '')::date AS date_of_birth
 ),
 actor AS (
-  SELECT
-    m.member_id,
-    COALESCE(m.is_document_reviewer, FALSE) AS is_document_reviewer
-  FROM public.member_profiles m
-  WHERE lower(btrim(m.email)) = lower(btrim({{ appsmith.user.email }}))
-    AND m.is_facilitator IS TRUE
-    AND m.status = 'active'
-  LIMIT 1
+  SELECT a.member_id, a.is_document_reviewer
+  FROM public.application_access({{ appsmith.user.email }}::text) a
+  WHERE a.is_document_reviewer
 ),
 email_matches AS (
   SELECT
@@ -203,4 +200,5 @@ ORDER BY
   CASE WHEN match_severity = 'hard' THEN 0 ELSE 1 END,
   score DESC,
   matched_field
-LIMIT 10;
+LIMIT 10
+) guarded WHERE permission.allowed;

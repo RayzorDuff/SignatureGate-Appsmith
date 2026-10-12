@@ -11,6 +11,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -19,7 +22,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.is_document_reviewer === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "key": "egrx47kuus",
   "leftColumn": 1,
   "maxDynamicHeight": 9000,
@@ -40,7 +43,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 18,
   "shouldTruncate": false,
-  "text": "Members – Intake",
+  "text": "Members \u2013 Intake",
   "textAlign": "LEFT",
   "textColor": "#231F20",
   "topRow": 0,

@@ -1,11 +1,11 @@
 {
   "gitSyncId": "696e976bef6f963f4d13cbc6_f9058351-bec5-4fbc-b766-282d5a81612b",
-  "id": "Members – Intake_qAgreementTypesList",
+  "id": "Members \u2013 Intake_qAgreementTypesList",
   "pluginId": "postgres-plugin",
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT type_key, display_name\nFROM public.agreement_types\nWHERE active = true\nORDER BY sort_order, display_name;\n",
+      "body": "SELECT role_policy_guard.* FROM (\nSELECT type_key, display_name\nFROM public.agreement_types\nWHERE active = true\nORDER BY sort_order, display_name\n) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -22,9 +22,13 @@
       "name": "signaturegate-postgres-test",
       "pluginId": "postgres-plugin"
     },
-    "dynamicBindingPathList": [],
+    "dynamicBindingPathList": [
+      {
+        "key": "body"
+      }
+    ],
     "name": "qAgreementTypesList",
-    "pageId": "Members – Intake",
+    "pageId": "Members \u2013 Intake",
     "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": true
   }

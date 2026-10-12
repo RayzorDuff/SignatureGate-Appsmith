@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  mf.member_facilitator_id,\n  mf.member_id,\n  mf.facilitator_id,\n  mf.status,\n  mf.created_at,\n  mf.updated_at,\n  mf.notes,\n  f.first_name,\n  f.last_name,\n  f.email,\n  ab.first_name AS assigned_by_first_name,\n  ab.last_name  AS assigned_by_last_name\nFROM public.member_facilitators mf\nJOIN public.member_profiles f\n  ON f.member_id = mf.facilitator_id\nLEFT JOIN public.member_profiles ab\n  ON ab.member_id = mf.assigned_by_member_id\nWHERE mf.member_id = {{ appsmith.store.member_id }}::uuid\nORDER BY\n  CASE WHEN mf.status = 'active' THEN 0 ELSE 1 END,\n  f.last_name,\n  f.first_name;",
+      "body": "SELECT assignment.member_practitioner_assignment_id AS member_facilitator_id,assignment.member_id,\n assignment.practitioner_person_id AS facilitator_id,assignment.status,assignment.created_at,assignment.updated_at,assignment.notes,p.first_name,p.last_name,a.email,\n actor.first_name AS assigned_by_first_name,actor.last_name AS assigned_by_last_name\nFROM public.member_practitioner_assignments assignment JOIN public.people p ON p.person_id=assignment.practitioner_person_id\nLEFT JOIN public.person_app_accounts a ON a.person_id=p.person_id AND a.status='active'\nLEFT JOIN public.people actor ON actor.person_id=assignment.assigned_by_person_id\nWHERE assignment.member_id=NULLIF({{ appsmith.store.member_id || \"\" }},'')::uuid\nAND public.application_member_access({{ appsmith.user.email }},assignment.member_id,false) ORDER BY assignment.status,p.display_name;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -30,6 +30,6 @@
     "name": "qMemberFacilitators",
     "pageId": "Member Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

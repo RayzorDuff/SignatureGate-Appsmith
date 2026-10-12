@@ -1,6 +1,9 @@
 export default {
 
   async refresh() {
+    for (let i=0;i<20 && !(appsmith.user?.email || "").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));
+    const access = (await qPageAccess.run())?.[0];
+    if (access?.can_cash_deposits !== true) return [];
     await Promise.allSettled([
       qCashDepositCurrentFacilitator.run(),
       qCashDepositCashOnHand.run(),
@@ -10,9 +13,7 @@ export default {
   },
 
   facilitatorId() {
-    return qCashDepositCurrentFacilitator.data?.[0]?.member_id
-      || appsmith.store.facilitator_id
-      || "";
+    return qPageAccess.data?.[0]?.can_cash_deposits === true ? (qPageAccess.data?.[0]?.person_id || "") : "";
   },
 
   selectedDonation() {
@@ -32,8 +33,8 @@ export default {
   },
 
   isDonationsReviewer() {
-    return qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true
-      || appsmith.store.facilitator_is_donations_reviewer === true;
+    return qPageAccess.data?.[0]?.is_donations_reviewer === true
+      && String(qPageAccess.data?.[0]?.email || "").trim().toLowerCase() === String(appsmith.user?.email || "").trim().toLowerCase();
   },
 
   requireDonationsReviewer() {
@@ -49,7 +50,7 @@ export default {
   requireFacilitator() {
     const id = this.facilitatorId();
     if (!id) {
-      showAlert("You must be an active Spiritual Practitioner to manage cash deposits.", "error");
+      showAlert("Donations Reviewer permission is required to manage cash deposits.", "error");
       return "";
     }
     return id;

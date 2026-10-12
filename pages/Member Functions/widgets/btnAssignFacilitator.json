@@ -33,7 +33,7 @@
   "isDefaultClickDisabled": true,
   "isDisabled": false,
   "isLoading": false,
-  "isVisible": "{{ appsmith.store.facilitator_is_reviewer }}",
+  "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (appsmith.store.facilitator_is_reviewer)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "i0llrnfb57",
   "leftColumn": 33,
   "minWidth": 120,

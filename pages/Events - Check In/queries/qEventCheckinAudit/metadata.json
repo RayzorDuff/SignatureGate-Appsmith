@@ -22,7 +22,11 @@
       "name": "signaturegate-postgres-test",
       "pluginId": "postgres-plugin"
     },
-    "dynamicBindingPathList": [],
+    "dynamicBindingPathList": [
+      {
+        "key": "body"
+      }
+    ],
     "fullyQualifiedName": "qEventCheckinAudit",
     "name": "qEventCheckinAudit",
     "pageId": "Events - Check In",
