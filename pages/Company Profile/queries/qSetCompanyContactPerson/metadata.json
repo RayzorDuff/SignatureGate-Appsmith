@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT changed.*, changed.updated_at::text AS relationship_version FROM public.application_set_company_contact_person(\n {{ appsmith.user.email }},NULLIF({{ this.params?.organization_id || '' }}::text,'')::uuid,NULLIF({{ this.params?.person_id || '' }}::text,'')::uuid,\n {{ this.params?.active === true }}::boolean,\n NULLIF({{ this.params?.expected_updated_at || '' }}::text,'')::timestamptz,\n {{ this.params?.reason || '' }}::text) AS changed;",
+      "body": "SELECT changed.*, changed.updated_at::text AS relationship_version FROM public.application_set_company_contact_person(\n {{ appsmith.user.email }},NULLIF({{ this.params?.organization_id || '' }}::text,'')::uuid,NULLIF({{ this.params?.person_id || '' }}::text,'')::uuid,\n {{ this.params?.active === true }}::boolean,\n NULLIF({{ this.params?.expected_updated_at || '' }}::text,'')::timestamptz,\n {{ this.params?.reason || '' }}::text) AS changed;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
