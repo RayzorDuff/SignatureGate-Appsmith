@@ -15,7 +15,7 @@
   "fontSize": "1.1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true) }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "524eopy7ij",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

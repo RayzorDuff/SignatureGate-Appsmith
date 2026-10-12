@@ -1,0 +1,1 @@
+SELECT public.application_company_contact_access({{ appsmith.user.email }},NULLIF({{ this.params?.organization_id || '' }}::text,'')::uuid,true) AS can_manage;

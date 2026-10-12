@@ -29,7 +29,7 @@
     ],
     "name": "qCashDepositCurrentFacilitator",
     "pageId": "Cash Deposits",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

@@ -94,5 +94,21 @@ try {
  const enrolled=(await action('Contributor Functions','qCreateMemberFromDonation',combined.email,{donation_id:enrollmentId,subscribe_to_mailing_list:false}))[0];
  assert.ok(enrolled.member_id);
  assert.equal((await db.query('SELECT mailing_subscription_status FROM public.member_emails WHERE member_id=$1',[enrolled.member_id])).rows[0].mailing_subscription_status,'not_subscribed');
+ const organization=(await db.query("INSERT INTO public.organizations(organization_name) VALUES('Synthetic Source Contact Company') RETURNING organization_id")).rows[0].organization_id;
+ await db.query("INSERT INTO public.contributors(contributor_type,organization_id) VALUES('organization',$1)",[organization]);
+ await db.query("INSERT INTO public.contributors(contributor_type,person_id) VALUES('individual',$1)",[other.id]);
+ const companyParams={organization_id:organization,person_id:other.id,active:true,expected_updated_at:'',reason:'Synthetic source link'};
+ assert.equal((await action('Company Profile','qCompanyContactPeopleAccess',don.email,companyParams))[0].can_manage,true);
+ assert.ok((await action('Company Profile','qCompanyContactCandidates',don.email,companyParams)).some(row=>row.person_id===other.id));
+ await assert.rejects(action('Company Profile','qSetCompanyContactPerson',self.email,companyParams));
+ const companyLink=(await action('Company Profile','qSetCompanyContactPerson',don.email,companyParams))[0];assert.equal(companyLink.person_id,other.id);
+ assert.equal((await db.query("SELECT count(*)::int AS n FROM public.audit_log WHERE action='organization_contact_person.changed' AND entity_id=$1",[organization])).rows[0].n,1,'prepared composite-returning action must write exactly once');
+ assert.equal((await action('Company Profile','qCompanyContactPeople',self.email,companyParams)).length,0);
+ assert.equal((await action('Company Profile','qCompanyContactPeople',don.email,companyParams)).length,1);
+ assert.equal((await action('Company Profile','qSetCompanyContactPerson',don.email,{...companyParams,active:false,expected_updated_at:companyLink.relationship_version}))[0].status,'archived');
+ const diagnostic=(await action('Cash Deposits','qCashDepositAccessDiagnostic',don.email))[0];
+ assert.equal(diagnostic.cash_deposits_allowed,true);assert.equal(diagnostic.account_active,true);assert.ok(!('email' in diagnostic));
+ assert.equal((await action('Cash Deposits','qCashDepositAccessDiagnostic',self.email))[0].cash_deposits_allowed,false);
+ assert.equal((await action('Cash Deposits','qCashDepositAccessDiagnostic','synthetic-unlinked@example.invalid'))[0].account_registered,false);
  await db.exec('ROLLBACK');console.log('PASS actual source queries: authorization, self/forged targets, canonical reviewers, cash/audit/Intake guards and reason-aware reconciliation bindings');
 } catch(error){console.error(JSON.stringify({action:currentAction,message:error.message,code:error.code}));process.exitCode=1;} finally {await db.close();}

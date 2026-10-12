@@ -18,7 +18,7 @@
   ],
   "isDisabled": false,
   "isRequired": false,
-  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (true) }}",
   "key": "cashDepositHideIneligible",
   "label": "Hide ineligible donations",
   "labelPosition": "Left",

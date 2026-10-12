@@ -30,7 +30,7 @@
   "isDefaultClickDisabled": true,
   "isDisabled": false,
   "isLoading": false,
-  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (true) }}",
   "key": "bkfm8aymy0",
   "leftColumn": 54,
   "minWidth": 120,

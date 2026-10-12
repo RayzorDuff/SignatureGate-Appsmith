@@ -1,0 +1,75 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 53,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ appsmith.store.company_contact_people_busy === true || !inpCompanyContactPersonReason.text?.trim() || tblCompanyContactPeople.selectedRow?.status !== \"active\" }}",
+  "isLoading": false,
+  "isVisible": "{{ qCompanyContactPeopleAccess.data?.[0]?.can_manage === true }}",
+  "key": "companycontact8a4153a8a9b840",
+  "leftColumn": 32,
+  "minWidth": 120,
+  "mobileBottomRow": 53,
+  "mobileLeftColumn": 32,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 48,
+  "needsErrorInfo": false,
+  "onClick": "{{ CompanyProfileFlows.archiveContactPerson() }}",
+  "originalBottomRow": 53,
+  "originalTopRow": 48,
+  "parentColumnSpace": 10.25,
+  "parentId": "companycontact2ad16c98c77949",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Archive selected link",
+  "topRow": 48,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "companycontactf5277578c55641",
+  "widgetName": "btnArchiveCompanyContactPerson"
+}

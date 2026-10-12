@@ -18,7 +18,7 @@
   "fontSize": "0.875rem",
   "fontStyle": "NORMAL",
   "isLoading": false,
-  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true && !!tblCashDepositBatches.selectedRow?.deposit_batch_id) }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer() && !!tblCashDepositBatches.selectedRow?.deposit_batch_id) }}",
   "key": "cashdepositerpstatus",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

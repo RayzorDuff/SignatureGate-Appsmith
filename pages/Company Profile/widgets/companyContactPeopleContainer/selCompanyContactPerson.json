@@ -1,0 +1,70 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 38,
+  "boxShadow": "none",
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ qCompanyContactPeopleAccess.data?.[0]?.can_manage === true }}",
+  "key": "companycontact957e67e748f940",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Individual contact person",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 38,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 42,
+  "mobileTopRow": 31,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 38,
+  "originalTopRow": 31,
+  "parentColumnSpace": 9.9375,
+  "parentId": "companycontact2ad16c98c77949",
+  "parentRowSpace": 10,
+  "placeholderText": "Select an accessible individual",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 42,
+  "serverSideFiltering": false,
+  "sourceData": "{{ (qCompanyContactCandidates.data || []).map(p=>({label:p.display_name + \" (\" + p.person_id.slice(-6) + \")\",value:p.person_id})) }}",
+  "topRow": 31,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "companycontactd86f8ed941c947",
+  "widgetName": "selCompanyContactPerson"
+}

@@ -45,6 +45,6 @@
     "name": "apiSyncCashDepositToERPNext",
     "pageId": "Cash Deposits",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

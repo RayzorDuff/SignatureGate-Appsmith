@@ -29,7 +29,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true) }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "cdepslip01",
   "label": "Deposit Slip / Reference",
   "labelAlignment": "left",

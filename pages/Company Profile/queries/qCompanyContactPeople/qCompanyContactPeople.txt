@@ -1,0 +1,1 @@
+SELECT * FROM public.application_company_contact_people({{ appsmith.user.email }},NULLIF({{ this.params?.organization_id || '' }}::text,'')::uuid);

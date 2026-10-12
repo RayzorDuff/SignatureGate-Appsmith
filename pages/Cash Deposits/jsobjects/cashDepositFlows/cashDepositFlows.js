@@ -1,19 +1,55 @@
 export default {
 
+  accessState() {
+    const state = appsmith.store.cash_deposit_access || {};
+    const email = String(appsmith.user?.email || "").trim().toLowerCase();
+    return email && state.email === email ? state : {status:"loading"};
+  },
+
+  hasAccess() {
+    const state = this.accessState();
+    return state.status === "ready" && state.actor?.can_cash_deposits === true
+      && state.actor?.is_donations_reviewer === true;
+  },
+
+  accessMessage() {
+    const state = this.accessState();
+    if (state.status === "error") return "Cash Deposits could not verify access. Retry access or reload; no financial actions have been loaded.";
+    if (state.status === "unlinked") return "Your sign-in account has no active directory account link. A Directory Manager must verify its ownership and link it to the intended individual.";
+    if (state.status === "denied") return "Your linked sign-in account needs Donations Reviewer permission to view or manage Cash Deposits.";
+    return "Checking Cash Deposits access…";
+  },
+
   async refresh() {
-    for (let i=0;i<20 && !(appsmith.user?.email || "").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));
-    const access = (await qPageAccess.run())?.[0];
-    if (access?.can_cash_deposits !== true) return [];
-    await Promise.allSettled([
-      qCashDepositCurrentFacilitator.run(),
-      qCashDepositCashOnHand.run(),
-      qCashDepositBatches.run(),
-      apiCashDepositBankAccounts.run()
-    ]);
+    const pass = `${Date.now()}-${Math.random()}`;
+    await storeValue("cash_deposit_access_pass",pass);
+    await storeValue("cash_deposit_access",{status:"loading",email:String(appsmith.user?.email || "").trim().toLowerCase()});
+    for (let i=0;i<30 && !(appsmith.user?.email || "").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));
+    const email = String(appsmith.user?.email || "").trim().toLowerCase();
+    try {
+      if (!email) throw new Error("Sign-in account has not loaded.");
+      const access = (await qPageAccess.run())?.[0];
+      if (pass !== appsmith.store.cash_deposit_access_pass || email !== String(appsmith.user?.email || "").trim().toLowerCase()) return [];
+      const linked = !!access?.person_id && String(access?.email || "").trim().toLowerCase() === email;
+      const allowed = linked && access?.can_cash_deposits === true && access?.is_donations_reviewer === true;
+      await storeValue("cash_deposit_access",{email,status:!linked?"unlinked":allowed?"ready":"denied",actor:linked?access:null});
+      if (!allowed) { await qCashDepositAccessDiagnostic.run().catch(()=>null); return []; }
+      const results = await Promise.allSettled([
+        qCashDepositCashOnHand.run(), qCashDepositBatches.run(), apiCashDepositBankAccounts.run()
+      ]);
+      if (pass === appsmith.store.cash_deposit_access_pass && email === String(appsmith.user?.email || "").trim().toLowerCase()
+          && results.some(result=>result.status === "rejected")) showAlert("Access verified, but some deposit information could not load. Retry refresh.","warning");
+      return results;
+    } catch (error) {
+      if (pass === appsmith.store.cash_deposit_access_pass && email === String(appsmith.user?.email || "").trim().toLowerCase())
+        await storeValue("cash_deposit_access",{email,status:"error"});
+      await qCashDepositAccessDiagnostic.run().catch(()=>null);
+      return [];
+    }
   },
 
   facilitatorId() {
-    return qPageAccess.data?.[0]?.can_cash_deposits === true ? (qPageAccess.data?.[0]?.person_id || "") : "";
+    return this.hasAccess() ? (this.accessState().actor?.person_id || "") : "";
   },
 
   selectedDonation() {
@@ -33,8 +69,7 @@ export default {
   },
 
   isDonationsReviewer() {
-    return qPageAccess.data?.[0]?.is_donations_reviewer === true
-      && String(qPageAccess.data?.[0]?.email || "").trim().toLowerCase() === String(appsmith.user?.email || "").trim().toLowerCase();
+    return this.hasAccess();
   },
 
   requireDonationsReviewer() {

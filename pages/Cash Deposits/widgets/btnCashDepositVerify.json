@@ -37,9 +37,9 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": "{{ !tblCashDeposits.selectedRow?.donation_id || tblCashDeposits.selectedRow?.operational_status !== \"pending_review\" || !qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer }}",
+  "isDisabled": "{{ !tblCashDeposits.selectedRow?.donation_id || tblCashDeposits.selectedRow?.operational_status !== \"pending_review\" || !cashDepositFlows.isDonationsReviewer() }}",
   "isLoading": false,
-  "isVisible": "{{ (qPageAccess.data?.[0]?.can_cash_deposits === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true) }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "bkfm8aymy0",
   "leftColumn": 1,
   "minWidth": 120,

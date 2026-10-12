@@ -1,0 +1,5 @@
+SELECT changed.*, changed.updated_at::text AS relationship_version FROM public.application_set_company_contact_person(
+ {{ appsmith.user.email }},NULLIF({{ this.params?.organization_id || '' }}::text,'')::uuid,NULLIF({{ this.params?.person_id || '' }}::text,'')::uuid,
+ {{ this.params?.active === true }}::boolean,
+ NULLIF({{ this.params?.expected_updated_at || '' }}::text,'')::timestamptz,
+ {{ this.params?.reason || '' }}::text) AS changed;
