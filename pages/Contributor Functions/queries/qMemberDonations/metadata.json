@@ -29,7 +29,7 @@
     ],
     "name": "qMemberDonations",
     "pageId": "Contributor Functions",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": false
   }
 }

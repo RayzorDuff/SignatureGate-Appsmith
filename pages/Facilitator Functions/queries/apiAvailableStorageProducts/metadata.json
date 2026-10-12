@@ -39,7 +39,7 @@
     ],
     "name": "apiAvailableStorageProducts",
     "pageId": "Facilitator Functions",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": false
   }
 }

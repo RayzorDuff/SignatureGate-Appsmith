@@ -29,7 +29,7 @@
     ],
     "name": "qMemberEmails",
     "pageId": "Member Functions",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": false
   }
 }

@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT\n  ma.member_agreement_id,\n  ma.created_at,\n  ma.status,\n  ma.signature_method,\n  ma.member_signed_at,\n  ma.facilitator_signed_at,\n  ma.opensign_document_id,\n  COALESCE(at.name, 'Paper Agreement - No Template') AS template_name,\n  ma.facilitator_id,\n  ma.evidence,\n  CASE WHEN public.application_member_access({{ appsmith.user.email }},ma.member_id,true) THEN ma.review_notes END AS review_notes,\n\tma.documenso_document_id,\n\tma.documenso_external_id,\n\tma.canceled_at,\n\tma.canceled_by,\n\tma.cancel_reason,\n\tma.expired_at\t\nFROM public.member_agreements ma\nLEFT JOIN public.agreement_templates at\n  ON at.agreement_template_id = ma.agreement_template_id\n\nWHERE ma.member_id = NULLIF({{ appsmith.store.member_id || '' }},'')::uuid\n  AND public.application_member_access({{ appsmith.user.email }},ma.member_id,false)\nORDER BY ma.created_at DESC;",
+      "body": "SELECT\n  ma.member_agreement_id,\n  ma.created_at,\n  ma.status,\n  ma.signature_method,\n  ma.member_signed_at,\n  ma.facilitator_signed_at,\n  ma.opensign_document_id,\n  COALESCE(at.name, 'Paper Agreement - No Template') AS template_name,\n  ma.facilitator_id,\n  ma.evidence,\n  CASE WHEN public.application_member_access({{ appsmith.user.email }},ma.member_id,true) THEN ma.review_notes END AS review_notes,\n\tma.documenso_document_id,\n\tma.documenso_external_id,\n\tma.canceled_at,\n\tma.canceled_by,\n\tma.cancel_reason,\n\tma.expired_at\nFROM public.member_agreements ma\nLEFT JOIN public.agreement_templates at\n  ON at.agreement_template_id = ma.agreement_template_id\n\nWHERE ma.member_id = NULLIF({{ appsmith.store.member_id || '' }},'')::uuid\n  AND public.application_member_access({{ appsmith.user.email }},ma.member_id,false)\nORDER BY ma.created_at DESC;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -29,7 +29,7 @@
     ],
     "name": "qMemberAgreements",
     "pageId": "Member Functions",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": false
   }
 }
