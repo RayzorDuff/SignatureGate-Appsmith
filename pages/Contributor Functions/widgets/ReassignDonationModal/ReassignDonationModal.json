@@ -3,12 +3,12 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 355,
   "boxShadow": "none",
-  "canEscapeKeyClose": true,
-  "canOutsideClickClose": true,
+  "canEscapeKeyClose": false,
+  "canOutsideClickClose": false,
   "children": [
     {
       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-      "bottomRow": 250,
+      "bottomRow": 380,
       "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
       "canExtend": true,
       "detachFromLayout": true,
@@ -29,11 +29,11 @@
       "leftColumn": 0,
       "maxDynamicHeight": 9000,
       "minDynamicHeight": 4,
-      "minHeight": 240,
+      "minHeight": 380,
       "minWidth": 450,
       "mobileBottomRow": 240,
       "mobileLeftColumn": 0,
-      "mobileRightColumn": 269.5625,
+      "mobileRightColumn": 520,
       "mobileTopRow": 0,
       "needsErrorInfo": false,
       "parentColumnSpace": 1,
@@ -41,7 +41,7 @@
       "parentRowSpace": 1,
       "renderMode": "CANVAS",
       "responsiveBehavior": "fill",
-      "rightColumn": 269.5625,
+      "rightColumn": 520,
       "shouldScrollContents": false,
       "topRow": 0,
       "type": "CANVAS_WIDGET",
@@ -57,14 +57,14 @@
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
-  "height": 250,
+  "height": 380,
   "isCanvas": true,
   "isLoading": false,
   "key": "j3po2ddmbg",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 24,
-  "minHeight": 250,
+  "minHeight": 380,
   "mobileBottomRow": 187,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 19,
@@ -81,5 +81,11 @@
   "version": 2,
   "widgetId": "jwninnx2qp",
   "widgetName": "ReassignDonationModal",
-  "width": 456
+  "width": 520,
+  "onClose": "{{ cashDonationFlows.clearReassign() }}",
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClose"
+    }
+  ]
 }

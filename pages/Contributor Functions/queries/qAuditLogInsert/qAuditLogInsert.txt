@@ -1,15 +1,4 @@
-INSERT INTO public.audit_log (
-  actor,
-  action,
-  entity_type,
-  entity_id,
-  details
-)
-VALUES (
-  NULLIF({{ this.params.actor_email }}, ''),
-  {{ this.params.action }},
-  {{ this.params.entity_type }},
-  COALESCE(NULLIF({{ this.params.entity_id }}, ''), 'unknown'),
-  COALESCE({{ this.params.details_json }}::jsonb, '{}'::jsonb)
-)
-RETURNING audit_log_id;
+INSERT INTO public.audit_log(actor,action,entity_type,entity_id,details)
+SELECT lower(btrim({{ appsmith.user.email }}::text)), {{ this.params.action }}::text,{{ this.params.entity_type }}::text,
+ COALESCE(NULLIF({{ this.params.entity_id || "" }}::text,''),'unknown'),COALESCE({{ this.params.details_json || "{}" }}::jsonb,'{}'::jsonb)
+WHERE public.application_require_permission({{ appsmith.user.email }}::text,'contributions.review') RETURNING audit_log_id;

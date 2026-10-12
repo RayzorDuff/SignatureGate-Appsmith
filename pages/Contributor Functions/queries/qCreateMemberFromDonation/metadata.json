@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "WITH created AS (\n  SELECT m.*\n  FROM public.create_member_from_pending_donation(\n    p_donation_id => {{ this.params.donation_id }}::uuid,\n    p_reviewer_id => (SELECT member_id FROM public.application_access({{ appsmith.user.email }}) WHERE public.application_require_permission({{ appsmith.user.email }},'contributions.review')),\n    p_review_notes => {{ this.params.review_notes || null }}\n  ) m\n),\nmailing AS (\n  UPDATE public.member_emails me\n  SET\n    mailing_subscription_status = CASE\n      WHEN COALESCE({{ this.params.subscribe_to_mailing_list }}, true)\n        THEN 'subscribed'\n      ELSE 'not_subscribed'\n    END,\n    mailing_subscription_source = 'givebutter_create_member'\n  FROM created\n  WHERE me.member_id = created.member_id\n    AND me.status = 'active'\n  RETURNING me.member_email_id\n)\nSELECT\n  created.member_id,\n  created.first_name,\n  created.last_name,\n  created.email,\n  created.phone\nFROM created;",
+      "body": "SELECT * FROM public.application_create_participant_from_donation(\n {{ appsmith.user.email }}::text, {{ this.params.donation_id }}::uuid,\n {{ this.params.review_notes || null }}::text, {{ this.params.subscribe_to_mailing_list === true }}::boolean);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -30,6 +30,6 @@
     "name": "qCreateMemberFromDonation",
     "pageId": "Contributor Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

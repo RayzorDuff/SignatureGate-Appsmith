@@ -1,0 +1,58 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "autoFocus": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 29,
+  "boxShadow": "none",
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
+  "iconAlign": "left",
+  "inputType": "TEXT",
+  "isDisabled": "{{ appsmith.store.provider_review_busy === true }}",
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": true,
+  "key": "donation-reassign-reason",
+  "label": "Reason for attribution correction",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 2,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 250,
+  "mobileBottomRow": 29,
+  "mobileLeftColumn": 2,
+  "mobileRightColumn": 62,
+  "mobileTopRow": 21,
+  "originalBottomRow": 29,
+  "originalTopRow": 21,
+  "parentColumnSpace": 7.875,
+  "parentId": "iiax55mfcd",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "resetOnSubmit": false,
+  "responsiveBehavior": "fill",
+  "rightColumn": 62,
+  "showStepArrows": false,
+  "topRow": 21,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "donation-reassign-reason",
+  "widgetName": "inpDonationReassignReason"
+}

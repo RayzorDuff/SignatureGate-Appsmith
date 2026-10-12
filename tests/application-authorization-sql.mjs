@@ -79,5 +79,20 @@ try {
  await assert.rejects(action('Cash Deposits','qReviveCashDonation',don.email,{reason:'   '}));
  assert.equal((await action('Cash Deposits','qReviveCashDonation',don.email,{reason:'Synthetic source recovery'})).length,1);
  assert.equal((await db.query("SELECT details->>'revival_reason' AS reason FROM public.audit_log WHERE entity_id=$1 AND action='cash_donation.deposit_reconciliation_revived'",[donationId])).rows[0].reason,'Synthetic source recovery');
+ const providerId=(await db.query("INSERT INTO public.donations(provider,donor_kind,status,amount_cents) VALUES('givebutter','unresolved','pending_review',137) RETURNING donation_id")).rows[0].donation_id;
+ await db.query("INSERT INTO public.audit_log(action,entity_type,entity_id,details) VALUES('synthetic.provider','donation',$1,$2)",[providerId,JSON.stringify({raw:{organization_name:'Synthetic Source Company',email:'provider-source@example.invalid',contact_id:601}})]);
+ await assert.rejects(action('Contributor Functions','qLinkDonationToMember',self.email,{donation_id:providerId,contributor_choice:'__new_organization__'}));
+ const providerResolved=(await action('Contributor Functions','qLinkDonationToMember',don.email,{donation_id:providerId,contributor_choice:'__new_organization__'}))[0];
+ assert.ok(providerResolved.contributor_id);assert.equal(providerResolved.member_id,null);
+ await assert.rejects(action('Contributor Functions','qReassignDonationMember',self.email,{donation_id:providerId,contributor_choice:'member:'+target,reason:'Synthetic correction'}));
+ assert.equal((await action('Contributor Functions','qReassignDonationMember',don.email,{donation_id:providerId,contributor_choice:'member:'+target,reason:'Synthetic correction'}))[0].member_id,target);
+ await assert.rejects(action('Contributor Functions','qAuditLogInsert',self.email,{action:'synthetic',entity_type:'donation',entity_id:providerId}));
+ const combined=await make('provider-admin',['directory_manager','document_reviewer','donations_reviewer']);
+ const enrollmentId=(await db.query("INSERT INTO public.donations(provider,donor_kind,status,amount_cents) VALUES('givebutter','unresolved','pending_review',137) RETURNING donation_id")).rows[0].donation_id;
+ await db.query("INSERT INTO public.audit_log(action,entity_type,entity_id,details) VALUES('synthetic.provider','donation',$1,$2)",[enrollmentId,JSON.stringify({raw:{first_name:'Synthetic',last_name:'Source Enrollment',email:'provider-enrollment-source@example.invalid',phone:'5550109477',contact_id:'source-enrollment'}})]);
+ await assert.rejects(action('Contributor Functions','qCreateMemberFromDonation',don.email,{donation_id:enrollmentId,subscribe_to_mailing_list:false}));
+ const enrolled=(await action('Contributor Functions','qCreateMemberFromDonation',combined.email,{donation_id:enrollmentId,subscribe_to_mailing_list:false}))[0];
+ assert.ok(enrolled.member_id);
+ assert.equal((await db.query('SELECT mailing_subscription_status FROM public.member_emails WHERE member_id=$1',[enrolled.member_id])).rows[0].mailing_subscription_status,'not_subscribed');
  await db.exec('ROLLBACK');console.log('PASS actual source queries: authorization, self/forged targets, canonical reviewers, cash/audit/Intake guards and reason-aware reconciliation bindings');
 } catch(error){console.error(JSON.stringify({action:currentAction,message:error.message,code:error.code}));process.exitCode=1;} finally {await db.close();}

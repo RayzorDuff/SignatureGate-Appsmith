@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT *\nFROM public.resolve_pending_donation_choice(\n  p_donation_id => {{ this.params.donation_id }}::uuid,\n  p_reviewer_id => (SELECT member_id FROM public.application_access({{ appsmith.user.email }}) WHERE public.application_require_permission({{ appsmith.user.email }},'contributions.review')),\n  p_choice => {{ this.params.contributor_choice }},\n  p_review_notes => {{ this.params.review_notes || null }}\n);",
+      "body": "SELECT * FROM public.application_resolve_provider_choice(\n {{ appsmith.user.email }}::text, {{ this.params.donation_id }}::uuid,\n {{ this.params.contributor_choice }}::text, {{ this.params.review_notes || null }}::text);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -30,6 +30,6 @@
     "name": "qLinkDonationToMember",
     "pageId": "Contributor Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

@@ -53,5 +53,5 @@ async function cashCase({allowed=true,reviewer=false,refreshFail=false,writeFail
  flows.refresh=async()=>[];await flows.init();assert.equal(context.appsmith.store.member_id,own);assert.equal(context.appsmith.store.facilitator_is_donations_reviewer,false);
 }
 const releaseAction=JSON.parse(text('pages/Sacrament Release/queries/apiListAvailableProducts/metadata.json')).unpublishedAction;
-assert.equal(releaseAction.runBehaviour,'MANUAL');assert.equal(releaseAction.userSetOnLoad,false,'inventory must not load before scope');
+assert.equal(releaseAction.runBehaviour,'MANUAL');assert.equal(releaseAction.userSetOnLoad,true,'explicit Manual choice must persist before authorized scope load');
 console.log('PASS email validation, Participant Intake denial/self scope, singular cash alerts and release on-load isolation');

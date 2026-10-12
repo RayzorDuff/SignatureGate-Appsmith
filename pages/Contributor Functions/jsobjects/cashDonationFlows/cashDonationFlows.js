@@ -133,82 +133,57 @@ export default {
 		return good;
 	},
 
-	async linkPendingGivebutterDonation() {
-		try {
-			if (!appsmith.store.facilitator_is_donations_reviewer) {
-				showAlert("Only donations reviewers can review donations.", "error");
-				return;
-			}
+  async reviewActor(enroll = false) {
+    const actor = (await qPageAccess.run())?.[0];
+    const email = String(appsmith.user?.email || "").trim().toLowerCase();
+    if (!email || String(actor?.email || "").trim().toLowerCase() !== email || actor?.is_donations_reviewer !== true ||
+        (enroll && (actor?.is_document_reviewer !== true || actor?.is_directory_manager !== true))) {
+      showAlert(enroll ? "Participant enrollment requires Directory Manager, Document Reviewer and Donations Reviewer permissions."
+        : "Donations Reviewer permission is required.", "error");
+      return false;
+    }
+    return actor;
+  },
 
-			const donation = tblPendingGivebutterDonations.selectedRow;
-			const notes = inpDonationNotes.text || "";
+  async runReviewWrite(query, params, message, enroll = false, after = null) {
+    if (appsmith.store.provider_review_busy === true) return null;
+    await storeValue("provider_review_busy", true);
+    let record = null;
+    try {
+      if (!await this.reviewActor(enroll)) return null;
+      const result = await query.run(params);
+      record = Array.isArray(result) ? result[0] : result;
+      if (!record?.donation_id && !record?.member_id) throw new Error("No changed record was returned.");
+      const refreshed = await Promise.allSettled([qPendingGivebutterDonations.run(),qMembersDirectory.run(),this.refreshDonations()]);
+      if (after) await after(record);
+      if (refreshed.some(item => item.status === "rejected")) {
+        showAlert("Change saved, but the display refresh failed. Reload; do not repeat the change.", "warning");
+      } else showAlert(message, "success");
+      return record;
+    } catch (error) {
+      showAlert(record ? "Change saved, but the display could not finish updating. Reload; do not repeat the change."
+        : "Review failed: " + (error?.message || error), record ? "warning" : "error");
+      return record;
+    } finally {
+      await storeValue("provider_review_busy", false);
+    }
+  },
 
-			if (!donation?.donation_id) {
-				showAlert("Select a pending donation.", "warning");
-				return;
-			}
-
-			if (donation.provider === "cash") {
-				await qIgnorePendingDonation.run({
-					donation_id: donation.donation_id,
-					new_status: "verified",
-					review_notes: notes || "Verified cash donation"
-				});
-				await this.auditLog("donation.cash.verified", "donation", donation.donation_id, {
-					donation_id: donation.donation_id,
-					contributor_id: donation.contributor_id || null,
-					member_id: donation.member_id || null,
-					donor_kind: donation.donor_kind,
-					amount_cents: donation.amount_cents,
-					review_notes: notes || "Verified cash donation"
-				});
-				showAlert("Cash donation verified.", "success");
-				await qPendingGivebutterDonations.run();
-				return;
-			}
-
-			if (donation.provider !== "givebutter" || donation.donor_kind !== "unresolved") {
-				showAlert("Only unresolved Givebutter donations can be assigned.", "error");
-				return;
-			}
-
-			const choice = selDonationMember.selectedOptionValue;
-			if (!choice || choice === "__anonymous__") {
-				showAlert("Select an existing contributor/member or a new contributor type.", "warning");
-				return;
-			}
-
-			const result = await qLinkDonationToMember.run({
-				donation_id: donation.donation_id,
-				contributor_choice: choice,
-				review_notes: notes
-			});
-			const resolved = result?.[0] || {};
-
-			await this.auditLog("donation.givebutter.resolved", "donation", donation.donation_id, {
-				donation_id: donation.donation_id,
-				contributor_choice: choice,
-				contributor_id: resolved.contributor_id || null,
-				member_id: resolved.member_id || null,
-				provider_reference: donation.actual_provider_reference || donation.provider_reference,
-				review_notes: notes
-			});
-
-			const createdLabel = choice === "__new_organization__"
-				? "Organization contributor created and donation assigned."
-				: choice === "__new_individual__"
-					? "Individual contributor created and donation assigned."
-					: "Givebutter donation assigned to contributor.";
-			showAlert(createdLabel, "success");
-			await Promise.allSettled([
-				qPendingGivebutterDonations.run(),
-				qMembersDirectory.run()
-			]);
-		} catch (e) {
-			showAlert("Failed to review donation: " + (e?.message || e), "error");
-			throw e;
-		}
-	},
+  async linkPendingGivebutterDonation() {
+    const donation = tblPendingGivebutterDonations.selectedRow;
+    if (!donation?.donation_id) { showAlert("Select a pending donation.","warning"); return; }
+    const notes = String(inpDonationNotes.text || "").trim();
+    if (donation.provider === "cash") {
+      return this.runReviewWrite(qIgnorePendingDonation,{donation_id:donation.donation_id,new_status:"verified",review_notes:notes},"Cash donation verified.");
+    }
+    if (donation.provider !== "givebutter" || donation.donor_kind !== "unresolved") {
+      showAlert("Select an unresolved Givebutter donation.","warning"); return;
+    }
+    const choice = selDonationMember.selectedOptionValue;
+    if (!choice || choice === "__anonymous__") { showAlert("Select an existing party or a new contributor type.","warning"); return; }
+    return this.runReviewWrite(qLinkDonationToMember,{donation_id:donation.donation_id,contributor_choice:choice,review_notes:notes},
+      choice.startsWith("__new_") ? "Contributor created and donation assigned." : "Donation assigned to contributor.");
+  },
 
 	async submitDonation() {
     let recordedId = "";
@@ -277,240 +252,65 @@ export default {
 		}
 	},
 
-	async verifyDonation(
-		donationId,
-		reviewNotes,
-		newStatus,
-		memberId,
-		amountCents,
-		donatedAt
-	) {
-		const notes = String(reviewNotes || "").trim();
-
-		if (!notes) {
-			showAlert(
-				"Enter review notes before verifying or rejecting a donation.",
-				"warning"
-			);
-			return;
-		}
-
-		await qVerifyDonation.run({
-			donation_id: donationId,
-			review_notes: notes,
-			new_status: newStatus
-		});
-
-		await this.auditLog(
-			"donation." + newStatus,
-			"donation",
-			donationId,
-			{
-				member_id: memberId || appsmith.store.member_id,
-				status: newStatus,
-				review_notes: notes,
-				amount_cents: amountCents,
-				donated_at: donatedAt
-			}
-		);
-
-		await this.refreshDonations();
-
-		showAlert(
-			newStatus === "rejected"
-				? "Donation rejected."
-				: "Donation verified.",
-			"success"
-		);
-	},	
-
- async openReassignModal(cur_donation_id, cur_donated_at, cur_provider, cur_amount_cents, cur_currency, cur_status, cur_member, cur_contributor) {
-    // Requires at least one target lot selected in tblLots
-    const id = appsmith.store.donation_reassign_row ||
-				DonationsTable?.selectedRow ||
-				null;
-		
-    if (!id?.donation_id) {
-      showAlert('Select a donation in the Donations table first.', 'warning');
-      return;
-    }
-		
-		const donated_at = cur_donated_at ? moment(cur_donated_at).format("YYYY-MM-DD") : "";
-    const provider = cur_provider || "";
-    const amount = cur_amount_cents ? Math.round(cur_amount_cents / 100 ) + " " + cur_currency : "";
-    const status = cur_status  || "";
-		
-		const currentSelection = (qMembersDirectory.data || []).find(item =>
-      (cur_contributor && String(item.contributor_id || "") === String(cur_contributor)) ||
-      (!cur_contributor && cur_member && String(item.member_id || "") === String(cur_member))
-    );
-    selReassignDonationMember.setSelectedOption(currentSelection?.selection_value || "");
-		
-		
-		//if (!await this.verifyInoculateLots()) return showAlert("Select valid lots to package.", "warning");
-		
-		txtReassignDonationContent.setText(`${donated_at} | ${provider} | ${amount} | ${status}`.trim());
-		txtReassignDonationID.setText(cur_donation_id);
-		
-    // Refresh source lots list + locations
-    Promise.allSettled([qMembersDirectory.run()]).finally(() => {
-      showModal(ReassignDonationModal.name);
-    });
+  async verifyDonation(donationId, reviewNotes, newStatus, memberId, amountCents, donatedAt) {
+    const notes = String(reviewNotes || "").trim();
+    if (!notes) { showAlert("Enter review notes before verifying or rejecting a donation.","warning"); return; }
+    return this.runReviewWrite(qVerifyDonation,{donation_id:donationId,review_notes:notes,new_status:newStatus},
+      newStatus === "rejected" ? "Donation rejected." : "Donation verified.");
   },
 
-	async reassignDonation() {
-		try {
-			if (!appsmith.store.facilitator_is_donations_reviewer) {
-				showAlert("You do not have permission to reassign donations.", "error");
-				return;
-			}
+  async clearReassign() {
+    await storeValue("donation_reassign_row", null);
+    await storeValue("donation_reassign_actor", null);
+  },
 
-			const row =
-				appsmith.store.donation_reassign_row ||
-				DonationsTable?.selectedRow ||
-				{};
+  async openReassignModal(cur_donation_id, cur_donated_at, cur_provider, cur_amount_cents, cur_currency, cur_status, cur_member, cur_contributor) {
+    if (!await this.reviewActor()) return;
+    const id = String(cur_donation_id || "").trim();
+    const row = (DonationsTable.processedTableData || []).find(item => String(item.donation_id || "") === id)
+      || (String(DonationsTable.selectedRow?.donation_id || "") === id ? DonationsTable.selectedRow : null);
+    if (!row) { showAlert("Select a donation row first.","warning"); return; }
+    await qMembersDirectory.run();
+    await storeValue("donation_reassign_row", {...row});
+    await storeValue("donation_reassign_actor", String(appsmith.user?.email || "").trim().toLowerCase());
+    const choice = (qMembersDirectory.data || []).find(item =>
+      row.contributor_id ? item.contributor_id === row.contributor_id : row.member_id && item.member_id === row.member_id);
+    await selReassignDonationMember.setSelectedOption(choice?.selection_value || "");
+    await resetWidget("inpDonationReassignReason",true);
+    await txtReassignDonationID.setText(id);
+    await txtReassignDonationContent.setText(`${String(row.donated_at || "").slice(0,10)} | ${row.provider || ""} | ${(Number(row.amount_cents || 0)/100).toFixed(2)} ${row.currency || ""} | ${row.status || ""}`);
+    await showModal("ReassignDonationModal");
+  },
 
-			const donationId = row.donation_id || txtReassignDonationID.text || "";
-			const oldMemberId = row.member_id || null;
-			const oldContributorId = row.contributor_id || null;
-			const contributorChoice = selReassignDonationMember?.selectedOptionValue;
+  async reassignDonation() {
+    const row = appsmith.store.donation_reassign_row;
+    const choice = String(selReassignDonationMember.selectedOptionValue || "");
+    const reason = String(inpDonationReassignReason.text || "").trim();
+    if (!row?.donation_id) { showAlert("Open a donation's reassignment dialog first.","warning"); return; }
+    if (appsmith.store.donation_reassign_actor !== String(appsmith.user?.email || "").trim().toLowerCase()) {
+      await this.clearReassign(); showAlert("Account changed. No reassignment was made.","error"); return;
+    }
+    if (!choice || !reason) { showAlert("Choose the contributor and enter a correction reason.","warning"); return; }
+    return this.runReviewWrite(qReassignDonationMember,{donation_id:row.donation_id,contributor_choice:choice,reason},"Donation reassigned.",false,
+      async () => { await this.clearReassign(); await closeModal("ReassignDonationModal"); });
+  },
 
-			if (!donationId) {
-				showAlert("No donation is selected.", "error");
-				return;
-			}
+  async ignorePendingDonation() {
+    const donation = tblPendingGivebutterDonations.selectedRow;
+    if (!donation?.donation_id) { showAlert("Select a pending donation.","warning"); return; }
+    const cash = donation.provider === "cash";
+    return this.runReviewWrite(qIgnorePendingDonation,{donation_id:donation.donation_id,new_status:cash?"rejected":"ignored",review_notes:String(inpDonationNotes.text || "").trim()},
+      cash ? "Cash donation rejected." : "Donation ignored.");
+  },
 
-			if (!contributorChoice) {
-				showAlert("Please select the contributor to assign this donation to.", "warning");
-				return;
-			}
-
-			const currentChoice = oldContributorId
-				? `contributor:${oldContributorId}`
-				: oldMemberId ? `member:${oldMemberId}` : "";
-			if (currentChoice && currentChoice === contributorChoice) {
-				showAlert("That donation is already assigned to this contributor.", "warning");
-				return;
-			}
-
-			const res = await qReassignDonationMember.run({
-				donation_id: donationId,
-				contributor_choice: contributorChoice
-			});
-			if (!Array.isArray(res) || !res[0]?.donation_id) {
-				throw new Error("The donation was not reassigned. Confirm the selected contributor is active and try again.");
-			}
-
-			await this.auditLog(
-				"donation.reassigned",
-				"donation",
-				donationId,
-				{
-					donation_id: donationId,
-					from_member_id: oldMemberId,
-					from_contributor_id: oldContributorId,
-					to_contributor_choice: contributorChoice,
-					to_contributor_id: res[0].contributor_id || null,
-					to_member_id: res[0].member_id || null,
-					page: "Contributor Functions"
-				}
-			);
-
-			showAlert("Donation reassigned.", "success");
-			closeModal(ReassignDonationModal.name);
-
-			await this.refreshDonations();
-
-
-			return res;
-			
-		} catch (e) {
-			console.error("reassignDonation failed:", e);
-			showAlert("Failed to reassign donation: " + (e?.message || e), "error");
-			throw e;
-		}
-	},
-	
-	async ignorePendingDonation() {
-		const donation = tblPendingGivebutterDonations.selectedRow;
-		if (!donation?.donation_id) {
-			showAlert("Select a pending donation.", "warning");
-			return;
-		}
-
-		const isCash = donation.provider === "cash";
-		const newStatus = isCash ? "rejected" : "ignored";
-		const notes = inpDonationNotes.text || (
-			isCash ? "Rejected cash donation" : "Donation does not apply to a member"
-		);
-
-		await qIgnorePendingDonation.run({
-			donation_id: donation.donation_id,
-			new_status: newStatus,
-			review_notes: notes
-		});
-
-		await this.auditLog(
-			isCash ? "donation.cash.rejected" : "donation.ignored",
-			"donation",
-			donation.donation_id,
-			{
-				donation_id: donation.donation_id,
-				donor_kind: donation.donor_kind,
-				member_id: donation.member_id || null,
-				provider: donation.provider,
-				provider_reference: donation.actual_provider_reference || donation.provider_reference,
-				status: newStatus,
-				review_notes: notes,
-				reviewed_by: appsmith.store.facilitator_id
-			}
-		);
-
-		showAlert(isCash ? "Cash donation rejected." : "Donation ignored.", "success");
-		await qPendingGivebutterDonations.run();
-	},
-
-	async createMemberFromPendingDonation() {
-		const donation = tblPendingGivebutterDonations.selectedRow;
-		const notes = inpDonationNotes.text || "Created member from Givebutter donation";
-
-		if (!appsmith.store.facilitator_is_donations_reviewer) {
-			showAlert("Only donations reviewers can create members from donations.", "error");
-			return;
-		}
-		if (!donation?.donation_id) {
-			showAlert("Select a pending Givebutter donation.", "warning");
-			return;
-		}
-		if (donation.provider !== "givebutter" || donation.donor_kind !== "unresolved") {
-			showAlert("Only unresolved Givebutter donations can create a member.", "error");
-			return;
-		}
-
-		const created = await qCreateMemberFromDonation.run({
-			donation_id: donation.donation_id,
-			review_notes: notes,
-			subscribe_to_mailing_list: chkGivebutterSubscribeListmonk.isChecked
-		});
-		const member = created?.[0];
-		if (!member?.member_id) {
-			showAlert("Member was not created.", "error");
-			return;
-		}
-
-		await this.auditLog("donation.member_created", "donation", donation.donation_id, {
-			donation_id: donation.donation_id,
-			created_member_id: member.member_id,
-			provider_reference: donation.actual_provider_reference || donation.provider_reference,
-			review_notes: notes
-		});
-		showAlert("Member and linked contributor created; donation assigned.", "success");
-		await Promise.allSettled([
-			qPendingGivebutterDonations.run(),
-			qMembersDirectory.run()
-		]);
-		navigateTo("Member Functions", { member_id: member.member_id }, "SAME_WINDOW");
-	},
-	
-
+  async createMemberFromPendingDonation() {
+    const donation = tblPendingGivebutterDonations.selectedRow;
+    if (!donation?.donation_id || donation.provider !== "givebutter" || donation.donor_kind !== "unresolved") {
+      showAlert("Select an unresolved Givebutter donation.","warning"); return;
+    }
+    return this.runReviewWrite(qCreateMemberFromDonation,{donation_id:donation.donation_id,review_notes:String(inpDonationNotes.text || "").trim(),subscribe_to_mailing_list:chkGivebutterSubscribeListmonk.isChecked === true},
+      "Participant and linked contributor created.",true,async record => {
+        await navigateTo("Member Functions",{member_id:record.member_id},"SAME_WINDOW");
+      });
+  },
 };
