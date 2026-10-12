@@ -1,0 +1,64 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 36,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonStyle": "PRIMARY_BUTTON",
+  "buttonVariant": "SECONDARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ appsmith.store.cash_reconciliation_busy === true }}",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "btnCashDispositionCancel",
+  "leftColumn": 2,
+  "minWidth": 120,
+  "mobileBottomRow": 36,
+  "mobileLeftColumn": 2,
+  "mobileRightColumn": 28,
+  "mobileTopRow": 32,
+  "needsErrorInfo": false,
+  "onClick": "{{ closeModal(\"mdlCashDisposition\") }}",
+  "originalBottomRow": 36,
+  "originalTopRow": 32,
+  "parentId": "cash-disposition-canvas",
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 28,
+  "text": "Cancel",
+  "topRow": 32,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "btnCashDispositionCancel",
+  "widgetName": "btnCashDispositionCancel",
+  "parentColumnSpace": 7.875,
+  "parentRowSpace": 10
+}

@@ -61,66 +61,88 @@ export default {
     await qCashDepositCashOnHand.run();
   },
 
-  async excludeDonationFromReconciliation(donationId) {
-    const clickedId = String(donationId || "").trim();
-    const donation = clickedId
-      ? (tblCashDeposits.processedTableData || []).find(
-          row => String(row.donation_id || "").trim() === clickedId
-        ) || {}
+  async clearDisposition() {
+    await storeValue("cash_reconciliation_intent", null);
+  },
+
+  async openDisposition(donationId, mode) {
+    const access = (await qPageAccess.run())?.[0];
+    if (access?.can_cash_deposits !== true || access?.is_donations_reviewer !== true ||
+        String(access?.email || "").trim().toLowerCase() !== String(appsmith.user?.email || "").trim().toLowerCase()) {
+      showAlert("Donations Reviewer permission is required.", "error");
+      return false;
+    }
+    const id = String(donationId || "").trim();
+    const donation = id
+      ? (tblCashDeposits.processedTableData || []).find(row => String(row.donation_id || "").trim() === id)
       : this.selectedDonation();
-    const reviewerId = this.requireDonationsReviewer();
-
-    if (!reviewerId) return;
-
-    if (!donation.donation_id) {
-      showAlert("Select a cash donation to exclude from deposit reconciliation.", "warning");
-      return;
+    const expected = mode === "revive" ? "deposit_reconciliation_excluded" : mode === "exclude" ? "cash_on_hand" : "";
+    if (!expected || !donation?.donation_id || donation.operational_status !== expected) {
+      showAlert("Select an eligible cash donation for this action.", "warning");
+      return false;
     }
-
-    if (donation.operational_status !== "cash_on_hand") {
-      showAlert("Only a Cash on Hand donation can be excluded from deposit reconciliation.", "warning");
-      return;
-    }
-
-    await qExcludeCashDonation.run({
-      donation_id: donation.donation_id,
-      actor_id: reviewerId,
-      reason: "Historical cash donation could not be reconciled to a physical deposit.",
-      notes: "Excluded from future cash-deposit batching; original donation record retained."
+    await storeValue("cash_reconciliation_intent", {
+      donation_id: donation.donation_id, mode,
+      actor_email: String(appsmith.user?.email || "").trim().toLowerCase()
     });
+    await storeValue("cash_reconciliation_busy", false);
+    await Promise.all([resetWidget("inpCashDispositionReason", true), resetWidget("inpCashDispositionNotes", true)]);
+    await showModal("mdlCashDisposition");
+    return true;
+  },
 
-    showAlert("Cash donation excluded from deposit reconciliation.", "success");
-    await qCashDepositCashOnHand.run();
+  async excludeDonationFromReconciliation(donationId) {
+    return this.openDisposition(donationId, "exclude");
   },
 
   async reviveDonationFromReconciliation(donationId) {
-    const clickedId = String(donationId || "").trim();
-    const donation = clickedId
-      ? (tblCashDeposits.processedTableData || []).find(
-          row => String(row.donation_id || "").trim() === clickedId
-        ) || {}
-      : this.selectedDonation();
-    const reviewerId = this.requireDonationsReviewer();
+    return this.openDisposition(donationId, "revive");
+  },
 
-    if (!reviewerId) return;
-
-    if (!donation.donation_id) {
-      showAlert("Select an excluded cash donation to revive.", "warning");
-      return;
+  async submitDisposition() {
+    if (appsmith.store.cash_reconciliation_busy === true) return false;
+    const intent = appsmith.store.cash_reconciliation_intent;
+    const reason = String(inpCashDispositionReason.text || "").trim();
+    const notes = String(inpCashDispositionNotes.text || "").trim();
+    if (!intent?.donation_id || !["exclude", "revive"].includes(intent.mode)) {
+      showAlert("Choose a reconciliation action first.", "warning");
+      return false;
     }
-
-    if (donation.operational_status !== "deposit_reconciliation_excluded") {
-      showAlert("Only an excluded cash donation can be revived.", "warning");
-      return;
+    if (!reason) {
+      showAlert("A reason is required for this reconciliation change.", "warning");
+      return false;
     }
-
-    await qReviveCashDonation.run({
-      donation_id: donation.donation_id,
-      actor_id: reviewerId
-    });
-
-    showAlert("Cash donation revived and returned to Cash on Hand.", "success");
-    await qCashDepositCashOnHand.run();
+    await storeValue("cash_reconciliation_busy", true);
+    let committed = false;
+    try {
+      const access = (await qPageAccess.run())?.[0];
+      const email = String(appsmith.user?.email || "").trim().toLowerCase();
+      if (!email || email !== intent.actor_email || String(access?.email || "").trim().toLowerCase() !== email || access?.can_cash_deposits !== true || access?.is_donations_reviewer !== true) {
+        await this.clearDisposition();
+        showAlert("Access changed. No reconciliation change was made.", "error");
+        return false;
+      }
+      const query = intent.mode === "revive" ? qReviveCashDonation : qExcludeCashDonation;
+      await query.run({donation_id: intent.donation_id, reason, notes: notes || null});
+      committed = true;
+      await this.clearDisposition();
+      await closeModal("mdlCashDisposition");
+      await qCashDepositCashOnHand.run();
+      showAlert(intent.mode === "revive"
+        ? "Cash donation revived and returned to Cash on Hand."
+        : "Cash donation excluded from deposit reconciliation.", "success");
+      return intent.donation_id;
+    } catch (error) {
+      if (committed) {
+        await this.clearDisposition();
+        showAlert("Reconciliation change saved, but the display refresh failed. Reload the page; do not repeat the change.", "warning");
+        return intent.donation_id;
+      }
+      showAlert("Reconciliation change failed: " + (error?.message || error), "error");
+      return false;
+    } finally {
+      await storeValue("cash_reconciliation_busy", false);
+    }
   },
 
   async verifyDonation() {

@@ -29,7 +29,7 @@
     ],
     "name": "qMemberAgreements",
     "pageId": "Member Functions",
-    "runBehaviour": "AUTOMATIC",
-    "userSetOnLoad": false
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": true
   }
 }

@@ -65,9 +65,19 @@ try {
  for(const name of ['qListFacilitators','qMemberById','qMemberStorageLocations','qAssignedParticipants','qParticipantCandidates','qLocationNameSuggestions','qDistinctStorageLocationNames'])await action('Facilitator Functions',name,doc.email);
  assert.equal((await action('Facilitator Functions','qListFacilitators',doc.email)).length,1);
  assert.equal((await action('Facilitator Functions','qListFacilitators',self.email)).length,0);
+ await assert.rejects(action('Facilitator Functions','qAuditLogInsert',self.email,{action:'synthetic.practitioner',entity_type:'person',entity_id:practitioner.id}));
+ await assert.rejects(action('Facilitator Functions','qAuditLogInsert',practitioner.email,{action:'synthetic.practitioner',entity_type:'person',entity_id:practitioner.id}));
+ const practitionerAudit=(await action('Facilitator Functions','qAuditLogInsert',doc.email,{actor_email:'forged@example.invalid',action:'synthetic.practitioner',entity_type:'person',entity_id:practitioner.id}))[0];
+ assert.equal((await db.query('SELECT actor FROM public.audit_log WHERE audit_log_id=$1',[practitionerAudit.audit_log_id])).rows[0].actor,doc.email);
  for(const who of [self,doc,don,practitioner])await action('Audit Log','qAuditLogList',who.email);
  assert.equal((await action('Audit Log','qAuditLogList',self.email)).length,0);
  assert.equal((await action('Audit Log','qAuditLogList',doc.email)).filter(r=>r.entity_type==='donation').length,0,'document reviewer cannot browse financial audits');
  assert.ok((await action('Audit Log','qAuditLogList',don.email)).some(r=>r.entity_type==='donation'));
- await db.exec('ROLLBACK');console.log('PASS actual source queries: stale financial flags, self/forged targets, canonical reviewers, cash recording, raw Intake mutation denial and financial audit scope');
+ await db.query("SELECT public.application_review_donation($1,$2,'verified','Synthetic revival source test')",[don.email,donationId]);
+ await action('Cash Deposits','qExcludeCashDonation',don.email,{reason:'Synthetic source exclusion'});
+ await assert.rejects(action('Cash Deposits','qReviveCashDonation',self.email,{reason:'Synthetic denied revival'}));
+ await assert.rejects(action('Cash Deposits','qReviveCashDonation',don.email,{reason:'   '}));
+ assert.equal((await action('Cash Deposits','qReviveCashDonation',don.email,{reason:'Synthetic source recovery'})).length,1);
+ assert.equal((await db.query("SELECT details->>'revival_reason' AS reason FROM public.audit_log WHERE entity_id=$1 AND action='cash_donation.deposit_reconciliation_revived'",[donationId])).rows[0].reason,'Synthetic source recovery');
+ await db.exec('ROLLBACK');console.log('PASS actual source queries: authorization, self/forged targets, canonical reviewers, cash/audit/Intake guards and reason-aware reconciliation bindings');
 } catch(error){console.error(JSON.stringify({action:currentAction,message:error.message,code:error.code}));process.exitCode=1;} finally {await db.close();}

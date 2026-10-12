@@ -29,7 +29,7 @@
     ],
     "name": "qMemberStorageLocations",
     "pageId": "Facilitator Functions",
-    "runBehaviour": "AUTOMATIC",
-    "userSetOnLoad": false
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": true
   }
 }

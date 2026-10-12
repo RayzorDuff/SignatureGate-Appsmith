@@ -29,7 +29,7 @@
     ],
     "name": "qListFacilitators",
     "pageId": "Sacrament Release",
-    "runBehaviour": "AUTOMATIC",
-    "userSetOnLoad": false
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": true
   }
 }
