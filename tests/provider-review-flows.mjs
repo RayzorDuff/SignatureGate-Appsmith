@@ -7,7 +7,7 @@ const actor='synthetic-reviewer@example.invalid';
 function fixture({allowed=true,enroll=true,writeFail=false,refreshFail=false,delayWrite=false}={}) {
  const calls={writes:[],alerts:[],modal:[],nav:[],text:[]};let release;
  const hold=delayWrite?new Promise(resolve=>{release=resolve;}):Promise.resolve();
- const context={appsmith:{user:{email:actor},store:{facilitator_is_donations_reviewer:true}},
+ const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{user:{email:actor},store:{facilitator_is_donations_reviewer:true}},
  qPageAccess:{run:async()=>[{email:actor,is_donations_reviewer:allowed,is_document_reviewer:enroll,is_directory_manager:enroll}]},
  tblPendingGivebutterDonations:{selectedRow:{donation_id:'synthetic-provider',provider:'givebutter',donor_kind:'unresolved'}},
  inpDonationNotes:{text:'Synthetic review'},chkGivebutterSubscribeListmonk:{isChecked:false},chkShowRejectedDonations:{isChecked:false},

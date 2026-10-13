@@ -37,7 +37,7 @@ export default {
         !donationMetrics.has(option.value) ||
         (appsmith.store.reports_actor_email === String(appsmith.user?.email || "").trim().toLowerCase()
           && appsmith.store.facilitator_is_donations_reviewer === true)
-    );
+    ).map(option=>({...option,label:navigationLabels.text(option.label)}));
   },
 
   bucketOptions() {
@@ -113,7 +113,7 @@ export default {
 			const me = rows[0];
 
 			if (!me?.person_id || !(me.is_practitioner === true || me.is_document_reviewer === true || me.is_donations_reviewer === true)) {
-				showAlert("Access denied: practitioner or reviewer permission required.", "error");
+				showAlert(navigationLabels.text("Access denied: practitioner or reviewer permission required."), "error");
 
 				if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 					/* Access denied in place; keep navigation available. */

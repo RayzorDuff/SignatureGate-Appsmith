@@ -117,12 +117,12 @@ export default {
 			const facilitator = qMemberById.data?.[0];
 
 			if (!facilitator?.member_id) {
-				showAlert("No facilitator selected.", "error");
+				showAlert(navigationLabels.text("No facilitator selected."), "error");
 				return;
 			}
 
 			if (!facilitator?.is_facilitator) {
-				showAlert("The selected person is not an active facilitator.", "warning");
+				showAlert(navigationLabels.text("The selected person is not an active facilitator."), "warning");
 				return;
 			}
 
@@ -219,12 +219,12 @@ export default {
 		const personId = selParticipantToAssign.selectedOptionValue;
 		const reason = String(inpParticipantAssignmentReason.text || "").trim();
 		if (!appsmith.store.selected_facilitator_id || !personId || !reason) {
-			showAlert("Select a facilitator and participant and enter a reason.", "warning");
+			showAlert(navigationLabels.text("Select a facilitator and participant and enter a reason."), "warning");
 			return;
 		}
 		const facilitator = (qListFacilitators.data || []).find(f => f.member_id === appsmith.store.selected_facilitator_id);
 		if (!facilitator?.has_practitioner_appointment) {
-			showAlert("Selected facilitator has no practitioner appointment. Assign the Practitioner role in Individual Profile before assigning participants.", "warning");
+			showAlert(navigationLabels.text("Selected facilitator has no practitioner appointment. Assign the Practitioner role in Individual Profile before assigning participants."), "warning");
 			return;
 		}
 		try {
@@ -234,7 +234,7 @@ export default {
 				reason
 			});
 			if (!r?.[0]?.assignment_id) throw new Error("Assignment was not confirmed.");
-			showAlert("Participant assigned.", "success");
+			showAlert(navigationLabels.text("Participant assigned."), "success");
 			await Promise.all([qAssignedParticipants.run(), qParticipantCandidates.run()]);
 			resetWidget("selParticipantToAssign", true);
 			resetWidget("inpParticipantAssignmentNotes", true);
@@ -256,7 +256,7 @@ export default {
 		}
 		if (!row?.member_practitioner_assignment_id || row.status !== "active" ||
 			String(row.practitioner_member_id || "") !== String(appsmith.store.selected_facilitator_id || "")) {
-			showAlert("The active assignment does not belong to the selected facilitator.", "warning");
+			showAlert(navigationLabels.text("The active assignment does not belong to the selected facilitator."), "warning");
 			return;
 		}
 		try {

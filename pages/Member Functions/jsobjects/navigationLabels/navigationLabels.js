@@ -8,10 +8,10 @@ export default {
   },
   text(copy) {
     return String(copy)
-      .replace(/\b(?:Spiritual Practitioners?|Facilitators?|Participants?|Members?|Membership|Contributors?)\b/gi,original=>{
+      .replace(/\b(?:Spiritual Practitioners?|Practitioners?|Facilitators?|Participants?|Members?|Membership|Contributors?)\b/gi,original=>{
         const word=original.toLowerCase();
         if(word==="membership") return this.label("member")+" enrollment";
-        const concept=word.startsWith("spiritual") || word.startsWith("facilitator")?"practitioner":word.startsWith("contributor")?"contributor":"member";
+        const concept=word.startsWith("spiritual") || word.startsWith("practitioner") || word.startsWith("facilitator")?"practitioner":word.startsWith("contributor")?"contributor":"member";
         return this.label(concept,word.endsWith("s"));
       });
   }

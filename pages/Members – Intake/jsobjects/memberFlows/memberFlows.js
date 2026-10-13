@@ -64,7 +64,7 @@ export default {
       const me = rows[0];	
 
 			if (!me?.person_id || me.is_document_reviewer !== true) {
-				showAlert("Access denied: not an active facilitator for " + email, "error");
+				showAlert(navigationLabels.text("Access denied: not an active facilitator for ") + email, "error");
 				
 				await this.auditLog("auth.denied","facilitator","", { email, page: appsmith.URL?.pathname, mode: appsmith.mode });if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
 					//Only redirect when not in editor
@@ -152,7 +152,7 @@ export default {
 
 		if (phone && !inpPhone.isValid) {
 			showAlert(
-				"Enter a valid phone number before creating the member.",
+				navigationLabels.text("Enter a valid phone number before creating the member."),
 				"warning"
 			);
 			return;
@@ -164,7 +164,7 @@ export default {
 		const agreementTemplateId = typeof selAgreementTemplate !== "undefined" ? (selAgreementTemplate.selectedOptionValue || "").trim() : "";
 		if (wantsAgreement) {
 			if (!facilitatorId) {
-				showAlert("Please select a facilitator before creating an agreement.", "warning");
+				showAlert(navigationLabels.text("Please select a facilitator before creating an agreement."), "warning");
 				return;
 			}
 			if (uploadPaper) {
@@ -328,7 +328,7 @@ export default {
 				subscribe_to_mailing_list: chkIntakeSubscribeListmonk.isChecked
 			});
 			if (!emailRows?.[0]?.member_email_id) {
-				showAlert("Member was created, but the email contact was not added because it is already active on another member.", "warning");
+				showAlert(navigationLabels.text("Member was created, but the email contact was not added because it is already active on another member."), "warning");
 			}
 		}
 		if (phone) {
@@ -339,7 +339,7 @@ export default {
 				notes: "Created from Members - Intake"
 			});
 			if (!phoneRows?.[0]?.member_phone_id) {
-				showAlert("Member was created, but this phone already exists on the member profile and was not duplicated.", "info");
+				showAlert(navigationLabels.text("Member was created, but this phone already exists on the member profile and was not duplicated."), "info");
 			}
 		}
 		showAlert(`Member created (ID ${memberId}).`, "success");
@@ -362,7 +362,7 @@ export default {
 			page: "Members - Intake",
 			notes: inpNotes.text || null
 		});
-		showAlert("Facilitator for member assigned.", "success");
+		showAlert(navigationLabels.text("Facilitator for member assigned."), "success");
 		let agRes = null;
 		let triggerRes = null;
 		if (wantsAgreement) {

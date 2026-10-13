@@ -9,7 +9,7 @@ const db=new PGlite({extensions:{uuid_ossp}});await db.waitReady;
 const source=(page,name)=>fs.readFileSync(new URL('../pages/'+page+'/queries/'+name+'/'+name+'.txt',import.meta.url),'utf8');
 let target,actorId,donationId,selectedContributor,currentAction;
 async function action(page,name,email,params={}) {
- const values=[],context={params:{email,member_id:target,donation_id:donationId,contributor_choice:'__anonymous__',is_anonymous:true,amount_cents:100,donated_at:'2026-01-01',notes:'Synthetic',selection_value:'__anonymous__',show_rejected:false,new_status:'verified',review_notes:'Synthetic review',first_name:'Synthetic',last_name:'Denied',phone:'5550109001',date_of_birth:'',...params},
+ const values=[],context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},params:{email,member_id:target,donation_id:donationId,contributor_choice:'__anonymous__',is_anonymous:true,amount_cents:100,donated_at:'2026-01-01',notes:'Synthetic',selection_value:'__anonymous__',show_rejected:false,new_status:'verified',review_notes:'Synthetic review',first_name:'Synthetic',last_name:'Denied',phone:'5550109001',date_of_birth:'',...params},
  appsmith:{user:{email},store:{member_id:target,facilitator_id:actorId,facilitator_is_donations_reviewer:true,cash_deposit_hide_ineligible:false,selected_facilitator_id:actorId}},selCashDepositStatus:{selectedOptionValue:'ALL'},selIndividualRoleContactToArchive:{selectedOptionValue:params.contact_id},qIndividualProfile:{data:[{party_id:params.person_id}]},Boolean,String,JSON};
  const sql=source(page,name).replace(/{{(.*?)}}/gs,(_,e)=>{values.push(vm.runInNewContext(e,context));return '$'+values.length;});
  currentAction=page+'/'+name;

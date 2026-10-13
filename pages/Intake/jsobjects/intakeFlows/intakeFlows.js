@@ -23,7 +23,7 @@ export default {
   async performSubmit() {
     let saved=false;
     let phase="checking permission and enrollment details";
-    const stage=message=>{phase=message;showAlert(message,"info");};
+    const stage=message=>{phase=message;showAlert(navigationLabels.text(message),"info");};
     try {
     stage("Checking permissions and enrollment details…");
     const access = (await qPageAccess.run())?.[0];
@@ -58,11 +58,11 @@ export default {
     const rolesRows = await qIntakeActorRoles.run({ email });
     const roles = Array.isArray(rolesRows) ? rolesRows[0] : rolesRows;
     if (member && !roles?.is_document_reviewer) {
-      showAlert("Member enrollment requires document reviewer permission.", "error");
+      showAlert(navigationLabels.text("Member enrollment requires document reviewer permission."), "error");
       return;
     }
     if (contributor && !roles?.is_donations_reviewer) {
-      showAlert("Contributor enrollment requires donations reviewer permission.", "error");
+      showAlert(navigationLabels.text("Contributor enrollment requires donations reviewer permission."), "error");
       return;
     }
     if (member && contributor && !roles?.is_directory_manager) {
@@ -98,7 +98,7 @@ export default {
     const identityNotes = (inpIntakeIdentityNotes.text || "").trim();
     const reason = contributor ? (inpContributorReason.text || "").trim() : "";
     if (contributor && !reason) {
-      showAlert("Contributor enrollment reason is required.", "warning");
+      showAlert(navigationLabels.text("Contributor enrollment reason is required."), "warning");
       return;
     }
 
@@ -116,11 +116,11 @@ export default {
       agreementTemplate = selAgreementTemplate.selectedOptionValue;
 
       if (!practitionerPersonId) {
-        showAlert("Spiritual Practitioner is required for member enrollment.", "warning");
+        showAlert(navigationLabels.text("Spiritual Practitioner is required for member enrollment."), "warning");
         return;
       }
       if (!delivery) {
-        showAlert("Agreement delivery is required for member enrollment.", "warning");
+        showAlert(navigationLabels.text("Agreement delivery is required for member enrollment."), "warning");
         return;
       }
       if (delivery === "Digital" && (!agreementType || !agreementTemplate)) {
@@ -188,11 +188,11 @@ export default {
         memberId = created?.[0]?.member_id;
         const duplicateBlocked = created?.[0]?.duplicate_blocked === true;
         if (duplicateBlocked) {
-          showAlert("Member creation was blocked because the database detected a duplicate.", "error");
+          showAlert(navigationLabels.text("Member creation was blocked because the database detected a duplicate."), "error");
           return;
         }
         if (!memberId) {
-          showAlert("Participant creation returned an incomplete result. Review the directory before submitting another intake.", "warning");
+          showAlert(navigationLabels.text("Participant creation returned an incomplete result. Review the directory before submitting another intake."), "warning");
           return;
         }
 
@@ -355,9 +355,9 @@ export default {
     });
 
     showAlert(
-      member && contributor ? "Individual enrolled as Member and Contributor." :
+      navigationLabels.text(member && contributor ? "Individual enrolled as Member and Contributor." :
       member ? "Individual enrolled as Member." :
-      "Contributor enrollment completed.",
+      "Contributor enrollment completed."),
       "success"
     );
     return {memberId, contributorId, agreementResult, triggerResult};

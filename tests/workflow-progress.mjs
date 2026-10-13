@@ -3,7 +3,7 @@ const root=new URL('../pages/',import.meta.url);
 const read=p=>fs.readFileSync(new URL(p,root),'utf8');
 function memberFixture({allowed=true,fail=false,refreshFail=false,response={ok:true}}={}) {
  const calls={alerts:[],writes:0,api:0};
- const c={appsmith:{store:{},user:{email:'synthetic-reviewer@example.invalid'}},storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(m,l)=>calls.alerts.push({m,l}),
+ const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{store:{},user:{email:'synthetic-reviewer@example.invalid'}},storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(m,l)=>calls.alerts.push({m,l}),
  qMemberWriteAccess:{run:async()=>[{allowed}]},inpEmailAgreementTo:{selectedOptionValue:'synthetic-email'},qMemberEmails:{data:[{member_email_id:'synthetic-email',email:'synthetic-recipient@example.invalid',status:'active'}]},
  qCreatePendingAgreement:{run:async()=>{calls.writes++;return [{member_agreement_id:'synthetic-agreement'}];}},qMemberAgreements:{run:async()=>{if(refreshFail)throw Error('Synthetic refresh');}},
  apiTriggerDocumenso:{run:async()=>{calls.api++;if(fail)throw Error('Synthetic service');return response;}}};
@@ -24,7 +24,7 @@ for(const page of ['Individual Profile','Company Profile']) {
  const widget=JSON.parse(read(page+'/widgets/'+path));const code=widget.onClick.slice(2,-2);
  for(const fail of [false,true]) {
   const row={contact_id:'synthetic-email',contact_kind:'email',mailing_subscription_status:'not_subscribed'};const calls=[];
-  const c={appsmith:{store:{}},storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(m,l)=>calls.push({m,l}),
+  const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{store:{}},storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(m,l)=>calls.push({m,l}),
   selIndividualContactCapacity:{selectedOptionValue:'member'},selIndividualRoleContactToArchive:{selectedOptionValue:row.contact_id},selCompanyDonorContactToArchive:{selectedOptionValue:row.contact_id},
   qIndividualMembershipContacts:{data:[row],run:async()=>{if(fail)throw Error('Synthetic refresh');}},qIndividualContacts:{run:async()=>[]},qSubscribeIndividualEmail:{run:async()=>[{member_email_id:row.contact_id}]},
   qCompanyDonorContacts:{data:[row],run:async()=>{if(fail)throw Error('Synthetic refresh');}},qCompanyContacts:{run:async()=>[]},qToggleCompanyEmailSubscription:{run:async()=>[{queue_id:'synthetic-queue'}]}};
@@ -35,14 +35,14 @@ for(const page of ['Individual Profile','Company Profile']) {
 assert.doesNotMatch(read('Members – Intake/jsobjects/memberFlows/memberFlows.js'),/showAlert\("Email sent\./);
 {
  const source=read('Members – Intake/jsobjects/memberFlows/memberFlows.js');assert.doesNotMatch(source,/apiUploadEvidenceViaN8n\.run/);
- const alerts=[];const c={inpUploadRelease:{isChecked:true},showAlert:(m,l)=>alerts.push({m,l})};
+ const alerts=[];const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},inpUploadRelease:{isChecked:true},showAlert:(m,l)=>alerts.push({m,l})};
  const f=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c);await f.submitMember();
  assert.equal(alerts.length,1);assert.equal(alerts[0].l,'warning');assert.match(alerts[0].m,/No record or file was sent/);
  for(const name of ['inpUploadRelease','FilePicker1'])assert.equal(JSON.parse(read('Members – Intake/widgets/Members_IntakeForm/'+name+'.json')).isDisabled,true);
 }
 
 for(const status of ['succeeded','test_skipped','failed']) {
- const calls=[];const c={appsmith:{store:{}},storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(m,l)=>calls.push({m,l}),
+ const calls=[];const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{store:{}},storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(m,l)=>calls.push({m,l}),
  inpCashDepositActualAmount:{text:'1'},inpCashDepositDate:{selectedDate:null},inpCashDepositSlipNumber:{text:'Synthetic reference'},moment:()=>({format:()=> '2026-01-01'}),
  qConfirmCashDepositBatch:{run:async()=>calls.push({write:true})},apiSyncCashDepositToERPNext:{run:async params=>{assert.equal(params.mode,'test');calls.push({sync:true});return {data:{ok:status!=='failed',status}};}}};
  const f=vm.runInNewContext(read('Cash Deposits/jsobjects/cashDepositFlows/cashDepositFlows.js').replace(/^export default/,'globalThis.f='),c);

@@ -46,7 +46,7 @@ export default {
 		
     if (!memberId) {
 			if(!appsmith.URL.queryParams.member_id ) {
-				showAlert("Select a member first.", "warning");
+				showAlert(navigationLabels.text("Select a member first."), "warning");
 				return null;
 			}
 			memberId = appsmith.URL.queryParams.member_id;
@@ -60,7 +60,7 @@ export default {
   _requireFacilitator() {
     const facilitatorId = inpFacilitator?.selectedOptionValue;
     if (!facilitatorId) {
-      showAlert("Please select a facilitator before creating an agreement.", "warning");
+      showAlert(navigationLabels.text("Please select a facilitator before creating an agreement."), "warning");
       return null;
     }
 		
@@ -97,7 +97,7 @@ export default {
 		const rows = await qMemberAccessCheck.run();
 		const allowed = Array.isArray(rows) ? rows[0]?.allowed : rows?.allowed;
 		if (!allowed) {
-			showAlert("You do not have access to this member.", "error");
+			showAlert(navigationLabels.text("You do not have access to this member."), "error");
 			await storeValue("member_id", "");
 			return false;
 		}
@@ -109,7 +109,7 @@ export default {
   const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(memberId);
   if (!isUuid) {
     await storeValue("member_id", "");
-    if (memberId) showAlert("Select a valid member.", "warning");
+    if (memberId) showAlert(navigationLabels.text("Select a valid member."), "warning");
     return null;
   }
   await storeValue("member_id", memberId);
@@ -190,7 +190,7 @@ export default {
 		if (!isAccessible) {
 			await storeValue("member_id", "");
 			if (candidate && isUuid) {
-				showAlert("The selected member is not in your accessible member list.", "warning");
+				showAlert(navigationLabels.text("The selected member is not in your accessible member list."), "warning");
 			}
 			return directory;
 		}
@@ -234,14 +234,14 @@ export default {
     try {
     showAlert("Checking agreement permission and recipient…","info");
     const permission = (await qMemberWriteAccess.run())?.[0];
-    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if (permission?.allowed !== true) { showAlert(navigationLabels.text("Staff permission is required for this action; Participant access is read-only."), "error"); return; }
 
 		const memberId = this._requireMemberId();
 		const facilitatorId = this._requireFacilitator();
 		const agreementTemplateId = this._requireAgreementTemplate();
 
 		if (!facilitatorId) {
-			showAlert("Invalid Facilitator.", "error");
+			showAlert(navigationLabels.text("Invalid Facilitator."), "error");
 			return;
 		}
 		if (!agreementTemplateId) {
@@ -249,7 +249,7 @@ export default {
 			return;
 		}
 		if (!memberId) {
-			showAlert("Invalid Member.", "error");
+			showAlert(navigationLabels.text("Invalid Member."), "error");
 			return;
 		}
 
@@ -271,7 +271,7 @@ export default {
 		const sendEmail = emailRow?.email;
 
 		if (!sendEmail || !emailRow?.member_email_id) {
-			showAlert("Select an active member email before sending a digital agreement.", "warning");
+			showAlert(navigationLabels.text("Select an active member email before sending a digital agreement."), "warning");
 			return;
 		}
 
@@ -330,7 +330,7 @@ export default {
 	async openPaperUpload() {
     const permission = (await qMemberWriteAccess.run())?.[0];
     if (permission?.allowed !== true) {
-      showAlert("Staff permission is required; Participant access is read-only.", "error");
+      showAlert(navigationLabels.text("Staff permission is required; Participant access is read-only."), "error");
       return;
     }
     // Fail closed until the upload destination and authorization are validated.
@@ -401,7 +401,7 @@ export default {
 
 	async cancelDocumensoAgreement(row) {
     const permission = (await qMemberWriteAccess.run())?.[0];
-    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if (permission?.allowed !== true) { showAlert(navigationLabels.text("Staff permission is required for this action; Participant access is read-only."), "error"); return; }
 
 		if (!row?.member_agreement_id) {
 			showAlert("No agreement selected.", "error");
@@ -439,7 +439,7 @@ export default {
 	
 	async verifyAgreement(agreementId, reviewNotes, newStatus, memberId, rowEvidence, agreementType) {
     const permission = (await qMemberWriteAccess.run())?.[0];
-    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if (permission?.allowed !== true) { showAlert(navigationLabels.text("Staff permission is required for this action; Participant access is read-only."), "error"); return; }
     if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
 
 		const notes = (reviewNotes || "").trim();
@@ -493,7 +493,7 @@ export default {
 		storageLocationName
 	) {
     const permission = (await qMemberWriteAccess.run())?.[0];
-    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if (permission?.allowed !== true) { showAlert(navigationLabels.text("Staff permission is required for this action; Participant access is read-only."), "error"); return; }
     if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
 
 		if (!voidReleaseId) {
@@ -542,12 +542,12 @@ export default {
 
 	async assignFacilitator() {
     const permission = (await qMemberWriteAccess.run())?.[0];
-    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if (permission?.allowed !== true) { showAlert(navigationLabels.text("Staff permission is required for this action; Participant access is read-only."), "error"); return; }
     if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
 
 		try {
 			if (!appsmith.store.facilitator_is_reviewer) {
-				showAlert("Only document reviewers can assign facilitators.", "error");
+				showAlert(navigationLabels.text("Only document reviewers can assign facilitators."), "error");
 				return;
 			}
 
@@ -556,11 +556,11 @@ export default {
 			const notes = inpFacilitatorAssignmentNotes?.text || "";
 
 			if (!memberId) {
-				showAlert("No member selected.", "error");
+				showAlert(navigationLabels.text("No member selected."), "error");
 				return;
 			}
 			if (!facilitatorId) {
-				showAlert("Select a facilitator.", "warning");
+				showAlert(navigationLabels.text("Select a facilitator."), "warning");
 				return;
 			}
 
@@ -577,7 +577,7 @@ export default {
 				notes
 			});
 
-			showAlert("Facilitator assigned.", "success");
+			showAlert(navigationLabels.text("Facilitator assigned."), "success");
 			await Promise.allSettled([
 				qMemberFacilitators.run(),
 				qMembersDirectory.run(),
@@ -586,24 +586,24 @@ export default {
 			return res;
 			
 		} catch (e) {
-			showAlert("Failed to assign facilitator: " + (e?.message || e), "error");
+			showAlert(navigationLabels.text("Failed to assign facilitator: ") + (e?.message || e), "error");
 			throw e;
 		}
 	},
 	
 	async removeFacilitator(member_facilitator_id, facilitator_id, facilitator_name) {
     const permission = (await qMemberWriteAccess.run())?.[0];
-    if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
+    if (permission?.allowed !== true) { showAlert(navigationLabels.text("Staff permission is required for this action; Participant access is read-only."), "error"); return; }
     if ((await qPageAccess.run())?.[0]?.is_document_reviewer !== true) { showAlert("Document Reviewer permission required.", "error"); return; }
 
 		try {
 			if (!appsmith.store.facilitator_is_reviewer) {
-				showAlert("Only document reviewers can remove facilitators.", "error");
+				showAlert(navigationLabels.text("Only document reviewers can remove facilitators."), "error");
 				return;
 			}
 
 			if (!member_facilitator_id) {
-				showAlert("No facilitator assignment selected.", "warning");
+				showAlert(navigationLabels.text("No facilitator assignment selected."), "warning");
 				return;
 			}
 
@@ -621,11 +621,11 @@ export default {
 				page: "Members - Profile"
 			});
 
-			showAlert("Facilitator removed.", "success");
+			showAlert(navigationLabels.text("Facilitator removed."), "success");
 			await qMemberFacilitators.run();
 			return res;
 		} catch (e) {
-			showAlert("Failed to remove facilitator: " + (e?.message || e), "error");
+			showAlert(navigationLabels.text("Failed to remove facilitator: ") + (e?.message || e), "error");
 			throw e;
 		}
 	},	

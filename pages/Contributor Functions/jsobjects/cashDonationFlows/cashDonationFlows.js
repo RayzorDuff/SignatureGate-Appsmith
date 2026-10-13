@@ -180,7 +180,7 @@ export default {
       showAlert("Select an unresolved Givebutter donation.","warning"); return;
     }
     const choice = selDonationMember.selectedOptionValue;
-    if (!choice || choice === "__anonymous__") { showAlert("Select an existing party or a new contributor type.","warning"); return; }
+    if (!choice || choice === "__anonymous__") { showAlert(navigationLabels.text("Select an existing party or a new contributor type."),"warning"); return; }
     return this.runReviewWrite(qLinkDonationToMember,{donation_id:donation.donation_id,contributor_choice:choice,review_notes:notes},
       choice.startsWith("__new_") ? "Contributor created and donation assigned." : "Donation assigned to contributor.");
   },
@@ -189,18 +189,18 @@ export default {
     let recordedId = "";
 		try {
       const actor = (await qPageAccess.run())?.[0];
-      if (actor?.can_contributor_functions !== true) { showAlert("Cash entry requires reviewer or assigned practitioner permission.", "error"); return ""; }
+      if (actor?.can_contributor_functions !== true) { showAlert(navigationLabels.text("Cash entry requires reviewer or assigned practitioner permission."), "error"); return ""; }
 			const choice =
 				selDonationMember.selectedOptionValue ||
 				"";
 			const isAnonymous = choice === "__anonymous__";
 
 			if (!choice) {
-				showAlert("Select a contributor, member, or Anonymous cash donor.", "warning");
+				showAlert(navigationLabels.text("Select a contributor, member, or Anonymous cash donor."), "warning");
 				return;
 			}
 			if (choice === "__new_individual__" || choice === "__new_organization__") {
-				showAlert("New contributor choices are available only while resolving a Givebutter donation.", "warning");
+				showAlert(navigationLabels.text("New contributor choices are available only while resolving a Givebutter donation."), "warning");
 				return;
 			}
 
@@ -290,7 +290,7 @@ export default {
     if (appsmith.store.donation_reassign_actor !== String(appsmith.user?.email || "").trim().toLowerCase()) {
       await this.clearReassign(); showAlert("Account changed. No reassignment was made.","error"); return;
     }
-    if (!choice || !reason) { showAlert("Choose the contributor and enter a correction reason.","warning"); return; }
+    if (!choice || !reason) { showAlert(navigationLabels.text("Choose the contributor and enter a correction reason."),"warning"); return; }
     return this.runReviewWrite(qReassignDonationMember,{donation_id:row.donation_id,contributor_choice:choice,reason},"Donation reassigned.",false,
       async () => { await this.clearReassign(); await closeModal("ReassignDonationModal"); });
   },

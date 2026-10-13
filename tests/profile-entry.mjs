@@ -3,7 +3,7 @@ const first='10000000-0000-4000-8000-000000000001',second='10000000-0000-4000-80
 for(const [page,collection,param,stateKey,query] of [['Individual Profile','IndividualProfileFlows','person_id','individual_profile_state','qIndividualProfile'],['Company Profile','CompanyProfileFlows','organization_id','company_profile_state','qCompanyProfile']]) {
  const root=new URL('../pages/'+page+'/',import.meta.url),source=fs.readFileSync(new URL('jsobjects/'+collection+'/'+collection+'.js',root),'utf8');
  function fixture(id=first) {
-  const calls=[];const c={appsmith:{user:{email:'synthetic-profile@example.invalid'},URL:{queryParams:id?{[param]:id}:{}},store:{selected_individual_profile_id:first,selected_organization_profile_id:first}},setTimeout:fn=>fn(),showAlert:()=>{},storeValue:async(k,v)=>c.appsmith.store[k]=v};
+  const calls=[];const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{user:{email:'synthetic-profile@example.invalid'},URL:{queryParams:id?{[param]:id}:{}},store:{selected_individual_profile_id:first,selected_organization_profile_id:first}},setTimeout:fn=>fn(),showAlert:()=>{},storeValue:async(k,v)=>c.appsmith.store[k]=v};
   for(const name of fs.readdirSync(new URL('queries/',root)))c[name]={data:[],run:async p=>{calls.push({name,p});return [];}};
   c[query].run=async p=>{calls.push({name:query,p});const rows=[{party_id:p.party_id}];c[query].data=rows;return rows;};
   const f=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c);return {f,c,calls};

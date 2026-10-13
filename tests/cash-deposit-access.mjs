@@ -7,7 +7,7 @@ const email='synthetic-cash-access@example.invalid';
 const actor={email,person_id:'synthetic-person',is_donations_reviewer:true,can_cash_deposits:true};
 function fixture(result=[actor]) {
  const calls={financial:[],alerts:[]};
- const context={setTimeout:fn=>fn(),appsmith:{user:{email},store:{}},qPageAccess:{data:[],run:async()=>result},qCashDepositAccessDiagnostic:{run:async()=>[]},
+ const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},setTimeout:fn=>fn(),appsmith:{user:{email},store:{}},qPageAccess:{data:[],run:async()=>result},qCashDepositAccessDiagnostic:{run:async()=>[]},
   storeValue:async(k,v)=>{context.appsmith.store[k]=v;},showAlert:(message,level)=>calls.alerts.push({message,level}),
   qCashDepositCashOnHand:{run:async()=>calls.financial.push('cash')},qCashDepositBatches:{run:async()=>calls.financial.push('batch')},
   apiCashDepositBankAccounts:{run:async()=>calls.financial.push('bank')}};

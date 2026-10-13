@@ -5,7 +5,7 @@ import vm from 'node:vm';
 const source=fs.readFileSync(new URL('../pages/Reports/jsobjects/reports/reports.js',import.meta.url),'utf8');
 function fixture(actor, options={}) {
  const calls={queries:0,redirects:0};
- const context={
+ const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},
   appsmith:{user:{email:'report-actor@example.invalid'},store:{facilitator_id:'stale-member',facilitator_is_donations_reviewer:true,reports_actor_email:'prior@example.invalid'},mode:'PUBLISHED'},
   qCurrentFacilitator:{run:async()=>{if(options.error)throw Error('Synthetic lookup failure');return actor?[actor]:[];}},
   qReportTimeSeries:{data:[{metric_key:'donations_dollars',value:999}],run:async()=>{calls.queries++;return [];}},

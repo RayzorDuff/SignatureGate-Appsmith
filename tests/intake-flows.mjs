@@ -14,7 +14,7 @@ async function actor(label,roles) {
 }
 function fixture({kind='member',contacts='email_phone',memberOpt=false,contributorOpt=false,email,delivery='Digital',apiFail=false}={}) {
  const n=++serial,hasEmail=contacts.includes('email'),hasPhone=contacts.includes('phone'),hasAddress=contacts.includes('address');
- const calls={alerts:[],actions:[],api:0};const c={appsmith:{user:{email},store:{}},showAlert:(message,level)=>calls.alerts.push({message,level}),storeValue:async(k,v)=>c.appsmith.store[k]=v,console:{log:()=>{}},setTimeout:fn=>fn()};
+ const calls={alerts:[],actions:[],api:0};const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{user:{email},store:{}},showAlert:(message,level)=>calls.alerts.push({message,level}),storeValue:async(k,v)=>c.appsmith.store[k]=v,console:{log:()=>{}},setTimeout:fn=>fn()};
  for(const [name,text] of Object.entries({inpIntakeFirstName:'Synthetic',inpIntakeLastName:'Intake'+n,inpIntakeCompanyName:'Synthetic Intake Company '+n,
  inpIntakeEmail:hasEmail?'synthetic-intake-'+n+'@example.invalid':'',inpIntakePhone:hasPhone?'555010'+String(n).padStart(4,'0'):'',inpIntakeIdentityNotes:'',inpContributorReason:'Synthetic intake reason',
  inpIntakeAddress:hasAddress?'Synthetic Street':'',inpIntakeCity:hasAddress?'Synthetic City':'',inpIntakeState:hasAddress?'CO':'',inpIntakePostalCode:hasAddress?'00000':''})) c[name]={text};
@@ -24,7 +24,7 @@ function fixture({kind='member',contacts='email_phone',memberOpt=false,contribut
  for(const name of fs.readdirSync(new URL('queries/',page))) {
   const p=new URL('queries/'+name+'/'+name+'.txt',page);if(!fs.existsSync(p))continue;
   const body=fs.readFileSync(p,'utf8');c[name]={run:async(params={})=>{
-   calls.actions.push(name);const values=[];const context={...c,params};
+   calls.actions.push(name);const values=[];const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},...c,params};
    const sql=body.replace(/{{(.*?)}}/gs,(_,expr)=>{values.push(vm.runInNewContext(expr,context));return '$'+values.length;});
    await db.exec('SAVEPOINT intake_action');
    try{const rows=(await db.query(sql,values)).rows;await db.exec('RELEASE SAVEPOINT intake_action');return rows;}
@@ -33,6 +33,8 @@ function fixture({kind='member',contacts='email_phone',memberOpt=false,contribut
  }
  c.apiTriggerDocumenso={run:async()=>{calls.api++;if(apiFail)throw Error('Synthetic signing failure');return {ok:true};}};
  c.apiUploadEvidenceViaN8n={run:async()=>{throw Error('Paper upload must be blocked');}};
+ c.qNavigationTerminology.data=[{concept_key:'member',singular_label:'Attendee',plural_label:'Attendees',is_active:true},{concept_key:'practitioner',singular_label:'Guide',plural_label:'Guides',is_active:true},{concept_key:'contributor',singular_label:'Sponsor',plural_label:'Sponsors',is_active:true}];
+ c.navigationLabels=vm.runInNewContext(fs.readFileSync(new URL('../navigation/labels.js',import.meta.url),'utf8').replace(/^export default/m,'globalThis.labels='),c);
  const flows=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c);return {flows,c,calls};
 }
 try {
@@ -47,7 +49,7 @@ try {
   for(const contacts of kind==='member'||kind==='dual'?['email_phone','email_address']:['email_phone','email_address','phone_address']) for(const [memberOpt,contributorOpt] of combinations) {
    const x=fixture({kind,contacts,memberOpt,contributorOpt,email:kind==='member'?doc.email:kind==='dual'?admin.email:don.email});
    const result=await x.flows.submit();assert.ok(result,JSON.stringify({kind,contacts,memberOpt,contributorOpt,alerts:x.calls.alerts}));
-   assert.equal(x.calls.alerts.at(-1).level,'success');assert.equal(x.calls.api,kind==='member'||kind==='dual'?1:0);completed++;
+   assert.equal(x.calls.alerts.at(-1).level,'success');if(kind==='member'||kind==='dual')assert.match(x.calls.alerts.at(-1).message,/Attendee/);if(kind!=='member')assert.match(x.calls.alerts.at(-1).message,/Sponsor/);assert.equal(x.calls.api,kind==='member'||kind==='dual'?1:0);completed++;
    if(result.memberId) {
     const emails=(await db.query('SELECT * FROM member_emails WHERE member_id=$1',[result.memberId])).rows;assert.equal(emails[0].mailing_subscription_status,memberOpt?'subscribed':'not_subscribed');
     const q=(await db.query('SELECT count(*)::int AS n FROM listmonk_sync_queue WHERE member_email_id=$1',[emails[0].member_email_id])).rows[0];assert.equal(q.n,memberOpt?1:0);

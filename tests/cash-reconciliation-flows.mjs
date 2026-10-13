@@ -8,7 +8,7 @@ function fixture({allowed=true,reason='Synthetic recovered cash',notes='',writeF
  const calls={writes:[],alerts:[],modals:[],resets:[],access:0};
  let release;
  const hold=delayWrite?new Promise(resolve=>{release=resolve;}):Promise.resolve();
- const context={appsmith:{user:{email:actor},store:{}},
+ const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{user:{email:actor},store:{}},
   qPageAccess:{data:[{email:actor,is_donations_reviewer:allowed,can_cash_deposits:allowed,person_id:'synthetic-actor'}],run:async()=>{calls.access++;return context.qPageAccess.data;}},
   tblCashDeposits:{processedTableData:[{donation_id:'synthetic-excluded',operational_status:'deposit_reconciliation_excluded'},{donation_id:'synthetic-cash',operational_status:'cash_on_hand'}],selectedRow:{}},
   inpCashDispositionReason:{text:reason},inpCashDispositionNotes:{text:notes},
