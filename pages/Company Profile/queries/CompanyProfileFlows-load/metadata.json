@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 10000
+      "timeoutInMillisecond": 60000
     },
     "collectionId": "Company Profile_CompanyProfileFlows",
     "confirmBeforeExecute": false,

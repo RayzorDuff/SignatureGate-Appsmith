@@ -30,6 +30,6 @@
     "name": "qVerifyCompanyEmail",
     "pageId": "Company Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

@@ -32,7 +32,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qIndividualPartyIdentity.data?.[0]?.can_edit === true }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualPartyIdentity.data?.[0]?.can_edit === true) }}",
   "key": "b1020284ab",
   "label": "Display name",
   "labelAlignment": "left",

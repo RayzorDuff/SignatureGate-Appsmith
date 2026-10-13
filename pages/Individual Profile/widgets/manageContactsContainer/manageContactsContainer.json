@@ -57,13 +57,16 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
   "flexVerticalAlignment": "stretch",
   "isCanvas": true,
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (true) }}",
   "key": "2espflvptr",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

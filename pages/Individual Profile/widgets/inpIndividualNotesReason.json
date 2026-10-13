@@ -23,7 +23,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ qIndividualIdentityNotes.data?.[0]?.can_edit === true }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualIdentityNotes.data?.[0]?.can_edit === true) }}",
   "key": "identity-notes-inpIndividualNotesReason",
   "label": "Reason for notes change",
   "labelAlignment": "left",

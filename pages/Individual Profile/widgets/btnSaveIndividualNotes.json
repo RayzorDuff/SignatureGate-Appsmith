@@ -11,7 +11,7 @@
   "rightColumn": 64,
   "text": "Save notes",
   "buttonVariant": "PRIMARY",
-  "isVisible": "{{ qIndividualIdentityNotes.data?.[0]?.can_edit === true }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualIdentityNotes.data?.[0]?.can_edit === true) }}",
   "isDisabled": "{{ qSaveIndividualIdentityNotes.isLoading }}",
   "onClick": "{{ (async () => { const reason = inpIndividualNotesReason.text.trim(); if (!reason) return showAlert('Provide a reason for changing notes.', 'warning'); try { await qSaveIndividualIdentityNotes.run({ notes: inpIndividualNotes.text, reason }); await qIndividualIdentityNotes.run(); showAlert('Identity notes saved.', 'success'); } catch(e) { showAlert('Unable to save identity notes: ' + (e?.message || e), 'error'); } })() }}",
   "dynamicBindingPathList": [

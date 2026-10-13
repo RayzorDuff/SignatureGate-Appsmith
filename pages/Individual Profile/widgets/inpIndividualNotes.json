@@ -26,7 +26,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ qIndividualIdentityNotes.data?.[0]?.can_edit === true }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualIdentityNotes.data?.[0]?.can_edit === true) }}",
   "key": "identity-notes-inpIndividualNotes",
   "label": "Identity notes",
   "labelAlignment": "left",

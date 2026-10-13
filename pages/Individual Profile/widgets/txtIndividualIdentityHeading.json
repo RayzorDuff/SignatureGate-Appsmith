@@ -21,7 +21,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": "{{ qIndividualPartyIdentity.data?.[0]?.can_edit === true }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualPartyIdentity.data?.[0]?.can_edit === true) }}",
   "key": "f2ea03bc5a",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

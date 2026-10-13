@@ -39,7 +39,7 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ qUpdateIndividualPartyIdentity.isLoading }}",
   "isLoading": false,
-  "isVisible": "{{ qIndividualPartyIdentity.data?.[0]?.can_edit === true }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualPartyIdentity.data?.[0]?.can_edit === true) }}",
   "key": "85c48f4dab",
   "leftColumn": 44,
   "minWidth": 120,

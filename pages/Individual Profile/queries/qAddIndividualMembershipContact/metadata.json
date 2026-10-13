@@ -30,6 +30,6 @@
     "name": "qAddIndividualMembershipContact",
     "pageId": "Individual Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

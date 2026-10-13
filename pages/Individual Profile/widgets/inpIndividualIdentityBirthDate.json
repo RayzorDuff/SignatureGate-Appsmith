@@ -51,7 +51,7 @@
   "isDisabled": "",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": "{{ qIndividualPartyIdentity.data?.[0]?.can_edit === true }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualPartyIdentity.data?.[0]?.can_edit === true) }}",
   "key": "7vrj7m8u4k",
   "label": "Date of Birth",
   "labelAlignment": "left",

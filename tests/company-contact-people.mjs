@@ -3,7 +3,7 @@ import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:asser
 const source=fs.readFileSync(new URL('../pages/Company Profile/jsobjects/CompanyProfileFlows/CompanyProfileFlows.js',import.meta.url),'utf8');
 function fixture({allowed=true,reason='Synthetic company contact',writeFail=false,refreshFail=false,delay=false}={}) {
  let finish;const wait=delay?new Promise(resolve=>finish=resolve):Promise.resolve();
- const calls={writes:[],alerts:[]};const context={appsmith:{user:{email:'synthetic-company-editor@example.invalid'},URL:{queryParams:{organization_id:'synthetic-company'}},store:{company_contact_people_organization:'synthetic-company'}},
+ const calls={writes:[],alerts:[]};const context={appsmith:{user:{email:'synthetic-company-editor@example.invalid'},URL:{queryParams:{organization_id:'synthetic-company'}},store:{company_contact_people_organization:'synthetic-company',company_profile_state:{id:'synthetic-company',email:'synthetic-company-editor@example.invalid',status:'ready'}}},
  qCompanyProfile:{data:[{party_id:'synthetic-company'}]},qCompanyContactPeopleAccess:{run:async()=>[{can_manage:allowed}]},
  qCompanyContactPeople:{data:[{organization_id:'synthetic-company',person_id:'synthetic-archived',status:'archived',updated_at:'synthetic-version'}],run:async()=>{if(refreshFail)throw Error('Synthetic refresh error');return [];}},
  qCompanyContactCandidates:{data:[{person_id:'synthetic-person'},{person_id:'synthetic-archived'}],run:async()=>[]},

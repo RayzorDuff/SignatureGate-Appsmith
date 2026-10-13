@@ -8,6 +8,9 @@
     },
     {
       "key": "fontFamily"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -16,7 +19,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (true) }}",
   "key": "2fb0817e7e",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

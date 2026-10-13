@@ -2,7 +2,7 @@ export default {
   async openProfile(row) {
     const id = String(row?.party_id || '').trim();
     const kind = String(row?.party_kind || '').trim();
-    if (!id || !['individual', 'organization'].includes(kind)) {
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) || !['individual', 'organization'].includes(kind)) {
       showAlert('Directory selection is missing a valid party ID or type.', 'error');
       return;
     }

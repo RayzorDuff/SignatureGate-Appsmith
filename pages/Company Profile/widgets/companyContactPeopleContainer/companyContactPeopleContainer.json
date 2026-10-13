@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 298,
+  "bottomRow": 305,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "children": [
     {
@@ -57,25 +57,28 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
   "flexVerticalAlignment": "stretch",
   "isCanvas": true,
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ CompanyProfileFlows.isReady() && (true) }}",
   "key": "companycontact15089011b1244a",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 10,
   "minWidth": 450,
-  "mobileBottomRow": 298,
+  "mobileBottomRow": 305,
   "mobileLeftColumn": 23,
   "mobileRightColumn": 36,
-  "mobileTopRow": 241,
+  "mobileTopRow": 248,
   "needsErrorInfo": false,
-  "originalBottomRow": 298,
-  "originalTopRow": 241,
+  "originalBottomRow": 305,
+  "originalTopRow": 248,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -83,7 +86,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldScrollContents": true,
-  "topRow": 241,
+  "topRow": 248,
   "type": "CONTAINER_WIDGET",
   "version": 1,
   "widgetId": "companycontact2047e891317f47",

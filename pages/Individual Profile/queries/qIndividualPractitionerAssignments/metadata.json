@@ -30,6 +30,6 @@
     "name": "qIndividualPractitionerAssignments",
     "pageId": "Individual Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }
