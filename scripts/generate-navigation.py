@@ -15,7 +15,7 @@ db_template=read('pages/Terminology Administration/queries/qTerminologyAccess/me
 js_template=read('pages/Terminology Administration/queries/terminologyAdminFlows-save/metadata.json')
 label_source=(ROOT/'navigation/labels.js').read_text()
 actor="""qNavigationAccess.data?.[0]"""
-linked=f"({actor}?.person_id && String({actor}?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase())"
+linked=f"Boolean({actor}?.person_id && String({actor}?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase())"
 def allowed(permission):
  if permission is None:return 'true'
  if permission in ['reports','audit']:check=f"({actor}?.is_document_reviewer === true || {actor}?.is_donations_reviewer === true || {actor}?.is_practitioner === true)"

@@ -12,7 +12,7 @@
       "widgetId": "navMenuContributions",
       "index": 0,
       "label": "{{ navigationLabels.text(\"Contributor Functions\") }}",
-      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true }}",
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true }}",
       "isDisabled": false,
       "onClick": "{{ navigateTo(\"Contributor Functions\",{},\"SAME_WINDOW\") }}"
     },
@@ -21,7 +21,7 @@
       "widgetId": "navMenuContributions",
       "index": 1,
       "label": "{{ navigationLabels.text(\"Cash Deposits\") }}",
-      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true }}",
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true }}",
       "isDisabled": false,
       "onClick": "{{ navigateTo(\"Cash Deposits\",{},\"SAME_WINDOW\") }}"
     }
@@ -33,7 +33,7 @@
   "boxShadow": "none",
   "isCompact": false,
   "isDisabled": false,
-  "isVisible": "{{ (((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true) || ((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true)) }}",
+  "isVisible": "{{ ((Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true)) }}",
   "animateLoading": true,
   "placement": "CENTER",
   "renderMode": "CANVAS",

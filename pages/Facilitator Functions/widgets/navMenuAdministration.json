@@ -12,7 +12,7 @@
       "widgetId": "navMenuAdministration",
       "index": 0,
       "label": "{{ navigationLabels.text(\"Reports\") }}",
-      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
       "isDisabled": false,
       "onClick": "{{ navigateTo(\"Reports\",{},\"SAME_WINDOW\") }}"
     },
@@ -21,7 +21,7 @@
       "widgetId": "navMenuAdministration",
       "index": 1,
       "label": "{{ navigationLabels.text(\"Agreement Templates\") }}",
-      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true }}",
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true }}",
       "isDisabled": false,
       "onClick": "{{ navigateTo(\"Agreement Templates\",{},\"SAME_WINDOW\") }}"
     },
@@ -30,7 +30,7 @@
       "widgetId": "navMenuAdministration",
       "index": 2,
       "label": "{{ navigationLabels.text(\"Audit Log\") }}",
-      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
       "isDisabled": false,
       "onClick": "{{ navigateTo(\"Audit Log\",{},\"SAME_WINDOW\") }}"
     },
@@ -39,7 +39,7 @@
       "widgetId": "navMenuAdministration",
       "index": 3,
       "label": "{{ navigationLabels.text(\"Terminology Administration\") }}",
-      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true }}",
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true }}",
       "isDisabled": false,
       "onClick": "{{ navigateTo(\"Terminology Administration\",{},\"SAME_WINDOW\") }}"
     }
@@ -51,7 +51,7 @@
   "boxShadow": "none",
   "isCompact": false,
   "isDisabled": false,
-  "isVisible": "{{ (((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || ((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true) || ((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || ((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true)) }}",
+  "isVisible": "{{ ((Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true)) }}",
   "animateLoading": true,
   "placement": "CENTER",
   "renderMode": "CANVAS",

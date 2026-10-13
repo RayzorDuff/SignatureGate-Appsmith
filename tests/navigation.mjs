@@ -25,9 +25,9 @@ for(const page of pages) {
   for(const group of registry.groups) {
    const menu=JSON.parse(read('pages/'+page+'/widgets/navMenu'+group.key[0].toUpperCase()+group.key.slice(1)+'.json'));
    assert.equal(menu.type,'MENU_BUTTON_WIDGET');assert.equal(menu.menuItemsSource,'STATIC');
-   if(!evaluate(menu.isVisible,c))continue;
+   assert.equal(typeof evaluate(menu.isVisible,c),'boolean');if(!evaluate(menu.isVisible,c))continue;
    for(let n=0;n<group.items.length;n++) {
-    const item=menu.menuItems['item'+(n+1)];if(evaluate(item.isVisible,c))got.push(group.items[n].page);
+    const item=menu.menuItems['item'+(n+1)];assert.equal(typeof evaluate(item.isVisible,c),'boolean');if(evaluate(item.isVisible,c))got.push(group.items[n].page);
     assert.ok(menu.dynamicTriggerPathList.some(p=>p.key==='menuItems.item'+(n+1)+'.onClick'));
    }
    assert.equal(menu.mobileRightColumn-menu.mobileLeftColumn,64);
