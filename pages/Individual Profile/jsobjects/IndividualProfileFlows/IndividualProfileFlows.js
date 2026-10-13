@@ -1,5 +1,5 @@
 export default {
-  routeId() { return String(appsmith.URL?.queryParams?.person_id || "").trim(); },
+  routeId() { return String(appsmith.URL?.queryParams?.person_id || "").trim().toLowerCase(); },
   state() {
     const email=String(appsmith.user?.email || "").trim().toLowerCase();
     const state=appsmith.store.individual_profile_state || {};

@@ -8,6 +8,7 @@ for(const [page,collection,param,stateKey,query] of [['Individual Profile','Indi
   c[query].run=async p=>{calls.push({name:query,p});const rows=[{party_id:p.party_id}];c[query].data=rows;return rows;};
   const f=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c);return {f,c,calls};
  }
+ {const x=fixture('AAAAAAAA-AAAA-4AAA-8AAA-AAAAAAAAAAAA');await x.f.load();assert.equal(x.f.isReady(),true);assert.equal(x.calls[0].p.party_id,'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa');}
  {const x=fixture();await x.f.load();assert.equal(x.f.isReady(),true);assert.equal(x.c.appsmith.store[stateKey].id,first);assert.ok(x.calls.length>2);assert.equal(x.calls[0].p.party_id,first);}
  for(const [id,status] of [[null,'missing'],['not-a-uuid','invalid']]) {const x=fixture(id);await x.f.load();assert.equal(x.calls.length,0);assert.equal(x.f.state().status,status);assert.equal(x.f.isReady(),false);}
  {const x=fixture();x.c[query].run=async()=>[];await x.f.load();assert.equal(x.f.state().status,'denied');assert.equal(x.calls.length,0);assert.equal(x.f.isReady(),false);}

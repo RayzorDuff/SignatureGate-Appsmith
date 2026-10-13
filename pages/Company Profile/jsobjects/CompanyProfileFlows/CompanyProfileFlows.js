@@ -1,5 +1,5 @@
 export default {
-  routeId() { return String(appsmith.URL?.queryParams?.organization_id || "").trim(); },
+  routeId() { return String(appsmith.URL?.queryParams?.organization_id || "").trim().toLowerCase(); },
   state() {
     const email=String(appsmith.user?.email || "").trim().toLowerCase();
     const state=appsmith.store.company_profile_state || {};
@@ -59,7 +59,7 @@ export default {
     if (appsmith.store.company_contact_people_busy === true) return null;
     if(!this.isReady()) {showAlert("Reload the selected company profile before changing relationships.","warning");return null;}
     const organizationId = appsmith.store.company_contact_people_organization;
-    const routeId = String(appsmith.URL?.queryParams?.organization_id || "").trim();
+    const routeId = this.routeId();
     if (!organizationId || organizationId !== routeId || qCompanyProfile.data?.[0]?.party_id !== organizationId) {
       showAlert("Reload this company profile before changing contact people.","warning"); return null;
     }
@@ -79,7 +79,7 @@ export default {
     try {
       const access = (await qCompanyContactPeopleAccess.run({organization_id:organizationId}))?.[0];
       if (!email || access?.can_manage !== true || email !== String(appsmith.user?.email || "").trim().toLowerCase() ||
-          routeId !== String(appsmith.URL?.queryParams?.organization_id || "").trim()) {
+          routeId !== this.routeId()) {
         showAlert("Company contact management permission is required. Reload after an account or company change.","error"); return null;
       }
       changed = (await qSetCompanyContactPerson.run({organization_id:organizationId,person_id:personId,active,
