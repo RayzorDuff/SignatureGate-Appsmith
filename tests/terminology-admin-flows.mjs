@@ -29,6 +29,17 @@ for(const [access,status] of [[{allowed:false,account_active:true},'denied'],[{a
  const x=fixture();await x.f.initialize();x.c.qTerminology.run=async()=>{throw Error('Synthetic refresh');};await x.f.save();assert.equal(x.calls.write.length,1);assert.equal(x.calls.alerts.at(-1).level,'warning');assert.match(x.calls.alerts.at(-1).message,/do not repeat/);
 }
 {
+ const x=fixture();let attempts=0;x.c.qTerminology.run=async()=>{if(++attempts===1)throw Error('Synthetic cold label read');return [];};
+ await x.f.initialize();assert.equal(attempts,2);assert.equal(x.f.hasAccess(),true);
+ x.c.qTerminology.run=async()=>{throw Error('Synthetic persistent label failure');};await x.f.initialize();
+ assert.equal(x.f.accessState().status,'data_error');assert.match(x.f.accessMessage(),/access is verified/);assert.equal(x.f.hasAccess(),false);
+}
+{
+ const x=fixture();let finish;x.c.qTerminology.run=()=>new Promise(r=>finish=r);const pending=x.f.initialize();
+ for(let i=0;i<12&&!finish;i++)await Promise.resolve();assert.ok(finish);assert.equal(x.f.accessState().status,'loading_terms');assert.equal(x.f.hasAccess(),false);
+ x.c.appsmith.user.email='synthetic-different@example.invalid';finish([]);await pending;assert.equal(x.f.hasAccess(),false);
+}
+{
  const x=fixture();x.c.inpTermReason.text=' ';await x.f.save();assert.equal(x.calls.write.length,0);
  x.c.appsmith.store.terminology_busy=true;await x.f.save();assert.equal(x.calls.write.length,0);
 }

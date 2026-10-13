@@ -8,6 +8,8 @@ export default {
   accessMessage() {
     const status=this.accessState().status;
     if(status==="error") return "Terminology access could not be checked. Retry access.";
+    if(status==="data_error") return "Directory Manager access is verified, but terminology could not load. Retry access.";
+    if(status==="loading_terms") return "Directory Manager access verified. Loading organization terminology…";
     if(status==="unlinked") return "Your sign-in needs an active directory account link. Ask a Directory Manager to verify account ownership.";
     if(status==="denied") return "You need Directory Manager permission to administer terminology.";
     return "Checking Terminology Administration access…";
@@ -19,6 +21,7 @@ export default {
     for(let i=0;i<30 && !(appsmith.user?.email || "").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));
     const email=String(appsmith.user?.email || "").trim().toLowerCase();
     const current=()=>pass===appsmith.store.terminology_access_pass && email===String(appsmith.user?.email || "").trim().toLowerCase();
+    let phase="access";
     try {
       if(!email) throw new Error("Sign-in has not loaded");
       let rows;
@@ -26,10 +29,17 @@ export default {
       catch(error) { if(!current()) return; await new Promise(resolve=>setTimeout(resolve,300)); if(!current()) return; rows=await qTerminologyAccess.run(); }
       if(!current()) return;
       const access=rows?.[0];
-      await storeValue("terminology_access",{email,status:access?.account_active!==true?"unlinked":access.allowed===true?"ready":"denied"});
-      if(access?.account_active===true && access.allowed===true) await qTerminology.run();
+      if(access?.account_active!==true || access.allowed!==true) {
+        await storeValue("terminology_access",{email,status:access?.account_active!==true?"unlinked":"denied"});
+        return;
+      }
+      phase="terms";
+      await storeValue("terminology_access",{email,status:"loading_terms"});
+      try {await qTerminology.run();}
+      catch(error) {if(!current()) return; await new Promise(resolve=>setTimeout(resolve,300)); if(!current()) return; await qTerminology.run();}
+      if(current()) await storeValue("terminology_access",{email,status:"ready"});
     } catch(error) {
-      if(current()) await storeValue("terminology_access",{email,status:"error"});
+      if(current()) await storeValue("terminology_access",{email,status:phase==="terms"?"data_error":"error"});
     }
   },
   async save() {
