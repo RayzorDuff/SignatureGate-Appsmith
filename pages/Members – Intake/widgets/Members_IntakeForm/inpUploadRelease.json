@@ -23,7 +23,7 @@
     }
   ],
   "dynamicTriggerPathList": [],
-  "isDisabled": "{{!(inpCreateRelease.isChecked)}}",
+  "isDisabled": true,
   "isLoading": false,
   "isRequired": false,
   "isVisible": true,
@@ -51,5 +51,6 @@
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "oyzntbhafu",
-  "widgetName": "inpUploadRelease"
+  "widgetName": "inpUploadRelease",
+  "tooltip": "Paper agreement upload is pending integration validation."
 }

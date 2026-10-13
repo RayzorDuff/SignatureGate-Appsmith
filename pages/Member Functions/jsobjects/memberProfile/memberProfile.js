@@ -223,7 +223,16 @@ export default {
 		return good;
 	},
 	
-	async sendDigitalAgreement() {
+  async sendDigitalAgreement() {
+    if(appsmith.store.member_signing_busy===true) return;
+    await storeValue("member_signing_busy",true);
+    try {return await this.sendDigitalAgreementSteps();}
+    finally {await storeValue("member_signing_busy",false);}
+  },
+  async sendDigitalAgreementSteps() {
+    let saved=false;
+    try {
+    showAlert("Checking agreement permission and recipient…","info");
     const permission = (await qMemberWriteAccess.run())?.[0];
     if (permission?.allowed !== true) { showAlert("Staff permission is required for this action; Participant access is read-only.", "error"); return; }
 
@@ -266,6 +275,7 @@ export default {
 			return;
 		}
 
+		showAlert("Creating the pending agreement…","info");
 		const createRes = await qCreatePendingAgreement.run({
 			member_id: memberId,
 			facilitator_id: facilitatorId,
@@ -276,6 +286,7 @@ export default {
 			member_email_id: emailRow.member_email_id
 		});
 
+		saved=true;
 		const agreementId =
 			(typeof createRes === "string" && createRes) ||
 			createRes?.member_agreement_id ||
@@ -284,8 +295,7 @@ export default {
 			null;
 
 		if (!agreementId) {
-			showAlert("Agreement created, but no member_agreement_id was returned.", "error");
-			return;
+			throw new Error("Agreement identifier could not be resolved.");
 		}
 
 		await this.auditLog("member_agreement.created", "member_agreement", agreementId, {
@@ -299,15 +309,23 @@ export default {
 			page: "Members - Profile"
 		});
 
-		showAlert("Digital release queued (pending email send).", "success");
+		showAlert("Agreement created. Requesting the signing workflow…", "info");
 
-		await apiTriggerDocumenso.run({
+		const response=await apiTriggerDocumenso.run({
 			member_agreement_id: agreementId,
 			externalId: "ma:" + agreementId
 		});
 
-		await qMemberAgreements.run();
-	},
+    const raw=response?.data ?? response;
+    const result=raw?.message ?? raw;
+    if(result?.ok===false || result?.success===false || ["failed","error"].includes(result?.status)) throw new Error("Signing workflow did not complete.");
+    showAlert(result?.email_sent===true?"Agreement email sent (confirmed by signing service).":"Signing workflow requested. Check agreement status for email delivery.","info");
+    await qMemberAgreements.run();
+    showAlert("Digital agreement request completed.","success");
+    } catch(error) {
+      showAlert(saved?"Agreement saved, but the signing request or refresh did not complete. Review the pending agreement; do not create another.":"Agreement request could not complete before creation.",saved?"warning":"error");
+    }
+  },
 
 	async openPaperUpload() {
     const permission = (await qMemberWriteAccess.run())?.[0];

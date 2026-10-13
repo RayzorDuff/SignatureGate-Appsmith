@@ -16,7 +16,7 @@
   "fontSize": "0.9rem",
   "fontStyle": "NORMAL",
   "isLoading": false,
-  "isVisible": "{{ qTerminologyAccess.data?.[0]?.allowed === true }}",
+  "isVisible": "{{ terminologyAdminFlows.hasAccess() }}",
   "key": "term-safety",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

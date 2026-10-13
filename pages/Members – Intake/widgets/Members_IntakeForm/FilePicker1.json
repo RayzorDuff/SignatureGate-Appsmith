@@ -39,7 +39,7 @@
   "fileDataType": "Base64",
   "files": [],
   "isDefaultClickDisabled": true,
-  "isDisabled": false,
+  "isDisabled": true,
   "isLoading": false,
   "isRequired": "{{inpUploadRelease.isChecked}}",
   "isVisible": "{{inpUploadRelease.isChecked}}",
@@ -68,5 +68,6 @@
   "type": "FILE_PICKER_WIDGET_V2",
   "version": 1,
   "widgetId": "lhb4v2p755",
-  "widgetName": "FilePicker1"
+  "widgetName": "FilePicker1",
+  "tooltip": "Paper agreement upload is pending integration validation."
 }

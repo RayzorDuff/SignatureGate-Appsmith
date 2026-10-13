@@ -28,7 +28,14 @@ export default {
     const email = String(appsmith.user?.email || "").trim().toLowerCase();
     try {
       if (!email) throw new Error("Sign-in account has not loaded.");
-      const access = (await qPageAccess.run())?.[0];
+      let access;
+      try {access=(await qPageAccess.run())?.[0];}
+      catch(error) {
+        if(pass!==appsmith.store.cash_deposit_access_pass || email!==String(appsmith.user?.email||"").trim().toLowerCase()) return [];
+        await new Promise(resolve=>setTimeout(resolve,300));
+        if(pass!==appsmith.store.cash_deposit_access_pass || email!==String(appsmith.user?.email||"").trim().toLowerCase()) return [];
+        access=(await qPageAccess.run())?.[0];
+      }
       if (pass !== appsmith.store.cash_deposit_access_pass || email !== String(appsmith.user?.email || "").trim().toLowerCase()) return [];
       const linked = !!access?.person_id && String(access?.email || "").trim().toLowerCase() === email;
       const allowed = linked && access?.can_cash_deposits === true && access?.is_donations_reviewer === true;
@@ -163,9 +170,10 @@ export default {
       await this.clearDisposition();
       await closeModal("mdlCashDisposition");
       await qCashDepositCashOnHand.run();
+      await resetWidget("tblCashDeposits",true);
       showAlert(intent.mode === "revive"
         ? "Cash donation revived and returned to Cash on Hand."
-        : "Cash donation excluded from deposit reconciliation.", "success");
+        : "Cash donation excluded from deposit reconciliation; verification status is unchanged. Uncheck Hide ineligible donations to see and revive it.", "success");
       return intent.donation_id;
     } catch (error) {
       if (committed) {
@@ -584,6 +592,7 @@ export default {
       return;
     }
 
+    showAlert("Saving deposit confirmation…", "info");
     await qConfirmCashDepositBatch.run({
       deposit_batch_id: batch.deposit_batch_id,
       verifier_id: verifierId,
@@ -594,13 +603,15 @@ export default {
     });
 
     await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
+    showAlert("Deposit confirmation saved. Requesting ERP synchronization…", "info");
 
     try {
       const response = await apiSyncCashDepositToERPNext.run({
         deposit_batch_id: batch.deposit_batch_id,
         mode: "test"
       });
-      const result = response?.message || response || {};
+      const raw = response?.data ?? response;
+      const result = raw?.message ?? raw ?? {};
 
       if (result.ok === true && result.status === "succeeded") {
         const erpDocument = [result.erp_doctype, result.erp_name]
@@ -650,12 +661,14 @@ export default {
       return;
     }
 
+    showAlert("Retrying ERP synchronization for the confirmed deposit…", "info");
     try {
       const response = await apiSyncCashDepositToERPNext.run({
         deposit_batch_id: batch.deposit_batch_id,
         mode: "test"
       });
-      const result = response?.message || response || {};
+      const raw = response?.data ?? response;
+      const result = raw?.message ?? raw ?? {};
 
       if (result.ok === true && result.status === "succeeded") {
         const erpDocument = [result.erp_doctype, result.erp_name]

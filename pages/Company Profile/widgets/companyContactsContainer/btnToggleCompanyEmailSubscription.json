@@ -43,7 +43,7 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": "{{ !(qCompanyDonorContacts.data || []).some(c => c.contact_id === selCompanyDonorContactToArchive.selectedOptionValue && c.contact_kind === 'email') }}",
+  "isDisabled": "{{ appsmith.store.company_mailing_busy === true || (!(qCompanyDonorContacts.data || []).some(c => c.contact_id === selCompanyDonorContactToArchive.selectedOptionValue && c.contact_kind === 'email')) }}",
   "isLoading": false,
   "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && selCompanyDonorContactKind.selectedOptionValue === 'email' }}",
   "key": "comsub2026",
@@ -54,7 +54,7 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 199,
   "needsErrorInfo": false,
-  "onClick": "{{ (async () => { try { const row=(qCompanyDonorContacts.data||[]).find(c=>c.contact_id===selCompanyDonorContactToArchive.selectedOptionValue&&c.contact_kind==='email'); if(!row) {showAlert('Select an email first.','warning');return;} const r=await qToggleCompanyEmailSubscription.run(); if(!r?.[0]?.queue_id) throw new Error('Listmonk synchronization was not queued.');await Promise.all([qCompanyDonorContacts.run(),qCompanyContacts.run()]);showAlert(r[0].mailing_subscription_status==='subscribed'?'Contributor subscription queued.':'Contributor unsubscribe queued.','success');}catch(e){showAlert('Mailing subscription change failed: '+(e?.message||e),'error');} })() }}",
+  "onClick": "{{ (async()=>{ if(appsmith.store.company_mailing_busy===true) return; let queued=false; await storeValue(\"company_mailing_busy\",true);try{\n const row=(qCompanyDonorContacts.data||[]).find(c=>c.contact_id===selCompanyDonorContactToArchive.selectedOptionValue && c.contact_kind==='email');\n if(!row) {showAlert('Select an email first.','warning');return;}\n showAlert('Saving mailing preference…','info');\n const rows=await qToggleCompanyEmailSubscription.run();\n if(!rows?.[0]?.queue_id) throw new Error('Mailing synchronization was not queued.');\n queued=true;\n showAlert('Mailing preference saved. Listmonk synchronization queued…','info');\n await Promise.all([qCompanyDonorContacts.run(),qCompanyContacts.run()]);\nshowAlert('Mailing request queued. External subscription completion is tracked separately.','success');\n }catch(error){showAlert(queued?'Mailing request queued, but refresh failed. Reload; do not repeat it.':'Mailing preference could not be queued.',queued?'warning':'error');}\n finally{await storeValue(\"company_mailing_busy\",false);}})() }}",
   "originalBottomRow": 116,
   "originalTopRow": 112,
   "parentColumnSpace": 10.25,

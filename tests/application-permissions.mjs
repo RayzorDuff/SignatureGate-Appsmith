@@ -14,9 +14,9 @@ const email=JSON.parse(text('pages/Intake/widgets/frmIntake/inpIntakeEmail.json'
 for(const address of ['sample.s@example.invalid','sample+tag@sub.example.invalid','user_name@sub-domain.example.invalid',''])assert.equal(vm.runInNewContext(email,{inpIntakeEmail:{text:address}}),true,address);
 for(const address of ['not-an-address','a@@example.invalid','a b@example.invalid','a@example'])assert.equal(vm.runInNewContext(email,{inpIntakeEmail:{text:address}}),false,address);
 {
- const alerts=[],context={qPageAccess:{run:async()=>[{can_intake:false}]},showAlert:(m,l)=>alerts.push(l)};
+ const alerts=[],context={appsmith:{store:{}},storeValue:async(k,v)=>context.appsmith.store[k]=v,qPageAccess:{run:async()=>[{can_intake:false}]},showAlert:(m,l)=>alerts.push(l)};
  const intake=vm.runInNewContext(text('pages/Intake/jsobjects/intakeFlows/intakeFlows.js').replace(/^export default/,'globalThis.intakeFlows ='),context);
- await intake.submit();assert.deepEqual(alerts,['error'],'Participant denied before form access or mutation');
+ await intake.submit();assert.deepEqual(alerts,['info','error'],'Participant denied before form access or mutation');
 }
 async function cashCase({allowed=true,reviewer=false,refreshFail=false,writeFail=false}={}){
  const calls={writes:0,alerts:[],queue:0};

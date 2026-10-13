@@ -7,7 +7,7 @@ const email='synthetic-cash-access@example.invalid';
 const actor={email,person_id:'synthetic-person',is_donations_reviewer:true,can_cash_deposits:true};
 function fixture(result=[actor]) {
  const calls={financial:[],alerts:[]};
- const context={appsmith:{user:{email},store:{}},qPageAccess:{data:[],run:async()=>result},qCashDepositAccessDiagnostic:{run:async()=>[]},
+ const context={setTimeout:fn=>fn(),appsmith:{user:{email},store:{}},qPageAccess:{data:[],run:async()=>result},qCashDepositAccessDiagnostic:{run:async()=>[]},
   storeValue:async(k,v)=>{context.appsmith.store[k]=v;},showAlert:(message,level)=>calls.alerts.push({message,level}),
   qCashDepositCashOnHand:{run:async()=>calls.financial.push('cash')},qCashDepositBatches:{run:async()=>calls.financial.push('batch')},
   apiCashDepositBankAccounts:{run:async()=>calls.financial.push('bank')}};
@@ -41,6 +41,9 @@ for (const [result,status] of [[[], 'unlinked'],[[{...actor,is_donations_reviewe
 {
  const f=fixture();f.context.apiCashDepositBankAccounts.run=async()=>{throw Error('Synthetic bank failure');};
  await f.flows.refresh();assert.equal(f.flows.hasAccess(),true,'bank lookup failure does not claim missing role');assert.deepEqual(f.calls.alerts.map(x=>x.level),['warning']);
+}
+{
+ const f=fixture();let attempts=0;f.context.qPageAccess.run=async()=>{if(++attempts===1)throw Error('Synthetic transient');return [actor];};await f.flows.refresh();assert.equal(attempts,2);assert.equal(f.flows.hasAccess(),true);assert.equal(f.calls.financial.length,3);
 }
 const page=new URL('../pages/Cash Deposits/',import.meta.url);
 const mode=JSON.parse(fs.readFileSync(new URL('queries/qPageAccess/metadata.json',page),'utf8')).unpublishedAction;

@@ -39,11 +39,11 @@
       "key": "onOptionChange"
     }
   ],
-  "isDisabled": "{{ !selTerminologyConcept.selectedOptionValue }}",
+  "isDisabled": false,
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qTerminologyAccess.data?.[0]?.allowed === true }}",
+  "isVisible": "{{ terminologyAdminFlows.hasAccess() }}",
   "key": "term-concept",
   "labelAlignment": "left",
   "labelPosition": "Top",
@@ -71,7 +71,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 32,
   "serverSideFiltering": false,
-  "sourceData": "{{ (qTerminology.data || []).map(x => ({ label: x.concept_key + ' — ' + x.singular_label, value: x.concept_key })) }}",
+  "sourceData": "{{ (qTerminology.data || []).map(x => ({ label: x.concept_key + ' \u2014 ' + x.singular_label, value: x.concept_key })) }}",
   "topRow": 24,
   "type": "SELECT_WIDGET",
   "version": 1,

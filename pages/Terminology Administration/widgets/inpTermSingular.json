@@ -27,7 +27,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qTerminologyAccess.data?.[0]?.allowed === true }}",
+  "isVisible": "{{ terminologyAdminFlows.hasAccess() }}",
   "key": "term-singular",
   "label": "Singular label",
   "labelAlignment": "left",

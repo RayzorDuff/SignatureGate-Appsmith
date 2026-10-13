@@ -21,7 +21,7 @@
   "fontSize": "1rem",
   "fontStyle": "NORMAL",
   "isLoading": false,
-  "isVisible": "{{ qTerminologyAccess.data?.[0]?.allowed === true }}",
+  "isVisible": "{{ terminologyAdminFlows.hasAccess() }}",
   "key": "term-preview",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

@@ -1,6 +1,14 @@
-SELECT *
-FROM public.member_email_request_mailing_unsubscribe(
-  {{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid,
+WITH permitted AS MATERIALIZED (
+ SELECT e.member_email_id
+ FROM public.member_emails e JOIN public.members m USING(member_id)
+ WHERE e.member_email_id={{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid
+   AND m.person_id={{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+   AND e.status='active'
+   AND public.application_member_access({{ appsmith.user.email }},m.member_id,true)
+)
+SELECT result.* FROM permitted
+CROSS JOIN LATERAL public.member_email_request_mailing_unsubscribe(
+  permitted.member_email_id,
   {{ appsmith.user.email }}::text,
   'signaturegate_interface'::text,
   'Unsubscribed from Individual Profile'::text,
@@ -10,4 +18,4 @@ FROM public.member_email_request_mailing_unsubscribe(
     'contact_id',{{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid
   )::jsonb,
   true::boolean
-);
+) AS result;

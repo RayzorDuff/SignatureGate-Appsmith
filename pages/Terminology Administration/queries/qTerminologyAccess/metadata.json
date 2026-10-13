@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT public.issue19_has_role({{ appsmith.user.email }}, 'directory_manager') AS allowed;",
+      "body": "WITH input AS (SELECT lower(btrim({{ appsmith.user?.email || '' }}::text)) AS email)\nSELECT public.issue19_has_role(input.email,'directory_manager') AS allowed,\n EXISTS(SELECT 1 FROM public.person_app_accounts a WHERE a.email_normalized=input.email AND a.status='active') AS account_active FROM input;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -29,7 +29,7 @@
     ],
     "name": "qTerminologyAccess",
     "pageId": "Terminology Administration",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

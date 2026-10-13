@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT public.issue20_set_organization_terminology({{ appsmith.user?.email || '' }}, {{ selTerminologyConcept.selectedOptionValue || '' }}, {{ (inpTermSingular.text || '').trim() }}, {{ (inpTermPlural.text || '').trim() }}, {{ (inpTermShort.text || '').trim() || null }}, {{ selTermActive.selectedOptionValue === 'true' }}, {{ (inpTermReason.text || '').trim() }}) AS changed;",
+      "body": "SELECT public.issue20_set_organization_terminology({{ appsmith.user?.email || '' }},{{ this.params.concept }},{{ this.params.singular }},{{ this.params.plural }},{{ this.params.short || null }},{{ this.params.active === true }},{{ this.params.reason }}) AS changed;\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -30,6 +30,6 @@
     "name": "qSetTerminology",
     "pageId": "Terminology Administration",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

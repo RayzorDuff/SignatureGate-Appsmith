@@ -10,7 +10,7 @@ const source=(page,name)=>fs.readFileSync(new URL('../pages/'+page+'/queries/'+n
 let target,actorId,donationId,selectedContributor,currentAction;
 async function action(page,name,email,params={}) {
  const values=[],context={params:{email,member_id:target,donation_id:donationId,contributor_choice:'__anonymous__',is_anonymous:true,amount_cents:100,donated_at:'2026-01-01',notes:'Synthetic',selection_value:'__anonymous__',show_rejected:false,new_status:'verified',review_notes:'Synthetic review',first_name:'Synthetic',last_name:'Denied',phone:'5550109001',date_of_birth:'',...params},
- appsmith:{user:{email},store:{member_id:target,facilitator_id:actorId,facilitator_is_donations_reviewer:true,cash_deposit_hide_ineligible:false,selected_facilitator_id:actorId}},selCashDepositStatus:{selectedOptionValue:'ALL'},Boolean,String,JSON};
+ appsmith:{user:{email},store:{member_id:target,facilitator_id:actorId,facilitator_is_donations_reviewer:true,cash_deposit_hide_ineligible:false,selected_facilitator_id:actorId}},selCashDepositStatus:{selectedOptionValue:'ALL'},selIndividualRoleContactToArchive:{selectedOptionValue:params.contact_id},qIndividualProfile:{data:[{party_id:params.person_id}]},Boolean,String,JSON};
  const sql=source(page,name).replace(/{{(.*?)}}/gs,(_,e)=>{values.push(vm.runInNewContext(e,context));return '$'+values.length;});
  currentAction=page+'/'+name;
  await db.exec('SAVEPOINT source_action');
@@ -110,5 +110,18 @@ try {
  assert.equal(diagnostic.cash_deposits_allowed,true);assert.equal(diagnostic.account_active,true);assert.ok(!('email' in diagnostic));
  assert.equal((await action('Cash Deposits','qCashDepositAccessDiagnostic',self.email))[0].cash_deposits_allowed,false);
  assert.equal((await action('Cash Deposits','qCashDepositAccessDiagnostic','synthetic-unlinked@example.invalid'))[0].account_registered,false);
+
+ const mailingEmail=(await db.query("INSERT INTO public.member_emails(member_id,email,status,mailing_subscription_status) VALUES($1,'synthetic-profile-mailing@example.invalid','active','not_subscribed') RETURNING member_email_id",[self.memberId])).rows[0].member_email_id;
+ const mailParams={contact_id:mailingEmail,person_id:self.id};
+ assert.equal((await action('Individual Profile','qSubscribeIndividualEmail',self.email,mailParams)).length,0,'Participant cannot write own mailing preference through staff profile action');
+ assert.equal((await db.query('SELECT count(*)::int AS n FROM public.listmonk_sync_queue WHERE member_email_id=$1',[mailingEmail])).rows[0].n,0,'denial cannot enqueue');
+ assert.equal((await action('Individual Profile','qSubscribeIndividualEmail',doc.email,{...mailParams,person_id:other.id})).length,0,'forged profile selection cannot update contact');
+ assert.equal((await action('Individual Profile','qSubscribeIndividualEmail',doc.email,mailParams))[0].member_email_id,mailingEmail);
+ assert.equal((await action('Individual Profile','qUnsubscribeIndividualEmail',doc.email,mailParams))[0].mailing_subscription_status,'unsubscribed');
+ assert.equal((await action('Terminology Administration','qTerminologyAccess',combined.email))[0].allowed,true);
+ assert.equal((await action('Terminology Administration','qTerminologyAccess',self.email))[0].allowed,false);
+ await assert.rejects(action('Intake','qAuditLog',self.email,{actor_email:combined.email,action:'intake.completed',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}));
+ const intakeAudit=(await action('Intake','qAuditLog',doc.email,{actor_email:combined.email,action:'intake.completed',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}))[0];
+ assert.equal((await db.query('SELECT actor FROM public.audit_log WHERE audit_log_id=$1',[intakeAudit.audit_log_id])).rows[0].actor,doc.email,'signed actor overrides forged parameters');
  await db.exec('ROLLBACK');console.log('PASS actual source queries: authorization, self/forged targets, canonical reviewers, cash/audit/Intake guards and reason-aware reconciliation bindings');
 } catch(error){console.error(JSON.stringify({action:currentAction,message:error.message,code:error.code}));process.exitCode=1;} finally {await db.close();}

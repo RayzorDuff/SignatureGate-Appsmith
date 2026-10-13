@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "INSERT INTO public.audit_log(actor,action,entity_type,entity_id,details) VALUES (lower(btrim({{ this.params.actor_email }})),{{ this.params.action }},{{ this.params.entity_type }},COALESCE(NULLIF({{ this.params.entity_id }},''),'unknown'),COALESCE({{ this.params.details_json }}::jsonb,'{}'::jsonb)) RETURNING audit_log_id;",
+      "body": "INSERT INTO public.audit_log(actor,action,entity_type,entity_id,details) SELECT lower(btrim({{ appsmith.user.email }})),{{ this.params.action }},{{ this.params.entity_type }},COALESCE(NULLIF({{ this.params.entity_id }},''),'unknown'),COALESCE({{ this.params.details_json }}::jsonb,'{}'::jsonb) WHERE public.application_require_permission({{ appsmith.user.email }},'intake') AND {{ this.params.action }} IN ('intake.completed','member.create_blocked_duplicate') RETURNING audit_log_id;",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [
@@ -30,6 +30,6 @@
     "name": "qAuditLog",
     "pageId": "Intake",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

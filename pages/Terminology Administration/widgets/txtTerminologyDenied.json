@@ -8,6 +8,9 @@
     },
     {
       "key": "fontFamily"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -21,7 +24,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": "{{ qTerminologyAccess.data?.[0]?.allowed !== true }}",
+  "isVisible": "{{ !terminologyAdminFlows.hasAccess() }}",
   "key": "term-denied",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
@@ -42,7 +45,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldTruncate": false,
-  "text": "You need Directory Manager permission to administer terminology.",
+  "text": "{{ terminologyAdminFlows.accessMessage() }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
   "topRow": 26,

@@ -24,7 +24,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qTerminologyAccess.data?.[0]?.allowed === true }}",
+  "isVisible": "{{ terminologyAdminFlows.hasAccess() }}",
   "key": "term-reason",
   "label": "Reason for change",
   "labelAlignment": "left",

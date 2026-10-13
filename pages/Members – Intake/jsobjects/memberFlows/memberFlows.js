@@ -132,6 +132,11 @@ export default {
 	},
 	
   async submitMember() {
+    // The paper route remains disabled until the release integration gate is accepted.
+    if(typeof inpUploadRelease!=="undefined" && inpUploadRelease.isChecked===true) {
+      showAlert("Paper agreement upload is pending integration validation. No record or file was sent.","warning");
+      return;
+    }
 		const first = inpFirstName.text.trim();
 		const last = inpLastName.text.trim();
 		const email = (inpEmail.text || "").trim();
@@ -361,99 +366,7 @@ export default {
 		let agRes = null;
 		let triggerRes = null;
 		if (wantsAgreement) {
-			if (uploadPaper) {
-				const raw = FilePicker1?.files ?? [];
-				console.log("FilePicker1.files raw:", raw);
-				const files = raw.filter(f => f && typeof f === "object" && typeof f.name === "string" && typeof f.size === "number" && f.size >= 0);
-				if (!files.length) {
-					showAlert("Please choose at least one valid file to upload for the paper agreement.", "warning");
-					return;
-				}
-				if (files.length !== raw.length) {
-					showAlert(`Some selected items were invalid (null/non-file). Remove them and re-select the file(s).`, "warning");
-					return;
-				}
-				const bad = files.find(f => typeof f !== "object" || !(("name" in f)) || !(("size" in f)));
-				if (bad) {
-					console.log("Bad file entry:", bad, raw);
-					showAlert("One of the selected items isn't a valid file. Try removing it and re-selecting files.", "error");
-					return;
-				}
-				showAlert(`Uploading ${files.length} file(s)...`, "info");
 
-				try {
-					const attachments = [];
-
-					for (let i = 0; i < files.length; i++) {
-						const file = files[i];
-
-						const encodedData =
-							file.data ||
-							file.base64 ||
-							file.content ||
-							file.fileData ||
-							file.file;
-
-						if (
-							!encodedData ||
-							typeof encodedData !== "string"
-						) {
-							throw new Error(
-								`File "${file.name}" does not contain Base64 upload data.`
-							);
-						}
-
-						showAlert(
-							`Uploading file ${i + 1} of ${files.length}: ${file.name}`,
-							"info"
-						);
-
-						try {
-							const uploadRes =
-								await apiUploadEvidenceViaN8n.run({
-									files: [
-										{
-											name: file.name,
-											type:
-												file.type ||
-												file.mimeType ||
-												file.mimetype ||
-												"application/octet-stream",
-											size: file.size,
-											data: encodedData
-										}
-									]
-								});
-
-							attachments.push(
-								...this._normalizeUploadResponse(uploadRes)
-							);
-						} catch (e) {
-							throw new Error(
-								`Upload failed for "${file.name}" ` +
-								`(${i + 1} of ${files.length}): ` +
-								`${e?.message ?? e}`
-							);
-						}
-					}
-
-					evidence_json = JSON.stringify(attachments);
-
-					showAlert(
-						"Paper agreement uploaded and queued for review.",
-						"success"
-					);
-				} catch (e) {
-					console.error("Paper upload failed:", e);
-
-					showAlert(
-						`Paper agreement upload failed: ${e?.message ?? e}`,
-						"error"
-					);
-
-					throw e;
-				}
-			}
 			resetWidget("FilePicker1", true);
 			agRes = await qCreatePendingAgreement.run({
 				member_id: memberId,
@@ -490,7 +403,7 @@ export default {
 					member_agreement_id: agreementId,
 					externalId: `ma:${agreementId}`
 				});
-				showAlert("Email sent.", "success");
+				showAlert("Signing workflow requested. Check agreement status for email delivery.", "info");
 			}
 		}
 		resetWidget("Members_IntakeForm", true);

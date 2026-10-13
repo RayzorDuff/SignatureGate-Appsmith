@@ -1,0 +1,74 @@
+// Actual controller and prepared source SQL, synthetic records only; signing HTTP is stubbed.
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';import {pathToFileURL} from 'node:url';
+const [modulePath,extensionPath,schemaPath]=process.argv.slice(2);
+const {PGlite}=await import(pathToFileURL(modulePath));const {uuid_ossp}=await import(pathToFileURL(extensionPath));
+const db=new PGlite({extensions:{uuid_ossp}});await db.waitReady;
+const page=new URL('../pages/Intake/',import.meta.url);
+const source=fs.readFileSync(new URL('jsobjects/intakeFlows/intakeFlows.js',page),'utf8');
+let serial=0,practitioner,template;
+async function actor(label,roles) {
+ const id=(await db.query('INSERT INTO people(display_name) VALUES($1) RETURNING person_id',['Synthetic Intake '+label])).rows[0].person_id;
+ const email='synthetic-intake-'+label+'@example.invalid';await db.query('INSERT INTO person_app_accounts(person_id,email) VALUES($1,$2)',[id,email]);
+ for(const role of roles) await db.query('INSERT INTO person_roles(person_id,role_key,assigned_by) VALUES($1,$2,$3)',[id,role,'synthetic']);
+ return {id,email};
+}
+function fixture({kind='member',contacts='email_phone',memberOpt=false,contributorOpt=false,email,delivery='Digital',apiFail=false}={}) {
+ const n=++serial,hasEmail=contacts.includes('email'),hasPhone=contacts.includes('phone'),hasAddress=contacts.includes('address');
+ const calls={alerts:[],actions:[],api:0};const c={appsmith:{user:{email},store:{}},showAlert:(message,level)=>calls.alerts.push({message,level}),storeValue:async(k,v)=>c.appsmith.store[k]=v,console:{log:()=>{}},setTimeout:fn=>fn()};
+ for(const [name,text] of Object.entries({inpIntakeFirstName:'Synthetic',inpIntakeLastName:'Intake'+n,inpIntakeCompanyName:'Synthetic Intake Company '+n,
+ inpIntakeEmail:hasEmail?'synthetic-intake-'+n+'@example.invalid':'',inpIntakePhone:hasPhone?'555010'+String(n).padStart(4,'0'):'',inpIntakeIdentityNotes:'',inpContributorReason:'Synthetic intake reason',
+ inpIntakeAddress:hasAddress?'Synthetic Street':'',inpIntakeCity:hasAddress?'Synthetic City':'',inpIntakeState:hasAddress?'CO':'',inpIntakePostalCode:hasAddress?'00000':''})) c[name]={text};
+ c.dateIntakeBirthDate={selectedDate:n%2?'1990-01-01':''};c.FilePickerAgreement={files:[{name:'synthetic.pdf',data:'synthetic'}]};
+ for(const [name,value] of Object.entries({selIntakeEntityType:kind==='company'?'Company':'Individual',selAgreementDelivery:delivery,selIntakePractitioner:practitioner,selAgreementType:'synthetic_intake',selAgreementTemplate:template}))c[name]={selectedOptionValue:value};
+ for(const [name,value] of Object.entries({chkIntakeMember:['member','dual'].includes(kind),chkIntakeContributor:['contributor','dual'].includes(kind),chkCompanyContributor:kind==='company',chkIntakeSubscribeMemberListmonk:memberOpt,chkIntakeSubscribeContributorListmonk:contributorOpt}))c[name]={isChecked:value};
+ for(const name of fs.readdirSync(new URL('queries/',page))) {
+  const p=new URL('queries/'+name+'/'+name+'.txt',page);if(!fs.existsSync(p))continue;
+  const body=fs.readFileSync(p,'utf8');c[name]={run:async(params={})=>{
+   calls.actions.push(name);const values=[];const context={...c,params};
+   const sql=body.replace(/{{(.*?)}}/gs,(_,expr)=>{values.push(vm.runInNewContext(expr,context));return '$'+values.length;});
+   await db.exec('SAVEPOINT intake_action');
+   try{const rows=(await db.query(sql,values)).rows;await db.exec('RELEASE SAVEPOINT intake_action');return rows;}
+   catch(error){await db.exec('ROLLBACK TO SAVEPOINT intake_action');await db.exec('RELEASE SAVEPOINT intake_action');throw new Error(name+': '+error.message);}
+  }};
+ }
+ c.apiTriggerDocumenso={run:async()=>{calls.api++;if(apiFail)throw Error('Synthetic signing failure');return {ok:true};}};
+ c.apiUploadEvidenceViaN8n={run:async()=>{throw Error('Paper upload must be blocked');}};
+ const flows=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c);return {flows,c,calls};
+}
+try {
+ await db.exec(fs.readFileSync(schemaPath,'utf8').replace(/^\\.*$/gm,''));await db.exec('SET search_path TO public,pg_temp; BEGIN');
+ const admin=await actor('admin',['directory_manager','document_reviewer','donations_reviewer']);const doc=await actor('doc',['document_reviewer']);const don=await actor('don',['donations_reviewer']);const participant=await actor('participant',[]);
+ practitioner=(await actor('practitioner',['practitioner'])).id;
+ await db.query("INSERT INTO agreement_types(type_key,display_name) VALUES('synthetic_intake','Synthetic Intake')");
+ template=(await db.query("INSERT INTO agreement_templates(name,version,required_for) VALUES('Synthetic Intake','synthetic',ARRAY['synthetic_intake']) RETURNING agreement_template_id")).rows[0].agreement_template_id;
+ let completed=0;
+ for(const kind of ['member','dual','contributor','company']) {
+  const combinations=kind==='dual'?[[false,false],[true,false],[false,true],[true,true]]:[[false,false],[true,true]];
+  for(const contacts of kind==='member'||kind==='dual'?['email_phone','email_address']:['email_phone','email_address','phone_address']) for(const [memberOpt,contributorOpt] of combinations) {
+   const x=fixture({kind,contacts,memberOpt,contributorOpt,email:kind==='member'?doc.email:kind==='dual'?admin.email:don.email});
+   const result=await x.flows.submit();assert.ok(result,JSON.stringify({kind,contacts,memberOpt,contributorOpt,alerts:x.calls.alerts}));
+   assert.equal(x.calls.alerts.at(-1).level,'success');assert.equal(x.calls.api,kind==='member'||kind==='dual'?1:0);completed++;
+   if(result.memberId) {
+    const emails=(await db.query('SELECT * FROM member_emails WHERE member_id=$1',[result.memberId])).rows;assert.equal(emails[0].mailing_subscription_status,memberOpt?'subscribed':'not_subscribed');
+    const q=(await db.query('SELECT count(*)::int AS n FROM listmonk_sync_queue WHERE member_email_id=$1',[emails[0].member_email_id])).rows[0];assert.equal(q.n,memberOpt?1:0);
+   }
+   if(result.contributorId) {
+    const emails=(await db.query('SELECT * FROM contributor_emails WHERE contributor_id=$1',[result.contributorId])).rows;
+    assert.equal(emails.length,contacts.includes('email')?1:0);if(emails[0])assert.equal(emails[0].mailing_subscription_status,contributorOpt?'subscribed':'not_subscribed');
+    if(kind==='dual') {
+     const person=(await db.query('SELECT person_id FROM members WHERE member_id=$1',[result.memberId])).rows[0].person_id;
+     assert.equal((await db.query('SELECT person_id FROM contributors WHERE contributor_id=$1',[result.contributorId])).rows[0].person_id,person);
+     const table=contacts.includes('phone')?'contributor_phones':'contributor_addresses';assert.equal((await db.query('SELECT count(*)::int AS n FROM '+table+' WHERE contributor_id=$1',[result.contributorId])).rows[0].n,1);
+    }
+   }
+  }
+ }
+ assert.equal(completed,24);
+ for(const options of [{email:participant.email},{email:doc.email,kind:'dual'},{email:doc.email,delivery:'Paper'},{email:doc.email,contacts:'phone_address'},{email:doc.email,contacts:'email'}]) {
+  const x=fixture(options);assert.equal(await x.flows.submit(),undefined);assert.ok(x.calls.actions.every(n=>['qPageAccess','qCurrentFacilitator','qIntakeActorRoles'].includes(n)),'preflight must block before identity writes');
+ }
+ {const x=fixture({email:doc.email,apiFail:true});assert.equal(await x.flows.submit(),null);assert.equal(x.calls.api,1);assert.equal(x.calls.actions.filter(a=>a==='qCreateMember').length,1);assert.equal(x.calls.alerts.at(-1).level,'warning');assert.match(x.calls.alerts.at(-1).message,/do not submit another/);}
+ {const x=fixture({email:doc.email});x.c.appsmith.store.intake_busy=true;await x.flows.submit();assert.equal(x.calls.actions.length,0);}
+ console.log('PASS Intake: 24 controller/prepared-SQL enrollment cases, independent mailing consent, shared contact roles, optional DOB, pre-write denial/paper/contact checks and partial-signing recovery warning');
+ await db.exec('ROLLBACK');
+} catch(error) {console.error(error.message);process.exitCode=1;} finally {await db.close();}

@@ -15,10 +15,23 @@ export default {
   },
 
   async submit() {
+    if(appsmith.store.intake_busy===true) return;
+    await storeValue("intake_busy",true);
+    try {return await this.performSubmit();}
+    finally {await storeValue("intake_busy",false);}
+  },
+  async performSubmit() {
+    let saved=false;
+    let phase="checking permission and enrollment details";
+    const stage=message=>{phase=message;showAlert(message,"info");};
+    try {
+    stage("Checking permissions and enrollment details…");
     const access = (await qPageAccess.run())?.[0];
     if (access?.can_intake !== true) { showAlert("Intake requires reviewer permission.", "error"); return; }
     const contactEmail = String(inpIntakeEmail.text || "").trim();
     if (contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) { showAlert("Enter a valid email address.", "warning"); return; }
+    const phoneDigits=String(inpIntakePhone.text||"").replace(/\D/g,"");
+    if(phoneDigits && !(phoneDigits.length===10 || (phoneDigits.length===11 && phoneDigits.startsWith("1")))) {showAlert("Enter a valid US phone number.","warning");return;}
     const entity = selIntakeEntityType.selectedOptionValue;
     const individual = entity === "Individual";
     const company = entity === "Company";
@@ -118,9 +131,8 @@ export default {
         showAlert("Email is required to send a Digital Agreement.", "warning");
         return;
       }
-      if (delivery === "Paper" && !(FilePickerAgreement.files || []).length) {
-        showAlert("Select a paper agreement file to upload.", "warning");
-        return;
+      if (delivery === "Paper") {
+        showAlert("Paper agreement upload is pending integration validation. No record or file was sent.","warning"); return;
       }
     }
 
@@ -143,6 +155,7 @@ export default {
         return;
       }
       if (member) {
+        stage("Checking for an existing Participant…");
         const dupRows = await qCheckMemberDuplicate.run({
           first_name: first, last_name: last, email: individualEmail,
           phone, date_of_birth: dob
@@ -167,6 +180,7 @@ export default {
           showAlert("Potential duplicate warning: creation will continue because no hard duplicate was found.", "warning");
         }
 
+        stage("Creating the individual and Participant enrollment…");
         const created = await qCreateMember.run({
           first_name: first, last_name: last, email: individualEmail, phone,
           date_of_birth: dob, created_by_facilitator_id: actor.member_id
@@ -178,15 +192,16 @@ export default {
           return;
         }
         if (!memberId) {
-          showAlert("Member creation returned an incomplete result. No duplicate was reported, but the new member could not be resolved.", "error");
+          showAlert("Participant creation returned an incomplete result. Review the directory before submitting another intake.", "warning");
           return;
         }
 
+        saved=true;
+        stage("Individual and Participant enrollment created. Saving contact methods…");
         const memberPersonRows = await qGetMemberPerson.run({ member_id: memberId });
         memberPersonId = memberPersonRows?.[0]?.person_id || null;
         if (!memberPersonId) {
-          showAlert("Member was created, but its person identity could not be resolved.", "error");
-          return;
+          throw new Error("Participant identity could not be resolved.");
         }
 
         if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "individual", party_id: memberPersonId, notes: identityNotes, reason: "Initial intake"});
@@ -198,10 +213,13 @@ export default {
           subscribe_to_mailing_list: chkIntakeSubscribeMemberListmonk.isChecked
         }) : [];
         memberEmailId = e?.[0]?.member_email_id || null;
+        if(individualEmail && !memberEmailId) throw new Error("Participant email could not be saved.");
+        if(individualEmail && chkIntakeSubscribeMemberListmonk.isChecked) stage("Participant mailing preference saved; Listmonk synchronization queued…");
         let phoneId = null;
         if (phone) {
           const p = await qAddMemberPhone.run({ member_id: memberId, phone, notes: "Created from Intake" });
           phoneId = p?.[0]?.member_phone_id || null;
+          if(!phoneId) throw new Error("Participant phone could not be saved.");
         }
 
         let memberAddressId = null;
@@ -214,6 +232,7 @@ export default {
             addressResult?.[0]?.issue19_add_membership_address || null;
         }
 
+        stage("Contacts saved. Assigning the Spiritual Practitioner…");
         await qAssignMemberPractitioner.run({
           member_id: memberId,
           practitioner_person_id: practitionerPersonId,
@@ -222,6 +241,7 @@ export default {
         });
 
         if (contributor) {
+          stage("Practitioner assigned. Adding Contributor capacity…");
           contributorId = (await qEnablePersonContributor.run({
             person_id: memberPersonId, reason
           }))?.[0]?.contributor_id;
@@ -238,6 +258,10 @@ export default {
             throw new Error("Contributor email was not created.");
           }
 
+          if(individualEmail && chkIntakeSubscribeContributorListmonk.isChecked) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
+          for(const [source_table,source_id] of [["member_phones",phoneId],["member_addresses",memberAddressId]]) {
+            if(source_id && !(await qAssignIntakeContactRole.run({person_id:memberPersonId,source_table,source_id,reason}))?.[0]?.contact_id) throw new Error("Shared Contributor contact role could not be saved.");
+          }
           await qLinkContributorMember.run({
             contributor_id: contributorId, member_id: memberId,
             actor_member_id: actor.member_id, reason
@@ -245,11 +269,15 @@ export default {
 
         }
       } else {
+        stage("Creating the individual and Contributor enrollment…");
         const created = await qCreateContributor.run({
           party_kind: "individual", first_name: first, last_name: last,
           email: individualEmail, phone, reason,
           subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
         });
+        saved=true;
+        stage("Contributor enrollment created. Saving contact details…");
+        if(individualEmail && chkIntakeSubscribeContributorListmonk.isChecked) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
         contributorId = created?.[0]?.contributor_id;
         memberPersonId = created?.[0]?.party_id;
         if (!contributorId || !memberPersonId) throw new Error("Contributor creation did not return the new individual identity.");
@@ -269,6 +297,7 @@ export default {
         showAlert("Company name is required.", "warning");
         return;
       }
+      stage("Creating the company and Contributor enrollment…");
       const created = await qCreateContributor.run({
         party_kind: "organization", organization_name: companyName,
         first_name: "", last_name: "",
@@ -276,6 +305,9 @@ export default {
         phone: (inpIntakePhone.text || "").trim(), reason,
         subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
       });
+      saved=true;
+      stage("Company Contributor enrollment created. Saving contact details…");
+      if(contactEmail && chkIntakeSubscribeContributorListmonk.isChecked) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
       contributorId = created?.[0]?.contributor_id;
       const organizationId = created?.[0]?.party_id;
       if (!contributorId || !organizationId) throw new Error("Company contributor creation did not return the organization identity.");
@@ -291,32 +323,8 @@ export default {
     }
 
     if (member) {
-      let evidence = "[]";
-      if (delivery === "Paper") {
-        const attachments = [];
-        for (const file of (FilePickerAgreement.files || [])) {
-          const encodedData = file.data || file.base64 || file.content || file.fileData || file.file;
-          if (!encodedData) throw new Error("File " + file.name + " does not contain Base64 upload data.");
-          const upload = await apiUploadEvidenceViaN8n.run({
-            files: [{name:file.name,type:file.type || file.mimeType || "application/octet-stream",size:file.size,data:encodedData}]
-          });
-          const raw = upload?.data ?? upload;
-          const arr = Array.isArray(raw) ? raw : Array.isArray(raw?.files) ? raw.files : (raw && typeof raw === "object" ? [raw] : []);
-          attachments.push(...arr.filter(x => x && (x.path || x.signedPath)));
-        }
-        if (!attachments.length) throw new Error("Paper agreement upload returned no attachment paths.");
-        evidence = JSON.stringify(attachments);
-      }
-
-			console.log("Intake agreement parameters:", {
-				member_id: memberId,
-				practitioner_person_id: practitionerPersonId,
-				agreement_template_id: delivery === "Digital" ? agreementTemplate : "",
-				signature_method: delivery === "Digital" ? "documenso" : "paper",
-				status: delivery === "Digital" ? "pending_email_send" : "pending_review",
-				member_email_id: memberEmailId || ""
-			});
-			
+      const evidence="[]";
+      stage("Enrollment and contacts saved. Creating the agreement…");
       agreementResult = await qCreateIntakeAgreement.run({
         member_id: memberId,
         practitioner_person_id: practitionerPersonId,
@@ -328,10 +336,16 @@ export default {
       });
 
       const agreementId = agreementResult?.[0]?.member_agreement_id;
+      if(!agreementId) throw new Error("Agreement creation returned an incomplete result.");
+      stage("Agreement created. Requesting the signing workflow…");
       if (delivery === "Digital" && agreementId) {
         triggerResult = await apiTriggerDocumenso.run({
           member_agreement_id: agreementId, externalId: "ma:" + agreementId
         });
+        const raw=triggerResult?.data ?? triggerResult;
+        const result=raw?.message ?? raw;
+        if(result?.ok===false || result?.success===false || ["failed","error"].includes(result?.status)) throw new Error("Signing workflow did not complete.");
+        stage(result?.email_sent===true?"Agreement email sent (confirmed by signing service).":"Signing workflow requested. Check agreement status for email delivery.");
       }
     }
 
@@ -347,6 +361,10 @@ export default {
       "success"
     );
     return {memberId, contributorId, agreementResult, triggerResult};
+    } catch(error) {
+      showAlert(saved?"Intake stopped after saving records during "+phase+". Review the existing identity and agreement before continuing; do not submit another intake.":"Intake could not complete during "+phase+". Check details before retrying.",saved?"warning":"error");
+      return null;
+    }
   },
 
   async reset() {
