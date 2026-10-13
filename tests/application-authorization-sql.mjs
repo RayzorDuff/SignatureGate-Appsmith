@@ -123,5 +123,10 @@ try {
  await assert.rejects(action('Intake','qAuditLog',self.email,{actor_email:combined.email,action:'intake.completed',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}));
  const intakeAudit=(await action('Intake','qAuditLog',doc.email,{actor_email:combined.email,action:'intake.completed',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}))[0];
  assert.equal((await db.query('SELECT actor FROM public.audit_log WHERE audit_log_id=$1',[intakeAudit.audit_log_id])).rows[0].actor,doc.email,'signed actor overrides forged parameters');
+
+ for(const [who,expected] of [[self,false],[doc,true],[don,false],[practitioner,true]]) {
+  const row=(await action('Directory','qNavigationAccess',who.email))[0];assert.equal(row.email,who.email);assert.equal(row.can_member_functions,who===self?true:expected);
+  assert.equal(row.can_cash_deposits,who===don);assert.equal(row.can_release,who===practitioner);
+ }
  await db.exec('ROLLBACK');console.log('PASS actual source queries: authorization, self/forged targets, canonical reviewers, cash/audit/Intake guards and reason-aware reconciliation bindings');
 } catch(error){console.error(JSON.stringify({action:currentAction,message:error.message,code:error.code}));process.exitCode=1;} finally {await db.close();}

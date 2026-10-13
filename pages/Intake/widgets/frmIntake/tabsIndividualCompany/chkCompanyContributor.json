@@ -5,14 +5,18 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 15,
   "defaultCheckedState": true,
-  "dynamicBindingPathList": [],
+  "dynamicBindingPathList": [
+    {
+      "key": "label"
+    }
+  ],
   "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [],
   "isDisabled": false,
   "isLoading": false,
   "isRequired": false,
   "isVisible": true,
-  "label": "Enroll as Contributor",
+  "label": "{{ navigationLabels.text(\"Enroll as Contributor\") }}",
   "labelPosition": "Right",
   "leftColumn": 0,
   "parentId": "kzty0i0elx",

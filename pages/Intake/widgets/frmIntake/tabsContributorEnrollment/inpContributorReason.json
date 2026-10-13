@@ -7,6 +7,9 @@
   "dynamicBindingPathList": [
     {
       "key": "isRequired"
+    },
+    {
+      "key": "label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -20,7 +23,7 @@
   "isLoading": false,
   "isRequired": "{{ (selIntakeEntityType.selectedOptionValue === 'Individual' && chkIntakeContributor.isChecked) || (selIntakeEntityType.selectedOptionValue === 'Company' && chkCompanyContributor.isChecked) }}",
   "isVisible": true,
-  "label": "Contributor enrollment reason",
+  "label": "{{ navigationLabels.text(\"Contributor enrollment reason\") }}",
   "labelPosition": "Top",
   "leftColumn": 0,
   "originalBottomRow": 151,

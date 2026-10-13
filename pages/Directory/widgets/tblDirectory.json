@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 59,
+  "bottomRow": 71,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -110,6 +110,18 @@
     },
     {
       "key": "primaryColumns.created_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.contributor_status.label"
+    },
+    {
+      "key": "primaryColumns.customColumn3.label"
+    },
+    {
+      "key": "primaryColumns.customColumn4.label"
+    },
+    {
+      "key": "primaryColumns.membership_status.label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -147,18 +159,18 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 49,
+  "mobileBottomRow": 73,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 31,
-  "mobileTopRow": 21,
+  "mobileTopRow": 45,
   "needsErrorInfo": false,
   "onAddNewRowSave": "",
   "onPageChange": "",
   "onRowSelected": "",
   "onSearchTextChanged": "",
   "onSort": "",
-  "originalBottomRow": 58,
-  "originalTopRow": 7,
+  "originalBottomRow": 70,
+  "originalTopRow": 19,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -219,7 +231,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Contributor",
+      "label": "{{ navigationLabels.text(\"Contributor\") }}",
       "notation": "standard",
       "originalId": "contributor_status",
       "sticky": "",
@@ -368,7 +380,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Member Functions",
+      "label": "{{ navigationLabels.text(\"Member Functions\") }}",
       "labelColor": "#FFFFFF",
       "notation": "standard",
       "onClick": "{{ directoryFlows.openMemberFunctions(tblDirectory.triggeredRow) }}",
@@ -407,7 +419,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Contributor Functions",
+      "label": "{{ navigationLabels.text(\"Contributor Functions\") }}",
       "labelColor": "#FFFFFF",
       "notation": "standard",
       "onClick": "{{ directoryFlows.openContributorFunctions(tblDirectory.triggeredRow) }}",
@@ -536,7 +548,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Membership",
+      "label": "{{ navigationLabels.text(\"Membership\") }}",
       "notation": "standard",
       "originalId": "membership_status",
       "sticky": "",
@@ -651,7 +663,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{ qPartyDirectory.data }}",
   "textSize": "0.875rem",
-  "topRow": 8,
+  "topRow": 20,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

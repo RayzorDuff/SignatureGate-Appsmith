@@ -18,6 +18,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -60,7 +63,7 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 37,
-  "text": "Create Participant from Donation",
+  "text": "{{ navigationLabels.text(\"Create Participant from Donation\") }}",
   "tooltip": "Explicit dual-capacity enrollment requires Directory Manager and both reviewer permissions, a new identity and two contact methods.",
   "topRow": 29,
   "type": "BUTTON_WIDGET",

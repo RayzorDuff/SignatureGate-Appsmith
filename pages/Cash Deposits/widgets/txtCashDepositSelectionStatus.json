@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 61,
+  "bottomRow": 73,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -24,13 +24,13 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 65,
+  "mobileBottomRow": 89,
   "mobileLeftColumn": 16,
   "mobileRightColumn": 32,
-  "mobileTopRow": 61,
+  "mobileTopRow": 85,
   "needsErrorInfo": false,
-  "originalBottomRow": 67,
-  "originalTopRow": 62,
+  "originalBottomRow": 79,
+  "originalTopRow": 74,
   "overflow": "NONE",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
@@ -42,7 +42,7 @@
   "text": "{{ cashDepositFlows.isDonationsReviewer() ? \"Select a cash donation to perform an action.\" : \"Only an active Donations Reviewer can access cash-deposit financial information.\" }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 57,
+  "topRow": 69,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

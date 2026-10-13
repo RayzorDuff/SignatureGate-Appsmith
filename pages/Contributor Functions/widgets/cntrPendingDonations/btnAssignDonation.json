@@ -21,6 +21,9 @@
     },
     {
       "key": "text"
+    },
+    {
+      "key": "tooltip"
     }
   ],
   "dynamicPropertyPathList": [
@@ -67,7 +70,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "{{ tblPendingGivebutterDonations.selectedRow?.provider === \"cash\" ? \"Verify Cash Donation\" : \"Assign Donation\" }}",
-  "tooltip": "Assign the selected donation to an existing or new contributor",
+  "tooltip": "{{ navigationLabels.text(\"Assign the selected donation to an existing or new contributor\") }}",
   "topRow": 29,
   "type": "BUTTON_WIDGET",
   "version": 1,

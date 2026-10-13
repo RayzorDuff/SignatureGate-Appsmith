@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Cash Deposits",
+  "id": "Cash Deposits_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Cash Deposits",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

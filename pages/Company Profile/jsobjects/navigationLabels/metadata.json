@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Company Profile",
+  "id": "Company Profile_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Company Profile",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

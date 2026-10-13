@@ -1,0 +1,117 @@
+{
+  "widgetName": "navMenuPractice",
+  "widgetId": "navMenuPractice",
+  "key": "navMenuPractice",
+  "parentId": "0",
+  "type": "MENU_BUTTON_WIDGET",
+  "version": 1,
+  "menuItemsSource": "STATIC",
+  "menuItems": {
+    "item1": {
+      "id": "item1",
+      "widgetId": "navMenuPractice",
+      "index": 0,
+      "label": "{{ navigationLabels.text(\"Participant Functions\") }}",
+      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_member_functions === true }}",
+      "isDisabled": false,
+      "onClick": "{{ navigateTo(\"Member Functions\",{member_id:(qNavigationAccess.data?.[0]?.is_document_reviewer || qNavigationAccess.data?.[0]?.is_practitioner)?'':qNavigationAccess.data?.[0]?.member_id || ''},\"SAME_WINDOW\") }}"
+    },
+    "item2": {
+      "id": "item2",
+      "widgetId": "navMenuPractice",
+      "index": 1,
+      "label": "{{ navigationLabels.text(\"Spiritual Practitioner Functions\") }}",
+      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_practitioner_admin === true }}",
+      "isDisabled": false,
+      "onClick": "{{ navigateTo(\"Facilitator Functions\",{},\"SAME_WINDOW\") }}"
+    },
+    "item3": {
+      "id": "item3",
+      "widgetId": "navMenuPractice",
+      "index": 2,
+      "label": "{{ navigationLabels.text(\"Sacrament Release\") }}",
+      "isVisible": "{{ (qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_release === true }}",
+      "isDisabled": false,
+      "onClick": "{{ navigateTo(\"Sacrament Release\",{},\"SAME_WINDOW\") }}"
+    }
+  },
+  "label": "Participation & Practice",
+  "menuVariant": "SECONDARY",
+  "menuColor": "{{appsmith.theme.colors.primaryColor}}",
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "boxShadow": "none",
+  "isCompact": false,
+  "isDisabled": false,
+  "isVisible": "{{ (((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_member_functions === true) || ((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_practitioner_admin === true) || ((qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_release === true)) }}",
+  "animateLoading": true,
+  "placement": "CENTER",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "hug",
+  "minWidth": 120,
+  "topRow": 0,
+  "bottomRow": 4,
+  "originalTopRow": 0,
+  "originalBottomRow": 4,
+  "leftColumn": 16,
+  "rightColumn": 32,
+  "parentRowSpace": 10,
+  "parentColumnSpace": 19.125,
+  "mobileTopRow": 5,
+  "mobileBottomRow": 9,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "dynamicBindingPathList": [
+    {
+      "key": "label"
+    },
+    {
+      "key": "menuColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "menuItems.item1.label"
+    },
+    {
+      "key": "menuItems.item1.isVisible"
+    },
+    {
+      "key": "menuItems.item2.label"
+    },
+    {
+      "key": "menuItems.item2.isVisible"
+    },
+    {
+      "key": "menuItems.item3.label"
+    },
+    {
+      "key": "menuItems.item3.isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "menuItems.item1.onClick"
+    },
+    {
+      "key": "menuItems.item2.onClick"
+    },
+    {
+      "key": "menuItems.item3.onClick"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "menuItems.item1.onClick"
+    },
+    {
+      "key": "menuItems.item2.onClick"
+    },
+    {
+      "key": "menuItems.item3.onClick"
+    }
+  ]
+}

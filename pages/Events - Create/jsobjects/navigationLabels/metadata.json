@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Events - Create",
+  "id": "Events - Create_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Events - Create",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

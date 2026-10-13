@@ -68,6 +68,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "tabsObj.tab2.label"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -106,7 +109,7 @@
       "id": "tab2",
       "index": 0,
       "isVisible": true,
-      "label": "Member Enrollment",
+      "label": "{{ navigationLabels.text(\"Member Enrollment\") }}",
       "positioning": "vertical",
       "widgetId": "2mq85c27oi"
     }

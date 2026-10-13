@@ -3,7 +3,7 @@
   "animateLoading": true,
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 40,
+  "bottomRow": 52,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "columnOrder": [
     "member_agreement_id",
@@ -506,7 +506,7 @@
   "showInlineEditingOptionDropdown": true,
   "sortOrder": [],
   "tableData": "{{qAgreementsPendingReview.data}}",
-  "topRow": 5,
+  "topRow": 17,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

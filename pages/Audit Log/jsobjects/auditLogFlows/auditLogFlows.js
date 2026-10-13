@@ -2,7 +2,7 @@ export default {
 	DOCUMENSO_BASE_URL: "https://documenso.danks.store/t/facilitators",
 	GIVEBUTTER_BASE_URL: "https://givebutter.com",
 	GIVEBUTTER_DASHBOARD_BASE_URL: "https://dashboard.givebutter.com",
-	APPSMITH_MEMBER_PROFILE_PAGE: "Members - Profile",
+	APPSMITH_MEMBER_PROFILE_PAGE: "Member Functions",
 	NOCODB_BASE_URL: "https://nocodb.danks.store",
 	
 	async auditLog(action, entity_type, entity_id, payload) {
@@ -38,16 +38,16 @@ export default {
 		const memberName = row.detail_member_name || memberId;
 
 		if (memberId) {
-			//html.push(`<b>Member:</b> <a href="javascript:void(0)" onclick="appsmith.triggerEvent('openMemberProfile', '${memberId}')">${memberName}</a>`);
-			html.push(`<b>Member:</b> ${memberName}`);
+			//html.push(`<b>${navigationLabels.label("member")}:</b> <a href="javascript:void(0)" onclick="appsmith.triggerEvent('openMemberProfile', '${memberId}')">${memberName}</a>`);
+			html.push(`<b>${navigationLabels.label("member")}:</b> ${memberName}`);
 		}
 
 		const facilitatorId = details.facilitator_id || row.detail_facilitator_id;
 		const facilitatorName = row.detail_facilitator_name || facilitatorId;
 
 		if (facilitatorId) {
-			//html.push(`<b>Facilitator:</b> <a href="javascript:void(0)" onclick="appsmith.triggerEvent('openMemberProfile', '${facilitatorId}')">${facilitatorName}</a>`);
-			html.push(`<b>Facilitator:</b> ${facilitatorName}`);
+			//html.push(`<b>${navigationLabels.label("practitioner")}:</b> <a href="javascript:void(0)" onclick="appsmith.triggerEvent('openMemberProfile', '${facilitatorId}')">${facilitatorName}</a>`);
+			html.push(`<b>${navigationLabels.label("practitioner")}:</b> ${facilitatorName}`);
 		}
 
 		if (details.documenso_document_id) {

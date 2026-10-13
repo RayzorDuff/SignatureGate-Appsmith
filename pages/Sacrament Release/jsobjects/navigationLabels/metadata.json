@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Sacrament Release",
+  "id": "Sacrament Release_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Sacrament Release",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

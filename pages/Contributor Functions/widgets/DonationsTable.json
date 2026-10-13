@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 43,
+  "bottomRow": 55,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -196,6 +196,9 @@
     },
     {
       "key": "primaryColumns.donor_display_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.donor_display_name.label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -260,14 +263,14 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 126,
+  "mobileBottomRow": 150,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 20,
-  "mobileTopRow": 98,
+  "mobileTopRow": 122,
   "needsErrorInfo": false,
   "onRowSelected": "{{}}",
-  "originalBottomRow": 104,
-  "originalTopRow": 71,
+  "originalBottomRow": 116,
+  "originalTopRow": 83,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -996,7 +999,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Contributor",
+      "label": "{{ navigationLabels.text(\"Contributor\") }}",
       "notation": "standard",
       "originalId": "donor_display_name",
       "sticky": "",
@@ -1015,7 +1018,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{qMemberDonations.data}}",
   "textSize": "0.875rem",
-  "topRow": 10,
+  "topRow": 22,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

@@ -1,0 +1,4 @@
+-- Read-only canonical menu authority; no operational identity/contact/financial rows.
+SELECT person_id,member_id,email,is_directory_manager,is_document_reviewer,is_donations_reviewer,is_practitioner,
+ can_intake,can_member_functions,can_practitioner_admin,can_release,can_contributor_functions,can_cash_deposits
+FROM public.application_access({{ appsmith.user?.email || '' }}::text);

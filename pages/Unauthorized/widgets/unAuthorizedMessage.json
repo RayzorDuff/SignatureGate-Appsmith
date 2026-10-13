@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 27,
+  "bottomRow": 39,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -11,6 +11,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -25,13 +28,13 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 26,
+  "mobileBottomRow": 50,
   "mobileLeftColumn": 24,
   "mobileRightColumn": 40,
-  "mobileTopRow": 22,
+  "mobileTopRow": 46,
   "needsErrorInfo": false,
-  "originalBottomRow": 31,
-  "originalTopRow": 22,
+  "originalBottomRow": 43,
+  "originalTopRow": 34,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -40,10 +43,10 @@
   "responsiveBehavior": "fill",
   "rightColumn": 51,
   "shouldTruncate": false,
-  "text": "This page requires an appointment or permission your account does not hold. Participant access does not grant staff permissions. Return to your Participant workspace or Directory.",
+  "text": "{{ navigationLabels.text(\"This page requires an appointment or permission your account does not hold. Participant access does not grant staff permissions. Return to your Participant workspace or Directory.\") }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 22,
+  "topRow": 34,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

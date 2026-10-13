@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Audit Log",
+  "id": "Audit Log_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Audit Log",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

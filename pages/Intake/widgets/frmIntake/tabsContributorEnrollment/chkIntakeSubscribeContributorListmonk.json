@@ -14,6 +14,9 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -27,7 +30,7 @@
   "isRequired": false,
   "isVisible": true,
   "key": "intake-subscribe-contributor-listmonk",
-  "label": "Subscribe to Contributor mailing list",
+  "label": "{{ navigationLabels.text(\"Subscribe to Contributor mailing list\") }}",
   "labelPosition": "Right",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

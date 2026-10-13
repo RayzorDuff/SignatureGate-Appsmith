@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 33,
+  "bottomRow": 45,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -15,6 +15,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -34,14 +37,14 @@
   "key": "47c0233c-df3a-464b-b6e9-cf2c5acf1825",
   "leftColumn": 10,
   "minWidth": 120,
-  "mobileBottomRow": 30,
+  "mobileBottomRow": 54,
   "mobileLeftColumn": 17,
   "mobileRightColumn": 33,
-  "mobileTopRow": 26,
+  "mobileTopRow": 50,
   "needsErrorInfo": false,
   "onClick": "{{ navigateTo(\"Member Functions\", {}, \"SAME_WINDOW\") }}",
-  "originalBottomRow": 4,
-  "originalTopRow": 0,
+  "originalBottomRow": 16,
+  "originalTopRow": 12,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -51,8 +54,8 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 51,
-  "text": "Return to Member Functions",
-  "topRow": 29,
+  "text": "{{ navigationLabels.text(\"Return to Member Functions\") }}",
+  "topRow": 41,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "be66b751-ea6e-43f9-909f-2ca956bd02d7",

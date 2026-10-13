@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Directory",
+  "id": "Directory_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Directory",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

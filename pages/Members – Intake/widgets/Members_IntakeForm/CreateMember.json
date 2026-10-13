@@ -12,6 +12,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -48,7 +51,7 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 22,
-  "text": "Create Member",
+  "text": "{{ navigationLabels.text(\"Create Member\") }}",
   "topRow": 38,
   "type": "BUTTON_WIDGET",
   "version": 1,

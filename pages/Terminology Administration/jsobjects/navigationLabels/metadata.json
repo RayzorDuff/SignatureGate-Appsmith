@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Terminology Administration",
+  "id": "Terminology Administration_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Terminology Administration",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

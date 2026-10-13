@@ -11,6 +11,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "placeholderText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -53,7 +56,7 @@
   "parentColumnSpace": 6.9375,
   "parentId": "iiax55mfcd",
   "parentRowSpace": 10,
-  "placeholderText": "Select contributor",
+  "placeholderText": "{{ navigationLabels.text(\"Select contributor\") }}",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 62,

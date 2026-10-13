@@ -8,6 +8,9 @@
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -19,7 +22,7 @@
   "isLoading": false,
   "isRequired": false,
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' }}",
-  "label": "Enroll as Member",
+  "label": "{{ navigationLabels.text(\"Enroll as Member\") }}",
   "labelPosition": "Right",
   "leftColumn": 0,
   "originalBottomRow": 65,

@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 123,
+  "bottomRow": 135,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -15,6 +15,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -37,14 +40,14 @@
   "key": "i0llrnfb57",
   "leftColumn": 33,
   "minWidth": 120,
-  "mobileBottomRow": 184,
+  "mobileBottomRow": 208,
   "mobileLeftColumn": 24,
   "mobileRightColumn": 40,
-  "mobileTopRow": 180,
+  "mobileTopRow": 204,
   "needsErrorInfo": false,
   "onClick": "{{ memberProfile.assignFacilitator() }}",
-  "originalBottomRow": 123,
-  "originalTopRow": 119,
+  "originalBottomRow": 135,
+  "originalTopRow": 131,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -54,8 +57,8 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 49,
-  "text": "Assign Facilitator",
-  "topRow": 119,
+  "text": "{{ navigationLabels.text(\"Assign Facilitator\") }}",
+  "topRow": 131,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "q0whh1ujhv",

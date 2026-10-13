@@ -8,6 +8,9 @@
     },
     {
       "key": "fontFamily"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -42,7 +45,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldTruncate": false,
-  "text": "Contributor status",
+  "text": "{{ navigationLabels.text(\"Contributor status\") }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
   "topRow": 2,

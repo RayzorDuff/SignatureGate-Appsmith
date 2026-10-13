@@ -1,0 +1,1 @@
+SELECT * FROM public.issue20_organization_terminology();

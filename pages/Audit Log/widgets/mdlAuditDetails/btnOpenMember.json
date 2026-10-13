@@ -15,6 +15,9 @@
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -42,7 +45,7 @@
   "mobileRightColumn": 17,
   "mobileTopRow": 28,
   "needsErrorInfo": false,
-  "onClick": "{{ navigateTo(\"Members - Profile\", { member_id: tblAuditLog.triggeredRow.detail_member_id }, \"SAME_WINDOW\") }}",
+  "onClick": "{{ navigateTo(\"Member Functions\", { member_id: tblAuditLog.triggeredRow.detail_member_id }, \"SAME_WINDOW\") }}",
   "originalBottomRow": 13,
   "originalTopRow": 9,
   "parentColumnSpace": 6.9375,
@@ -54,7 +57,7 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 20,
-  "text": "Member Profile",
+  "text": "{{ navigationLabels.text(\"Open Participant record\") }}",
   "topRow": 11,
   "type": "BUTTON_WIDGET",
   "version": 1,

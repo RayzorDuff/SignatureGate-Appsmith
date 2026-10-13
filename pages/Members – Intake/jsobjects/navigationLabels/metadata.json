@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Members – Intake",
+  "id": "Members – Intake_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Members – Intake",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

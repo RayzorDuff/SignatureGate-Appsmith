@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 69,
+  "bottomRow": 81,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -21,13 +21,13 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 7,
+  "mobileBottomRow": 31,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
-  "mobileTopRow": 3,
+  "mobileTopRow": 27,
   "needsErrorInfo": false,
-  "originalBottomRow": 85,
-  "originalTopRow": 79,
+  "originalBottomRow": 97,
+  "originalTopRow": 91,
   "overflow": "NONE",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
@@ -39,7 +39,7 @@
   "text": "Deposit Batches",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 65,
+  "topRow": 77,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Agreement Templates",
+  "id": "Agreement Templates_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Agreement Templates",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

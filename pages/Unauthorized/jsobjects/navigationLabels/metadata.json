@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Unauthorized",
+  "id": "Unauthorized_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Unauthorized",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

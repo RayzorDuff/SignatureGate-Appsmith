@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 43,
+  "bottomRow": 55,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -125,6 +125,12 @@
     },
     {
       "key": "primaryColumns.practitioner_member_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.first_name.label"
+    },
+    {
+      "key": "primaryColumns.last_name.label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -165,13 +171,13 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 206,
+  "mobileBottomRow": 230,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 21,
-  "mobileTopRow": 178,
+  "mobileTopRow": 202,
   "needsErrorInfo": false,
-  "originalBottomRow": 68,
-  "originalTopRow": 36,
+  "originalBottomRow": 80,
+  "originalTopRow": 48,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -298,7 +304,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Participant First Name",
+      "label": "{{ navigationLabels.text(\"Participant First Name\") }}",
       "notation": "standard",
       "originalId": "first_name",
       "sticky": "",
@@ -329,7 +335,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Participant Last Name",
+      "label": "{{ navigationLabels.text(\"Participant Last Name\") }}",
       "notation": "standard",
       "originalId": "last_name",
       "sticky": "",
@@ -572,7 +578,7 @@
   "searchKey": "",
   "tableData": "{{ qAssignedParticipants.data || [] }}",
   "textSize": "0.875rem",
-  "topRow": 11,
+  "topRow": 23,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

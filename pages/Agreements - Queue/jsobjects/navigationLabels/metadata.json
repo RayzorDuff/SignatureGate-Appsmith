@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Agreements - Queue",
+  "id": "Agreements - Queue_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Agreements - Queue",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

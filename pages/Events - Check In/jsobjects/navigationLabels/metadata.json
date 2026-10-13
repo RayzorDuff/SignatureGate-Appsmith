@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "navigation-labels-Events - Check In",
+  "id": "Events - Check In_navigationLabels",
+  "unpublishedCollection": {
+    "name": "navigationLabels",
+    "pageId": "Events - Check In",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

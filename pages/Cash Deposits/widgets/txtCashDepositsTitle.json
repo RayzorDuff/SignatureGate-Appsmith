@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 4,
+  "bottomRow": 16,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -21,13 +21,13 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 11,
+  "mobileBottomRow": 35,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
-  "mobileTopRow": 7,
+  "mobileTopRow": 31,
   "needsErrorInfo": false,
-  "originalBottomRow": 8,
-  "originalTopRow": 2,
+  "originalBottomRow": 20,
+  "originalTopRow": 14,
   "overflow": "NONE",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
@@ -39,7 +39,7 @@
   "text": "Cash Deposits",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 0,
+  "topRow": 12,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -1,13 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 116,
+  "bottomRow": 128,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
     },
     {
       "key": "fontFamily"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -27,13 +30,13 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 168,
+  "mobileBottomRow": 192,
   "mobileLeftColumn": 3,
   "mobileRightColumn": 19,
-  "mobileTopRow": 164,
+  "mobileTopRow": 188,
   "needsErrorInfo": false,
-  "originalBottomRow": 116,
-  "originalTopRow": 112,
+  "originalBottomRow": 128,
+  "originalTopRow": 124,
   "overflow": "NONE",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
@@ -42,10 +45,10 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldTruncate": false,
-  "text": "New Facilitator\n",
+  "text": "{{ navigationLabels.text(\"New Facilitator\\n\") }}",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 112,
+  "topRow": 124,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

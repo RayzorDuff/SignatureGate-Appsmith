@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 93,
+  "bottomRow": 105,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -27,13 +27,13 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 255,
+  "mobileBottomRow": 279,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 7,
-  "mobileTopRow": 251,
+  "mobileTopRow": 275,
   "needsErrorInfo": false,
-  "originalBottomRow": 93,
-  "originalTopRow": 89,
+  "originalBottomRow": 105,
+  "originalTopRow": 101,
   "overflow": "NONE",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
@@ -45,7 +45,7 @@
   "text": "Assign Storage Location",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 89,
+  "topRow": 101,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

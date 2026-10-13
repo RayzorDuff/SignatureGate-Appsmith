@@ -1,6 +1,10 @@
 {
   "bottomRow": 4,
-  "dynamicBindingPathList": [],
+  "dynamicBindingPathList": [
+    {
+      "key": "text"
+    }
+  ],
   "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
@@ -12,7 +16,7 @@
   "originalTopRow": 134,
   "parentId": "2mq85c27oi",
   "rightColumn": 63,
-  "text": "Member enrollment",
+  "text": "{{ navigationLabels.text(\"Member enrollment\") }}",
   "textColor": "#231F20",
   "topRow": 0,
   "type": "TEXT_WIDGET",

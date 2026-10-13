@@ -15,6 +15,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "label"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -31,7 +34,7 @@
   "isRequired": true,
   "isVisible": "{{ qDirectoryCanManage.data?.[0]?.can_manage === true && qProfileCanCreateMember.data?.[0]?.can_create === true && !!qIndividualProfile.data?.[0]?.party_id && !qIndividualProfile.data?.[0]?.member_id && !qProfileMembershipState.data?.[0]?.member_id }}",
   "key": "5ae94506ba",
-  "label": "Reason to enable membership",
+  "label": "{{ navigationLabels.text(\"Reason to enable membership\") }}",
   "labelAlignment": "left",
   "labelPosition": "Top",
   "labelStyle": "",

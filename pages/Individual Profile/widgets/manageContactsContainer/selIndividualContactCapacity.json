@@ -64,7 +64,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 30,
   "serverSideFiltering": false,
-  "sourceData": "{{ [ ...(qIndividualMemberOperationsState.data?.[0]?.can_view === true ? [{label: 'Membership', value: 'member'}] : []), ...(qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id ? [{label: 'Contributor', value: 'contributor'}] : []) ] }}",
+  "sourceData": "{{ [ ...(qIndividualMemberOperationsState.data?.[0]?.can_view === true ? [{label: navigationLabels.text('Membership'), value: 'member'}] : []), ...(qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id ? [{label: navigationLabels.text('Contributor'), value: 'contributor'}] : []) ] }}",
   "topRow": 41,
   "type": "SELECT_WIDGET",
   "version": 1,

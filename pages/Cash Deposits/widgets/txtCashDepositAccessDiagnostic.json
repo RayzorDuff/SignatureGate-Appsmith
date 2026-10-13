@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 20,
+  "bottomRow": 32,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -33,13 +33,13 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 20,
+  "mobileBottomRow": 44,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 13,
-  "mobileTopRow": 12,
+  "mobileTopRow": 36,
   "needsErrorInfo": false,
-  "originalBottomRow": 20,
-  "originalTopRow": 12,
+  "originalBottomRow": 32,
+  "originalTopRow": 24,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -51,7 +51,7 @@
   "text": "{{ \"Access check (safe to return): \" + JSON.stringify(qCashDepositAccessDiagnostic.data?.[0] || {}) }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 12,
+  "topRow": 24,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

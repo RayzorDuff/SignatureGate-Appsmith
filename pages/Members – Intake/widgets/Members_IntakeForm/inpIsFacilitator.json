@@ -14,6 +14,9 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "label"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -28,7 +31,7 @@
   "isRequired": false,
   "isVisible": true,
   "key": "9h654oyjya",
-  "label": "Member is a Facilitator",
+  "label": "{{ navigationLabels.text(\"Member is a Facilitator\") }}",
   "labelPosition": "Right",
   "leftColumn": 46,
   "maxDynamicHeight": 9000,

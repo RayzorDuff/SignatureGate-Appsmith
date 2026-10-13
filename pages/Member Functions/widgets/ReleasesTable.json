@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 80,
+  "bottomRow": 92,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -190,6 +190,9 @@
     },
     {
       "key": "primaryColumns.customColumn1.isCellVisible"
+    },
+    {
+      "key": "primaryColumns.facilitator_id.label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -233,13 +236,13 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 57,
+  "mobileBottomRow": 81,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 29,
-  "mobileTopRow": 29,
+  "mobileTopRow": 53,
   "needsErrorInfo": false,
-  "originalBottomRow": 80,
-  "originalTopRow": 51,
+  "originalBottomRow": 92,
+  "originalTopRow": 63,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -414,7 +417,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
-      "label": "Facilitator ID",
+      "label": "{{ navigationLabels.text(\"Facilitator ID\") }}",
       "notation": "standard",
       "originalId": "facilitator_id",
       "sticky": "",
@@ -1045,7 +1048,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{qMemberReleases.data}}",
   "textSize": "0.875rem",
-  "topRow": 51,
+  "topRow": 63,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,
