@@ -1,5 +1,6 @@
-// Syntax preflight only; Appsmith runtime/linter scope and SDK behavior remain separate checks.
+// Syntax and v2.4.2 collection-entry preflight; runtime/linter scope and SDK remain separate.
 import fs from 'node:fs';import path from 'node:path';import vm from 'node:vm';
+import {compileAppsmithCollection} from './appsmith-js-object.mjs';
 const root=path.resolve(new URL('../pages/',import.meta.url).pathname);const expressions=new Map();let collections=0;
 function values(value,file) {
  if(Array.isArray(value))value.forEach(v=>values(v,file));
@@ -14,7 +15,7 @@ function walk(dir) {
   const full=path.join(dir,item.name);
   if(item.isDirectory())walk(full);
   else if(item.name.endsWith('.json')) {const d=JSON.parse(fs.readFileSync(full,'utf8'));if(full.includes('/widgets/'))values(d,full);}
-  else if(item.name.endsWith('.js')&&full.includes('/jsobjects/')){new vm.Script(fs.readFileSync(full,'utf8').replace(/^export default/m,'globalThis.collection='));collections++;}
+  else if(item.name.endsWith('.js')&&full.includes('/jsobjects/')){compileAppsmithCollection(fs.readFileSync(full,'utf8'),full);collections++;}
  }
 }
 try {
@@ -23,5 +24,5 @@ try {
   try{new vm.Script('('+expression+')');}
   catch(error){try{new vm.Script('(async()=>{'+expression+'})');}catch(bodyError){throw Error(file+': '+bodyError.message);}}
  }
- console.log('PASS syntax: '+collections+' JS collections and '+expressions.size+' unique widget expressions/action bodies; runtime scope is not certified');
+ console.log('PASS syntax/collection entry: '+collections+' JS collections and '+expressions.size+' unique widget expressions/action bodies; runtime scope is not certified');
 }catch(error){console.error(error.message);process.exitCode=1;}

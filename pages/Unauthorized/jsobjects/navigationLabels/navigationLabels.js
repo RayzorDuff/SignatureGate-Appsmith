@@ -1,6 +1,6 @@
-// Generated page copies consume the same registry; these functions format UI copy only.
-// Never pass operational records or executed document text through text().
 export default {
+  // Generated page copies consume the same registry; these functions format UI copy only.
+  // Never pass operational records or executed document text through text().
   label(concept, plural=false) {
     const defaults={member:["Participant","Participants"],practitioner:["Spiritual Practitioner","Spiritual Practitioners"],contributor:["Contributor","Contributors"]};
     const row=(qNavigationTerminology.data || []).find(row=>row.concept_key===concept && row.is_active===true);

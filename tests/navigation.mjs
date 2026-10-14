@@ -1,11 +1,12 @@
 // Native Menu Button contracts and capability menus; no backend mutations or external requests.
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+import {compileAppsmithCollection} from '../scripts/appsmith-js-object.mjs';
 const root=new URL('../',import.meta.url),read=p=>fs.readFileSync(new URL(p,root),'utf8'),registry=JSON.parse(read('navigation/registry.json'));
 const pages=fs.readdirSync(new URL('pages/',root)).sort();const dispositions=registry.groups.flatMap(g=>g.items.map(i=>i.page)).concat(registry.contextPages,registry.unlistedPages);
 assert.deepEqual([...dispositions].sort(),pages);assert.equal(new Set(dispositions).size,pages.length);
 function context(actor,terms=[]) {
  const c={appsmith:{user:{email:'synthetic-nav@example.invalid'},theme:{colors:{primaryColor:'#000'},borderRadius:{appBorderRadius:'0px'}}},qNavigationAccess:{data:actor?[actor]:[]},qNavigationTerminology:{data:terms},navigateTo:()=>{}};
- c.navigationLabels=vm.runInNewContext(read('navigation/labels.js').replace(/^export default/m,'globalThis.f='),c);return c;
+ c.navigationLabels=compileAppsmithCollection(read('navigation/labels.js'),'navigation/labels.js').runInNewContext(c);return c;
 }
 function evaluate(value,c) {return typeof value==='string'&&value.startsWith('{{')?vm.runInNewContext(value.slice(2,-2),c):value;}
 const base={email:'synthetic-nav@example.invalid',person_id:'synthetic-person',is_document_reviewer:false,is_donations_reviewer:false,is_practitioner:false,is_directory_manager:false,can_intake:false,can_member_functions:false,can_practitioner_admin:false,can_release:false,can_contributor_functions:false,can_cash_deposits:false};
@@ -28,6 +29,7 @@ for(const page of pages) {
    assert.equal(typeof evaluate(menu.isVisible,c),'boolean');if(!evaluate(menu.isVisible,c))continue;
    for(let n=0;n<group.items.length;n++) {
     const item=menu.menuItems['item'+(n+1)];assert.equal(typeof evaluate(item.isVisible,c),'boolean');if(evaluate(item.isVisible,c))got.push(group.items[n].page);
+    const label=evaluate(item.label,c);assert.equal(typeof label,'string');assert.ok(label.trim().length>0,page+' visible menu caption');
     assert.ok(menu.dynamicTriggerPathList.some(p=>p.key==='menuItems.item'+(n+1)+'.onClick'));
    }
    assert.equal(menu.mobileRightColumn-menu.mobileLeftColumn,64);
@@ -39,6 +41,9 @@ for(const page of pages) {
   assert.doesNotMatch(read('pages/'+page+'/queries/'+name+'/'+name+'.txt'),/\b(?:INSERT|UPDATE|DELETE)\b|https?:\/\//i);
  }
  assert.equal(read('pages/'+page+'/jsobjects/navigationLabels/navigationLabels.js'),read('navigation/labels.js'));
+ compileAppsmithCollection(read('pages/'+page+'/jsobjects/navigationLabels/navigationLabels.js'),page+' navigationLabels');
+ const title=JSON.parse(read('pages/'+page+'/widgets/txtNavigationPage.json'));
+ assert.ok(evaluate(title.text,context(base)).startsWith('Current page: '));
 }
 {
  const c=context(base);assert.equal(c.navigationLabels.text('Member Functions / Facilitator Functions'),'Participant Functions / Spiritual Practitioner Functions');

@@ -14,6 +14,8 @@ assert len(set(registered))==len(registered) and set(registered)==set(pages),'Ev
 db_template=read('pages/Terminology Administration/queries/qTerminologyAccess/metadata.json')
 js_template=read('pages/Terminology Administration/queries/terminologyAdminFlows-save/metadata.json')
 label_source=(ROOT/'navigation/labels.js').read_text()
+if not re.search(r'^export default[\s]*?({[\s\S]*?})',label_source):
+ raise SystemExit('Navigation label source must start with export default for Appsmith 2.4.2; put comments inside the object')
 actor="""qNavigationAccess.data?.[0]"""
 linked=f"Boolean({actor}?.person_id && String({actor}?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase())"
 def allowed(permission):
