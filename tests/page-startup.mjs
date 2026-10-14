@@ -60,9 +60,9 @@ for(const page of fs.readdirSync(root)) {
  await Promise.all(pageLoads.map(async d=>{
   const a=d.unpublishedAction,collection=collections.get(a.collectionId);
   assert.ok(collection,page+' collection lookup');assert.equal(a.fullyQualifiedName,collection.name+'.'+a.name);
-  assert.equal(a.userSetOnLoad,true);assert.equal(a.clientSideExecution,true);assert.equal(a.actionConfiguration.isAsync,true);
-  assert.ok(a.actionConfiguration.body.startsWith('async '));new vm.Script('('+a.actionConfiguration.body+')');
-  assert.equal(typeof collection.object[a.name],'function');registrations++;
+  assert.equal(a.userSetOnLoad,true);assert.equal(a.clientSideExecution,true);
+  assert.equal(Object.hasOwn(a.actionConfiguration,'body'),false,'native Git intentionally omits the per-function JS body');
+  assert.equal(typeof collection.object[a.name],'function');assert.equal(collection.object[a.name].constructor.name,'AsyncFunction');registrations++;
   await collection.object[a.name]();
  }));
  await Promise.resolve();await Promise.resolve();

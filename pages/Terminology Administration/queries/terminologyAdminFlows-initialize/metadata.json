@@ -8,9 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 60000,
-      "body": "async () => {\n    const pass=`${Date.now()}-${Math.random()}`;\n    await storeValue(\"terminology_access_pass\",pass);\n    await storeValue(\"terminology_access\",{status:\"loading\",email:String(appsmith.user?.email || \"\").trim().toLowerCase()});\n    for(let i=0;i<30 && !(appsmith.user?.email || \"\").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));\n    const email=String(appsmith.user?.email || \"\").trim().toLowerCase();\n    const current=()=>pass===appsmith.store.terminology_access_pass && email===String(appsmith.user?.email || \"\").trim().toLowerCase();\n    let phase=\"access\";\n    try {\n      if(!email) throw new Error(\"Sign-in has not loaded\");\n      let rows;\n      try {rows=await qTerminologyAccess.run();}\n      catch(error) { if(!current()) return; await new Promise(resolve=>setTimeout(resolve,300)); if(!current()) return; rows=await qTerminologyAccess.run(); }\n      if(!current()) return;\n      const access=rows?.[0];\n      if(access?.account_active!==true || access.allowed!==true) {\n        await storeValue(\"terminology_access\",{email,status:access?.account_active!==true?\"unlinked\":\"denied\"});\n        return;\n      }\n      phase=\"terms\";\n      await storeValue(\"terminology_access\",{email,status:\"loading_terms\"});\n      try {await qTerminology.run();}\n      catch(error) {if(!current()) return; await new Promise(resolve=>setTimeout(resolve,300)); if(!current()) return; await qTerminology.run();}\n      if(current()) await storeValue(\"terminology_access\",{email,status:\"ready\"});\n    } catch(error) {\n      if(current()) await storeValue(\"terminology_access\",{email,status:phase===\"terms\"?\"data_error\":\"error\"});\n    }\n  }",
-      "isAsync": true
+      "timeoutInMillisecond": 60000
     },
     "collectionId": "Terminology Administration_terminologyAdminFlows",
     "confirmBeforeExecute": false,

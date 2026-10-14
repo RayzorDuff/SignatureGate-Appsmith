@@ -73,8 +73,7 @@ for page in pages:
   a=d['unpublishedAction'];a['collectionId']=page+'_navigationLabels';a['name']=method;a['fullyQualifiedName']='navigationLabels.'+method;a['pageId']=page;a['runBehaviour']='MANUAL';a['userSetOnLoad']=True;a['actionConfiguration']['jsArguments']=[{'name':name} for name in args]
   if method=='initialize':
    a['runBehaviour']='ON_PAGE_LOAD';a['clientSideExecution']=True
-   body=label_source.split('  async initialize() ',1)[1].rsplit('\n};',1)[0].strip()
-   a['actionConfiguration'].update(body='async () => '+body,isAsync=True,timeoutInMillisecond=60000)
+   a['actionConfiguration']['timeoutInMillisecond']=60000
   emit(f'pages/{page}/queries/navigationLabels-{method}/metadata.json',d)
  first=not (ROOT/f'pages/{page}/widgets/navMenuPeople.json').exists()
  for widget in (ROOT/f'pages/{page}/widgets').rglob('*.json'):
