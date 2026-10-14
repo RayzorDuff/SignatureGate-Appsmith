@@ -8,7 +8,9 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 10000
+      "timeoutInMillisecond": 10000,
+      "body": "async () => {\n    const pass = `${Date.now()}-${Math.random()}`;\n    await storeValue(\"cash_deposit_access_pass\",pass);\n    await storeValue(\"cash_deposit_access\",{status:\"loading\",email:String(appsmith.user?.email || \"\").trim().toLowerCase()});\n    for (let i=0;i<30 && !(appsmith.user?.email || \"\").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));\n    const email = String(appsmith.user?.email || \"\").trim().toLowerCase();\n    try {\n      if (!email) throw new Error(\"Sign-in account has not loaded.\");\n      let access;\n      try {access=(await qPageAccess.run())?.[0];}\n      catch(error) {\n        if(pass!==appsmith.store.cash_deposit_access_pass || email!==String(appsmith.user?.email||\"\").trim().toLowerCase()) return [];\n        await new Promise(resolve=>setTimeout(resolve,300));\n        if(pass!==appsmith.store.cash_deposit_access_pass || email!==String(appsmith.user?.email||\"\").trim().toLowerCase()) return [];\n        access=(await qPageAccess.run())?.[0];\n      }\n      if (pass !== appsmith.store.cash_deposit_access_pass || email !== String(appsmith.user?.email || \"\").trim().toLowerCase()) return [];\n      const linked = !!access?.person_id && String(access?.email || \"\").trim().toLowerCase() === email;\n      const allowed = linked && access?.can_cash_deposits === true && access?.is_donations_reviewer === true;\n      await storeValue(\"cash_deposit_access\",{email,status:!linked?\"unlinked\":allowed?\"ready\":\"denied\",actor:linked?access:null});\n      if (!allowed) { await qCashDepositAccessDiagnostic.run().catch(()=>null); return []; }\n      const results = await Promise.allSettled([\n        qCashDepositCashOnHand.run(), qCashDepositBatches.run(), apiCashDepositBankAccounts.run()\n      ]);\n      if (pass === appsmith.store.cash_deposit_access_pass && email === String(appsmith.user?.email || \"\").trim().toLowerCase()\n          && results.some(result=>result.status === \"rejected\")) showAlert(\"Access verified, but some deposit information could not load. Retry refresh.\",\"warning\");\n      return results;\n    } catch (error) {\n      if (pass === appsmith.store.cash_deposit_access_pass && email === String(appsmith.user?.email || \"\").trim().toLowerCase())\n        await storeValue(\"cash_deposit_access\",{email,status:\"error\"});\n      await qCashDepositAccessDiagnostic.run().catch(()=>null);\n      return [];\n    }\n  }",
+      "isAsync": true
     },
     "collectionId": "Cash Deposits_cashDepositFlows",
     "confirmBeforeExecute": false,
@@ -26,6 +28,7 @@
     "name": "refresh",
     "pageId": "Cash Deposits",
     "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "userSetOnLoad": true,
+    "clientSideExecution": true
   }
 }

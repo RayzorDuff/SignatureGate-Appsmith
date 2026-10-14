@@ -32,7 +32,7 @@ FROM public.application_access({{ appsmith.user?.email || '' }}::text);
 sql_terms='SELECT * FROM public.issue20_organization_terminology();\n'
 def query(page,name,body):
  d=copy.deepcopy(db_template);d['id']=page+'_'+name;d['gitSyncId']='navigation-'+page+'-'+name
- a=d['unpublishedAction'];a['name']=name;a['pageId']=page;a['actionConfiguration']['body']=body;a['runBehaviour']='AUTOMATIC';a['userSetOnLoad']=True
+ a=d['unpublishedAction'];a['name']=name;a['pageId']=page;a['actionConfiguration']['body']=body;a['runBehaviour']='MANUAL';a['userSetOnLoad']=True
  a['dynamicBindingPathList']=[{'key':'body'}] if '{{' in body else []
  emit(f'pages/{page}/queries/{name}/metadata.json',d);emit(f'pages/{page}/queries/{name}/{name}.txt',body)
 word=re.compile(r'\b(?:Members?|Membership|Participants?|Facilitators?|Spiritual Practitioners?|Contributors?)\b',re.I)
@@ -68,9 +68,13 @@ for page in pages:
  query(page,'qNavigationAccess',sql_access);query(page,'qNavigationTerminology',sql_terms)
  collection={'gitSyncId':'navigation-labels-'+page,'id':page+'_navigationLabels','unpublishedCollection':{'name':'navigationLabels','pageId':page,'pluginId':'js-plugin','pluginType':'JS','variables':[]}}
  emit(f'pages/{page}/jsobjects/navigationLabels/metadata.json',collection);emit(f'pages/{page}/jsobjects/navigationLabels/navigationLabels.js',label_source)
- for method,args in [('label',['concept','plural']),('text',['copy'])]:
+ for method,args in [('label',['concept','plural']),('text',['copy']),('accessState',[]),('accessMessage',[]),('initialize',[])]:
   d=copy.deepcopy(js_template);d['id']=page+'_navigationLabels.'+method;d['gitSyncId']='navigation-labels-'+page+'-'+method
   a=d['unpublishedAction'];a['collectionId']=page+'_navigationLabels';a['name']=method;a['fullyQualifiedName']='navigationLabels.'+method;a['pageId']=page;a['runBehaviour']='MANUAL';a['userSetOnLoad']=True;a['actionConfiguration']['jsArguments']=[{'name':name} for name in args]
+  if method=='initialize':
+   a['runBehaviour']='ON_PAGE_LOAD';a['clientSideExecution']=True
+   body=label_source.split('  async initialize() ',1)[1].rsplit('\n};',1)[0].strip()
+   a['actionConfiguration'].update(body='async () => '+body,isAsync=True,timeoutInMillisecond=60000)
   emit(f'pages/{page}/queries/navigationLabels-{method}/metadata.json',d)
  first=not (ROOT/f'pages/{page}/widgets/navMenuPeople.json').exists()
  for widget in (ROOT/f'pages/{page}/widgets').rglob('*.json'):
@@ -97,7 +101,7 @@ for page in pages:
    menu[key]={'id':key,'widgetId':name,'index':pos,'label':'{{ navigationLabels.text('+json.dumps(item['label'])+') }}','isVisible':'{{ '+expr+' }}','isDisabled':False,'onClick':'{{ navigateTo('+json.dumps(item['page'],ensure_ascii=False)+','+params+',"SAME_WINDOW") }}'}
    bindings.extend([{'key':f'menuItems.{key}.label'},{'key':f'menuItems.{key}.isVisible'}]);triggers.append({'key':f'menuItems.{key}.onClick'})
   if index==0:
-   menu['refresh']={'id':'refresh','widgetId':name,'index':len(menu),'label':'Refresh access','isVisible':True,'isDisabled':False,'onClick':'{{ Promise.all([qNavigationAccess.run(),qNavigationTerminology.run()]) }}'};triggers.append({'key':'menuItems.refresh.onClick'})
+   menu['refresh']={'id':'refresh','widgetId':name,'index':len(menu),'label':'Refresh access','isVisible':True,'isDisabled':False,'onClick':'{{ navigationLabels.initialize() }}'};triggers.append({'key':'menuItems.refresh.onClick'})
   visible='true' if index==0 else '('+' || '.join('('+allowed(i['permission'])+')' for i in group['items'])+')'
   d={'widgetName':name,'widgetId':name,'key':name,'parentId':'0','type':'MENU_BUTTON_WIDGET','version':1,'menuItemsSource':'STATIC','menuItems':menu,
    'label':group['label'],'menuVariant':'SECONDARY','menuColor':'{{appsmith.theme.colors.primaryColor}}','borderRadius':'{{appsmith.theme.borderRadius.appBorderRadius}}','boxShadow':'none',
@@ -107,7 +111,7 @@ for page in pages:
    'dynamicBindingPathList':bindings,'dynamicTriggerPathList':triggers,'dynamicPropertyPathList':triggers}
   emit(f'pages/{page}/widgets/{name}.json',d)
  titles={i['page']:i['label'] for g in registry['groups'] for i in g['items']};title=titles.get(page,page)
- d=read('pages/Terminology Administration/widgets/txtTerminologyDenied.json');d.update(widgetName='txtNavigationPage',widgetId='navigation-current-page',key='navigation-current-page',parentId='0',isVisible=True,topRow=5,bottomRow=9,originalTopRow=5,originalBottomRow=9,mobileTopRow=20,mobileBottomRow=24,mobileLeftColumn=0,mobileRightColumn=64,minWidth=120,text='{{ "Current page: " + navigationLabels.text('+json.dumps(title,ensure_ascii=False)+') }}')
+ d=read('pages/Terminology Administration/widgets/txtTerminologyDenied.json');d.update(widgetName='txtNavigationPage',widgetId='navigation-current-page',key='navigation-current-page',parentId='0',isVisible=True,topRow=5,bottomRow=9,originalTopRow=5,originalBottomRow=9,mobileTopRow=20,mobileBottomRow=24,mobileLeftColumn=0,mobileRightColumn=64,minWidth=120,text='{{ "Current page: " + navigationLabels.text('+json.dumps(title,ensure_ascii=False)+') + (navigationLabels.accessMessage() ? " — " + navigationLabels.accessMessage() : "") }}')
  d['dynamicBindingPathList']=[{'key':'text'},{'key':'fontFamily'}];emit(f'pages/{page}/widgets/txtNavigationPage.json',d)
 changed=[path for path,content in pending.items() if not (ROOT/path).exists() or (ROOT/path).read_text()!=content]
 if ARGS.check:

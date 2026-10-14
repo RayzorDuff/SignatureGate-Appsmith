@@ -8,7 +8,9 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 10000
+      "timeoutInMillisecond": 10000,
+      "body": "async () => {\n    await Promise.all([storeValue(\"facilitator_id\", \"\"), storeValue(\"facilitator_is_reviewer\", false), storeValue(\"facilitator_is_donations_reviewer\", false)]);\n\n\t\ttry {\n\t\t\tlet email = null;\n\t\t\tfor (let i = 0; i < 20; i++) {\n\t\t\t\temail = (appsmith.user?.email ?? \"\").trim().toLowerCase();\n\t\t\t\tif (email) break;\n\t\t\t\tawait new Promise(r => setTimeout(r, 150));\n\t\t\t}\n\t\t\tif (!email) {\n\t\t\t\tshowAlert(\"Unknown user: appsmith.user.email not available.\", \"error\");\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tawait qPageAccess.run();\n            let rows = await qCurrentFacilitator.run({\n\t\t\t\temail\n\t\t\t});\n\t\t\tif (!Array.isArray(rows)) rows = [];\n\t\t\tconst me = rows[0];\n\t\t\tif (!me?.email || !me?.can_member_functions) {\n\t\t\t\tshowAlert(\"Access denied: document reviewer permission required for \" + email, \"error\");\n\t\t\t\tawait memberProfile.auditLog(\"auth.denied\", \"facilitator\", \"\", {\n\t\t\t\t\temail,\n\t\t\t\t\tpage: appsmith.URL?.pathname,\n\t\t\t\t\tmode: appsmith.mode\n\t\t\t\t});\n\t\t\t\tif (appsmith.mode === \"DEPLOYED\" || appsmith.mode === \"PUBLISHED\") {\n\t\t\t\t\t/* Access denied in place; keep navigation available. */\n\t\t\t\t}\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tawait Promise.all([\n\t\t\t\tstoreValue(\"facilitator_id\", me.member_id || \"\"),\n\t\t\t\tstoreValue(\"facilitator_email\", (me.email ?? \"\").trim().toLowerCase()),\n\t\t\t\tstoreValue(\"facilitator_is_reviewer\", me.is_document_reviewer),\n\t\t\t\tstoreValue(\"facilitator_is_donations_reviewer\", me.is_donations_reviewer),\n\t\t\t\tstoreValue(\"facilitator_full_name\", `${me.first_name} ${me.last_name}`.trim()),\n\t\t\t\tstoreValue(\"NC_PUBLIC_URL\", \"https://nocodb.danks.store\")\n\t\t\t]);\n\t\t} catch (e) {\n\t\t\tshowAlert(\"Access check failed: \" + (e?.message || e), \"error\");\n\t\t\tconsole.error(\"Member Functions initialization failed:\", e);\n\t\t\tif (appsmith.mode === \"DEPLOYED\" || appsmith.mode === \"PUBLISHED\") {\n\t\t\t\t/* Access denied in place; keep navigation available. */\n\t\t\t}\n\t\t\treturn;\n\t\t}\n\n\t\tconst directoryRows = await qMembersDirectory.run();\n\t\tconst directory = Array.isArray(directoryRows) ? directoryRows : [];\n\t\tconst urlMemberId = String(appsmith.URL.queryParams.member_id || \"\").trim();\n\t\tconst storedMemberId = String(appsmith.store.member_id || \"\").trim();\n\t\tconst access = qPageAccess.data?.[0] || {};\n        const staff = access.is_document_reviewer === true || access.is_practitioner === true;\n        const candidate = staff ? (urlMemberId || storedMemberId) : String(access.member_id || '');\n\t\tconst isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(candidate);\n\t\tconst isAccessible = isUuid && directory.some(row => String(row.member_id || \"\") === candidate);\n\n\t\tif (!isAccessible) {\n\t\t\tawait storeValue(\"member_id\", \"\");\n\t\t\tif (candidate && isUuid) {\n\t\t\t\tshowAlert(navigationLabels.text(\"The selected member is not in your accessible member list.\"), \"warning\");\n\t\t\t}\n\t\t\treturn directory;\n\t\t}\n\n\t\tawait storeValue(\"member_id\", candidate);\n\t\tconst ok = await memberProfile.ensureMemberAccess();\n\t\tif (!ok) return;\n\t\treturn memberProfile.refresh();\n\t}",
+      "isAsync": true
     },
     "collectionId": "Member Functions_memberProfile",
     "confirmBeforeExecute": false,
@@ -26,6 +28,7 @@
     "name": "init",
     "pageId": "Member Functions",
     "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "userSetOnLoad": true,
+    "clientSideExecution": true
   }
 }

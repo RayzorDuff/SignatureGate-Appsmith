@@ -30,6 +30,6 @@
     "name": "qCurrentFacilitator",
     "pageId": "Audit Log",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

@@ -5,7 +5,7 @@ const root=new URL('../',import.meta.url),read=p=>fs.readFileSync(new URL(p,root
 const pages=fs.readdirSync(new URL('pages/',root)).sort();const dispositions=registry.groups.flatMap(g=>g.items.map(i=>i.page)).concat(registry.contextPages,registry.unlistedPages);
 assert.deepEqual([...dispositions].sort(),pages);assert.equal(new Set(dispositions).size,pages.length);
 function context(actor,terms=[]) {
- const c={appsmith:{user:{email:'synthetic-nav@example.invalid'},theme:{colors:{primaryColor:'#000'},borderRadius:{appBorderRadius:'0px'}}},qNavigationAccess:{data:actor?[actor]:[]},qNavigationTerminology:{data:terms},navigateTo:()=>{}};
+ const c={appsmith:{user:{email:'synthetic-nav@example.invalid'},store:{},URL:{pathname:'/synthetic-page'},theme:{colors:{primaryColor:'#000'},borderRadius:{appBorderRadius:'0px'}}},qNavigationAccess:{data:actor?[actor]:[]},qNavigationTerminology:{data:terms},navigateTo:()=>{}};
  c.navigationLabels=compileAppsmithCollection(read('navigation/labels.js'),'navigation/labels.js').runInNewContext(c);return c;
 }
 function evaluate(value,c) {return typeof value==='string'&&value.startsWith('{{')?vm.runInNewContext(value.slice(2,-2),c):value;}
@@ -37,7 +37,7 @@ for(const page of pages) {
   assert.deepEqual(got,wanted,page+' capability menu');
  }
  for(const name of ['qNavigationAccess','qNavigationTerminology']) {
-  const d=JSON.parse(read('pages/'+page+'/queries/'+name+'/metadata.json'));assert.equal(d.unpublishedAction.runBehaviour,'AUTOMATIC');assert.equal(d.unpublishedAction.userSetOnLoad,true);assert.equal(d.pluginType,'DB');
+  const d=JSON.parse(read('pages/'+page+'/queries/'+name+'/metadata.json'));assert.equal(d.unpublishedAction.runBehaviour,'MANUAL');assert.equal(d.unpublishedAction.userSetOnLoad,true);assert.equal(d.pluginType,'DB');
   assert.doesNotMatch(read('pages/'+page+'/queries/'+name+'/'+name+'.txt'),/\b(?:INSERT|UPDATE|DELETE)\b|https?:\/\//i);
  }
  assert.equal(read('pages/'+page+'/jsobjects/navigationLabels/navigationLabels.js'),read('navigation/labels.js'));

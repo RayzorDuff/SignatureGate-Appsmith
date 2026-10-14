@@ -107,6 +107,7 @@ export default {
 				return false;
 			}
 
+			await qPageAccess.run();
 			let rows = await qCurrentFacilitator.run({ email });
 			if (!Array.isArray(rows)) rows = [];
 

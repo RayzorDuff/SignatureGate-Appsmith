@@ -29,7 +29,7 @@
     ],
     "name": "qNavigationAccess",
     "pageId": "Unauthorized",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

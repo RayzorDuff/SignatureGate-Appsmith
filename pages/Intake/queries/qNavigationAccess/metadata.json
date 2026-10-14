@@ -29,7 +29,7 @@
     ],
     "name": "qNavigationAccess",
     "pageId": "Intake",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

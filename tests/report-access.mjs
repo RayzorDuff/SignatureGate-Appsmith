@@ -8,6 +8,7 @@ function fixture(actor, options={}) {
  const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},
   appsmith:{user:{email:'report-actor@example.invalid'},store:{facilitator_id:'stale-member',facilitator_is_donations_reviewer:true,reports_actor_email:'prior@example.invalid'},mode:'PUBLISHED'},
   qCurrentFacilitator:{run:async()=>{if(options.error)throw Error('Synthetic lookup failure');return actor?[actor]:[];}},
+  qPageAccess:{run:async()=>actor?[actor]:[]},
   qReportTimeSeries:{data:[{metric_key:'donations_dollars',value:999}],run:async()=>{calls.queries++;return [];}},
   msReportMetrics:{selectedOptionValues:options.selected||[]},selReportBucket:{selectedOptionValue:'month'},inpReportPeriods:{text:'12'},
   dpReportStart:{selectedDate:null},dpReportEnd:{selectedDate:null},

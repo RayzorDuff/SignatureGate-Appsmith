@@ -29,7 +29,7 @@
     ],
     "name": "qNavigationAccess",
     "pageId": "Reports",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

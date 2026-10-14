@@ -29,7 +29,7 @@
     ],
     "name": "qNavigationAccess",
     "pageId": "Member Functions",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

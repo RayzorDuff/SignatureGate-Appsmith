@@ -29,7 +29,7 @@
     ],
     "name": "qNavigationAccess",
     "pageId": "Cash Deposits",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

@@ -8,7 +8,9 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 10000
+      "timeoutInMillisecond": 10000,
+      "body": "async () => {\n    for(let i=0;i<20 && !(appsmith.user?.email || \"\").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));\n    return qPageAccess.run();\n  }",
+      "isAsync": true
     },
     "collectionId": "Intake_intakeFlows",
     "confirmBeforeExecute": false,
@@ -26,6 +28,7 @@
     "name": "loadAccess",
     "pageId": "Intake",
     "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "userSetOnLoad": true,
+    "clientSideExecution": true
   }
 }

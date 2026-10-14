@@ -8,7 +8,9 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 10000
+      "timeoutInMillisecond": 10000,
+      "body": "async () => {\n    // Clear prior page/account state before accepting the current canonical actor.\n    await Promise.all([\n      storeValue(\"reports_actor_email\", \"\"),\n      storeValue(\"facilitator_id\", \"\"),\n      storeValue(\"facilitator_email\", \"\"),\n      storeValue(\"facilitator_is_reviewer\", false),\n      storeValue(\"facilitator_is_donations_reviewer\", false),\n      storeValue(\"facilitator_full_name\", \"\")\n    ]);\n\t\ttry {\n\t\t\tlet email = null;\n\n\t\t\tfor (let i = 0; i < 20; i++) {\n\t\t\t\temail = (appsmith.user?.email || \"\").trim().toLowerCase();\n\t\t\t\tif (email) break;\n\t\t\t\tawait new Promise(r => setTimeout(r, 150));\n\t\t\t}\n\n\t\t\tif (!email) {\n\t\t\t\tshowAlert(\"Unknown user: appsmith.user.email not available.\", \"error\");\n\t\t\t\treturn false;\n\t\t\t}\n\n\t\t\tawait qPageAccess.run();\n\t\t\tlet rows = await qCurrentFacilitator.run({ email });\n\t\t\tif (!Array.isArray(rows)) rows = [];\n\n\t\t\tconst me = rows[0];\n\n\t\t\tif (!me?.person_id || !(me.is_practitioner === true || me.is_document_reviewer === true || me.is_donations_reviewer === true)) {\n\t\t\t\tshowAlert(navigationLabels.text(\"Access denied: practitioner or reviewer permission required.\"), \"error\");\n\n\t\t\t\tif (appsmith.mode === \"DEPLOYED\" || appsmith.mode === \"PUBLISHED\") {\n\t\t\t\t\t/* Access denied in place; keep navigation available. */\n\t\t\t\t}\n\n\t\t\t\treturn false;\n\t\t\t}\n\n\t\t\tawait storeValue(\"facilitator_id\", me.member_id || \"\");\n\t\t\tawait storeValue(\"facilitator_email\", (me.email || \"\").trim().toLowerCase());\n\t\t\tawait storeValue(\"facilitator_is_reviewer\", !!me.is_document_reviewer);\n\t\t\tawait storeValue(\"facilitator_is_donations_reviewer\", !!me.is_donations_reviewer);\n\t\t\tawait storeValue(\n\t\t\t\t\"facilitator_full_name\",\n\t\t\t\t`${me.first_name || \"\"} ${me.last_name || \"\"}`.trim()\n\t\t\t);\n\n\t\t\tawait storeValue(\"reports_actor_email\", email);\n\t\t\treturn true;\n\t\t} catch (e) {\n\t\t\tshowAlert(\"Access check failed: \" + (e?.message || e), \"error\");\n\n\t\t\tif (appsmith.mode === \"DEPLOYED\" || appsmith.mode === \"PUBLISHED\") {\n\t\t\t\t/* Access denied in place; keep navigation available. */\n\t\t\t}\n\n\t\t\treturn false;\n\t\t}\n\t}",
+      "isAsync": true
     },
     "collectionId": "Reports_reports",
     "confirmBeforeExecute": false,
@@ -25,7 +27,8 @@
     "fullyQualifiedName": "reports.verifyaccess",
     "name": "verifyaccess",
     "pageId": "Reports",
-    "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "runBehaviour": "ON_PAGE_LOAD",
+    "userSetOnLoad": true,
+    "clientSideExecution": true
   }
 }

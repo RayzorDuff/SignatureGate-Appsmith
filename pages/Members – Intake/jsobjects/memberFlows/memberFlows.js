@@ -100,7 +100,7 @@ export default {
 			return;
 		}
 		
-    this.refresh();
+    return await this.refresh();
 		
 	},
 	

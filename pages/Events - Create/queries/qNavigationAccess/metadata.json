@@ -29,7 +29,7 @@
     ],
     "name": "qNavigationAccess",
     "pageId": "Events - Create",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

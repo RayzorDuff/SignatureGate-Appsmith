@@ -9,6 +9,7 @@ function fixture(overrides = {}) {
   const context = {
     appsmith: { user: { email: actor.email }, store: {}, mode: 'EDIT', URL: {} },
     qCurrentFacilitator: { data: [actor], run: async () => [actor] },
+    qPageAccess: { run: async () => [actor] },
     qAuditLogInsert: { run: async () => [] },
     qAgreementTemplatesList: { run: async () => [] },
     qAgreementTypesList: { run: async () => { calls.activeRefreshes++; return []; } },

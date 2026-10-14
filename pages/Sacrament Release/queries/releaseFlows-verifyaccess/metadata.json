@@ -8,7 +8,9 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 10000
+      "timeoutInMillisecond": 10000,
+      "body": "async () => {\n    await Promise.all([storeValue(\"release_scope_member_id\", \"\"),storeValue(\"facilitator_id\", \"\"), storeValue(\"facilitator_is_reviewer\", false), storeValue(\"facilitator_is_donations_reviewer\", false)]);\n\n      try {\n        let email = null;\n        for (let i = 0; i < 20; i++) {\n          email = (appsmith.user?.email ?? \"\").trim().toLowerCase();\n          if (email) break;\n          await new Promise(r => setTimeout(r, 150));\n        }\n        if (!email) {\n          showAlert(\"Unknown user: appsmith.user.email not available.\", \"error\");\n          return;\n        }\n        await qPageAccess.run();\n            let rows = await qCurrentFacilitator.run({ email });\n        if (!Array.isArray(rows)) rows = [];\n        const me = rows[0];\n        if (!me?.person_id || me.can_release !== true) {\n          showAlert(navigationLabels.text(\"Access denied: a practitioner appointment is required for \") + email, \"error\");\n          await releaseFlows.auditLog(\"auth.denied\", \"person\", \"\", { email, required_role: \"practitioner\", page: appsmith.URL?.pathname, mode: appsmith.mode });\n          if (appsmith.mode === \"DEPLOYED\" || appsmith.mode === \"PUBLISHED\") {\n            /* Access denied in place; keep navigation available. */\n          }\n          return;\n        }\n        const practitionerPersonId = me.person_id;\n        await Promise.all([\n          storeValue(\"practitioner_person_id\", practitionerPersonId),\n          storeValue(\"facilitator_id\", me.legacy_member_id || practitionerPersonId),\n          storeValue(\"facilitator_email\", (me.email ?? \"\").trim().toLowerCase()),\n          storeValue(\"facilitator_is_reviewer\", me.is_document_reviewer),\n          storeValue(\"facilitator_is_donations_reviewer\", me.is_donations_reviewer),\n          storeValue(\"facilitator_full_name\", me.display_name || `${me.first_name || \"\"} ${me.last_name || \"\"}`.trim()),\n          storeValue(\"practitioner_singular_label\", me.practitioner_singular_label || \"Practitioner\"),\n          storeValue(\"practitioner_plural_label\", me.practitioner_plural_label || \"Practitioners\")\n        ]);\n      } catch (e) {\n        showAlert(\"Access check failed: \" + (e?.message || e), \"error\");\n        showAlert(\"Query error: \" + JSON.stringify(({})), \"error\");\n        if (appsmith.mode === \"DEPLOYED\" || appsmith.mode === \"PUBLISHED\") {\n          /* Access denied in place; keep navigation available. */\n        }\n        return;\n      }\n      return await releaseFlows.refresh();\n  }",
+      "isAsync": true
     },
     "collectionId": "Sacrament Release_releaseFlows",
     "confirmBeforeExecute": false,
@@ -26,6 +28,7 @@
     "name": "verifyaccess",
     "pageId": "Sacrament Release",
     "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "userSetOnLoad": true,
+    "clientSideExecution": true
   }
 }

@@ -89,6 +89,7 @@ export default {
 			}
 
 			// IMPORTANT: use return value of run(), not qCurrentFacilitator.data
+      await qPageAccess.run();
       let rows = await qCurrentFacilitator.run({ email });
 
       // 🔴 Appsmith bug fix
@@ -134,7 +135,7 @@ export default {
 			return;
 		}
 		
-    this.refresh();
+    return await this.refresh();
 		
 	},
 }

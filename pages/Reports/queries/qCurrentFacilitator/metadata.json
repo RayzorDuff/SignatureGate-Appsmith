@@ -30,6 +30,6 @@
     "name": "qCurrentFacilitator",
     "pageId": "Reports",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

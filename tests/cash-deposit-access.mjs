@@ -53,6 +53,6 @@ for(const file of fs.readdirSync(new URL('widgets/',page)).filter(x=>x.endsWith(
 }
 for(const name of fs.readdirSync(new URL('queries/',page))){
  const m=JSON.parse(fs.readFileSync(new URL('queries/'+name+'/metadata.json',page),'utf8'));
- if(['DB','API'].includes(m.pluginType)){assert.equal(m.unpublishedAction.runBehaviour,['qNavigationAccess','qNavigationTerminology'].includes(name)?'AUTOMATIC':'MANUAL',name);assert.equal(m.unpublishedAction.userSetOnLoad,true,name+' deliberate execution must persist');}
+ if(['DB','API'].includes(m.pluginType)){assert.equal(m.unpublishedAction.runBehaviour,'MANUAL',name);assert.equal(m.unpublishedAction.userSetOnLoad,true,name+' deliberate execution must persist');}
 }
 console.log('PASS Cash Deposits initialization: empty cache, unlinked/denied/error, retry, stale request/account, bank failure, canonical nonmember reviewer and single visibility authority');

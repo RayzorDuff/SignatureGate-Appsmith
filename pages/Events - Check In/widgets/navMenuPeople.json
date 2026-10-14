@@ -41,7 +41,7 @@
       "label": "Refresh access",
       "isVisible": true,
       "isDisabled": false,
-      "onClick": "{{ Promise.all([qNavigationAccess.run(),qNavigationTerminology.run()]) }}"
+      "onClick": "{{ navigationLabels.initialize() }}"
     }
   },
   "label": "People & Organizations",

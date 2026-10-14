@@ -29,7 +29,7 @@
     ],
     "name": "qPageAccess",
     "pageId": "Agreement Templates",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

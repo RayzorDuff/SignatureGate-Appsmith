@@ -25,7 +25,7 @@
     "dynamicBindingPathList": [],
     "name": "qNavigationTerminology",
     "pageId": "Facilitator Functions",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

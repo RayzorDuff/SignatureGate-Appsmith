@@ -1,6 +1,6 @@
 {
   "gitSyncId": "application-access-4cd94910-73fe-4a82-a948-a5c2e509f7bd",
-  "id": "Members \u2013 Intake_qPageAccess",
+  "id": "Members – Intake_qPageAccess",
   "pluginId": "postgres-plugin",
   "pluginType": "DB",
   "unpublishedAction": {
@@ -28,8 +28,8 @@
       }
     ],
     "name": "qPageAccess",
-    "pageId": "Members \u2013 Intake",
-    "runBehaviour": "AUTOMATIC",
+    "pageId": "Members – Intake",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

@@ -30,6 +30,6 @@
     "name": "qCurrentFacilitator",
     "pageId": "Contributor Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

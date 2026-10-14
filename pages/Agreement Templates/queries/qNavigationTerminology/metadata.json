@@ -25,7 +25,7 @@
     "dynamicBindingPathList": [],
     "name": "qNavigationTerminology",
     "pageId": "Agreement Templates",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

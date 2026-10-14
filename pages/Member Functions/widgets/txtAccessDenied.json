@@ -24,7 +24,7 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": "{{ !(qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) }}",
+  "isVisible": "{{ Boolean(qPageAccess.data?.[0]?.email) && String(qPageAccess.data?.[0]?.email || \"\").trim().toLowerCase() === String(appsmith.user?.email || \"\").trim().toLowerCase() && (!(qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase())) }}",
   "key": "access-f3dc2db6-371e-4f75-803a-d103c958da87",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,

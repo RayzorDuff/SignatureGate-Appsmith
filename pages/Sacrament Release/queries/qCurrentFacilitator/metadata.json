@@ -30,6 +30,6 @@
     "name": "qCurrentFacilitator",
     "pageId": "Sacrament Release",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }
