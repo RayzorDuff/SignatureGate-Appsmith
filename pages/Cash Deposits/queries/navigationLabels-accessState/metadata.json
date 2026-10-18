@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Cash Deposits",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

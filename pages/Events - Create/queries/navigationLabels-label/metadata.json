@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Events - Create",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

@@ -18,8 +18,19 @@ with tempfile.TemporaryDirectory(prefix='signaturegate-navigation-') as temp:
  label=root/'pages/Directory/queries/navigationLabels-label/metadata.json'
  d=json.loads(init.read_text());d['unpublishedAction']['runBehaviour']='MANUAL';d['unpublishedAction']['userSetOnLoad']=False;d['unpublishedAction']['actionConfiguration']['native_fixture_extension']='preserve';init.write_text(json.dumps(d))
  d=json.loads(label.read_text());d['unpublishedAction']['runBehaviour']='ON_PAGE_LOAD';d['unpublishedAction']['userSetOnLoad']=True;label.write_text(json.dumps(d))
+ # Copy to Page resets each destination initializer to Manual.
+ for page in (root/'pages').iterdir():
+  if page.name=='Directory':continue
+  copied=page/'queries/navigationLabels-initialize/metadata.json'
+  d=json.loads(copied.read_text());d['unpublishedAction']['runBehaviour']='MANUAL';d['unpublishedAction']['userSetOnLoad']=False;copied.write_text(json.dumps(d))
  before=metadata(root);run(root);after=metadata(root)
  assert before.keys()==after.keys()
+ for page in (root/'pages').iterdir():
+  a=after[str((page/'queries/navigationLabels-initialize/metadata.json').relative_to(root))]['unpublishedAction']
+  assert a['runBehaviour']=='ON_PAGE_LOAD' and a['userSetOnLoad'] is True,page.name+' copied initializer not restored'
+  for method in ['label','text','accessState','accessMessage']:
+   a=after[str((page/f'queries/navigationLabels-{method}/metadata.json').relative_to(root))]['unpublishedAction']
+   assert a['runBehaviour']=='MANUAL',page.name+' presentation helper scheduled as startup'
  assert all(before[path]['gitSyncId']==after[path]['gitSyncId'] for path in before),'Existing identities changed'
  assert json.loads((root/'pages/Directory/widgets/txtNavigationPage.json').read_text())['bottomRow']==json.loads((ROOT/'pages/Directory/widgets/txtNavigationPage.json').read_text())['bottomRow'],'Native title layout changed'
  a=after[str(init.relative_to(root))]['unpublishedAction'];assert a['runBehaviour']=='ON_PAGE_LOAD' and a['userSetOnLoad'] is True
@@ -40,4 +51,4 @@ with tempfile.TemporaryDirectory(prefix='signaturegate-navigation-') as temp:
  d=json.loads(fresh.read_text());d['gitSyncId']=after['pages/Directory/queries/qNavigationAccess/metadata.json']['gitSyncId'];fresh.write_text(json.dumps(d))
  result=subprocess.run([sys.executable,str(root/'scripts/generate-navigation.py')],text=True,capture_output=True)
  assert result.returncode!=0 and 'Duplicate gitSyncId' in result.stderr
-print('PASS navigation generation: recreated IDs retained, wrong hook corrected, native fields/defaults preserved, byte-stable reapplication and one-time identities for new resources')
+print('PASS navigation generation: recreated IDs retained, wrong hook and all copied startup modes corrected, native fields/defaults preserved, byte-stable reapplication and one-time identities for new resources')

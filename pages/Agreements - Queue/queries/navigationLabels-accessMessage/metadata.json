@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Agreements - Queue",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

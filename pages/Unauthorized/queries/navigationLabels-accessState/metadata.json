@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Unauthorized",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

@@ -21,3 +21,5 @@ node tests/navigation.mjs
 ```
 
 The generation regression reproduces the wrong-hook checkpoint, preserves all existing identities/defaults/native extensions, rejects duplicate identities and checks byte-stable reapplication and one-time new-resource IDs. Controller fixtures validate source behavior only. The deployed Appsmith scheduler and page rendering still need focused runtime acceptance. The source audit found no duplicated sync IDs; object recreation helping at runtime does not prove the old sync ID's spelling caused the stored-object problem.
+
+Appsmith Copy to Page checkpoint `d62bc8d` recreated the other 17 navigation objects with native identities but reset all copied initializers to Manual. Copying an object is not evidence that startup registration was copied. Run the identity-preserving generator after a native copy, then inspect/reload the accepted development candidate. The generation regression verifies all 18 initializer/helper dispositions in addition to preserving copied identities; no automatic mode or source-setting pass certifies a deployed schedule.
