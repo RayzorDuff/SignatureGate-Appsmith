@@ -13,6 +13,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicPropertyPathList": [
@@ -29,7 +32,7 @@
   "isRequired": "{{ Boolean(chkIntakeMember.isChecked) }}",
   "isVisible": true,
   "labelPosition": "Top",
-  "labelText": "Spiritual Practitioner",
+  "labelText": "{{ navigationLabels.text(\"Spiritual Practitioner\") }}",
   "leftColumn": 0,
   "optionLabel": "label",
   "optionValue": "value",

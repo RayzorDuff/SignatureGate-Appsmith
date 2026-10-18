@@ -55,6 +55,7 @@ export default {
       showAlert("Saving organization terminology…","info");
       const rows=await qSetTerminology.run(params); saved=true;
       await qTerminology.run();
+      await qNavigationTerminology.run();
       showAlert(rows?.[0]?.changed===true?"Terminology updated.":"No terminology changes were needed.","success");
     } catch(error) {showAlert(saved?"Terminology saved, but refresh failed. Reload; do not repeat the change.":"Terminology could not be saved.",saved?"warning":"error");}
     finally {await storeValue("terminology_busy",false);}

@@ -45,7 +45,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "shouldTruncate": false,
-  "text": "{{ navigationLabels.text(\"New contacts become primary for contributions. Membership contacts are managed separately.\") }}",
+  "text": "{{ navigationLabels.text(\"Company contacts are managed for Contributor capacity. Participant enrollment contacts belong to individual profiles.\") }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
   "topRow": 39,

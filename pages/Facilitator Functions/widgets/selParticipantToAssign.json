@@ -17,6 +17,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -37,7 +40,7 @@
   "key": "partsel001",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Select Participant",
+  "labelText": "{{ navigationLabels.text(\"Select Participant\") }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 0,

@@ -146,6 +146,12 @@
     },
     {
       "key": "boxShadow"
+    },
+    {
+      "key": "primaryColumns.customColumn3.buttonLabel"
+    },
+    {
+      "key": "primaryColumns.customColumn4.buttonLabel"
     }
   ],
   "dynamicPropertyPathList": [
@@ -384,7 +390,7 @@
       "borderRadius": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
       "boxShadow": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
       "buttonColor": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
-      "buttonLabel": "Member Functions",
+      "buttonLabel": "{{ (tblDirectory.processedTableData || []).map(() => navigationLabels.text(\"Member Functions\")) }}",
       "buttonStyle": "rgb(3, 179, 101)",
       "columnType": "button",
       "computedValue": "",
@@ -423,7 +429,7 @@
       "borderRadius": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
       "boxShadow": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
       "buttonColor": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
-      "buttonLabel": "Contributor Functions",
+      "buttonLabel": "{{ (tblDirectory.processedTableData || []).map(() => navigationLabels.text(\"Contributor Functions\")) }}",
       "buttonStyle": "rgb(3, 179, 101)",
       "columnType": "button",
       "computedValue": "",

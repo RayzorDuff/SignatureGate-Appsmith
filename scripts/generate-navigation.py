@@ -92,9 +92,14 @@ def transform_widget(d):
     # Table V2 editable column titles are literal strings in Appsmith 2.4.2.
     # Do not inject expressions into the title editor (it renders them verbatim).
     if key=='label' and re.fullmatch(r'primaryColumns\.[^.]+\.label',prop):continue
-    if key in ['text','label','tooltip','placeholderText'] and isinstance(value,str):
-     changed=presentation(value)
-     if changed!=value:v[key]=changed;bindings.append(prop)
+    if key in ['text','label','labelText','buttonLabel','tooltip','placeholderText'] and isinstance(value,str):
+     if key=='buttonLabel' and path.startswith('primaryColumns.') and '{{' not in value and word.search(value):
+      changed='{{ ('+d['widgetName']+'.processedTableData || []).map(() => navigationLabels.text('+json.dumps(value,ensure_ascii=False)+')) }}'
+     else:changed=presentation(value)
+     if changed!=value:
+      v[key]=changed
+      if '{{' in changed:bindings.append(prop)
+     elif key in ['labelText','buttonLabel','placeholderText'] and '{{' in changed:bindings.append(prop)
     else:walk(value,prop)
   elif isinstance(v,list):
    for i,x in enumerate(v):walk(x,f'{path}.{i}')

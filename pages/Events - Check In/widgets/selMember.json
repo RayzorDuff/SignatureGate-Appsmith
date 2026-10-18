@@ -23,6 +23,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -44,7 +47,7 @@
   "key": "tcvabvv6qz",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Member",
+  "labelText": "{{ navigationLabels.text(\"Member\") }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 32,

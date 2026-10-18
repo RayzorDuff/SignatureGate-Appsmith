@@ -14,6 +14,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -34,7 +37,7 @@
   "key": "yxjlz4e6ct",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Facilitator",
+  "labelText": "{{ navigationLabels.text(\"Facilitator\") }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 0,

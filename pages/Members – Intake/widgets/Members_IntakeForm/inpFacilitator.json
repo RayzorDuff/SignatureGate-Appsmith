@@ -20,6 +20,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -47,7 +50,7 @@
   "key": "tcvabvv6qz",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Facilitator for this Agreement",
+  "labelText": "{{ navigationLabels.text(\"Facilitator for this Agreement\") }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 42,

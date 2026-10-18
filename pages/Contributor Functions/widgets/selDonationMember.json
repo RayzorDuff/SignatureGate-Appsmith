@@ -20,6 +20,12 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "label"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -48,7 +54,7 @@
   "label": "{{ navigationLabels.text(\"Contributor, Member, or Anonymous\") }}",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Contributor, Participant (creates Contributor capacity), or Anonymous",
+  "labelText": "{{ navigationLabels.text(\"Contributor, Participant (creates Contributor capacity), or Anonymous\") }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 0,

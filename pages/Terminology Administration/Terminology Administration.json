@@ -6,7 +6,7 @@
       {
         "dsl": {
           "backgroundColor": "none",
-          "bottomRow": 1130,
+          "bottomRow": 1930,
           "canExtend": true,
           "containerStyle": "none",
           "detachFromLayout": true,
@@ -17,7 +17,7 @@
           "parentRowSpace": 1,
           "rightColumn": 1224,
           "snapColumns": 64,
-          "snapRows": 55,
+          "snapRows": 193,
           "topRow": 0,
           "type": "CANVAS_WIDGET",
           "version": 94,

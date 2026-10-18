@@ -2,10 +2,10 @@ import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:asser
 const page=new URL('../pages/Terminology Administration/',import.meta.url);
 const source=fs.readFileSync(new URL('jsobjects/terminologyAdminFlows/terminologyAdminFlows.js',page),'utf8');
 function fixture(access={allowed:true,account_active:true}) {
- const calls={read:0,write:[],alerts:[]};
+ const calls={read:0,navigation:0,write:[],alerts:[]};
  const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{user:{email:'synthetic-manager@example.invalid'},store:{}},setTimeout:fn=>fn(),
  storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(message,level)=>calls.alerts.push({message,level}),
- qTerminologyAccess:{run:async()=>[access]},qTerminology:{run:async()=>{calls.read++;return [];}},qSetTerminology:{run:async p=>{calls.write.push(p);return [{changed:true}];}},
+ qNavigationTerminology:{run:async()=>{calls.navigation++;return [];}},qTerminologyAccess:{run:async()=>[access]},qTerminology:{run:async()=>{calls.read++;return [];}},qSetTerminology:{run:async p=>{calls.write.push(p);return [{changed:true}];}},
  selTerminologyConcept:{selectedOptionValue:'participant'},inpTermSingular:{text:'Participant'},inpTermPlural:{text:'Participants'},inpTermShort:{text:''},selTermActive:{selectedOptionValue:'true'},inpTermReason:{text:'Synthetic test'}};
  return {c,calls,f:vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c)};
 }
@@ -43,6 +43,7 @@ for(const [access,status] of [[{allowed:false,account_active:true},'denied'],[{a
  const x=fixture();x.c.inpTermReason.text=' ';await x.f.save();assert.equal(x.calls.write.length,0);
  x.c.appsmith.store.terminology_busy=true;await x.f.save();assert.equal(x.calls.write.length,0);
 }
+{const x=fixture();await x.f.initialize();await x.f.save();assert.equal(x.calls.write.length,1);assert.equal(x.calls.navigation,1);assert.equal(x.calls.alerts.at(-1).level,'success');}
 for(const [name,mode] of [['terminologyAdminFlows-initialize','ON_PAGE_LOAD'],['qTerminologyAccess','MANUAL'],['qTerminology','MANUAL'],['qSetTerminology','MANUAL']]) {
  const a=JSON.parse(fs.readFileSync(new URL('queries/'+name+'/metadata.json',page),'utf8')).unpublishedAction;assert.equal(a.runBehaviour,mode);assert.equal(a.userSetOnLoad,true);
 }

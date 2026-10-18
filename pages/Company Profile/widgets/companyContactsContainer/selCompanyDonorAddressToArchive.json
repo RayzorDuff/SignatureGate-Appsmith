@@ -14,6 +14,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -35,7 +38,7 @@
   "label": "Address to archive",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Contributor contact to archive",
+  "labelText": "{{ navigationLabels.text(\"Contributor contact to archive\") }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 0,

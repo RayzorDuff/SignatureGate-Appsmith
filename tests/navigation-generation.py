@@ -23,8 +23,14 @@ with tempfile.TemporaryDirectory(prefix='signaturegate-navigation-') as temp:
   if page.name=='Directory':continue
   copied=page/'queries/navigationLabels-initialize/metadata.json'
   d=json.loads(copied.read_text());d['unpublishedAction']['runBehaviour']='MANUAL';d['unpublishedAction']['userSetOnLoad']=False;copied.write_text(json.dumps(d))
+ # Native Select captions use labelText, not label; recover missing binding paths.
+ caption=root/'pages/Facilitator Functions/widgets/selMember.json'
+ d=json.loads(caption.read_text());d['labelText']='Facilitator';d['placeholderText']='Select Member';d['dynamicBindingPathList']=[p for p in d['dynamicBindingPathList'] if p['key'] not in ['labelText','placeholderText']];caption.write_text(json.dumps(d))
  before=metadata(root);run(root);after=metadata(root)
  assert before.keys()==after.keys()
+ d=json.loads(caption.read_text());assert d['labelText']=='{{ navigationLabels.text("Facilitator") }}'
+ assert {'key':'labelText'} in d['dynamicBindingPathList'] and {'key':'placeholderText'} in d['dynamicBindingPathList']
+
  for page in (root/'pages').iterdir():
   a=after[str((page/'queries/navigationLabels-initialize/metadata.json').relative_to(root))]['unpublishedAction']
   assert a['runBehaviour']=='ON_PAGE_LOAD' and a['userSetOnLoad'] is True,page.name+' copied initializer not restored'
