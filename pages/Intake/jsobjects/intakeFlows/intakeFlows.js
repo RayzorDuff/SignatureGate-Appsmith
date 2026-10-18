@@ -150,25 +150,16 @@ export default {
       }
     }
 
-    let memberId = null;
-    let memberPersonId = null;
-    let contributorId = null;
-    let memberEmailId = null;
-    let agreementResult = null;
-    let triggerResult = null;
-
-    if (individual) {
-      const first = (inpIntakeFirstName.text || "").trim();
-      const last = (inpIntakeLastName.text || "").trim();
-      const individualEmail = (inpIntakeEmail.text || "").trim();
-      const phone = (inpIntakePhone.text || "").trim();
-      const dob = (dateIntakeBirthDate.selectedDate || "").toString().slice(0, 10);
-
-      if (!first || !last) {
-        showAlert("First and last name are required.", "warning");
-        return;
-      }
-      if (member) {
+    const first=(inpIntakeFirstName.text || "").trim();
+    const last=(inpIntakeLastName.text || "").trim();
+    const companyName=(inpIntakeCompanyName.text || "").trim();
+    const dob=individual ? (dateIntakeBirthDate.selectedDate || "").toString().slice(0,10) : "";
+    const individualEmail=contactEmail;
+    const phone=(inpIntakePhone.text || "").trim();
+    if ((individual && (!first || !last)) || (company && !companyName)) {
+      showAlert(individual ? "First and last name are required." : "Company name is required.","warning");return;
+    }
+    if (member) {
         stage("Checking for an existing Participant…");
         const dupRows = await qCheckMemberDuplicate.run({
           first_name: first, last_name: last, email: individualEmail,
@@ -194,205 +185,71 @@ export default {
           showAlert("Potential duplicate warning: creation will continue because no hard duplicate was found.", "warning");
         }
 
-        stage("Creating the individual and Participant enrollment…");
-        await this.checkpoint(submissionOwner,{state:"uncertain",phase});
-        saved=true; // A timed-out write can still have committed on the server.
-        const created = await qCreateMember.run({
-          first_name: first, last_name: last, email: individualEmail, phone,
-          date_of_birth: dob, created_by_facilitator_id: actor.member_id
-        });
-        memberId = created?.[0]?.member_id;
-        const duplicateBlocked = created?.[0]?.duplicate_blocked === true;
-        if (duplicateBlocked) {
-          await storeValue("intake_submission:"+submissionOwner,null,true);
-          showAlert(navigationLabels.text("Member creation was blocked because the database detected a duplicate."), "error");
-          return;
-        }
-        if (!memberId) throw new Error("Participant creation returned an incomplete result.");
-        await this.checkpoint(submissionOwner,{state:"incomplete",member_id:memberId});
-
-        saved=true;
-        stage("Individual and Participant enrollment created. Saving contact methods…");
-        const memberPersonRows = await qGetMemberPerson.run({ member_id: memberId });
-        memberPersonId = memberPersonRows?.[0]?.person_id || null;
-        if (memberPersonId) await this.checkpoint(submissionOwner,{person_id:memberPersonId});
-        if (!memberPersonId) {
-          throw new Error("Participant identity could not be resolved.");
-        }
-
-        if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "individual", party_id: memberPersonId, notes: identityNotes, reason: "Initial intake"});
-
-        const e = individualEmail ? await qAddMemberEmail.run({
-          member_id: memberId,
-          email: individualEmail,
-          notes: "Created from Intake",
-          subscribe_to_mailing_list: chkIntakeSubscribeMemberListmonk.isChecked
-        }) : [];
-        memberEmailId = e?.[0]?.member_email_id || null;
-        if(individualEmail && !memberEmailId) throw new Error("Participant email could not be saved.");
-        if(individualEmail && chkIntakeSubscribeMemberListmonk.isChecked) stage("Participant mailing preference saved; Listmonk synchronization queued…");
-        let phoneId = null;
-        if (phone) {
-          const p = await qAddMemberPhone.run({ member_id: memberId, phone, notes: "Created from Intake" });
-          phoneId = p?.[0]?.member_phone_id || null;
-          if(!phoneId) throw new Error("Participant phone could not be saved.");
-        }
-
-        let memberAddressId = null;
-        if (hasCompleteAddress) {
-          const addressResult = await qAddMembershipAddress.run({
-            person_id: memberPersonId, address_1: address, address_2: "",
-            city, state, postal_code: postal, reason: "Initial Intake"
-          });
-          memberAddressId = addressResult?.[0]?.member_address_id ||
-            addressResult?.[0]?.issue19_add_membership_address || null;
-        }
-
-        stage("Contacts saved. Assigning the Spiritual Practitioner…");
-        await qAssignMemberPractitioner.run({
-          member_id: memberId,
-          practitioner_person_id: practitionerPersonId,
-          reason: "Initial member enrollment",
-          notes: ""
-        });
-
-        if (contributor) {
-          stage("Practitioner assigned. Adding Contributor capacity…");
-          contributorId = (await qEnablePersonContributor.run({
-            person_id: memberPersonId, reason
-          }))?.[0]?.contributor_id;
-          if (!contributorId) throw new Error("Contributor capacity was not created.");
-          await this.checkpoint(submissionOwner,{contributor_id:contributorId});
-
-          const contributorEmail = individualEmail ? await qAddContributorEmailForDualCapacity.run({
-            person_id: memberPersonId,
-            email: individualEmail,
-            reason,
-            subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
-          }) : [];
-					
-          if (individualEmail && !contributorEmail?.[0]?.contributor_email_id) {
-            throw new Error("Contributor email was not created.");
-          }
-
-          if(individualEmail && chkIntakeSubscribeContributorListmonk.isChecked) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
-          for(const [source_table,source_id] of [["member_phones",phoneId],["member_addresses",memberAddressId]]) {
-            if(source_id && !(await qAssignIntakeContactRole.run({person_id:memberPersonId,source_table,source_id,reason}))?.[0]?.contact_id) throw new Error("Shared Contributor contact role could not be saved.");
-          }
-          await qLinkContributorMember.run({
-            contributor_id: contributorId, member_id: memberId,
-            actor_member_id: actor.member_id, reason
-          });
-
-        }
-      } else {
-        stage("Creating the individual and Contributor enrollment…");
-        await this.checkpoint(submissionOwner,{state:"uncertain",phase});
-        saved=true;
-        const created = await qCreateContributor.run({
-          party_kind: "individual", first_name: first, last_name: last,
-          email: individualEmail, phone, reason,
-          subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
-        });
-        saved=true;
-        stage("Contributor enrollment created. Saving contact details…");
-        if(individualEmail && chkIntakeSubscribeContributorListmonk.isChecked) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
-        contributorId = created?.[0]?.contributor_id;
-        memberPersonId = created?.[0]?.party_id;
-        if (!contributorId || !memberPersonId) throw new Error("Contributor creation did not return the new individual identity.");
-        await this.checkpoint(submissionOwner,{state:"incomplete",contributor_id:contributorId,person_id:memberPersonId});
-
-        if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "individual", party_id: memberPersonId, notes: identityNotes, reason: "Initial intake"});
-
-        if (hasCompleteAddress) {
-          await qAddContributorAddress.run({
-            party_kind: "individual", party_id: memberPersonId,
-            address_1: address, address_2: "", city, state, postal_code: postal, reason
-          });
-        }
-      }
-    } else if (company) {
-      const companyName = (inpIntakeCompanyName.text || "").trim();
-      if (!companyName) {
-        showAlert("Company name is required.", "warning");
-        return;
-      }
-      stage("Creating the company and Contributor enrollment…");
-      await this.checkpoint(submissionOwner,{state:"uncertain",phase});
-      saved=true;
-      const created = await qCreateContributor.run({
-        party_kind: "organization", organization_name: companyName,
-        first_name: "", last_name: "",
-        email: (inpIntakeEmail.text || "").trim(),
-        phone: (inpIntakePhone.text || "").trim(), reason,
-        subscribe_to_mailing_list: chkIntakeSubscribeContributorListmonk.isChecked
-      });
-      saved=true;
-      stage("Company Contributor enrollment created. Saving contact details…");
-      if(contactEmail && chkIntakeSubscribeContributorListmonk.isChecked) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
-      contributorId = created?.[0]?.contributor_id;
-      const organizationId = created?.[0]?.party_id;
-      if (!contributorId || !organizationId) throw new Error("Company contributor creation did not return the organization identity.");
-      await this.checkpoint(submissionOwner,{state:"incomplete",contributor_id:contributorId,organization_id:organizationId});
-
-      if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "organization", party_id: organizationId, notes: identityNotes, reason: "Initial intake"});
-
-      if (hasCompleteAddress) {
-        await qAddContributorAddress.run({
-          party_kind: "organization", party_id: organizationId,
-          address_1: address, address_2: "", city, state, postal_code: postal, reason
-        });
-      }
     }
-
-    if (member) {
-      const evidence="[]";
-      stage("Enrollment and contacts saved. Creating the agreement…");
-      agreementResult = await qCreateIntakeAgreement.run({
-        member_id: memberId,
-        practitioner_person_id: practitionerPersonId,
-        agreement_template_id: delivery === "Digital" ? agreementTemplate : "",
-        signature_method: delivery === "Digital" ? "documenso" : "paper",
-        status: delivery === "Digital" ? "pending_email_send" : "pending_review",
-        evidence_json: evidence,
-        member_email_id: memberEmailId || ""
-      });
-
-      const agreementId = agreementResult?.[0]?.member_agreement_id;
-      if(!agreementId) throw new Error("Agreement creation returned an incomplete result.");
-      await this.checkpoint(submissionOwner,{agreement_id:agreementId,phase:"Agreement saved; signing delivery not confirmed"});
+    stage("Preparing an atomic Intake request…");
+    const requestId=(await qNewIntakeRequest.run())?.[0]?.request_id;
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(requestId || "")) throw new Error("Intake request key unavailable.");
+    const payload={kind:company ? "organization" : "individual",participant:Boolean(member),contributor:Boolean(contributor),
+      first_name:first,last_name:last,company_name:companyName,email:contactEmail,phone,date_of_birth:dob,
+      address,city,state,postal_code:postal,notes:identityNotes,reason,
+      participant_subscribe:chkIntakeSubscribeMemberListmonk.isChecked===true,
+      contributor_subscribe:chkIntakeSubscribeContributorListmonk.isChecked===true,
+      agreement_delivery:delivery || "",agreement_type:agreementType || "",
+      agreement_template_id:agreementTemplate || "",practitioner_person_id:practitionerPersonId || ""};
+    stage("Saving identity, enrollment, contacts and pending agreement in one transaction…");
+    await this.checkpoint(submissionOwner,{state:"uncertain",phase,request_id:requestId});
+    saved=true; // A timeout does not establish that the transaction rolled back.
+    const receipt=(await qSubmitAtomicIntake.run({owner:submissionOwner,request_id:requestId,payload_json:JSON.stringify(payload)}))?.[0]?.receipt;
+    if(receipt?.state!=="committed" || receipt.request_id!==requestId ||
+      (member && (!receipt.member_id || !receipt.agreement_id)) || (contributor && !receipt.contributor_id)) {
+      throw new Error("The Intake transaction did not return a complete receipt.");
+    }
+    await this.checkpoint(submissionOwner,{state:"incomplete",member_id:receipt.member_id,person_id:receipt.person_id,
+      organization_id:receipt.organization_id,contributor_id:receipt.contributor_id,agreement_id:receipt.agreement_id});
+    stage(company ? "Company and Contributor enrollment saved." : "Individual and selected enrollment capacities saved.");
+    stage("Contact methods and identity notes saved.");
+    if(member) stage("Spiritual Practitioner assignment and pending agreement saved.");
+    if(member && contactEmail && payload.participant_subscribe) stage("Participant mailing preference saved; Listmonk synchronization queued…");
+    if(contributor && contactEmail && payload.contributor_subscribe) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
+    let triggerResult=null;
+    if(member) {
       stage("Agreement created. Requesting the signing workflow…");
-      if (delivery === "Digital" && agreementId) {
-        triggerResult = await apiTriggerDocumenso.run({
-          member_agreement_id: agreementId, externalId: "ma:" + agreementId
-        });
-        const raw=triggerResult?.data ?? triggerResult;
-        const result=raw?.message ?? raw;
-        if(result?.ok===false || result?.success===false || ["failed","error"].includes(result?.status)) throw new Error("Signing workflow did not complete.");
-        stage(result?.email_sent===true?"Agreement email sent (confirmed by signing service).":"Signing workflow requested. Check agreement status for email delivery.");
-      }
+      // The committed agreement is the stable external key. Never auto-retry HTTP.
+      triggerResult=await apiTriggerDocumenso.run({member_agreement_id:receipt.agreement_id,externalId:"ma:"+receipt.agreement_id});
+      const raw=triggerResult?.data ?? triggerResult;const result=raw?.message ?? raw;
+      if(result?.ok===false || result?.success===false || ["failed","error"].includes(result?.status)) throw new Error("Signing workflow did not complete.");
+      stage(result?.email_sent===true ? "Agreement email sent (confirmed by signing service)." : "Signing workflow requested. Check agreement status for email delivery.");
     }
-
-    await this.auditLog("intake.completed", entity.toLowerCase(), memberId || contributorId || "", {
-      member_id: memberId, contributor_id: contributorId,
-      member_enrolled: member, contributor_enrolled: contributor, page: "Intake"
-    });
-
     await this.checkpoint(submissionOwner,{state:"completed",phase:"Enrollment completed"});
-    showAlert(
-      navigationLabels.text(member && contributor ? "Individual enrolled as Member and Contributor." :
-      member ? "Individual enrolled as Member." :
-      "Contributor enrollment completed."),
-      "success"
-    );
-    return {memberId, contributorId, agreementResult, triggerResult};
+    showAlert(navigationLabels.text(member && contributor ? "Individual enrolled as Member and Contributor." : member ? "Individual enrolled as Member." : "Contributor enrollment completed."),"success");
+    return {memberId:receipt.member_id,contributorId:receipt.contributor_id,
+      agreementResult:member ? [{member_agreement_id:receipt.agreement_id}] : null,triggerResult};
     } catch(error) {
       if(saved) {
-        try {await this.checkpoint(submissionOwner,{state:"needs_review",phase});} catch(checkpointError) { /* Keep the earlier persistent uncertainty marker. */ }
+        try {await this.checkpoint(submissionOwner,{state:"needs_review",phase});} catch(checkpointError) { /* Keep the original owner-scoped uncertainty marker. */ }
       }
-      showAlert(saved?"Intake stopped with saved records or an uncertain write outcome during "+phase+". Review the existing identity and agreement before continuing; do not submit another intake.":"Intake could not complete during "+phase+". Check details before retrying.",saved?"warning":"error");
+      showAlert(saved ? "Intake stopped with a committed transaction or an uncertain response during "+phase+". Check the saved Intake receipt and existing identity/agreement; do not submit another intake." : "Intake could not complete during "+phase+". Check details before retrying.",saved ? "warning" : "error");
       return null;
     }
+  },
+
+  async inspectRecovery() {
+    const existing=this.recovery();
+    if(!existing?.request_id) {showAlert("This checkpoint has no durable request key. Review Directory and agreement status before starting a separate intake.","warning");return;}
+    const owner=String(appsmith.user?.email || "").trim().toLowerCase();
+    try {
+      const receipt=(await qIntakeRequestStatus.run({owner,request_id:existing.request_id}))?.[0]?.receipt;
+      if(!receipt) {
+        showAlert("No committed receipt is visible yet. The request may still be running. Keep this checkpoint and check again before starting a separate intake.","warning");return;
+      }
+      if(receipt.state!=="committed" || receipt.request_id!==existing.request_id) throw new Error("Unexpected Intake receipt.");
+      await this.checkpoint(owner,{state:existing.state==="completed" ? "completed" : "needs_review",
+        member_id:receipt.member_id,person_id:receipt.person_id,organization_id:receipt.organization_id,
+        contributor_id:receipt.contributor_id,agreement_id:receipt.agreement_id,
+        phase:"Enrollment transaction committed; review existing contacts, capacities and agreement/signing status"});
+      showAlert("The enrollment transaction committed. Review the existing identity and agreement status. No enrollment or signing request was replayed.","info");
+      return receipt;
+    } catch(error) {showAlert("The saved Intake receipt could not be checked. Keep the checkpoint and review the existing record before continuing.","warning");}
   },
 
   async reset() {

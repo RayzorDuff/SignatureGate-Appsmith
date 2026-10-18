@@ -1,0 +1,1 @@
+SELECT CASE WHEN lower(btrim({{ appsmith.user.email }}::text)) = lower(btrim({{ this.params.owner }}::text)) THEN public.application_submit_intake({{ appsmith.user.email }}::text,{{ this.params.request_id }}::uuid,{{ this.params.payload_json }}::jsonb) ELSE NULL END AS receipt;

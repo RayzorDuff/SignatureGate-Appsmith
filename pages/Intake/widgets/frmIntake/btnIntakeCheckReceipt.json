@@ -1,0 +1,63 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 136,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "SECONDARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ appsmith.store.intake_busy === true }}",
+  "isLoading": false,
+  "isVisible": "{{ Boolean(intakeFlows.recovery()?.request_id) }}",
+  "key": "intake-check-receipt",
+  "leftColumn": 0,
+  "minWidth": 120,
+  "mobileBottomRow": 136,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 132,
+  "needsErrorInfo": false,
+  "onClick": "{{ intakeFlows.inspectRecovery() }}",
+  "originalBottomRow": 136,
+  "originalTopRow": 132,
+  "parentColumnSpace": 14.1875,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 24,
+  "text": "Check saved Intake",
+  "topRow": 132,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "intake-check-receipt",
+  "widgetName": "btnIntakeCheckReceipt"
+}

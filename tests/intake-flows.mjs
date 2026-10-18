@@ -77,34 +77,34 @@ try {
  for(const options of [{email:participant.email},{email:doc.email,kind:'dual'},{email:doc.email,delivery:'Paper'},{email:doc.email,contacts:'phone_address'},{email:doc.email,contacts:'email'}]) {
   const x=fixture(options);assert.equal(await x.flows.submit(),undefined);assert.ok(x.calls.actions.every(n=>['qPageAccess','qCurrentFacilitator','qIntakeActorRoles'].includes(n)),'preflight must block before identity writes');
  }
- {const x=fixture({email:doc.email,apiFail:true});assert.equal(await x.flows.submit(),null);assert.equal(x.calls.api,1);assert.equal(x.calls.actions.filter(a=>a==='qCreateMember').length,1);assert.equal(x.calls.alerts.at(-1).level,'warning');assert.match(x.calls.alerts.at(-1).message,/do not submit another/);}
+ {const x=fixture({email:doc.email,apiFail:true});assert.equal(await x.flows.submit(),null);assert.equal(x.calls.api,1);assert.equal(x.calls.actions.filter(a=>a==='qSubmitAtomicIntake').length,1);assert.equal(x.calls.alerts.at(-1).level,'warning');assert.match(x.calls.alerts.at(-1).message,/do not submit another/);}
  let faults=0;
- const scenarios=[
-  {kind:'member',contacts:'email_phone',names:['qCreateMember','qGetMemberPerson','qSetIntakeIdentityNotes','qAddMemberEmail','qAddMemberPhone','qAssignMemberPractitioner','qCreateIntakeAgreement']},
-  {kind:'dual',contacts:'email_address',names:['qAddMembershipAddress','qEnablePersonContributor','qAddContributorEmailForDualCapacity','qAssignIntakeContactRole','qLinkContributorMember']},
-  {kind:'contributor',contacts:'email_address',names:['qCreateContributor','qAddContributorAddress']},
-  {kind:'company',contacts:'email_address',names:['qCreateContributor','qAddContributorAddress']}
- ];
- for(const scenario of scenarios)for(const name of scenario.names)for(const when of ['before','after']) {
-  const x=fixture({...scenario,email:admin.email,fault:{name,when}});x.c.inpIntakeIdentityNotes.text='Synthetic private intake note';
-  assert.equal(await x.flows.submit(),null,name+' '+when);const receipt=x.flows.recovery();assert.ok(receipt,name+' missing checkpoint');
-  assert.equal(receipt.state,'needs_review');
-  assert.ok(Object.keys(receipt).every(k=>['owner','version','state','phase','member_id','person_id','organization_id','contributor_id','agreement_id'].includes(k)),'form data leaked into checkpoint');
-  assert.doesNotMatch(JSON.stringify(receipt),/Synthetic private|example.invalid.*example.invalid|Synthetic Street/);
+ for(const kind of ['member','dual','contributor','company'])for(const when of ['before','after']) {
+  const x=fixture({kind,contacts:'email_address',email:admin.email,fault:{name:'qSubmitAtomicIntake',when}});
+  x.c.inpIntakeIdentityNotes.text='Synthetic private intake note';
+  const before=(await db.query('SELECT count(*)::int AS n FROM application_intake_requests')).rows[0].n;
+  assert.equal(await x.flows.submit(),null);const receipt=x.flows.recovery();assert.ok(receipt?.request_id,'missing request key');assert.equal(receipt.state,'needs_review');
+  assert.ok(Object.keys(receipt).every(k=>['owner','version','state','phase','request_id','member_id','person_id','organization_id','contributor_id','agreement_id'].includes(k)),'form data leaked into checkpoint');
+  assert.doesNotMatch(JSON.stringify(receipt),/Synthetic private|Synthetic Street/);
+  assert.equal((await db.query('SELECT count(*)::int AS n FROM application_intake_requests')).rows[0].n,before+(when==='after'?1:0));
   const count=x.calls.actions.length;
   await x.flows.submit();assert.equal(x.calls.actions.length,count,'uncertain submission replayed');
-  await x.flows.reset();assert.ok(x.flows.recovery(),'unacknowledged reset erased checkpoint');assert.equal(x.calls.resets.length,0);
-  // A reload reads the same persistent store into a fresh controller object.
+  await x.flows.reset();assert.ok(x.flows.recovery());assert.equal(x.calls.resets.length,0);
   const reloaded=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),x.c);
   await reloaded.submit();assert.equal(x.calls.actions.length,count,'reload replayed submission');
+  const known=await reloaded.inspectRecovery();assert.equal(Boolean(known),when==='after');
+  assert.equal(x.calls.api,0,'receipt lookup sent signing');
+  assert.equal(x.calls.actions.filter(n=>n==='qSubmitAtomicIntake').length,1,'receipt lookup resubmitted intake');
+  if(when==='after')assert.ok(reloaded.recovery().person_id||reloaded.recovery().organization_id);
   const originalEmail=x.c.appsmith.user.email;x.c.appsmith.user.email='synthetic-other@example.invalid';assert.equal(reloaded.recovery(),null);x.c.appsmith.user.email=originalEmail;
-  assert.ok(reloaded.recovery());
-  x.c.chkIntakeRecoveryReviewed.isChecked=true;await reloaded.reset();assert.equal(reloaded.recovery(),null);assert.equal(x.calls.actions.length,count,'reset wrote records');faults++;
+  assert.ok(reloaded.recovery());x.c.chkIntakeRecoveryReviewed.isChecked=true;await reloaded.reset();assert.equal(reloaded.recovery(),null);faults++;
  }
- {const x=fixture({email:doc.email,apiFail:true});await x.flows.submit();assert.ok(x.flows.recovery().agreement_id);const count=x.calls.api;await x.flows.submit();assert.equal(x.calls.api,count,'signing request replayed');}
- {const x=fixture({email:doc.email});x.c.storeValue=async(k,v)=>{if(k.startsWith('intake_submission:'))throw Error('Synthetic storage failure');x.c.appsmith.store[k]=v;};assert.equal(await x.flows.submit(),null);assert.ok(!x.calls.actions.includes('qCreateMember'),'write occurred before durable checkpoint');}
- console.log('PASS '+faults+' real-SQL request/lost-response checkpoints, reload/replay guards, completed reset, account isolation, acknowledged separate intake and signing receipt');
+ {const x=fixture({email:doc.email,apiFail:true});await x.flows.submit();assert.ok(x.flows.recovery().agreement_id);const count=x.calls.api;await x.flows.submit();await x.flows.inspectRecovery();assert.equal(x.calls.api,count,'signing request replayed');}
+ {const x=fixture({email:doc.email});x.c.storeValue=async(k,v)=>{if(k.startsWith('intake_submission:'))throw Error('Synthetic storage failure');x.c.appsmith.store[k]=v;};assert.equal(await x.flows.submit(),null);assert.ok(!x.calls.actions.includes('qSubmitAtomicIntake'),'write occurred before durable checkpoint');}
+ {const x=fixture({email:doc.email,fault:{name:'qNewIntakeRequest',when:'after'}});assert.equal(await x.flows.submit(),null);assert.equal(x.flows.recovery(),null);assert.ok(!x.calls.actions.includes('qSubmitAtomicIntake'),'read failure dispatched creation');}
+ {const x=fixture({email:doc.email});x.c.appsmith.store['intake_submission:'+doc.email]={version:1,owner:doc.email,state:'needs_review'};await x.flows.inspectRecovery();assert.equal(x.calls.actions.length,0,'legacy checkpoint should not perform a lookup');}
+ console.log('PASS '+faults+' atomic request/lost-response guards, read-only receipt recovery, legacy checkpoint, account isolation, acknowledged reset and signing no-replay');
  {const x=fixture({email:doc.email});x.c.appsmith.store.intake_busy=true;await x.flows.submit();assert.equal(x.calls.actions.length,0);}
- console.log('PASS Intake: 24 controller/prepared-SQL enrollment cases, independent mailing consent, shared contact roles, optional DOB, pre-write denial/paper/contact checks and partial-signing recovery warning');
+ console.log('PASS Intake: 24 controller/prepared-SQL enrollment cases, independent mailing consent, shared contact roles, optional DOB, pre-write denial/paper/contact checks and atomic persistence and signing recovery');
  await db.exec('ROLLBACK');
 } catch(error) {console.error(error.message);process.exitCode=1;} finally {await db.close();}
