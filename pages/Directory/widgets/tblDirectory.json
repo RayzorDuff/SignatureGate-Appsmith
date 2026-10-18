@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 71,
+  "bottomRow": 73,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -48,7 +48,7 @@
     "contributor_id",
     "created_at"
   ],
-  "columnUpdatedAt": 1791687353899,
+  "columnUpdatedAt": 1792311506734,
   "columnWidthMap": {},
   "customIsLoading": false,
   "customIsLoadingValue": "",
@@ -61,34 +61,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.display_name.computedValue"
+      "key": "primaryColumns.member_id.computedValue"
     },
     {
       "key": "primaryColumns.party_kind.computedValue"
     },
     {
-      "key": "primaryColumns.membership_status.computedValue"
-    },
-    {
-      "key": "primaryColumns.contributor_status.computedValue"
-    },
-    {
-      "key": "primaryColumns.email.computedValue"
-    },
-    {
-      "key": "primaryColumns.phone.computedValue"
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
       "key": "primaryColumns.customColumn1.buttonColor"
@@ -100,28 +82,70 @@
       "key": "primaryColumns.customColumn1.boxShadow"
     },
     {
+      "key": "primaryColumns.customColumn2.isDisabled"
+    },
+    {
+      "key": "primaryColumns.customColumn2.buttonColor"
+    },
+    {
+      "key": "primaryColumns.customColumn2.borderRadius"
+    },
+    {
+      "key": "primaryColumns.customColumn2.boxShadow"
+    },
+    {
+      "key": "primaryColumns.customColumn3.isDisabled"
+    },
+    {
+      "key": "primaryColumns.customColumn3.buttonColor"
+    },
+    {
+      "key": "primaryColumns.customColumn3.borderRadius"
+    },
+    {
+      "key": "primaryColumns.customColumn3.boxShadow"
+    },
+    {
+      "key": "primaryColumns.display_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.customColumn4.isDisabled"
+    },
+    {
+      "key": "primaryColumns.customColumn4.buttonColor"
+    },
+    {
+      "key": "primaryColumns.customColumn4.borderRadius"
+    },
+    {
+      "key": "primaryColumns.customColumn4.boxShadow"
+    },
+    {
+      "key": "primaryColumns.phone.computedValue"
+    },
+    {
       "key": "primaryColumns.party_id.computedValue"
     },
     {
-      "key": "primaryColumns.member_id.computedValue"
+      "key": "primaryColumns.contributor_status.computedValue"
+    },
+    {
+      "key": "primaryColumns.email.computedValue"
+    },
+    {
+      "key": "primaryColumns.membership_status.computedValue"
     },
     {
       "key": "primaryColumns.contributor_id.computedValue"
     },
     {
-      "key": "primaryColumns.created_at.computedValue"
+      "key": "accentColor"
     },
     {
-      "key": "primaryColumns.contributor_status.label"
+      "key": "borderRadius"
     },
     {
-      "key": "primaryColumns.customColumn3.label"
-    },
-    {
-      "key": "primaryColumns.customColumn4.label"
-    },
-    {
-      "key": "primaryColumns.membership_status.label"
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [
@@ -169,8 +193,8 @@
   "onRowSelected": "",
   "onSearchTextChanged": "",
   "onSort": "",
-  "originalBottomRow": 70,
-  "originalTopRow": 19,
+  "originalBottomRow": 71,
+  "originalTopRow": 20,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -663,7 +687,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{ qPartyDirectory.data }}",
   "textSize": "0.875rem",
-  "topRow": 20,
+  "topRow": 22,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Directory-initialize",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_91d733a9-b006-4b74-9665-9a74701945e1",
   "id": "Directory_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 60000
+      "timeoutInMillisecond": 10000
     },
     "collectionId": "Directory_navigationLabels",
     "confirmBeforeExecute": false,
@@ -25,8 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Directory",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true,
-    "clientSideExecution": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

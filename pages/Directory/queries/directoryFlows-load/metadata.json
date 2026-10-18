@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "696aaf6bef6f963f4d13c7a7_dda63296-e46e-4615-9710-946f8c68fe36",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_6025b13d-6f1f-40ec-86a2-322ad636d93a",
   "id": "Directory_directoryFlows.load",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,7 +26,6 @@
     "name": "load",
     "pageId": "Directory",
     "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true,
-    "clientSideExecution": true
+    "userSetOnLoad": true
   }
 }

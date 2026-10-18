@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Directory-accessMessage",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_78d1b16c-4f29-4bb9-a9ed-a37469482ad3",
   "id": "Directory_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Directory",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

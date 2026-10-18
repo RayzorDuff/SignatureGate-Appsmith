@@ -6,10 +6,12 @@
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
+      "isAsync": true,
       "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 60000
     },
+    "clientSideExecution": true,
     "collectionId": "Member Functions_navigationLabels",
     "confirmBeforeExecute": false,
     "datasource": {
@@ -26,7 +28,6 @@
     "name": "initialize",
     "pageId": "Member Functions",
     "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true,
-    "clientSideExecution": true
+    "userSetOnLoad": true
   }
 }

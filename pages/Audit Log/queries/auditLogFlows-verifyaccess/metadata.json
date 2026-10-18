@@ -6,10 +6,12 @@
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
+      "isAsync": true,
       "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 10000
     },
+    "clientSideExecution": true,
     "collectionId": "Audit Log_auditLogFlows",
     "confirmBeforeExecute": false,
     "datasource": {
@@ -26,7 +28,6 @@
     "name": "verifyaccess",
     "pageId": "Audit Log",
     "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true,
-    "clientSideExecution": true
+    "userSetOnLoad": true
   }
 }

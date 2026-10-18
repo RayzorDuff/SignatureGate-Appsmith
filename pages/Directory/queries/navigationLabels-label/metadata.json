@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Directory-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_bf81f854-32b9-4bba-ba91-71094e6f4c87",
   "id": "Directory_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -32,7 +33,7 @@
     "fullyQualifiedName": "navigationLabels.label",
     "name": "label",
     "pageId": "Directory",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "ON_PAGE_LOAD",
     "userSetOnLoad": true
   }
 }

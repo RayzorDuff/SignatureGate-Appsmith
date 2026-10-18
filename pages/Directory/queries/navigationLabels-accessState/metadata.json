@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Directory-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_856fa6cb-a45e-4d39-8032-b9b234930f69",
   "id": "Directory_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Directory",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }
