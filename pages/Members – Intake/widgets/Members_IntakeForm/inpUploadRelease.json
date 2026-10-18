@@ -11,9 +11,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isDisabled"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -47,10 +44,10 @@
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 22,
+  "tooltip": "Paper agreement upload is pending integration validation.",
   "topRow": 30,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "oyzntbhafu",
-  "widgetName": "inpUploadRelease",
-  "tooltip": "Paper agreement upload is pending integration validation."
+  "widgetName": "inpUploadRelease"
 }

@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Members – Intake-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_d2030ffa-34e5-4177-89b8-e70ee7e94357",
   "id": "Members – Intake_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Members – Intake",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

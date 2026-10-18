@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Members – Intake-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_3557dd7b-8ee4-4314-8f00-14a89ffb0919",
   "id": "Members – Intake_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Members – Intake",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

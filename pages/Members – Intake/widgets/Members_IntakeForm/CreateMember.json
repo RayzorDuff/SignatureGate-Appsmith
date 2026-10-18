@@ -8,13 +8,13 @@
   "disabledWhenInvalid": true,
   "dynamicBindingPathList": [
     {
+      "key": "text"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [

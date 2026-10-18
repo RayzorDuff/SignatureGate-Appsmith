@@ -7,16 +7,16 @@
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "dynamicBindingPathList": [
     {
-      "key": "buttonColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "isRequired"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "isRequired"
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -64,10 +64,10 @@
   "responsiveBehavior": "hug",
   "rightColumn": 15,
   "selectedFiles": [],
+  "tooltip": "Paper agreement upload is pending integration validation.",
   "topRow": 34,
   "type": "FILE_PICKER_WIDGET_V2",
   "version": 1,
   "widgetId": "lhb4v2p755",
-  "widgetName": "FilePicker1",
-  "tooltip": "Paper agreement upload is pending integration validation."
+  "widgetName": "FilePicker1"
 }

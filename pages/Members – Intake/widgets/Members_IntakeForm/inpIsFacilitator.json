@@ -7,16 +7,16 @@
   "defaultCheckedState": false,
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "label"
     },
     {
       "key": "isDisabled"
     },
     {
-      "key": "label"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -42,8 +42,8 @@
   "mobileRightColumn": 61,
   "mobileTopRow": 10,
   "needsErrorInfo": false,
-  "originalBottomRow": 13,
-  "originalTopRow": 9,
+  "originalBottomRow": 11,
+  "originalTopRow": 7,
   "parentColumnSpace": 9.9375,
   "parentId": "td6u8eudjb",
   "parentRowSpace": 10,
