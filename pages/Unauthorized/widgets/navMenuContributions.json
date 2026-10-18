@@ -1,68 +1,14 @@
 {
-  "widgetName": "navMenuContributions",
-  "widgetId": "navMenuContributions",
-  "key": "navMenuContributions",
-  "parentId": "0",
-  "type": "MENU_BUTTON_WIDGET",
-  "version": 1,
-  "menuItemsSource": "STATIC",
-  "menuItems": {
-    "item1": {
-      "id": "item1",
-      "widgetId": "navMenuContributions",
-      "index": 0,
-      "label": "{{ navigationLabels.text(\"Contributor Functions\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Contributor Functions\",{},\"SAME_WINDOW\") }}"
-    },
-    "item2": {
-      "id": "item2",
-      "widgetId": "navMenuContributions",
-      "index": 1,
-      "label": "{{ navigationLabels.text(\"Cash Deposits\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Cash Deposits\",{},\"SAME_WINDOW\") }}"
-    }
-  },
-  "label": "Contributions",
-  "menuVariant": "SECONDARY",
-  "menuColor": "{{appsmith.theme.colors.primaryColor}}",
-  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "boxShadow": "none",
-  "isCompact": false,
-  "isDisabled": false,
-  "isVisible": "{{ ((Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true)) }}",
   "animateLoading": true,
-  "placement": "CENTER",
-  "renderMode": "CANVAS",
-  "responsiveBehavior": "hug",
-  "minWidth": 120,
-  "topRow": 0,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 4,
-  "originalTopRow": 0,
-  "originalBottomRow": 4,
-  "leftColumn": 32,
-  "rightColumn": 48,
-  "parentRowSpace": 10,
-  "parentColumnSpace": 19.125,
-  "mobileTopRow": 10,
-  "mobileBottomRow": 14,
-  "mobileLeftColumn": 0,
-  "mobileRightColumn": 64,
+  "boxShadow": "none",
   "dynamicBindingPathList": [
     {
-      "key": "label"
+      "key": "menuItems.item2.label"
     },
     {
-      "key": "menuColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
+      "key": "menuItems.item2.isVisible"
     },
     {
       "key": "menuItems.item1.label"
@@ -71,10 +17,21 @@
       "key": "menuItems.item1.isVisible"
     },
     {
-      "key": "menuItems.item2.label"
+      "key": "isVisible"
     },
     {
-      "key": "menuItems.item2.isVisible"
+      "key": "menuColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "menuItems.item1.onClick"
+    },
+    {
+      "key": "menuItems.item2.onClick"
     }
   ],
   "dynamicTriggerPathList": [
@@ -85,12 +42,52 @@
       "key": "menuItems.item2.onClick"
     }
   ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "menuItems.item1.onClick"
+  "isCompact": false,
+  "isDisabled": false,
+  "isVisible": "{{ ((Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true)) }}",
+  "key": "navMenuContributions",
+  "label": "Contributions",
+  "leftColumn": 32,
+  "menuColor": "{{appsmith.theme.colors.primaryColor}}",
+  "menuItems": {
+    "item1": {
+      "id": "item1",
+      "index": 0,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_contributor_functions === true }}",
+      "label": "{{ navigationLabels.text(\"Contributor Functions\") }}",
+      "onClick": "{{ navigateTo(\"Contributor Functions\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuContributions"
     },
-    {
-      "key": "menuItems.item2.onClick"
+    "item2": {
+      "id": "item2",
+      "index": 1,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_cash_deposits === true }}",
+      "label": "{{ navigationLabels.text(\"Cash Deposits\") }}",
+      "onClick": "{{ navigateTo(\"Cash Deposits\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuContributions"
     }
-  ]
+  },
+  "menuItemsSource": "STATIC",
+  "menuVariant": "SECONDARY",
+  "minWidth": 120,
+  "mobileBottomRow": 14,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 10,
+  "originalBottomRow": 4,
+  "originalTopRow": 0,
+  "parentColumnSpace": 19.125,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "hug",
+  "rightColumn": 48,
+  "topRow": 0,
+  "type": "MENU_BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "navMenuContributions",
+  "widgetName": "navMenuContributions"
 }

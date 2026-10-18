@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 55,
+  "bottomRow": 60,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -52,9 +52,11 @@
     "review_notes",
     "donor_kind",
     "contributor_id",
+    "contributor_name",
+    "contributor_type",
     "EditActions1"
   ],
-  "columnUpdatedAt": 1791511112927,
+  "columnUpdatedAt": 1792312678146,
   "columnWidthMap": {
     "amount_cents": 95,
     "currency": 135,
@@ -75,49 +77,7 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.donation_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
       "key": "primaryColumns.member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.provider.computedValue"
-    },
-    {
-      "key": "primaryColumns.provider_reference.computedValue"
-    },
-    {
-      "key": "primaryColumns.amount_cents.computedValue"
-    },
-    {
-      "key": "primaryColumns.currency.computedValue"
-    },
-    {
-      "key": "primaryColumns.donated_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.notes.computedValue"
-    },
-    {
-      "key": "primaryColumns.status.computedValue"
-    },
-    {
-      "key": "primaryColumns.facilitator_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.reviewer_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.reviewed_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.review_notes.computedValue"
-    },
-    {
-      "key": "primaryColumns.review_notes.isCellEditable"
     },
     {
       "key": "primaryColumns.EditActions1.isSaveDisabled"
@@ -133,6 +93,24 @@
     },
     {
       "key": "primaryColumns.EditActions1.discardBorderRadius"
+    },
+    {
+      "key": "primaryColumns.notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.amount_cents.computedValue"
+    },
+    {
+      "key": "primaryColumns.review_notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.review_notes.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.reviewed_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
       "key": "primaryColumns.customColumn1.isCellVisible"
@@ -165,6 +143,9 @@
       "key": "primaryColumns.customColumn2.boxShadow"
     },
     {
+      "key": "primaryColumns.donor_kind.computedValue"
+    },
+    {
       "key": "primaryColumns.customColumn3.isCellVisible"
     },
     {
@@ -177,6 +158,39 @@
       "key": "primaryColumns.customColumn3.boxShadow"
     },
     {
+      "key": "primaryColumns.provider.computedValue"
+    },
+    {
+      "key": "primaryColumns.donated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.facilitator_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.provider_reference.computedValue"
+    },
+    {
+      "key": "primaryColumns.reviewer_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.currency.computedValue"
+    },
+    {
+      "key": "primaryColumns.donor_display_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.donation_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.contributor_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.status.computedValue"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -186,19 +200,10 @@
       "key": "boxShadow"
     },
     {
-      "key": "isVisible"
+      "key": "primaryColumns.contributor_name.computedValue"
     },
     {
-      "key": "primaryColumns.donor_kind.computedValue"
-    },
-    {
-      "key": "primaryColumns.contributor_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.donor_display_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.donor_display_name.label"
+      "key": "primaryColumns.contributor_type.computedValue"
     }
   ],
   "dynamicPropertyPathList": [
@@ -269,8 +274,8 @@
   "mobileTopRow": 122,
   "needsErrorInfo": false,
   "onRowSelected": "{{}}",
-  "originalBottomRow": 116,
-  "originalTopRow": 83,
+  "originalBottomRow": 60,
+  "originalTopRow": 27,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -375,6 +380,74 @@
       "label": "contributor_id",
       "notation": "standard",
       "originalId": "contributor_id",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "contributor_name": {
+      "alias": "contributor_name",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = DonationsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_name\"])) : contributor_name })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "contributor_name",
+      "index": 16,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "contributor_name",
+      "notation": "standard",
+      "originalId": "contributor_name",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "contributor_type": {
+      "alias": "contributor_type",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = DonationsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_type\"])) : contributor_type })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "contributor_type",
+      "index": 17,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "contributor_type",
+      "notation": "standard",
+      "originalId": "contributor_type",
       "sticky": "",
       "textColor": "",
       "textSize": "0.875rem",
@@ -635,6 +708,40 @@
       "validation": {},
       "verticalAlignment": "CENTER",
       "width": 150
+    },
+    "donor_display_name": {
+      "alias": "donor_display_name",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = DonationsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donor_display_name\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "donor_display_name",
+      "index": 1,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "{{ navigationLabels.text(\"Contributor\") }}",
+      "notation": "standard",
+      "originalId": "donor_display_name",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 190
     },
     "donor_kind": {
       "alias": "donor_kind",
@@ -975,40 +1082,6 @@
       "validation": {},
       "verticalAlignment": "CENTER",
       "width": 150
-    },
-    "donor_display_name": {
-      "alias": "donor_display_name",
-      "allowCellWrapping": false,
-      "allowSameOptionsInNewRow": true,
-      "cellBackground": "",
-      "columnType": "text",
-      "computedValue": "{{(() => { const tableData = DonationsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donor_display_name\"])) : [] })()}}",
-      "currencyCode": "USD",
-      "decimals": 0,
-      "enableFilter": true,
-      "enableSort": true,
-      "fontStyle": "",
-      "horizontalAlignment": "LEFT",
-      "id": "donor_display_name",
-      "index": 1,
-      "isCellEditable": false,
-      "isCellVisible": true,
-      "isDerived": false,
-      "isDisabled": false,
-      "isDiscardVisible": true,
-      "isEditable": false,
-      "isSaveVisible": true,
-      "isVisible": true,
-      "label": "{{ navigationLabels.text(\"Contributor\") }}",
-      "notation": "standard",
-      "originalId": "donor_display_name",
-      "sticky": "",
-      "textColor": "",
-      "textSize": "0.875rem",
-      "thousandSeparator": true,
-      "validation": {},
-      "verticalAlignment": "CENTER",
-      "width": 190
     }
   },
   "renderMode": "CANVAS",
@@ -1018,7 +1091,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{qMemberDonations.data}}",
   "textSize": "0.875rem",
-  "topRow": 22,
+  "topRow": 27,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

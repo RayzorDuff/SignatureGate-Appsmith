@@ -1,26 +1,26 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 69,
+  "bottomRow": 70,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "text"
+    },
+    {
       "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
     },
     {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isDisabled"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -64,7 +64,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 54,
   "text": "{{ navigationLabels.text(\"Assign Participant\") }}",
-  "topRow": 65,
+  "topRow": 66,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "partbutton1",

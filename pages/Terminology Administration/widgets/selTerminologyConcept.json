@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 45,
+  "bottomRow": 47,
   "boxShadow": "none",
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
@@ -10,13 +10,7 @@
       "key": "sourceData"
     },
     {
-      "key": "defaultOptionValue"
-    },
-    {
       "key": "isVisible"
-    },
-    {
-      "key": "isDisabled"
     },
     {
       "key": "borderRadius"
@@ -61,8 +55,8 @@
   "needsErrorInfo": false,
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 55,
-  "originalTopRow": 45,
+  "originalBottomRow": 45,
+  "originalTopRow": 36,
   "parentColumnSpace": 9.9375,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -72,7 +66,7 @@
   "rightColumn": 32,
   "serverSideFiltering": false,
   "sourceData": "{{ (qTerminology.data || []).map(x => ({ label: x.concept_key + ' — ' + x.singular_label, value: x.concept_key })) }}",
-  "topRow": 36,
+  "topRow": 38,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "term-concept",

@@ -1,16 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 32,
+  "bottomRow": 35,
   "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
     {
       "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -51,7 +51,7 @@
   "text": "{{ \"Access check (safe to return): \" + JSON.stringify(qCashDepositAccessDiagnostic.data?.[0] || {}) }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 24,
+  "topRow": 31,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

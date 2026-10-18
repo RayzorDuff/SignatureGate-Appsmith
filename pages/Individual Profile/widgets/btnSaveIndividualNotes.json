@@ -1,19 +1,6 @@
 {
-  "widgetName": "btnSaveIndividualNotes",
-  "widgetId": "identity-notes-individual-save",
-  "key": "identity-notes-save-individual",
-  "type": "BUTTON_WIDGET",
-  "version": 1,
-  "parentId": "0",
-  "topRow": 54,
-  "bottomRow": 60,
-  "leftColumn": 44,
-  "rightColumn": 64,
-  "text": "Save notes",
+  "bottomRow": 193,
   "buttonVariant": "PRIMARY",
-  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualIdentityNotes.data?.[0]?.can_edit === true) }}",
-  "isDisabled": "{{ qSaveIndividualIdentityNotes.isLoading }}",
-  "onClick": "{{ (async () => { const reason = inpIndividualNotesReason.text.trim(); if (!reason) return showAlert('Provide a reason for changing notes.', 'warning'); try { await qSaveIndividualIdentityNotes.run({ notes: inpIndividualNotes.text, reason }); await qIndividualIdentityNotes.run(); showAlert('Identity notes saved.', 'success'); } catch(e) { showAlert('Unable to save identity notes: ' + (e?.message || e), 'error'); } })() }}",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -26,5 +13,20 @@
     {
       "key": "onClick"
     }
-  ]
+  ],
+  "isDisabled": "{{ qSaveIndividualIdentityNotes.isLoading }}",
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (qIndividualIdentityNotes.data?.[0]?.can_edit === true) }}",
+  "key": "identity-notes-save-individual",
+  "leftColumn": 44,
+  "onClick": "{{ (async () => { const reason = inpIndividualNotesReason.text.trim(); if (!reason) return showAlert('Provide a reason for changing notes.', 'warning'); try { await qSaveIndividualIdentityNotes.run({ notes: inpIndividualNotes.text, reason }); await qIndividualIdentityNotes.run(); showAlert('Identity notes saved.', 'success'); } catch(e) { showAlert('Unable to save identity notes: ' + (e?.message || e), 'error'); } })() }}",
+  "originalBottomRow": 60,
+  "originalTopRow": 54,
+  "parentId": "0",
+  "rightColumn": 64,
+  "text": "Save notes",
+  "topRow": 187,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "identity-notes-individual-save",
+  "widgetName": "btnSaveIndividualNotes"
 }

@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 69,
+  "bottomRow": 77,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -68,52 +68,76 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.donation_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.donated_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.amount_cents.computedValue"
-    },
-    {
-      "key": "primaryColumns.currency.computedValue"
-    },
-    {
-      "key": "primaryColumns.donor_kind.computedValue"
-    },
-    {
       "key": "primaryColumns.member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.contributor_id.computedValue"
     },
     {
       "key": "primaryColumns.donor_name.computedValue"
     },
     {
-      "key": "primaryColumns.contributor_type.computedValue"
-    },
-    {
-      "key": "primaryColumns.donation_status.computedValue"
+      "key": "primaryColumns.notes.computedValue"
     },
     {
       "key": "primaryColumns.operational_status.computedValue"
     },
     {
-      "key": "primaryColumns.deposit_batch_id.computedValue"
+      "key": "primaryColumns.contributor_type.computedValue"
+    },
+    {
+      "key": "primaryColumns.amount_cents.computedValue"
+    },
+    {
+      "key": "primaryColumns.review_notes.computedValue"
     },
     {
       "key": "primaryColumns.batch_status.computedValue"
     },
     {
-      "key": "primaryColumns.notes.computedValue"
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
-      "key": "primaryColumns.review_notes.computedValue"
+      "key": "primaryColumns.donor_kind.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclusion_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.deposit_batch_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.excluded_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclusion_reason.computedValue"
+    },
+    {
+      "key": "primaryColumns.excluded_by.computedValue"
+    },
+    {
+      "key": "primaryColumns.donated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.donation_status.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclusion_notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.currency.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclude.buttonLabel"
+    },
+    {
+      "key": "primaryColumns.exclude.isDisabled"
+    },
+    {
+      "key": "primaryColumns.donation_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.contributor_id.computedValue"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -123,30 +147,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.exclude.buttonLabel"
-    },
-    {
-      "key": "primaryColumns.exclude.isDisabled"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "primaryColumns.exclusion_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.excluded_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.excluded_by.computedValue"
-    },
-    {
-      "key": "primaryColumns.exclusion_reason.computedValue"
-    },
-    {
-      "key": "primaryColumns.exclusion_notes.computedValue"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -176,8 +176,8 @@
   "mobileRightColumn": 30,
   "mobileTopRow": 51,
   "needsErrorInfo": false,
-  "originalBottomRow": 73,
-  "originalTopRow": 35,
+  "originalBottomRow": 69,
+  "originalTopRow": 27,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -926,7 +926,7 @@
   "tableData": "{{ qCashDepositCashOnHand.data }}",
   "textSize": "0.875rem",
   "tooltip": "Select a cash donation to perform an available action.",
-  "topRow": 27,
+  "topRow": 35,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

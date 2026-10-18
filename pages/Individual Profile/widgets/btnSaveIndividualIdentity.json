@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 45,
+  "bottomRow": 47,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -61,7 +61,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "Save identity",
-  "topRow": 41,
+  "topRow": 43,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "0dd5577b7a",

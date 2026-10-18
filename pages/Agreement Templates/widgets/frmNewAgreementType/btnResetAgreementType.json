@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 29,
+  "bottomRow": 30,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "SECONDARY",
@@ -26,6 +26,7 @@
   "mobileRightColumn": 48,
   "mobileTopRow": 25,
   "needsErrorInfo": false,
+  "onClick": "{{ resetWidget(\"frmNewAgreementType\", true) }}",
   "originalBottomRow": 29,
   "originalTopRow": 25,
   "parentId": "d79bc86254",
@@ -36,10 +37,9 @@
   "responsiveBehavior": "hug",
   "rightColumn": 48,
   "text": "Reset",
-  "topRow": 25,
+  "topRow": 26,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "d504eef914",
-  "widgetName": "btnResetAgreementType",
-  "onClick": "{{ resetWidget(\"frmNewAgreementType\", true) }}"
+  "widgetName": "btnResetAgreementType"
 }

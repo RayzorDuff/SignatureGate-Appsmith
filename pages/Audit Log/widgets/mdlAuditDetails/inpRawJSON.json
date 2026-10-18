@@ -8,13 +8,13 @@
   "defaultText": "{{ JSON.stringify(tblAuditLog.triggeredRow.details, null, 2) }}",
   "dynamicBindingPathList": [
     {
+      "key": "defaultText"
+    },
+    {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "defaultText"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",

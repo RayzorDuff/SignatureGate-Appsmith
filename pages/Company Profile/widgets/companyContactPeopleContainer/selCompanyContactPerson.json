@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 38,
+  "bottomRow": 37,
   "boxShadow": "none",
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
@@ -62,7 +62,7 @@
   "rightColumn": 42,
   "serverSideFiltering": false,
   "sourceData": "{{ (qCompanyContactCandidates.data || []).map(p=>({label:p.display_name + \" (\" + p.person_id.slice(-6) + \")\",value:p.person_id})) }}",
-  "topRow": 31,
+  "topRow": 30,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "companycontactd86f8ed941c947",

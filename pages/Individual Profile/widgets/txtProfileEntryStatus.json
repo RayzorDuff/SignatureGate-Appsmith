@@ -1,16 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 25,
+  "bottomRow": 23,
   "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
     {
       "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",

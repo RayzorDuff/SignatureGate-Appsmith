@@ -7,13 +7,13 @@
   "defaultOptionValue": "[\n  \"agreements_signed\",\n  \"releases_sent\",\n  \"donations_count\",\n  \"donations_dollars\",\n  \"members_created\"\n]",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
+      "key": "sourceData"
     },
     {
       "key": "borderRadius"
     },
     {
-      "key": "sourceData"
+      "key": "accentColor"
     }
   ],
   "dynamicHeight": "FIXED",

@@ -1,13 +1,13 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 63,
+  "bottomRow": 64,
   "dynamicBindingPathList": [
     {
-      "key": "fontFamily"
+      "key": "isVisible"
     },
     {
-      "key": "isVisible"
+      "key": "fontFamily"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -40,7 +40,7 @@
   "text": "Releases",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 59,
+  "topRow": 60,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

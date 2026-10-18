@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Member Functions-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_bd54e22a-4a09-4498-938c-738254e0eecd",
   "id": "Member Functions_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Member Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

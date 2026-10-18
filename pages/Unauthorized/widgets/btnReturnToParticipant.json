@@ -1,23 +1,23 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 45,
+  "bottomRow": 44,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
-      "key": "buttonColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "text"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "text"
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -43,8 +43,8 @@
   "mobileTopRow": 50,
   "needsErrorInfo": false,
   "onClick": "{{ navigateTo(\"Member Functions\", {}, \"SAME_WINDOW\") }}",
-  "originalBottomRow": 16,
-  "originalTopRow": 12,
+  "originalBottomRow": 45,
+  "originalTopRow": 41,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -55,7 +55,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 51,
   "text": "{{ navigationLabels.text(\"Return to Member Functions\") }}",
-  "topRow": 41,
+  "topRow": 40,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "be66b751-ea6e-43f9-909f-2ca956bd02d7",

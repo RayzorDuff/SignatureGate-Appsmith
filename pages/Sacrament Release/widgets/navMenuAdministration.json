@@ -1,86 +1,14 @@
 {
-  "widgetName": "navMenuAdministration",
-  "widgetId": "navMenuAdministration",
-  "key": "navMenuAdministration",
-  "parentId": "0",
-  "type": "MENU_BUTTON_WIDGET",
-  "version": 1,
-  "menuItemsSource": "STATIC",
-  "menuItems": {
-    "item1": {
-      "id": "item1",
-      "widgetId": "navMenuAdministration",
-      "index": 0,
-      "label": "{{ navigationLabels.text(\"Reports\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Reports\",{},\"SAME_WINDOW\") }}"
-    },
-    "item2": {
-      "id": "item2",
-      "widgetId": "navMenuAdministration",
-      "index": 1,
-      "label": "{{ navigationLabels.text(\"Agreement Templates\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Agreement Templates\",{},\"SAME_WINDOW\") }}"
-    },
-    "item3": {
-      "id": "item3",
-      "widgetId": "navMenuAdministration",
-      "index": 2,
-      "label": "{{ navigationLabels.text(\"Audit Log\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Audit Log\",{},\"SAME_WINDOW\") }}"
-    },
-    "item4": {
-      "id": "item4",
-      "widgetId": "navMenuAdministration",
-      "index": 3,
-      "label": "{{ navigationLabels.text(\"Terminology Administration\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Terminology Administration\",{},\"SAME_WINDOW\") }}"
-    }
-  },
-  "label": "Reports & Administration",
-  "menuVariant": "SECONDARY",
-  "menuColor": "{{appsmith.theme.colors.primaryColor}}",
-  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "boxShadow": "none",
-  "isCompact": false,
-  "isDisabled": false,
-  "isVisible": "{{ ((Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true)) }}",
   "animateLoading": true,
-  "placement": "CENTER",
-  "renderMode": "CANVAS",
-  "responsiveBehavior": "hug",
-  "minWidth": 120,
-  "topRow": 0,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 4,
-  "originalTopRow": 0,
-  "originalBottomRow": 4,
-  "leftColumn": 48,
-  "rightColumn": 64,
-  "parentRowSpace": 10,
-  "parentColumnSpace": 19.125,
-  "mobileTopRow": 15,
-  "mobileBottomRow": 19,
-  "mobileLeftColumn": 0,
-  "mobileRightColumn": 64,
+  "boxShadow": "none",
   "dynamicBindingPathList": [
     {
-      "key": "label"
+      "key": "menuItems.item2.label"
     },
     {
-      "key": "menuColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
+      "key": "menuItems.item2.isVisible"
     },
     {
       "key": "menuItems.item1.label"
@@ -89,10 +17,10 @@
       "key": "menuItems.item1.isVisible"
     },
     {
-      "key": "menuItems.item2.label"
+      "key": "menuItems.item4.label"
     },
     {
-      "key": "menuItems.item2.isVisible"
+      "key": "menuItems.item4.isVisible"
     },
     {
       "key": "menuItems.item3.label"
@@ -101,10 +29,27 @@
       "key": "menuItems.item3.isVisible"
     },
     {
-      "key": "menuItems.item4.label"
+      "key": "isVisible"
     },
     {
-      "key": "menuItems.item4.isVisible"
+      "key": "menuColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "menuItems.item1.onClick"
+    },
+    {
+      "key": "menuItems.item2.onClick"
+    },
+    {
+      "key": "menuItems.item3.onClick"
+    },
+    {
+      "key": "menuItems.item4.onClick"
     }
   ],
   "dynamicTriggerPathList": [
@@ -121,18 +66,70 @@
       "key": "menuItems.item4.onClick"
     }
   ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "menuItems.item1.onClick"
+  "isCompact": false,
+  "isDisabled": false,
+  "isVisible": "{{ ((Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true)) || (Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true)) }}",
+  "key": "navMenuAdministration",
+  "label": "Reports & Administration",
+  "leftColumn": 48,
+  "menuColor": "{{appsmith.theme.colors.primaryColor}}",
+  "menuItems": {
+    "item1": {
+      "id": "item1",
+      "index": 0,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
+      "label": "{{ navigationLabels.text(\"Reports\") }}",
+      "onClick": "{{ navigateTo(\"Reports\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuAdministration"
     },
-    {
-      "key": "menuItems.item2.onClick"
+    "item2": {
+      "id": "item2",
+      "index": 1,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true }}",
+      "label": "{{ navigationLabels.text(\"Agreement Templates\") }}",
+      "onClick": "{{ navigateTo(\"Agreement Templates\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuAdministration"
     },
-    {
-      "key": "menuItems.item3.onClick"
+    "item3": {
+      "id": "item3",
+      "index": 2,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (qNavigationAccess.data?.[0]?.is_document_reviewer === true || qNavigationAccess.data?.[0]?.is_donations_reviewer === true || qNavigationAccess.data?.[0]?.is_practitioner === true) }}",
+      "label": "{{ navigationLabels.text(\"Audit Log\") }}",
+      "onClick": "{{ navigateTo(\"Audit Log\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuAdministration"
     },
-    {
-      "key": "menuItems.item4.onClick"
+    "item4": {
+      "id": "item4",
+      "index": 3,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_directory_manager === true }}",
+      "label": "{{ navigationLabels.text(\"Terminology Administration\") }}",
+      "onClick": "{{ navigateTo(\"Terminology Administration\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuAdministration"
     }
-  ]
+  },
+  "menuItemsSource": "STATIC",
+  "menuVariant": "SECONDARY",
+  "minWidth": 120,
+  "mobileBottomRow": 19,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 15,
+  "originalBottomRow": 4,
+  "originalTopRow": 0,
+  "parentColumnSpace": 19.125,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "topRow": 0,
+  "type": "MENU_BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "navMenuAdministration",
+  "widgetName": "navMenuAdministration"
 }

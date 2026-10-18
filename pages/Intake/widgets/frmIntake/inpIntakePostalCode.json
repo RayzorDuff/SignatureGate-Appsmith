@@ -6,10 +6,16 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
+      "key": "validation"
+    },
+    {
       "key": "isVisible"
     },
     {
-      "key": "validation"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [

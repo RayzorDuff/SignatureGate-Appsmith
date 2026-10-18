@@ -8,6 +8,12 @@
   "dynamicBindingPathList": [
     {
       "key": "label"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [],

@@ -10,16 +10,19 @@
   "defaultDate": "{{ moment().format('YYYY-MM-DDTHH:mm:ss.SSSZ') }}",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
+      "key": "defaultDate"
     },
     {
-      "key": "borderRadius"
+      "key": "minDate"
     },
     {
       "key": "maxDate"
     },
     {
-      "key": "minDate"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

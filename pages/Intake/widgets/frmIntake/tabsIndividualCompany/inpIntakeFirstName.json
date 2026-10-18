@@ -7,6 +7,12 @@
   "dynamicBindingPathList": [
     {
       "key": "validation"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 101,
+  "bottomRow": 102,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -64,16 +64,13 @@
       "key": "primaryColumns.facilitator_storage_location_access_id.computedValue"
     },
     {
-      "key": "primaryColumns.facilitator_id.computedValue"
+      "key": "primaryColumns.notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.assigned_by_last_name.computedValue"
     },
     {
       "key": "primaryColumns.storage_location_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.status.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
     },
     {
       "key": "primaryColumns.updated_at.computedValue"
@@ -82,13 +79,10 @@
       "key": "primaryColumns.assigned_by_member_id.computedValue"
     },
     {
-      "key": "primaryColumns.notes.computedValue"
+      "key": "primaryColumns.facilitator_id.computedValue"
     },
     {
-      "key": "primaryColumns.assigned_by_first_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.assigned_by_last_name.computedValue"
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
       "key": "primaryColumns.customColumn1.buttonLabel"
@@ -107,6 +101,12 @@
     },
     {
       "key": "primaryColumns.customColumn1.boxShadow"
+    },
+    {
+      "key": "primaryColumns.assigned_by_first_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.status.computedValue"
     },
     {
       "key": "isVisible"
@@ -526,7 +526,7 @@
   "searchKey": "",
   "tableData": "{{ qMemberStorageLocations.data || [] }}",
   "textSize": "0.875rem",
-  "topRow": 73,
+  "topRow": 74,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

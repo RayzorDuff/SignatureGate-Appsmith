@@ -2,15 +2,15 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 27,
+  "bottomRow": 31,
   "boxShadow": "none",
   "defaultOptionValue": "ALL",
   "dynamicBindingPathList": [
     {
-      "key": "borderRadius"
+      "key": "isVisible"
     },
     {
-      "key": "isVisible"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -44,8 +44,8 @@
   "needsErrorInfo": false,
   "optionLabel": "name",
   "optionValue": "code",
-  "originalBottomRow": 33,
-  "originalTopRow": 26,
+  "originalBottomRow": 27,
+  "originalTopRow": 20,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -56,7 +56,7 @@
   "serverSideFiltering": false,
   "sourceData": "[\n  {\"name\":\"All cash donations\",\"code\":\"ALL\"},\n  {\"name\":\"Pending Review\",\"code\":\"pending_review\"},\n  {\"name\":\"Verified\",\"code\":\"verified\"},\n  {\"name\":\"Rejected\",\"code\":\"rejected\"},\n  {\"name\":\"Cash on Hand\",\"code\":\"cash_on_hand\"},\n  {\"name\":\"Assigned to Deposit Batch\",\"code\":\"assigned_to_deposit_batch\"},\n  {\"name\":\"Deposit Prepared\",\"code\":\"deposit_prepared\"},\n  {\"name\":\"Deposit Confirmed\",\"code\":\"deposit_confirmed\"},\n  {\"name\":\"Excluded from Deposit Reconciliation\",\"code\":\"deposit_reconciliation_excluded\"}\n]",
   "tooltip": "Filter cash donations by their current operational status.",
-  "topRow": 20,
+  "topRow": 24,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "mhg3s8yuwi",

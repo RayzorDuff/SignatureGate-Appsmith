@@ -3,22 +3,23 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 15,
+  "bottomRow": 16,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
     {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicTriggerPathList": [],
+  "errorMessage": "Use a unique key: letters, digits and underscores; start with a letter; maximum 64 characters.",
   "iconAlign": "left",
   "inputType": "TEXT",
   "isDisabled": false,
@@ -41,22 +42,21 @@
   "mobileRightColumn": 21,
   "mobileTopRow": 8,
   "needsErrorInfo": false,
+  "originalBottomRow": 15,
+  "originalTopRow": 8,
   "parentColumnSpace": 13.875,
   "parentId": "d79bc86254",
   "parentRowSpace": 10,
+  "placeholderText": "e.g. ceremony",
   "renderMode": "CANVAS",
   "resetOnSubmit": true,
   "responsiveBehavior": "fill",
   "rightColumn": 21,
   "showStepArrows": false,
-  "topRow": 8,
+  "topRow": 9,
   "type": "INPUT_WIDGET_V2",
+  "validation": "{{ /^[a-z][a-z0-9_]{0,63}$/.test(String(inpAgreementTypeKey.text || '').trim().toLowerCase()) && !(qAgreementTypesAdminList.data || []).some(row => String(row.type_key).trim().toLowerCase() === String(inpAgreementTypeKey.text || '').trim().toLowerCase()) }}",
   "version": 2,
   "widgetId": "0f5db5ab9d",
-  "widgetName": "inpAgreementTypeKey",
-  "originalTopRow": 8,
-  "originalBottomRow": 15,
-  "placeholderText": "e.g. ceremony",
-  "validation": "{{ /^[a-z][a-z0-9_]{0,63}$/.test(String(inpAgreementTypeKey.text || '').trim().toLowerCase()) && !(qAgreementTypesAdminList.data || []).some(row => String(row.type_key).trim().toLowerCase() === String(inpAgreementTypeKey.text || '').trim().toLowerCase()) }}",
-  "errorMessage": "Use a unique key: letters, digits and underscores; start with a letter; maximum 64 characters."
+  "widgetName": "inpAgreementTypeKey"
 }

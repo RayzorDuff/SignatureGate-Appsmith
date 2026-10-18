@@ -1,19 +1,13 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 59,
+  "bottomRow": 64,
   "dynamicBindingPathList": [
     {
-      "key": "truncateButtonColor"
+      "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -33,8 +27,8 @@
   "mobileRightColumn": 13,
   "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 16,
-  "originalTopRow": 12,
+  "originalBottomRow": 64,
+  "originalTopRow": 60,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -46,7 +40,7 @@
   "text": "Record Cash Donation",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 55,
+  "topRow": 60,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

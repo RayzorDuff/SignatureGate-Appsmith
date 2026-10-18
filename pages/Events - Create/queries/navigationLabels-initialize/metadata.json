@@ -1,17 +1,15 @@
 {
-  "gitSyncId": "navigation-labels-Events - Create-initialize",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_ea6b8272-4864-4a25-a722-b3d65a04363a",
   "id": "Events - Create_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "isAsync": true,
       "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 60000
     },
-    "clientSideExecution": true,
     "collectionId": "Events - Create_navigationLabels",
     "confirmBeforeExecute": false,
     "datasource": {
@@ -27,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Events - Create",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

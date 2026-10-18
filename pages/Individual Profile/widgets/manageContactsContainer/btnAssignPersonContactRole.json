@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 127,
+  "bottomRow": 126,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -61,7 +61,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "Use contact",
-  "topRow": 123,
+  "topRow": 122,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "cc0b8937f6",

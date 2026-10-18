@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Unauthorized-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_c4002f3d-3eaa-4327-a57d-cc5dc0adeec9",
   "id": "Unauthorized_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Unauthorized",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

@@ -1,17 +1,17 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 23,
+  "bottomRow": 24,
   "disableLink": false,
   "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
     {
       "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -49,7 +49,7 @@
   "text": "{{ navigationLabels.text(\"Assigned Participants\") }}",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 19,
+  "topRow": 20,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

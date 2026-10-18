@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Individual Profile-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_8b0e0e4a-f6f9-4912-9845-6427465cfeb4",
   "id": "Individual Profile_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Individual Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

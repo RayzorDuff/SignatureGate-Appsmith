@@ -9,6 +9,9 @@
   "defaultSelectedRowIndex": 0,
   "dynamicBindingPathList": [
     {
+      "key": "tableData"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -16,9 +19,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "tableData"
     }
   ],
   "dynamicTriggerPathList": [],

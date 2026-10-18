@@ -6,10 +6,16 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
+      "key": "isRequired"
+    },
+    {
       "key": "validation"
     },
     {
-      "key": "isRequired"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

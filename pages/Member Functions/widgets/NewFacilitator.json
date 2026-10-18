@@ -1,16 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 128,
+  "bottomRow": 129,
   "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
     {
       "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -48,7 +48,7 @@
   "text": "{{ navigationLabels.text(\"New Facilitator\\n\") }}",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 124,
+  "topRow": 125,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

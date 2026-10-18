@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 16,
+  "bottomRow": 19,
   "boxShadow": "none",
   "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  appsmith.store.member_id || \"\" ))(selMember.options, selMember.serverSideFiltering) }}",
   "dynamicBindingPathList": [
@@ -10,13 +10,13 @@
       "key": "sourceData"
     },
     {
-      "key": "borderRadius"
-    },
-    {
       "key": "defaultOptionValue"
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -62,8 +62,8 @@
   "onOptionChange": "{{ memberProfile.setMemberId(selMember.selectedOptionValue)  }}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 41,
-  "originalTopRow": 34,
+  "originalBottomRow": 16,
+  "originalTopRow": 12,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -73,7 +73,7 @@
   "rightColumn": 22,
   "serverSideFiltering": false,
   "sourceData": "{{ (qMembersDirectory.data || []).slice().sort((a, b) => `${a.last_name || ''} ${a.first_name || ''}`.localeCompare(`${b.last_name || ''} ${b.first_name || ''}`)).map(item => ({ label: `${item.first_name || ''} ${item.last_name || ''}`.trim(), value: item.member_id })) }}",
-  "topRow": 12,
+  "topRow": 15,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "k95wcuviua",

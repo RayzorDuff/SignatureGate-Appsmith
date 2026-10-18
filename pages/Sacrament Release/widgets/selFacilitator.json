@@ -13,16 +13,16 @@
       "key": "defaultOptionValue"
     },
     {
-      "key": "isDisabled"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
       "key": "labelText"
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

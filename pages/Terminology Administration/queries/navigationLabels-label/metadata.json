@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Terminology Administration-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_3c898d81-4f30-4b46-8461-27311b9c237a",
   "id": "Terminology Administration_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Terminology Administration",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

@@ -1,16 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 18,
+  "bottomRow": 15,
   "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
     {
       "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -35,8 +35,8 @@
   "mobileRightColumn": 13,
   "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 42,
-  "originalTopRow": 38,
+  "originalBottomRow": 18,
+  "originalTopRow": 12,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -48,7 +48,7 @@
   "text": "{{ navigationLabels.text(\"This workspace requires your own active Participant capacity, Document Reviewer permission, or an assigned practitioner role.\") }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 12,
+  "topRow": 11,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

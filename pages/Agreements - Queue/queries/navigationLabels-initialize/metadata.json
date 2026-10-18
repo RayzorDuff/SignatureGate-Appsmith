@@ -1,17 +1,15 @@
 {
-  "gitSyncId": "navigation-labels-Agreements - Queue-initialize",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_a377372a-2b38-4979-8728-d9951a61c243",
   "id": "Agreements - Queue_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "isAsync": true,
       "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 60000
     },
-    "clientSideExecution": true,
     "collectionId": "Agreements - Queue_navigationLabels",
     "confirmBeforeExecute": false,
     "datasource": {
@@ -27,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Agreements - Queue",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

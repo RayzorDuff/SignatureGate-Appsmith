@@ -6,10 +6,16 @@
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "dynamicBindingPathList": [
     {
+      "key": "isRequired"
+    },
+    {
       "key": "isVisible"
     },
     {
-      "key": "isRequired"
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [

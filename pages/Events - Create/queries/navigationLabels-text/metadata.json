@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Events - Create-text",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_ed7d3c44-0bca-4774-8a35-ea47e66485da",
   "id": "Events - Create_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Events - Create",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

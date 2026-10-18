@@ -3,6 +3,9 @@
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "fontFamily"
     }
   ],
   "dynamicPropertyPathList": [

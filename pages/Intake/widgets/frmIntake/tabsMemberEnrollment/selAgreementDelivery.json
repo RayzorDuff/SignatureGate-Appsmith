@@ -6,10 +6,13 @@
   "defaultOptionValue": "Digital",
   "dynamicBindingPathList": [
     {
+      "key": "sourceData"
+    },
+    {
       "key": "isRequired"
     },
     {
-      "key": "sourceData"
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [

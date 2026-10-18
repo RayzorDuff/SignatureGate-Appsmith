@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Contributor Functions-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_3cd94ae6-45e7-46d7-a0b9-8ef1cbf02a77",
   "id": "Contributor Functions_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Contributor Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

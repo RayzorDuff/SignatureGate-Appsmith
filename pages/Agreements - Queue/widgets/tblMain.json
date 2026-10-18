@@ -27,37 +27,10 @@
   "defaultSelectedRowIndex": 0,
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.member_agreement_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
       "key": "primaryColumns.member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.first_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.last_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.email.computedValue"
-    },
-    {
-      "key": "primaryColumns.agreement_template_id.computedValue"
     },
     {
       "key": "primaryColumns.template_name.computedValue"
@@ -66,13 +39,40 @@
       "key": "primaryColumns.template_version.computedValue"
     },
     {
-      "key": "primaryColumns.status.computedValue"
+      "key": "primaryColumns.evidence.computedValue"
     },
     {
       "key": "primaryColumns.review_notes.computedValue"
     },
     {
-      "key": "primaryColumns.evidence.computedValue"
+      "key": "primaryColumns.agreement_template_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.last_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.first_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.email.computedValue"
+    },
+    {
+      "key": "primaryColumns.member_agreement_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.status.computedValue"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [

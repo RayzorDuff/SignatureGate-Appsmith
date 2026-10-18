@@ -8,8 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [
         {
-          "name": "active",
-          "value": ""
+          "name": "active"
         }
       ],
       "paginationType": "NONE",

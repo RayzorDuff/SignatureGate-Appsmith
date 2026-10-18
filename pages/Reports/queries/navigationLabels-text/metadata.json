@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Reports-text",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_919f1dbb-8b21-4d64-90b7-36f0d4606b82",
   "id": "Reports_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Reports",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 29,
+  "bottomRow": 30,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -15,9 +15,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isLoading"
     }
   ],
   "dynamicPropertyPathList": [
@@ -56,7 +53,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "Create type",
-  "topRow": 25,
+  "topRow": 26,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "1749e3cb0e",

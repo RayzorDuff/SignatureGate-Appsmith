@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Facilitator Functions-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_9f725ca6-c2a9-4d8c-af52-736422d5a25b",
   "id": "Facilitator Functions_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Facilitator Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

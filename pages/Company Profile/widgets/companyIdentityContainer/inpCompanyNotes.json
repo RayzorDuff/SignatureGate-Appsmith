@@ -8,10 +8,16 @@
   "defaultText": "{{ qCompanyIdentityNotes.data?.[0]?.notes || '' }}",
   "dynamicBindingPathList": [
     {
+      "key": "defaultText"
+    },
+    {
       "key": "isVisible"
     },
     {
-      "key": "defaultText"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -53,10 +59,10 @@
   "responsiveBehavior": "fill",
   "rightColumn": 42,
   "showStepArrows": false,
+  "tooltip": "Administrative notes shared across identity capacities; edit and give a reason to save.",
   "topRow": 28,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "identity-notes-organization-inpCompanyNotes",
-  "widgetName": "inpCompanyNotes",
-  "tooltip": "Administrative notes shared across identity capacities; edit and give a reason to save."
+  "widgetName": "inpCompanyNotes"
 }

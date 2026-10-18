@@ -10,10 +10,10 @@
       "key": "sourceData"
     },
     {
-      "key": "borderRadius"
+      "key": "placeholderText"
     },
     {
-      "key": "placeholderText"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

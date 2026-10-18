@@ -104,6 +104,9 @@
   "defaultTab": "{{selIntakeEntityType.selectedOptionValue}}",
   "dynamicBindingPathList": [
     {
+      "key": "defaultTab"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -111,9 +114,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "defaultTab"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",

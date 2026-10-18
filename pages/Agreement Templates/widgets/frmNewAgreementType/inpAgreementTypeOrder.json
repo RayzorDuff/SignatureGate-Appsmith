@@ -3,22 +3,23 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 15,
+  "bottomRow": 16,
   "boxShadow": "none",
   "defaultText": "100",
   "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
     {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicTriggerPathList": [],
+  "errorMessage": "Enter a whole number within the integer range.",
   "iconAlign": "left",
   "inputType": "NUMBER",
   "isDisabled": false,
@@ -41,6 +42,8 @@
   "mobileRightColumn": 64,
   "mobileTopRow": 8,
   "needsErrorInfo": false,
+  "originalBottomRow": 15,
+  "originalTopRow": 8,
   "parentColumnSpace": 13.875,
   "parentId": "d79bc86254",
   "parentRowSpace": 10,
@@ -49,13 +52,10 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "showStepArrows": false,
-  "topRow": 8,
+  "topRow": 9,
   "type": "INPUT_WIDGET_V2",
+  "validation": "{{ /^-?\\d+$/.test(String(inpAgreementTypeOrder.text ?? '').trim()) && Number(inpAgreementTypeOrder.text) >= -2147483648 && Number(inpAgreementTypeOrder.text) <= 2147483647 }}",
   "version": 2,
   "widgetId": "ddee7ef12a",
-  "widgetName": "inpAgreementTypeOrder",
-  "originalTopRow": 8,
-  "originalBottomRow": 15,
-  "validation": "{{ /^-?\\d+$/.test(String(inpAgreementTypeOrder.text ?? '').trim()) && Number(inpAgreementTypeOrder.text) >= -2147483648 && Number(inpAgreementTypeOrder.text) <= 2147483647 }}",
-  "errorMessage": "Enter a whole number within the integer range."
+  "widgetName": "inpAgreementTypeOrder"
 }

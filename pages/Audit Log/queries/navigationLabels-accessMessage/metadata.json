@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Audit Log-accessMessage",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_c4219b6c-c44d-4a0d-911c-2c0b0fa00426",
   "id": "Audit Log_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Audit Log",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

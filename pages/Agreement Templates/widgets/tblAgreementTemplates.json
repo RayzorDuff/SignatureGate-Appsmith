@@ -76,39 +76,6 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.agreement_template_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.name.computedValue"
-    },
-    {
-      "key": "primaryColumns.name.isCellEditable"
-    },
-    {
-      "key": "primaryColumns.version.computedValue"
-    },
-    {
-      "key": "primaryColumns.version.isCellEditable"
-    },
-    {
-      "key": "primaryColumns.required_for.computedValue"
-    },
-    {
-      "key": "primaryColumns.doc_url.computedValue"
-    },
-    {
-      "key": "primaryColumns.doc_url.isCellEditable"
-    },
-    {
-      "key": "primaryColumns.active.computedValue"
-    },
-    {
-      "key": "primaryColumns.active.isCellEditable"
-    },
-    {
       "key": "primaryColumns.EditActions1.isSaveVisible"
     },
     {
@@ -124,6 +91,18 @@
       "key": "primaryColumns.EditActions1.discardBorderRadius"
     },
     {
+      "key": "primaryColumns.agreement_template_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.active.computedValue"
+    },
+    {
+      "key": "primaryColumns.active.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
       "key": "primaryColumns.customColumn1.buttonColor"
     },
     {
@@ -133,10 +112,13 @@
       "key": "primaryColumns.customColumn1.boxShadow"
     },
     {
-      "key": "primaryColumns.documenso_template_envelope_id.computedValue"
+      "key": "primaryColumns.documenso_template_id.computedValue"
     },
     {
-      "key": "primaryColumns.documenso_template_envelope_id.isCellEditable"
+      "key": "primaryColumns.version.computedValue"
+    },
+    {
+      "key": "primaryColumns.version.isCellEditable"
     },
     {
       "key": "primaryColumns.documenso_member_recipient_id.computedValue"
@@ -145,16 +127,40 @@
       "key": "primaryColumns.documenso_member_recipient_id.isCellEditable"
     },
     {
+      "key": "primaryColumns.doc_url.computedValue"
+    },
+    {
+      "key": "primaryColumns.doc_url.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.updated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.documenso_template_envelope_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.documenso_template_envelope_id.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.name.computedValue"
+    },
+    {
+      "key": "primaryColumns.name.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.required_for.computedValue"
+    },
+    {
       "key": "primaryColumns.documenso_facilitator_recipient_id.computedValue"
     },
     {
       "key": "primaryColumns.documenso_facilitator_recipient_id.isCellEditable"
     },
     {
-      "key": "primaryColumns.documenso_template_id.computedValue"
+      "key": "allowAddNewRow"
     },
     {
-      "key": "allowAddNewRow"
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -164,18 +170,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.updated_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.displayText"
-    },
-    {
-      "key": "primaryColumns.documenso_facilitator_recipient_id.label"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -283,8 +277,8 @@
   "onRowSelected": "",
   "onSearchTextChanged": "",
   "onSort": "",
-  "originalBottomRow": 53,
-  "originalTopRow": 17,
+  "originalBottomRow": 52,
+  "originalTopRow": 16,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,

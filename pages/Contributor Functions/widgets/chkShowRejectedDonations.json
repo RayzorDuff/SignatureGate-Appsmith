@@ -3,20 +3,20 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 22,
+  "bottomRow": 25,
   "defaultCheckedState": false,
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "isVisible"
     },
     {
       "key": "isDisabled"
     },
     {
-      "key": "isVisible"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -50,15 +50,15 @@
   "mobileTopRow": 274,
   "needsErrorInfo": false,
   "onCheckChange": "{{ cashDonationFlows.refreshDonations() }}",
-  "originalBottomRow": 83,
-  "originalTopRow": 79,
+  "originalBottomRow": 25,
+  "originalTopRow": 21,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 64,
-  "topRow": 18,
+  "topRow": 21,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "hzayht5zgl",

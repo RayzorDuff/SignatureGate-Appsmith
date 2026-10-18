@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 26,
+  "bottomRow": 27,
   "boxShadow": "none",
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
@@ -10,13 +10,13 @@
       "key": "sourceData"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "isDisabled"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -70,7 +70,7 @@
   "serverSideFiltering": false,
   "shouldScrollContents": true,
   "sourceData": "{{ (qAgreementTemplatesByType.data || []).map(item => ({ ...item, display_label: `${item.name || ''}${item.version ? ' (' + item.version + ')' : ''}`.trim() })) }}",
-  "topRow": 19,
+  "topRow": 20,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "x4wqjv1ga7",

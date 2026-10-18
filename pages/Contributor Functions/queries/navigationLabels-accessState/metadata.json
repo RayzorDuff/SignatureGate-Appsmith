@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Contributor Functions-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_2175ae75-0950-4250-a53b-b111cf6c407d",
   "id": "Contributor Functions_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Contributor Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

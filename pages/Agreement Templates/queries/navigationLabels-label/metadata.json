@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Agreement Templates-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_5e71840e-201a-472d-a53c-c7090e210283",
   "id": "Agreement Templates_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Agreement Templates",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

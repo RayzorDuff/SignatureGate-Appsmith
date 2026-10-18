@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Terminology Administration-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_34877d00-b2c7-4a6a-8953-65f381179936",
   "id": "Terminology Administration_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Terminology Administration",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

@@ -3,11 +3,17 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 27,
+  "bottomRow": 28,
   "defaultCheckedState": true,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -29,13 +35,15 @@
   "mobileRightColumn": 30,
   "mobileTopRow": 40,
   "onCheckChange": "{{cashDepositFlows.setHideIneligible(chkCashDepositHideIneligible.isChecked)}}",
+  "originalBottomRow": 27,
+  "originalTopRow": 23,
   "parentColumnSpace": 19.125,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 34,
-  "topRow": 23,
+  "topRow": 24,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "verticalAlignment": "CENTER",

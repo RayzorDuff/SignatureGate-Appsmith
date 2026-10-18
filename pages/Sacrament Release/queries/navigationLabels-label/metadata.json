@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Sacrament Release-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_24e8d774-ab6f-4a99-9c98-398093afdf82",
   "id": "Sacrament Release_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Sacrament Release",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 139,
+  "bottomRow": 147,
   "boxShadow": "none",
   "closeOnSelection": true,
   "dateFormat": "LL",
@@ -11,6 +11,9 @@
   "dynamicBindingPathList": [
     {
       "key": "defaultDate"
+    },
+    {
+      "key": "label"
     },
     {
       "key": "minDate"
@@ -26,9 +29,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "label"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -59,8 +59,8 @@
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
   "mobileTopRow": 162,
-  "originalBottomRow": 158,
-  "originalTopRow": 150,
+  "originalBottomRow": 139,
+  "originalTopRow": 132,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -69,7 +69,7 @@
   "rightColumn": 14,
   "shortcuts": false,
   "timePrecision": "None",
-  "topRow": 132,
+  "topRow": 140,
   "type": "DATE_PICKER_WIDGET2",
   "version": 2,
   "widgetId": "cdepdate01",

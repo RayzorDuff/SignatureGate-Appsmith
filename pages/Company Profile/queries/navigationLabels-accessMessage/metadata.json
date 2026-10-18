@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Company Profile-accessMessage",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_44e89c03-f8fb-4c03-94f4-c1b36fb4acc7",
   "id": "Company Profile_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Company Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

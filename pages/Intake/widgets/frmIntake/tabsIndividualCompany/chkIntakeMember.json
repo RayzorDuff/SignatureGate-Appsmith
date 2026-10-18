@@ -7,10 +7,16 @@
   "defaultCheckedState": false,
   "dynamicBindingPathList": [
     {
+      "key": "label"
+    },
+    {
       "key": "isVisible"
     },
     {
-      "key": "label"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [

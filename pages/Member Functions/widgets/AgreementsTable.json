@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 59,
+  "bottomRow": 60,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -78,34 +78,43 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.created_at.computedValue"
+      "key": "primaryColumns.documenso_document_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.EditActions1.isSaveDisabled"
+    },
+    {
+      "key": "primaryColumns.EditActions1.isDiscardDisabled"
+    },
+    {
+      "key": "primaryColumns.EditActions1.saveButtonColor"
+    },
+    {
+      "key": "primaryColumns.EditActions1.saveBorderRadius"
+    },
+    {
+      "key": "primaryColumns.EditActions1.discardBorderRadius"
+    },
+    {
+      "key": "primaryColumns.canceled_by.computedValue"
+    },
+    {
+      "key": "primaryColumns.documenso_external_id.computedValue"
     },
     {
       "key": "primaryColumns.evidence.computedValue"
     },
     {
-      "key": "primaryColumns.facilitator_id.computedValue"
+      "key": "primaryColumns.canceled_at.computedValue"
     },
     {
-      "key": "primaryColumns.facilitator_signed_at.computedValue"
+      "key": "primaryColumns.review_notes.computedValue"
     },
     {
-      "key": "primaryColumns.member_agreement_id.computedValue"
+      "key": "primaryColumns.review_notes.isCellEditable"
     },
     {
-      "key": "primaryColumns.member_signed_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.opensign_document_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.signature_method.computedValue"
-    },
-    {
-      "key": "primaryColumns.status.computedValue"
-    },
-    {
-      "key": "primaryColumns.template_name.computedValue"
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
       "key": "primaryColumns.customColumn1.isCellVisible"
@@ -138,25 +147,52 @@
       "key": "primaryColumns.customColumn2.boxShadow"
     },
     {
-      "key": "primaryColumns.review_notes.computedValue"
+      "key": "primaryColumns.expired_at.computedValue"
     },
     {
-      "key": "primaryColumns.review_notes.isCellEditable"
+      "key": "primaryColumns.customColumn3.isCellVisible"
     },
     {
-      "key": "primaryColumns.EditActions1.isSaveDisabled"
+      "key": "primaryColumns.customColumn3.isDisabled"
     },
     {
-      "key": "primaryColumns.EditActions1.isDiscardDisabled"
+      "key": "primaryColumns.customColumn3.buttonColor"
     },
     {
-      "key": "primaryColumns.EditActions1.saveButtonColor"
+      "key": "primaryColumns.customColumn3.borderRadius"
     },
     {
-      "key": "primaryColumns.EditActions1.saveBorderRadius"
+      "key": "primaryColumns.customColumn3.boxShadow"
     },
     {
-      "key": "primaryColumns.EditActions1.discardBorderRadius"
+      "key": "primaryColumns.member_agreement_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.member_signed_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.cancel_reason.computedValue"
+    },
+    {
+      "key": "primaryColumns.template_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.facilitator_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.opensign_document_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.signature_method.computedValue"
+    },
+    {
+      "key": "primaryColumns.facilitator_signed_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.status.computedValue"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -166,51 +202,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.customColumn3.borderRadius"
-    },
-    {
-      "key": "primaryColumns.customColumn3.boxShadow"
-    },
-    {
-      "key": "primaryColumns.customColumn3.buttonColor"
-    },
-    {
-      "key": "primaryColumns.customColumn3.isDisabled"
-    },
-    {
-      "key": "primaryColumns.customColumn3.isCellVisible"
-    },
-    {
-      "key": "primaryColumns.documenso_document_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.documenso_external_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.canceled_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.canceled_by.computedValue"
-    },
-    {
-      "key": "primaryColumns.cancel_reason.computedValue"
-    },
-    {
-      "key": "primaryColumns.expired_at.computedValue"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "primaryColumns.customColumn1.isVisible"
-    },
-    {
-      "key": "primaryColumns.customColumn2.isVisible"
-    },
-    {
-      "key": "primaryColumns.customColumn3.isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -1045,7 +1036,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{qMemberAgreements.data}}",
   "textSize": "0.875rem",
-  "topRow": 42,
+  "topRow": 43,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

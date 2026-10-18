@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 16,
+  "bottomRow": 19,
   "boxShadow": "none",
   "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  appsmith.store.facilitator_id ))(inpFacilitator.options, inpFacilitator.serverSideFiltering) }}",
   "dynamicBindingPathList": [
@@ -13,13 +13,13 @@
       "key": "defaultOptionValue"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "isDisabled"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -62,8 +62,8 @@
   "onFilterUpdate": "{{\n            qListFacilitators.run();\n            \n          }}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 34,
-  "originalTopRow": 27,
+  "originalBottomRow": 16,
+  "originalTopRow": 12,
   "parentColumnSpace": 9.77734375,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -73,7 +73,7 @@
   "rightColumn": 64,
   "serverSideFiltering": true,
   "sourceData": "{{ (qListFacilitators.data || []).slice().sort((a, b) => `${a.last_name || ''} ${a.first_name || ''}`.localeCompare(`${b.last_name || ''} ${b.first_name || ''}`)).map(i => ({ label: `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.member_id })) }}",
-  "topRow": 12,
+  "topRow": 15,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "xpmdiuix2z",

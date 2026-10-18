@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Terminology Administration-text",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_ecb504db-3fe7-4d37-b380-e4cad3576594",
   "id": "Terminology Administration_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Terminology Administration",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

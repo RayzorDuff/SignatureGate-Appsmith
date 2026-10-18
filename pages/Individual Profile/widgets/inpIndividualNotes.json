@@ -3,15 +3,21 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 54,
+  "bottomRow": 56,
   "boxShadow": "none",
   "defaultText": "{{ qIndividualIdentityNotes.data?.[0]?.notes || '' }}",
   "dynamicBindingPathList": [
     {
+      "key": "defaultText"
+    },
+    {
       "key": "isVisible"
     },
     {
-      "key": "defaultText"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -53,10 +59,10 @@
   "responsiveBehavior": "fill",
   "rightColumn": 42,
   "showStepArrows": false,
-  "topRow": 48,
+  "tooltip": "Administrative notes shared across identity capacities; edit and give a reason to save.",
+  "topRow": 50,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "identity-notes-individual-inpIndividualNotes",
-  "widgetName": "inpIndividualNotes",
-  "tooltip": "Administrative notes shared across identity capacities; edit and give a reason to save."
+  "widgetName": "inpIndividualNotes"
 }

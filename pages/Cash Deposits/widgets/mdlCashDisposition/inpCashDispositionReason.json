@@ -8,13 +8,13 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
+      "key": "isDisabled"
+    },
+    {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isDisabled"
     }
   ],
   "dynamicHeight": "FIXED",

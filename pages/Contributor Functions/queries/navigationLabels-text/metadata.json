@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Contributor Functions-text",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_e5106392-04f9-4d52-ae6d-c459d0686100",
   "id": "Contributor Functions_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Contributor Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

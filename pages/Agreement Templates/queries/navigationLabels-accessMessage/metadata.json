@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Agreement Templates-accessMessage",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_76411c89-c4f9-4cb3-8022-a3407aaba9f0",
   "id": "Agreement Templates_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Agreement Templates",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

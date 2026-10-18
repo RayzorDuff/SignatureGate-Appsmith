@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 55,
+  "bottomRow": 56,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -67,25 +67,25 @@
       "key": "primaryColumns.member_id.computedValue"
     },
     {
-      "key": "primaryColumns.status.computedValue"
+      "key": "primaryColumns.practitioner_member_id.computedValue"
     },
     {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.updated_at.computedValue"
+      "key": "primaryColumns.member_practitioner_assignment_id.computedValue"
     },
     {
       "key": "primaryColumns.notes.computedValue"
     },
     {
-      "key": "primaryColumns.first_name.computedValue"
+      "key": "primaryColumns.participant_person_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.updated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
       "key": "primaryColumns.last_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.email.computedValue"
     },
     {
       "key": "primaryColumns.customColumn1.buttonLabel"
@@ -106,6 +106,15 @@
       "key": "primaryColumns.customColumn1.boxShadow"
     },
     {
+      "key": "primaryColumns.first_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.email.computedValue"
+    },
+    {
+      "key": "primaryColumns.status.computedValue"
+    },
+    {
       "key": "isVisible"
     },
     {
@@ -116,21 +125,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.member_practitioner_assignment_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.participant_person_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.practitioner_member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.first_name.label"
-    },
-    {
-      "key": "primaryColumns.last_name.label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -176,8 +170,8 @@
   "mobileRightColumn": 21,
   "mobileTopRow": 202,
   "needsErrorInfo": false,
-  "originalBottomRow": 80,
-  "originalTopRow": 48,
+  "originalBottomRow": 55,
+  "originalTopRow": 23,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -578,7 +572,7 @@
   "searchKey": "",
   "tableData": "{{ qAssignedParticipants.data || [] }}",
   "textSize": "0.875rem",
-  "topRow": 23,
+  "topRow": 24,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

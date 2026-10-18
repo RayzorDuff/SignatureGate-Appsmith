@@ -1,86 +1,14 @@
 {
-  "widgetName": "navMenuPeople",
-  "widgetId": "navMenuPeople",
-  "key": "navMenuPeople",
-  "parentId": "0",
-  "type": "MENU_BUTTON_WIDGET",
-  "version": 1,
-  "menuItemsSource": "STATIC",
-  "menuItems": {
-    "item1": {
-      "id": "item1",
-      "widgetId": "navMenuPeople",
-      "index": 0,
-      "label": "{{ navigationLabels.text(\"Directory\") }}",
-      "isVisible": "{{ true }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Directory\",{},\"SAME_WINDOW\") }}"
-    },
-    "item2": {
-      "id": "item2",
-      "widgetId": "navMenuPeople",
-      "index": 1,
-      "label": "{{ navigationLabels.text(\"Intake\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_intake === true }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Intake\",{},\"SAME_WINDOW\") }}"
-    },
-    "item3": {
-      "id": "item3",
-      "widgetId": "navMenuPeople",
-      "index": 2,
-      "label": "{{ navigationLabels.text(\"Legacy Intake\") }}",
-      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true }}",
-      "isDisabled": false,
-      "onClick": "{{ navigateTo(\"Members – Intake\",{},\"SAME_WINDOW\") }}"
-    },
-    "refresh": {
-      "id": "refresh",
-      "widgetId": "navMenuPeople",
-      "index": 3,
-      "label": "Refresh access",
-      "isVisible": true,
-      "isDisabled": false,
-      "onClick": "{{ navigationLabels.initialize() }}"
-    }
-  },
-  "label": "People & Organizations",
-  "menuVariant": "SECONDARY",
-  "menuColor": "{{appsmith.theme.colors.primaryColor}}",
-  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "boxShadow": "none",
-  "isCompact": false,
-  "isDisabled": false,
-  "isVisible": "{{ true }}",
   "animateLoading": true,
-  "placement": "CENTER",
-  "renderMode": "CANVAS",
-  "responsiveBehavior": "hug",
-  "minWidth": 120,
-  "topRow": 0,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 4,
-  "originalTopRow": 0,
-  "originalBottomRow": 4,
-  "leftColumn": 0,
-  "rightColumn": 16,
-  "parentRowSpace": 10,
-  "parentColumnSpace": 19.125,
-  "mobileTopRow": 0,
-  "mobileBottomRow": 4,
-  "mobileLeftColumn": 0,
-  "mobileRightColumn": 64,
+  "boxShadow": "none",
   "dynamicBindingPathList": [
     {
-      "key": "label"
+      "key": "menuItems.item2.label"
     },
     {
-      "key": "menuColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
+      "key": "menuItems.item2.isVisible"
     },
     {
       "key": "menuItems.item1.label"
@@ -89,16 +17,33 @@
       "key": "menuItems.item1.isVisible"
     },
     {
-      "key": "menuItems.item2.label"
-    },
-    {
-      "key": "menuItems.item2.isVisible"
-    },
-    {
       "key": "menuItems.item3.label"
     },
     {
       "key": "menuItems.item3.isVisible"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "menuColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "menuItems.item1.onClick"
+    },
+    {
+      "key": "menuItems.item2.onClick"
+    },
+    {
+      "key": "menuItems.item3.onClick"
+    },
+    {
+      "key": "menuItems.refresh.onClick"
     }
   ],
   "dynamicTriggerPathList": [
@@ -115,18 +60,70 @@
       "key": "menuItems.refresh.onClick"
     }
   ],
-  "dynamicPropertyPathList": [
-    {
-      "key": "menuItems.item1.onClick"
+  "isCompact": false,
+  "isDisabled": false,
+  "isVisible": "{{ true }}",
+  "key": "navMenuPeople",
+  "label": "People & Organizations",
+  "leftColumn": 0,
+  "menuColor": "{{appsmith.theme.colors.primaryColor}}",
+  "menuItems": {
+    "item1": {
+      "id": "item1",
+      "index": 0,
+      "isDisabled": false,
+      "isVisible": "{{ true }}",
+      "label": "{{ navigationLabels.text(\"Directory\") }}",
+      "onClick": "{{ navigateTo(\"Directory\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuPeople"
     },
-    {
-      "key": "menuItems.item2.onClick"
+    "item2": {
+      "id": "item2",
+      "index": 1,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.can_intake === true }}",
+      "label": "{{ navigationLabels.text(\"Intake\") }}",
+      "onClick": "{{ navigateTo(\"Intake\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuPeople"
     },
-    {
-      "key": "menuItems.item3.onClick"
+    "item3": {
+      "id": "item3",
+      "index": 2,
+      "isDisabled": false,
+      "isVisible": "{{ Boolean(qNavigationAccess.data?.[0]?.person_id && String(qNavigationAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && qNavigationAccess.data?.[0]?.is_document_reviewer === true }}",
+      "label": "{{ navigationLabels.text(\"Legacy Intake\") }}",
+      "onClick": "{{ navigateTo(\"Members – Intake\",{},\"SAME_WINDOW\") }}",
+      "widgetId": "navMenuPeople"
     },
-    {
-      "key": "menuItems.refresh.onClick"
+    "refresh": {
+      "id": "refresh",
+      "index": 3,
+      "isDisabled": false,
+      "isVisible": true,
+      "label": "Refresh access",
+      "onClick": "{{ navigationLabels.initialize() }}",
+      "widgetId": "navMenuPeople"
     }
-  ]
+  },
+  "menuItemsSource": "STATIC",
+  "menuVariant": "SECONDARY",
+  "minWidth": 120,
+  "mobileBottomRow": 4,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 0,
+  "originalBottomRow": 4,
+  "originalTopRow": 0,
+  "parentColumnSpace": 19.125,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "hug",
+  "rightColumn": 16,
+  "topRow": 0,
+  "type": "MENU_BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "navMenuPeople",
+  "widgetName": "navMenuPeople"
 }

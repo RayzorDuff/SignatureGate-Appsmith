@@ -1,12 +1,15 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 135,
+  "bottomRow": 136,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
     {
       "key": "isVisible"
     },
@@ -15,9 +18,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
@@ -58,7 +58,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 49,
   "text": "{{ navigationLabels.text(\"Assign Facilitator\") }}",
-  "topRow": 131,
+  "topRow": 132,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "q0whh1ujhv",

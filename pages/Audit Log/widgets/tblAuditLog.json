@@ -69,43 +69,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
+      "key": "tableData"
     },
     {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
+      "key": "primaryColumns.detail_member_name.computedValue"
     },
     {
       "key": "primaryColumns.created_at.computedValue"
     },
     {
-      "key": "tableData"
-    },
-    {
-      "key": "primaryColumns.actor.computedValue"
-    },
-    {
-      "key": "primaryColumns.action.computedValue"
-    },
-    {
-      "key": "primaryColumns.entity_type.computedValue"
-    },
-    {
-      "key": "primaryColumns.entity_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.details.computedValue"
-    },
-    {
-      "key": "primaryColumns.audit_log_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.customColumn1.computedValue"
-    },
-    {
-      "key": "primaryColumns.customColumn1.displayText"
+      "key": "primaryColumns.customColumn1.buttonColor"
     },
     {
       "key": "primaryColumns.customColumn1.borderRadius"
@@ -114,25 +87,46 @@
       "key": "primaryColumns.customColumn1.boxShadow"
     },
     {
-      "key": "primaryColumns.customColumn1.buttonColor"
-    },
-    {
-      "key": "primaryColumns.actor_member_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.detail_member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.detail_member_name.computedValue"
+      "key": "primaryColumns.detail_facilitator_name.computedValue"
     },
     {
       "key": "primaryColumns.detail_facilitator_id.computedValue"
     },
     {
-      "key": "primaryColumns.detail_facilitator_name.computedValue"
+      "key": "primaryColumns.entity_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.actor.computedValue"
+    },
+    {
+      "key": "primaryColumns.entity_type.computedValue"
+    },
+    {
+      "key": "primaryColumns.detail_member_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.action.computedValue"
+    },
+    {
+      "key": "primaryColumns.details.computedValue"
+    },
+    {
+      "key": "primaryColumns.actor_member_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.audit_log_id.computedValue"
     },
     {
       "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [
@@ -195,8 +189,8 @@
   "onRowSelected": "",
   "onSearchTextChanged": "{{\n            qAuditLogList.run();\n           \n          }}",
   "onSort": "{{\n            qAuditLogList.run();\n          }}",
-  "originalBottomRow": 73,
-  "originalTopRow": 27,
+  "originalBottomRow": 62,
+  "originalTopRow": 16,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,

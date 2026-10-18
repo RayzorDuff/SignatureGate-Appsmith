@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Facilitator Functions-accessMessage",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_cd8f4812-d702-4184-a17a-36d96aafcdcb",
   "id": "Facilitator Functions_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Facilitator Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

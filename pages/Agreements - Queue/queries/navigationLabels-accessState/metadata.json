@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Agreements - Queue-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_7464501a-21da-452b-b099-fc26114b8b24",
   "id": "Agreements - Queue_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Agreements - Queue",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 123,
+  "bottomRow": 122,
   "boxShadow": "none",
   "defaultOptionValue": "",
   "dynamicBindingPathList": [
@@ -60,7 +60,7 @@
   "rightColumn": 64,
   "serverSideFiltering": false,
   "sourceData": "{{ (qReusablePersonContacts.data || []).map(c => ({label: (c.target_role === 'membership' ? 'Use for membership: ' : 'Use for contributions: ') + c.contact_kind + ' — ' + c.contact_detail + (c.target_role === 'contributions' && qIndividualProfile.data?.[0]?.contributor_status !== 'active' ? ' (active contributor required)' : c.target_role === 'membership' && !qIndividualProfile.data?.[0]?.member_id ? ' (active membership required)' : ''), value: c.source_table + ':' + c.source_id})) }}",
-  "topRow": 117,
+  "topRow": 116,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "c90f800b3d",

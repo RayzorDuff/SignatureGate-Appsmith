@@ -1,20 +1,20 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 50,
+  "bottomRow": 49,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "isVisible"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -40,8 +40,8 @@
   "mobileTopRow": 50,
   "needsErrorInfo": false,
   "onClick": "{{ navigateTo(\"Directory\", {}, \"SAME_WINDOW\") }}",
-  "originalBottomRow": 16,
-  "originalTopRow": 12,
+  "originalBottomRow": 50,
+  "originalTopRow": 46,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -52,7 +52,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 51,
   "text": "Return to Directory",
-  "topRow": 46,
+  "topRow": 45,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "66510bdc-f9d1-4fc7-8163-e1471ff54e05",

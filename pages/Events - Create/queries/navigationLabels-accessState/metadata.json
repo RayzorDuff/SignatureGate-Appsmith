@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Events - Create-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_7564fe43-bd24-4035-aa25-aa2c03fb0293",
   "id": "Events - Create_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Events - Create",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

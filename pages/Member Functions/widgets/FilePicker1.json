@@ -2,7 +2,7 @@
   "allowedFileTypes": "[\n  \"image/*\",\n  \"image/jpeg\",\n  \".png\",\n\t\"application/pdf\",\n\t\".pdf\"\n]",
   "animateLoading": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 33,
+  "bottomRow": 34,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "dynamicBindingPathList": [
@@ -14,9 +14,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -64,7 +61,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 38,
   "selectedFiles": [],
-  "topRow": 28,
+  "topRow": 29,
   "type": "FILE_PICKER_WIDGET_V2",
   "version": 1,
   "widgetId": "1id805j7vo",

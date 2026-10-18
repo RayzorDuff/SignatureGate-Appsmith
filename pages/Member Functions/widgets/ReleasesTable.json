@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 92,
+  "bottomRow": 93,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -81,76 +81,16 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.event_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.facilitator_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.item_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.member_agreement_id.computedValue"
-    },
-    {
       "key": "primaryColumns.member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.mushroomprocess_product_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.net_weight_g.computedValue"
-    },
-    {
-      "key": "primaryColumns.notes.computedValue"
-    },
-    {
-      "key": "primaryColumns.quantity.computedValue"
-    },
-    {
-      "key": "primaryColumns.release_type.computedValue"
-    },
-    {
-      "key": "primaryColumns.released_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.released_by.computedValue"
     },
     {
       "key": "primaryColumns.strain.computedValue"
     },
     {
-      "key": "primaryColumns.unit.computedValue"
-    },
-    {
-      "key": "primaryColumns.customColumn1.isDisabled"
-    },
-    {
-      "key": "primaryColumns.customColumn1.buttonColor"
-    },
-    {
-      "key": "primaryColumns.customColumn1.borderRadius"
-    },
-    {
-      "key": "primaryColumns.customColumn1.boxShadow"
-    },
-    {
-      "key": "primaryColumns.status.computedValue"
+      "key": "primaryColumns.release_id.computedValue"
     },
     {
       "key": "primaryColumns.voided_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.voided_by.computedValue"
-    },
-    {
-      "key": "primaryColumns.void_reason.computedValue"
-    },
-    {
-      "key": "primaryColumns.void_reason.isCellEditable"
     },
     {
       "key": "primaryColumns.EditActions1.isSaveDisabled"
@@ -168,10 +108,76 @@
       "key": "primaryColumns.EditActions1.discardBorderRadius"
     },
     {
-      "key": "primaryColumns.release_id.computedValue"
+      "key": "primaryColumns.notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.quantity.computedValue"
+    },
+    {
+      "key": "primaryColumns.net_weight_g.computedValue"
     },
     {
       "key": "primaryColumns.storage_location_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.released_by.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.release_type.computedValue"
+    },
+    {
+      "key": "primaryColumns.customColumn1.isCellVisible"
+    },
+    {
+      "key": "primaryColumns.customColumn1.isDisabled"
+    },
+    {
+      "key": "primaryColumns.customColumn1.buttonColor"
+    },
+    {
+      "key": "primaryColumns.customColumn1.borderRadius"
+    },
+    {
+      "key": "primaryColumns.customColumn1.boxShadow"
+    },
+    {
+      "key": "primaryColumns.item_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.released_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.member_agreement_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.void_reason.computedValue"
+    },
+    {
+      "key": "primaryColumns.void_reason.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.mushroomprocess_product_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.unit.computedValue"
+    },
+    {
+      "key": "primaryColumns.event_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.facilitator_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.voided_by.computedValue"
+    },
+    {
+      "key": "primaryColumns.status.computedValue"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -181,18 +187,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "primaryColumns.customColumn1.isVisible"
-    },
-    {
-      "key": "primaryColumns.customColumn1.isCellVisible"
-    },
-    {
-      "key": "primaryColumns.facilitator_id.label"
     }
   ],
   "dynamicPropertyPathList": [
@@ -1048,7 +1042,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{qMemberReleases.data}}",
   "textSize": "0.875rem",
-  "topRow": 63,
+  "topRow": 64,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

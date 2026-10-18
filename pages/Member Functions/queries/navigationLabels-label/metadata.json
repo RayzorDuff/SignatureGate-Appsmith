@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Member Functions-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_9fca1e44-69fa-489a-861b-57de4f692093",
   "id": "Member Functions_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Member Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

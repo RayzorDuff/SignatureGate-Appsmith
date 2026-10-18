@@ -7,28 +7,22 @@
   "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  appsmith.store.facilitator_id ))(inpFacilitator.options, inpFacilitator.serverSideFiltering) }}",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
     },
     {
       "key": "defaultOptionValue"
     },
     {
+      "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
       "key": "isDisabled"
     },
     {
-      "key": "sourceData"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

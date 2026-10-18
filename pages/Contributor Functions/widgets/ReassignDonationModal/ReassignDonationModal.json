@@ -1,14 +1,14 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 355,
+  "bottomRow": 475,
   "boxShadow": "none",
   "canEscapeKeyClose": false,
   "canOutsideClickClose": false,
   "children": [
     {
       "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-      "bottomRow": 380,
+      "bottomRow": 370,
       "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
       "canExtend": true,
       "detachFromLayout": true,
@@ -57,7 +57,12 @@
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
-  "height": 380,
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClose"
+    }
+  ],
+  "height": 370,
   "isCanvas": true,
   "isLoading": false,
   "key": "j3po2ddmbg",
@@ -70,6 +75,7 @@
   "mobileRightColumn": 19,
   "mobileTopRow": 163,
   "needsErrorInfo": false,
+  "onClose": "{{ cashDonationFlows.clearReassign() }}",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -81,11 +87,5 @@
   "version": 2,
   "widgetId": "jwninnx2qp",
   "widgetName": "ReassignDonationModal",
-  "width": 520,
-  "onClose": "{{ cashDonationFlows.clearReassign() }}",
-  "dynamicTriggerPathList": [
-    {
-      "key": "onClose"
-    }
-  ]
+  "width": 520
 }

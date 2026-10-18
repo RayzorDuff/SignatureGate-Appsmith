@@ -1,12 +1,15 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 128,
+  "bottomRow": 136,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "SECONDARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
     {
       "key": "isDisabled"
     },
@@ -15,9 +18,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -46,8 +46,8 @@
   "mobileTopRow": 107,
   "needsErrorInfo": false,
   "onClick": "{{ cashDepositFlows.retryERPSync() }}",
-  "originalBottomRow": 131,
-  "originalTopRow": 127,
+  "originalBottomRow": 128,
+  "originalTopRow": 124,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -59,7 +59,7 @@
   "rightColumn": 47,
   "text": "Retry ERP Sync",
   "tooltip": "Retry ERPNext synchronization for a confirmed deposit batch.",
-  "topRow": 124,
+  "topRow": 132,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "cashdepositerpretrywidget",

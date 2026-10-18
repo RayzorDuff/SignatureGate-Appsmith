@@ -1,17 +1,15 @@
 {
-  "gitSyncId": "navigation-labels-Terminology Administration-initialize",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_fe84e934-819a-4fc6-a197-490a0c984936",
   "id": "Terminology Administration_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "isAsync": true,
       "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 60000
     },
-    "clientSideExecution": true,
     "collectionId": "Terminology Administration_navigationLabels",
     "confirmBeforeExecute": false,
     "datasource": {
@@ -27,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Terminology Administration",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

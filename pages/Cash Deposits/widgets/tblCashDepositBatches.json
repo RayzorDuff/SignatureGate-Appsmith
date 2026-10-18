@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 124,
+  "bottomRow": 132,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -69,16 +69,43 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.deposit_batch_id.computedValue"
+      "key": "primaryColumns.cancelled_at.computedValue"
     },
     {
-      "key": "primaryColumns.status.computedValue"
+      "key": "primaryColumns.item_count.computedValue"
     },
     {
-      "key": "primaryColumns.batch_created_at.computedValue"
+      "key": "primaryColumns.item_total_cents.computedValue"
+    },
+    {
+      "key": "primaryColumns.preparer_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.verifier_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.actual_amount_cents.computedValue"
+    },
+    {
+      "key": "primaryColumns.cancelled_by.computedValue"
+    },
+    {
+      "key": "primaryColumns.destination_bank_account.computedValue"
+    },
+    {
+      "key": "primaryColumns.preparer_email.computedValue"
+    },
+    {
+      "key": "primaryColumns.expected_amount_cents.computedValue"
     },
     {
       "key": "primaryColumns.batch_updated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.prepared_by.computedValue"
+    },
+    {
+      "key": "primaryColumns.deposit_batch_id.computedValue"
     },
     {
       "key": "primaryColumns.deposit_date.computedValue"
@@ -87,22 +114,10 @@
       "key": "primaryColumns.deposit_slip_number.computedValue"
     },
     {
-      "key": "primaryColumns.destination_bank_account.computedValue"
+      "key": "primaryColumns.print.buttonLabel"
     },
     {
-      "key": "primaryColumns.preparer_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.preparer_email.computedValue"
-    },
-    {
-      "key": "primaryColumns.prepared_by.computedValue"
-    },
-    {
-      "key": "primaryColumns.prepared_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.verifier_id.computedValue"
+      "key": "primaryColumns.print.isDisabled"
     },
     {
       "key": "primaryColumns.verifier_email.computedValue"
@@ -111,22 +126,16 @@
       "key": "primaryColumns.confirmed_at.computedValue"
     },
     {
-      "key": "primaryColumns.cancelled_at.computedValue"
+      "key": "primaryColumns.prepared_at.computedValue"
     },
     {
-      "key": "primaryColumns.cancelled_by.computedValue"
+      "key": "primaryColumns.batch_created_at.computedValue"
     },
     {
-      "key": "primaryColumns.expected_amount_cents.computedValue"
+      "key": "primaryColumns.status.computedValue"
     },
     {
-      "key": "primaryColumns.actual_amount_cents.computedValue"
-    },
-    {
-      "key": "primaryColumns.item_count.computedValue"
-    },
-    {
-      "key": "primaryColumns.item_total_cents.computedValue"
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -136,15 +145,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.print.buttonLabel"
-    },
-    {
-      "key": "primaryColumns.print.isDisabled"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -174,8 +174,8 @@
   "mobileRightColumn": 42,
   "mobileTopRow": 88,
   "needsErrorInfo": false,
-  "originalBottomRow": 138,
-  "originalTopRow": 99,
+  "originalBottomRow": 124,
+  "originalTopRow": 85,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -890,7 +890,7 @@
   "tableData": "{{ qCashDepositBatches.data }}",
   "textSize": "0.875rem",
   "tooltip": "Select a deposit batch to view or perform its available actions.",
-  "topRow": 85,
+  "topRow": 93,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

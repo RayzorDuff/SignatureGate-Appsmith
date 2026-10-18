@@ -2,8 +2,13 @@
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 4,
-  "dynamicBindingPathList": [],
+  "dynamicBindingPathList": [
+    {
+      "key": "fontFamily"
+    }
+  ],
   "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1rem",
@@ -38,6 +43,5 @@
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "companycontact87f520243b7842",
-  "widgetName": "txtCompanyContactPeopleHeading",
-  "dynamicPropertyPathList": []
+  "widgetName": "txtCompanyContactPeopleHeading"
 }

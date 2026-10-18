@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 28,
+  "bottomRow": 31,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -11,6 +11,9 @@
       "key": "tooltip"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "isDisabled"
     },
     {
@@ -18,9 +21,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -49,8 +49,8 @@
   "mobileTopRow": 97,
   "needsErrorInfo": false,
   "onClick": "{{releaseFlows.issueRelease();}}",
-  "originalBottomRow": 32,
-  "originalTopRow": 28,
+  "originalBottomRow": 28,
+  "originalTopRow": 24,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -62,7 +62,7 @@
   "rightColumn": 30,
   "text": "Record Sacrament Release",
   "tooltip": "{{\n!qGateCheckAgreement.data?.length && appsmith.store.facilitator_is_reviewer\n  ? \"Reviewer override: notes required\"\n  : \"\"\n}}",
-  "topRow": 24,
+  "topRow": 27,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "jd8pypql8f",

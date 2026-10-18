@@ -51,25 +51,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.bucket_start.computedValue"
+      "key": "primaryColumns.metric_key.computedValue"
     },
     {
       "key": "primaryColumns.bucket_label.computedValue"
     },
     {
-      "key": "primaryColumns.metric_key.computedValue"
+      "key": "primaryColumns.bucket_start.computedValue"
     },
     {
       "key": "primaryColumns.metric_label.computedValue"
@@ -79,6 +70,15 @@
     },
     {
       "key": "primaryColumns.value.computedValue"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [

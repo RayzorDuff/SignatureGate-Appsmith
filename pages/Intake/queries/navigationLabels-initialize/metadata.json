@@ -1,17 +1,15 @@
 {
-  "gitSyncId": "navigation-labels-Intake-initialize",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_306ce200-7537-4007-ac6a-faf01bbb7fd3",
   "id": "Intake_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "isAsync": true,
       "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 60000
     },
-    "clientSideExecution": true,
     "collectionId": "Intake_navigationLabels",
     "confirmBeforeExecute": false,
     "datasource": {
@@ -27,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Intake",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

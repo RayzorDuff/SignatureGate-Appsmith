@@ -9,6 +9,9 @@
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "isDisabled"
+    },
+    {
       "key": "buttonColor"
     },
     {

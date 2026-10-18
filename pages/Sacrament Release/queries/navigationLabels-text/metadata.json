@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Sacrament Release-text",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_bb4be10b-efa6-4d3e-b313-8fe2a55d6779",
   "id": "Sacrament Release_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Sacrament Release",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

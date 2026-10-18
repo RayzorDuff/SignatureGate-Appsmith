@@ -1,17 +1,15 @@
 {
-  "gitSyncId": "navigation-labels-Individual Profile-initialize",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_9c55d966-edde-4ad1-83d0-a0aa71f12298",
   "id": "Individual Profile_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "isAsync": true,
       "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 60000
     },
-    "clientSideExecution": true,
     "collectionId": "Individual Profile_navigationLabels",
     "confirmBeforeExecute": false,
     "datasource": {
@@ -27,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Individual Profile",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

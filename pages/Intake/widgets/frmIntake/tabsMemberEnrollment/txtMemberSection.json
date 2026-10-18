@@ -3,6 +3,9 @@
   "dynamicBindingPathList": [
     {
       "key": "text"
+    },
+    {
+      "key": "fontFamily"
     }
   ],
   "dynamicPropertyPathList": [],

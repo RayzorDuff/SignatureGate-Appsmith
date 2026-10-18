@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": 1,
-  "bottomRow": 105,
+  "bottomRow": 112,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "children": [
     {
@@ -58,6 +58,9 @@
   "defaultTab": "Contributor Enrollment",
   "dynamicBindingPathList": [
     {
+      "key": "isVisible"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -65,12 +68,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "tabsObj.tab1.label"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -114,7 +111,7 @@
       "widgetId": "gb0jk02tsa"
     }
   },
-  "topRow": 87,
+  "topRow": 94,
   "type": "TABS_WIDGET",
   "version": 3,
   "widgetId": "mdpityzu7l",

@@ -10,16 +10,16 @@
       "key": "sourceData"
     },
     {
-      "key": "borderRadius"
+      "key": "defaultOptionValue"
     },
     {
-      "key": "defaultOptionValue"
+      "key": "placeholderText"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "placeholderText"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",

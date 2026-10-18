@@ -8,13 +8,13 @@
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "isVisible"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -40,8 +40,8 @@
   "mobileTopRow": 47,
   "needsErrorInfo": false,
   "onClick": "{{ cashDepositFlows.refresh() }}",
-  "originalBottomRow": 33,
-  "originalTopRow": 26,
+  "originalBottomRow": 27,
+  "originalTopRow": 23,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,

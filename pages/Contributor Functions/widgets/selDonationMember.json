@@ -2,16 +2,10 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 18,
+  "bottomRow": 23,
   "boxShadow": "none",
   "defaultOptionValue": "{{ (() => {\n  const contributorId = String(appsmith.URL.queryParams.contributor_id || '').trim();\n  if (contributorId) {\n    const selected = 'contributor:' + contributorId;\n    return (qMembersDirectory.data || []).some(item => item.selection_value === selected) ? selected : '';\n  }\n  const storedSelection = String(appsmith.store.donation_donor_selection || '');\n  if (storedSelection && (qMembersDirectory.data || []).some(item => item.selection_value === storedSelection)) return storedSelection;\n  const memberId = String(appsmith.URL.queryParams.member_id || appsmith.store.member_id || '').trim();\n  if (!memberId) return '';\n  return (qMembersDirectory.data || []).find(item => String(item.member_id || '') === memberId)?.selection_value || '';\n})() }}",
   "dynamicBindingPathList": [
-    {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
     {
       "key": "sourceData"
     },
@@ -19,13 +13,13 @@
       "key": "defaultOptionValue"
     },
     {
+      "key": "placeholderText"
+    },
+    {
       "key": "isVisible"
     },
     {
-      "key": "label"
-    },
-    {
-      "key": "placeholderText"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -70,8 +64,8 @@
   "onOptionChange": "{{\n  storeValue(\"donation_donor_selection\", selDonationMember.selectedOptionValue || \"\");\n  cashDonationFlows.refreshDonations();\n}}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 35,
-  "originalTopRow": 26,
+  "originalBottomRow": 23,
+  "originalTopRow": 17,
   "parentColumnSpace": 9.77734375,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -81,7 +75,7 @@
   "rightColumn": 40,
   "serverSideFiltering": false,
   "sourceData": "{{ [\n ...(qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_donations_reviewer === true ? [{label:\"Anonymous cash donor\",value:\"__anonymous__\"}] : []),\n ...(qPageAccess.data?.[0]?.is_donations_reviewer === true && tblPendingGivebutterDonations.selectedRow?.provider === \"givebutter\" ? [{label:\"Create new individual contributor\",value:\"__new_individual__\"},{label:\"Create new company contributor\",value:\"__new_organization__\"}] : []),\n ...(qMembersDirectory.data || []).map(item=>({label:item.selection_label,value:item.selection_value}))\n] }}",
-  "topRow": 12,
+  "topRow": 17,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "r0xlcd0xql",

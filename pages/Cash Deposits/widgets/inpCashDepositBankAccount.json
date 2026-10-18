@@ -2,24 +2,21 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 139,
+  "bottomRow": 147,
   "boxShadow": "none",
   "defaultOptionValue": "{{ cashDepositFlows.selectedBatch()?.destination_bank_account || \"\" }}",
   "dynamicBindingPathList": [
     {
-      "key": "defaultOptionValue"
-    },
-    {
       "key": "sourceData"
     },
     {
-      "key": "isDisabled"
+      "key": "defaultOptionValue"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "accentColor"
+      "key": "isDisabled"
     },
     {
       "key": "borderRadius"
@@ -62,8 +59,8 @@
   "needsErrorInfo": false,
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 158,
-  "originalTopRow": 150,
+  "originalBottomRow": 139,
+  "originalTopRow": 132,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -74,7 +71,7 @@
   "serverSideFiltering": false,
   "sourceData": "{{ (() => { const response = apiCashDepositBankAccounts.data?.message || apiCashDepositBankAccounts.data || {}; const options = (response.accounts || []).map(a => ({ label: a.label, value: a.value })); const current = String(cashDepositFlows.selectedBatch()?.destination_bank_account || \"\").trim(); if (current && !options.some(o => o.value === current)) options.unshift({ label: current + \" (historical)\", value: current }); return options; })() }}",
   "tooltip": "Select an active Rooted Psyche Bank Account from ERPNext.",
-  "topRow": 132,
+  "topRow": 140,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "cdepbank01",

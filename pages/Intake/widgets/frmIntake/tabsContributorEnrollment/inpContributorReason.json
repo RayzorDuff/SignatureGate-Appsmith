@@ -6,10 +6,16 @@
   "defaultText": "",
   "dynamicBindingPathList": [
     {
+      "key": "label"
+    },
+    {
       "key": "isRequired"
     },
     {
-      "key": "label"
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [

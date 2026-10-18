@@ -7,10 +7,10 @@
       "key": "text"
     },
     {
-      "key": "fontFamily"
+      "key": "isVisible"
     },
     {
-      "key": "isVisible"
+      "key": "fontFamily"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",

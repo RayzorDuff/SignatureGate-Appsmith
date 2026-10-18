@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Individual Profile-text",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_1edd9bb8-ebb2-4960-87fe-cedc2376e708",
   "id": "Individual Profile_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Individual Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

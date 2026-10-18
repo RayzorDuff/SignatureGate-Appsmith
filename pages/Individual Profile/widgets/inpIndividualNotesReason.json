@@ -3,12 +3,18 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 60,
+  "bottomRow": 193,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -50,10 +56,10 @@
   "responsiveBehavior": "fill",
   "rightColumn": 42,
   "showStepArrows": false,
-  "topRow": 54,
+  "tooltip": "",
+  "topRow": 187,
   "type": "INPUT_WIDGET_V2",
   "version": 2,
   "widgetId": "identity-notes-individual-inpIndividualNotesReason",
-  "widgetName": "inpIndividualNotesReason",
-  "tooltip": ""
+  "widgetName": "inpIndividualNotesReason"
 }

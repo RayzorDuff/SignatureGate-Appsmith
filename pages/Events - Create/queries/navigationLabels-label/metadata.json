@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Events - Create-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_661eed72-783a-4bd0-b1c2-65146a291b8f",
   "id": "Events - Create_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Events - Create",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

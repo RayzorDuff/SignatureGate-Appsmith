@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Events - Check In-label",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_214efd51-2679-4496-8956-400417a0cbb9",
   "id": "Events - Check In_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -11,7 +11,8 @@
           "name": "concept"
         },
         {
-          "name": "plural"
+          "name": "plural",
+          "value": "{{false}}"
         }
       ],
       "paginationType": "NONE",
@@ -33,6 +34,6 @@
     "name": "label",
     "pageId": "Events - Check In",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

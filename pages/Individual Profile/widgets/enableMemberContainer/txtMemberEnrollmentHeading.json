@@ -4,13 +4,13 @@
   "bottomRow": 4,
   "dynamicBindingPathList": [
     {
+      "key": "text"
+    },
+    {
       "key": "isVisible"
     },
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",

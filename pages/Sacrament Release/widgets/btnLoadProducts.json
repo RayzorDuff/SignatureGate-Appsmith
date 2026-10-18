@@ -11,6 +11,9 @@
       "key": "tooltip"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "isDisabled"
     },
     {
@@ -18,9 +21,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -46,8 +46,8 @@
   "mobileTopRow": 57,
   "needsErrorInfo": false,
   "onClick": "{{apiListAvailableProducts.run()}}",
-  "originalBottomRow": 27,
-  "originalTopRow": 23,
+  "originalBottomRow": 28,
+  "originalTopRow": 24,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,

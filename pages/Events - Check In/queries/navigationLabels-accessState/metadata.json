@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "navigation-labels-Events - Check In-accessState",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_68f903b5-e358-499b-8fbc-a51d21a8f931",
   "id": "Events - Check In_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Events - Check In",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

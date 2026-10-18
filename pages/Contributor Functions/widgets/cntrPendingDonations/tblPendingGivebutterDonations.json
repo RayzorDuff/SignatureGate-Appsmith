@@ -64,6 +64,54 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
+      "key": "tableData"
+    },
+    {
+      "key": "primaryColumns.member_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.amount_cents.computedValue"
+    },
+    {
+      "key": "primaryColumns.review_notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.reviewed_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.provider.computedValue"
+    },
+    {
+      "key": "primaryColumns.donated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.facilitator_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.provider_reference.computedValue"
+    },
+    {
+      "key": "primaryColumns.reviewer_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.currency.computedValue"
+    },
+    {
+      "key": "primaryColumns.details.computedValue"
+    },
+    {
+      "key": "primaryColumns.donation_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.status.computedValue"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -71,54 +119,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "tableData"
-    },
-    {
-      "key": "primaryColumns.donation_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.provider.computedValue"
-    },
-    {
-      "key": "primaryColumns.provider_reference.computedValue"
-    },
-    {
-      "key": "primaryColumns.amount_cents.computedValue"
-    },
-    {
-      "key": "primaryColumns.currency.computedValue"
-    },
-    {
-      "key": "primaryColumns.donated_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.notes.computedValue"
-    },
-    {
-      "key": "primaryColumns.status.computedValue"
-    },
-    {
-      "key": "primaryColumns.facilitator_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.reviewer_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.reviewed_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.review_notes.computedValue"
-    },
-    {
-      "key": "primaryColumns.details.computedValue"
     }
   ],
   "dynamicPropertyPathList": [

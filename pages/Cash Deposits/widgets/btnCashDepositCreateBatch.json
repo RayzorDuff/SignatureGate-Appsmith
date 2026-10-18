@@ -1,12 +1,15 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 85,
+  "bottomRow": 93,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
     {
       "key": "isDisabled"
     },
@@ -15,9 +18,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -46,8 +46,8 @@
   "mobileTopRow": 38,
   "needsErrorInfo": false,
   "onClick": "{{ cashDepositFlows.createBatch() }}",
-  "originalBottomRow": 97,
-  "originalTopRow": 90,
+  "originalBottomRow": 85,
+  "originalTopRow": 81,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -59,7 +59,7 @@
   "rightColumn": 64,
   "text": "Create Deposit Batch",
   "tooltip": "Create a new deposit batch for cash currently on hand.",
-  "topRow": 81,
+  "topRow": 89,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "9gkmouvlql",

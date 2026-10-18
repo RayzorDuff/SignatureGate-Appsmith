@@ -1,12 +1,15 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 37,
+  "bottomRow": 38,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
     {
       "key": "isDisabled"
     },
@@ -15,9 +18,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -58,7 +58,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 19,
   "text": "Send Digital Agreement",
-  "topRow": 33,
+  "topRow": 34,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "6z81ok6vse",

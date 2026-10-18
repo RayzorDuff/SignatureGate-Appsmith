@@ -5,12 +5,10 @@
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
-    },
-    {
-      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "0.875rem",
   "fontStyle": "NORMAL",
@@ -44,6 +42,5 @@
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "txtCashDispositionExplanation",
-  "widgetName": "txtCashDispositionExplanation",
-  "dynamicPropertyPathList": []
+  "widgetName": "txtCashDispositionExplanation"
 }

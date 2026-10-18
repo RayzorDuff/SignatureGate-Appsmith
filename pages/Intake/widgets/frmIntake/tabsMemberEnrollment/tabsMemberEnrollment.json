@@ -58,6 +58,9 @@
   "defaultTab": "Member Enrollment",
   "dynamicBindingPathList": [
     {
+      "key": "isVisible"
+    },
+    {
       "key": "accentColor"
     },
     {
@@ -65,12 +68,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "tabsObj.tab2.label"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
