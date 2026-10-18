@@ -118,7 +118,7 @@ for page in pages:
  first=not (ROOT/f'pages/{page}/widgets/navMenuPeople.json').exists()
  for widget in (ROOT/f'pages/{page}/widgets').rglob('*.json'):
   if widget.name.startswith('navMenu') or widget.name=='txtNavigationPage.json':continue
-  if widget.stem in redundant_headings.get(page,[]):
+  if str(widget.relative_to(ROOT/f'pages/{page}/widgets')).removesuffix('.json') in redundant_headings.get(page,[]):
    raise SystemExit('Redundant page heading restored; remove it: '+str(widget.relative_to(ROOT)))
   d=json.loads(widget.read_text())
   original=copy.deepcopy(d)

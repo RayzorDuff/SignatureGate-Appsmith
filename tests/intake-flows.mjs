@@ -12,23 +12,28 @@ async function actor(label,roles) {
  for(const role of roles) await db.query('INSERT INTO person_roles(person_id,role_key,assigned_by) VALUES($1,$2,$3)',[id,role,'synthetic']);
  return {id,email};
 }
-function fixture({kind='member',contacts='email_phone',memberOpt=false,contributorOpt=false,email,delivery='Digital',apiFail=false}={}) {
+function fixture({kind='member',contacts='email_phone',memberOpt=false,contributorOpt=false,email,delivery='Digital',apiFail=false,fault=null}={}) {
  const n=++serial,hasEmail=contacts.includes('email'),hasPhone=contacts.includes('phone'),hasAddress=contacts.includes('address');
- const calls={alerts:[],actions:[],api:0};const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{user:{email},store:{}},showAlert:(message,level)=>calls.alerts.push({message,level}),storeValue:async(k,v)=>c.appsmith.store[k]=v,console:{log:()=>{}},setTimeout:fn=>fn()};
+ const calls={alerts:[],actions:[],api:0,resets:[]};const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{user:{email},store:{}},showAlert:(message,level)=>calls.alerts.push({message,level}),storeValue:async(k,v)=>c.appsmith.store[k]=v,console:{log:()=>{}},resetWidget:async name=>calls.resets.push(name),setTimeout:fn=>fn()};
  for(const [name,text] of Object.entries({inpIntakeFirstName:'Synthetic',inpIntakeLastName:'Intake'+n,inpIntakeCompanyName:'Synthetic Intake Company '+n,
  inpIntakeEmail:hasEmail?'synthetic-intake-'+n+'@example.invalid':'',inpIntakePhone:hasPhone?'555010'+String(n).padStart(4,'0'):'',inpIntakeIdentityNotes:'',inpContributorReason:'Synthetic intake reason',
  inpIntakeAddress:hasAddress?'Synthetic Street':'',inpIntakeCity:hasAddress?'Synthetic City':'',inpIntakeState:hasAddress?'CO':'',inpIntakePostalCode:hasAddress?'00000':''})) c[name]={text};
+ c.chkIntakeRecoveryReviewed={isChecked:false};
  c.dateIntakeBirthDate={selectedDate:n%2?'1990-01-01':''};c.FilePickerAgreement={files:[{name:'synthetic.pdf',data:'synthetic'}]};
  for(const [name,value] of Object.entries({selIntakeEntityType:kind==='company'?'Company':'Individual',selAgreementDelivery:delivery,selIntakePractitioner:practitioner,selAgreementType:'synthetic_intake',selAgreementTemplate:template}))c[name]={selectedOptionValue:value};
  for(const [name,value] of Object.entries({chkIntakeMember:['member','dual'].includes(kind),chkIntakeContributor:['contributor','dual'].includes(kind),chkCompanyContributor:kind==='company',chkIntakeSubscribeMemberListmonk:memberOpt,chkIntakeSubscribeContributorListmonk:contributorOpt}))c[name]={isChecked:value};
  for(const name of fs.readdirSync(new URL('queries/',page))) {
   const p=new URL('queries/'+name+'/'+name+'.txt',page);if(!fs.existsSync(p))continue;
   const body=fs.readFileSync(p,'utf8');c[name]={run:async(params={})=>{
-   calls.actions.push(name);const values=[];const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},...c,params};
+   calls.actions.push(name);if(fault?.name===name&&fault.when==='before')throw Error('Synthetic request failure');const values=[];const context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},...c,params};
    const sql=body.replace(/{{(.*?)}}/gs,(_,expr)=>{values.push(vm.runInNewContext(expr,context));return '$'+values.length;});
    await db.exec('SAVEPOINT intake_action');
-   try{const rows=(await db.query(sql,values)).rows;await db.exec('RELEASE SAVEPOINT intake_action');return rows;}
+   let rows;
+   try{rows=(await db.query(sql,values)).rows;await db.exec('RELEASE SAVEPOINT intake_action');}
    catch(error){await db.exec('ROLLBACK TO SAVEPOINT intake_action');await db.exec('RELEASE SAVEPOINT intake_action');throw new Error(name+': '+error.message);}
+   // Lose the response after the real source SQL committed its action savepoint.
+   if(fault?.name===name&&fault.when==='after')throw Error('Synthetic lost response');
+   return rows;
   }};
  }
  c.apiTriggerDocumenso={run:async()=>{calls.api++;if(apiFail)throw Error('Synthetic signing failure');return {ok:true};}};
@@ -49,7 +54,10 @@ try {
   for(const contacts of kind==='member'||kind==='dual'?['email_phone','email_address']:['email_phone','email_address','phone_address']) for(const [memberOpt,contributorOpt] of combinations) {
    const x=fixture({kind,contacts,memberOpt,contributorOpt,email:kind==='member'?doc.email:kind==='dual'?admin.email:don.email});
    const result=await x.flows.submit();assert.ok(result,JSON.stringify({kind,contacts,memberOpt,contributorOpt,alerts:x.calls.alerts}));
-   assert.equal(x.calls.alerts.at(-1).level,'success');if(kind==='member'||kind==='dual')assert.match(x.calls.alerts.at(-1).message,/Attendee/);if(kind!=='member')assert.match(x.calls.alerts.at(-1).message,/Sponsor/);assert.equal(x.calls.api,kind==='member'||kind==='dual'?1:0);completed++;
+   assert.equal(x.flows.recovery().state,'completed');
+   const actionsAfterSuccess=x.calls.actions.length;await x.flows.submit();assert.equal(x.calls.actions.length,actionsAfterSuccess,'completed intake replayed');
+   await x.flows.reset();assert.equal(x.flows.recovery(),null);
+   assert.equal(x.calls.alerts.find(a=>a.level==='success').level,'success');if(kind==='member'||kind==='dual')assert.match(x.calls.alerts.find(a=>a.level==='success').message,/Attendee/);if(kind!=='member')assert.match(x.calls.alerts.find(a=>a.level==='success').message,/Sponsor/);assert.equal(x.calls.api,kind==='member'||kind==='dual'?1:0);completed++;
    if(result.memberId) {
     const emails=(await db.query('SELECT * FROM member_emails WHERE member_id=$1',[result.memberId])).rows;assert.equal(emails[0].mailing_subscription_status,memberOpt?'subscribed':'not_subscribed');
     const q=(await db.query('SELECT count(*)::int AS n FROM listmonk_sync_queue WHERE member_email_id=$1',[emails[0].member_email_id])).rows[0];assert.equal(q.n,memberOpt?1:0);
@@ -70,6 +78,32 @@ try {
   const x=fixture(options);assert.equal(await x.flows.submit(),undefined);assert.ok(x.calls.actions.every(n=>['qPageAccess','qCurrentFacilitator','qIntakeActorRoles'].includes(n)),'preflight must block before identity writes');
  }
  {const x=fixture({email:doc.email,apiFail:true});assert.equal(await x.flows.submit(),null);assert.equal(x.calls.api,1);assert.equal(x.calls.actions.filter(a=>a==='qCreateMember').length,1);assert.equal(x.calls.alerts.at(-1).level,'warning');assert.match(x.calls.alerts.at(-1).message,/do not submit another/);}
+ let faults=0;
+ const scenarios=[
+  {kind:'member',contacts:'email_phone',names:['qCreateMember','qGetMemberPerson','qSetIntakeIdentityNotes','qAddMemberEmail','qAddMemberPhone','qAssignMemberPractitioner','qCreateIntakeAgreement']},
+  {kind:'dual',contacts:'email_address',names:['qAddMembershipAddress','qEnablePersonContributor','qAddContributorEmailForDualCapacity','qAssignIntakeContactRole','qLinkContributorMember']},
+  {kind:'contributor',contacts:'email_address',names:['qCreateContributor','qAddContributorAddress']},
+  {kind:'company',contacts:'email_address',names:['qCreateContributor','qAddContributorAddress']}
+ ];
+ for(const scenario of scenarios)for(const name of scenario.names)for(const when of ['before','after']) {
+  const x=fixture({...scenario,email:admin.email,fault:{name,when}});x.c.inpIntakeIdentityNotes.text='Synthetic private intake note';
+  assert.equal(await x.flows.submit(),null,name+' '+when);const receipt=x.flows.recovery();assert.ok(receipt,name+' missing checkpoint');
+  assert.equal(receipt.state,'needs_review');
+  assert.ok(Object.keys(receipt).every(k=>['owner','version','state','phase','member_id','person_id','organization_id','contributor_id','agreement_id'].includes(k)),'form data leaked into checkpoint');
+  assert.doesNotMatch(JSON.stringify(receipt),/Synthetic private|example.invalid.*example.invalid|Synthetic Street/);
+  const count=x.calls.actions.length;
+  await x.flows.submit();assert.equal(x.calls.actions.length,count,'uncertain submission replayed');
+  await x.flows.reset();assert.ok(x.flows.recovery(),'unacknowledged reset erased checkpoint');assert.equal(x.calls.resets.length,0);
+  // A reload reads the same persistent store into a fresh controller object.
+  const reloaded=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),x.c);
+  await reloaded.submit();assert.equal(x.calls.actions.length,count,'reload replayed submission');
+  const originalEmail=x.c.appsmith.user.email;x.c.appsmith.user.email='synthetic-other@example.invalid';assert.equal(reloaded.recovery(),null);x.c.appsmith.user.email=originalEmail;
+  assert.ok(reloaded.recovery());
+  x.c.chkIntakeRecoveryReviewed.isChecked=true;await reloaded.reset();assert.equal(reloaded.recovery(),null);assert.equal(x.calls.actions.length,count,'reset wrote records');faults++;
+ }
+ {const x=fixture({email:doc.email,apiFail:true});await x.flows.submit();assert.ok(x.flows.recovery().agreement_id);const count=x.calls.api;await x.flows.submit();assert.equal(x.calls.api,count,'signing request replayed');}
+ {const x=fixture({email:doc.email});x.c.storeValue=async(k,v)=>{if(k.startsWith('intake_submission:'))throw Error('Synthetic storage failure');x.c.appsmith.store[k]=v;};assert.equal(await x.flows.submit(),null);assert.ok(!x.calls.actions.includes('qCreateMember'),'write occurred before durable checkpoint');}
+ console.log('PASS '+faults+' real-SQL request/lost-response checkpoints, reload/replay guards, completed reset, account isolation, acknowledged separate intake and signing receipt');
  {const x=fixture({email:doc.email});x.c.appsmith.store.intake_busy=true;await x.flows.submit();assert.equal(x.calls.actions.length,0);}
  console.log('PASS Intake: 24 controller/prepared-SQL enrollment cases, independent mailing consent, shared contact roles, optional DOB, pre-write denial/paper/contact checks and partial-signing recovery warning');
  await db.exec('ROLLBACK');

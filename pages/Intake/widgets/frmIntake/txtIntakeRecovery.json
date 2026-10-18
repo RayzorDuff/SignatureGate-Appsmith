@@ -1,0 +1,57 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 125,
+  "dynamicBindingPathList": [
+    {
+      "key": "text"
+    },
+    {
+      "key": "fontFamily"
+    },
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicPropertyPathList": [
+    {
+      "key": "text"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1rem",
+  "fontStyle": "NORMAL",
+  "isLoading": false,
+  "isVisible": "{{ Boolean(intakeFlows.recovery()) }}",
+  "key": "intake-recovery",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 125,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 117,
+  "needsErrorInfo": false,
+  "originalBottomRow": 125,
+  "originalTopRow": 117,
+  "overflow": "NONE",
+  "parentColumnSpace": 10.25,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "shouldTruncate": false,
+  "text": "{{ intakeFlows.recovery() ? (intakeFlows.recovery().state === \"completed\" ? \"Intake completed. Reset the form before starting a separate intake.\" : \"Intake needs review: \" + intakeFlows.recovery().phase + \". Records may already exist. Review Directory, contacts, capacities and agreement status. Reset starts a separate intake; it does not resume or undo this one.\") : \"\" }}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 117,
+  "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-recovery",
+  "widgetName": "txtIntakeRecovery"
+}

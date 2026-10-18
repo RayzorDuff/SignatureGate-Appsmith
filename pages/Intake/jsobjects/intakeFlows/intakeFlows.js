@@ -1,4 +1,16 @@
 export default {
+  recovery() {
+    const owner=String(appsmith.user?.email || "").trim().toLowerCase();
+    const receipt=appsmith.store["intake_submission:"+owner];
+    return owner && receipt?.version===1 && receipt.owner===owner ? receipt : null;
+  },
+  async checkpoint(owner, changes) {
+    if(owner!==String(appsmith.user?.email || "").trim().toLowerCase()) throw new Error("The signed-in account changed. Review the existing intake.");
+    const receipt={...(this.recovery() || {}),...changes,version:1,owner};
+    // Persist only technical IDs and controlled stage text, never intake form values.
+    await storeValue("intake_submission:"+owner,receipt,true);
+    return receipt;
+  },
   async loadAccess() {
     for(let i=0;i<20 && !(appsmith.user?.email || "").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));
     return qPageAccess.run();
@@ -15,14 +27,16 @@ export default {
   },
 
   async submit() {
+    if(this.recovery()) {showAlert("This intake has a saved or uncertain outcome. Review Directory and agreements, then use Reset Intake Form for a separate intake.","warning");return;}
     if(appsmith.store.intake_busy===true) return;
-    await storeValue("intake_busy",true);
+    await storeValue("intake_busy",true,false);
     try {return await this.performSubmit();}
-    finally {await storeValue("intake_busy",false);}
+    finally {await storeValue("intake_busy",false,false);}
   },
   async performSubmit() {
     let saved=false;
     let phase="checking permission and enrollment details";
+    const submissionOwner=String(appsmith.user?.email || "").trim().toLowerCase();
     const stage=message=>{phase=message;showAlert(navigationLabels.text(message),"info");};
     try {
     stage("Checking permissions and enrollment details…");
@@ -181,6 +195,8 @@ export default {
         }
 
         stage("Creating the individual and Participant enrollment…");
+        await this.checkpoint(submissionOwner,{state:"uncertain",phase});
+        saved=true; // A timed-out write can still have committed on the server.
         const created = await qCreateMember.run({
           first_name: first, last_name: last, email: individualEmail, phone,
           date_of_birth: dob, created_by_facilitator_id: actor.member_id
@@ -188,18 +204,18 @@ export default {
         memberId = created?.[0]?.member_id;
         const duplicateBlocked = created?.[0]?.duplicate_blocked === true;
         if (duplicateBlocked) {
+          await storeValue("intake_submission:"+submissionOwner,null,true);
           showAlert(navigationLabels.text("Member creation was blocked because the database detected a duplicate."), "error");
           return;
         }
-        if (!memberId) {
-          showAlert(navigationLabels.text("Participant creation returned an incomplete result. Review the directory before submitting another intake."), "warning");
-          return;
-        }
+        if (!memberId) throw new Error("Participant creation returned an incomplete result.");
+        await this.checkpoint(submissionOwner,{state:"incomplete",member_id:memberId});
 
         saved=true;
         stage("Individual and Participant enrollment created. Saving contact methods…");
         const memberPersonRows = await qGetMemberPerson.run({ member_id: memberId });
         memberPersonId = memberPersonRows?.[0]?.person_id || null;
+        if (memberPersonId) await this.checkpoint(submissionOwner,{person_id:memberPersonId});
         if (!memberPersonId) {
           throw new Error("Participant identity could not be resolved.");
         }
@@ -246,6 +262,7 @@ export default {
             person_id: memberPersonId, reason
           }))?.[0]?.contributor_id;
           if (!contributorId) throw new Error("Contributor capacity was not created.");
+          await this.checkpoint(submissionOwner,{contributor_id:contributorId});
 
           const contributorEmail = individualEmail ? await qAddContributorEmailForDualCapacity.run({
             person_id: memberPersonId,
@@ -270,6 +287,8 @@ export default {
         }
       } else {
         stage("Creating the individual and Contributor enrollment…");
+        await this.checkpoint(submissionOwner,{state:"uncertain",phase});
+        saved=true;
         const created = await qCreateContributor.run({
           party_kind: "individual", first_name: first, last_name: last,
           email: individualEmail, phone, reason,
@@ -281,6 +300,7 @@ export default {
         contributorId = created?.[0]?.contributor_id;
         memberPersonId = created?.[0]?.party_id;
         if (!contributorId || !memberPersonId) throw new Error("Contributor creation did not return the new individual identity.");
+        await this.checkpoint(submissionOwner,{state:"incomplete",contributor_id:contributorId,person_id:memberPersonId});
 
         if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "individual", party_id: memberPersonId, notes: identityNotes, reason: "Initial intake"});
 
@@ -298,6 +318,8 @@ export default {
         return;
       }
       stage("Creating the company and Contributor enrollment…");
+      await this.checkpoint(submissionOwner,{state:"uncertain",phase});
+      saved=true;
       const created = await qCreateContributor.run({
         party_kind: "organization", organization_name: companyName,
         first_name: "", last_name: "",
@@ -311,6 +333,7 @@ export default {
       contributorId = created?.[0]?.contributor_id;
       const organizationId = created?.[0]?.party_id;
       if (!contributorId || !organizationId) throw new Error("Company contributor creation did not return the organization identity.");
+      await this.checkpoint(submissionOwner,{state:"incomplete",contributor_id:contributorId,organization_id:organizationId});
 
       if (identityNotes) await qSetIntakeIdentityNotes.run({party_kind: "organization", party_id: organizationId, notes: identityNotes, reason: "Initial intake"});
 
@@ -337,6 +360,7 @@ export default {
 
       const agreementId = agreementResult?.[0]?.member_agreement_id;
       if(!agreementId) throw new Error("Agreement creation returned an incomplete result.");
+      await this.checkpoint(submissionOwner,{agreement_id:agreementId,phase:"Agreement saved; signing delivery not confirmed"});
       stage("Agreement created. Requesting the signing workflow…");
       if (delivery === "Digital" && agreementId) {
         triggerResult = await apiTriggerDocumenso.run({
@@ -354,6 +378,7 @@ export default {
       member_enrolled: member, contributor_enrolled: contributor, page: "Intake"
     });
 
+    await this.checkpoint(submissionOwner,{state:"completed",phase:"Enrollment completed"});
     showAlert(
       navigationLabels.text(member && contributor ? "Individual enrolled as Member and Contributor." :
       member ? "Individual enrolled as Member." :
@@ -362,12 +387,20 @@ export default {
     );
     return {memberId, contributorId, agreementResult, triggerResult};
     } catch(error) {
-      showAlert(saved?"Intake stopped after saving records during "+phase+". Review the existing identity and agreement before continuing; do not submit another intake.":"Intake could not complete during "+phase+". Check details before retrying.",saved?"warning":"error");
+      if(saved) {
+        try {await this.checkpoint(submissionOwner,{state:"needs_review",phase});} catch(checkpointError) { /* Keep the earlier persistent uncertainty marker. */ }
+      }
+      showAlert(saved?"Intake stopped with saved records or an uncertain write outcome during "+phase+". Review the existing identity and agreement before continuing; do not submit another intake.":"Intake could not complete during "+phase+". Check details before retrying.",saved?"warning":"error");
       return null;
     }
   },
 
   async reset() {
+    if(appsmith.store.intake_busy===true) {showAlert("Wait for the current intake to finish before resetting.","warning");return;}
+    const receipt=this.recovery();
+    if(receipt && receipt.state!=="completed" && chkIntakeRecoveryReviewed.isChecked!==true) {
+      showAlert("Review Directory, contacts, capacities and agreement status before acknowledging this interrupted intake. Reset starts a separate intake and does not repair saved records.","warning");return;
+    }
     const widgets = [
       "inpIntakeFirstName",
       "inpIntakeLastName",
@@ -391,13 +424,15 @@ export default {
       "chkIntakeSubscribeMemberListmonk",
       "chkIntakeSubscribeContributorListmonk",
       "chkCompanyContributor",
-      "selIntakeEntityType"
+      "selIntakeEntityType",
+      "chkIntakeRecoveryReviewed"
     ];
 
     for (const widgetName of widgets) {
       await resetWidget(widgetName, true);
     }
 
-    showAlert("Intake form reset.", "info");
+    if(receipt) await storeValue("intake_submission:"+receipt.owner,null,true);
+    showAlert("Intake form reset. Ready for a separate intake.", "info");
   }
 };

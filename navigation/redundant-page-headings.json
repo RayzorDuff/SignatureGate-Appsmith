@@ -25,5 +25,8 @@
   ],
   "Events - Check In": [
     "Header"
+  ],
+  "Intake": [
+    "frmIntake/txtIntakeTitle"
   ]
 }

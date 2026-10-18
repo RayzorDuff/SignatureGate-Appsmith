@@ -34,3 +34,9 @@ The development ERP default and both explicit synchronization calls remain `test
 ## Final provenance checklist
 
 Record the accepted Appsmith master/source SHA and tree, published revision and observed datasource proof; SignatureGate release/tag and packaging SHA; export action run and SHA-256; RootedOps released tag and deployed revision; reviewed n8n revisions; migration/recovery evidence; and final open-item dispositions. Keep operational names, contacts, values, account/configuration mappings and credentials outside Git.
+
+## Interrupted Intake handling
+
+Before the first identity write, Intake persists an account-scoped checkpoint containing controlled stage text and technical IDs only. A rejected request, lost response or signing failure leaves a review notice and blocks ordinary resubmission, including after a reload that retains Appsmith storage. Known identity/agreement IDs are retained privately. Reset after an incomplete outcome requires explicit review acknowledgment; it starts a separate intake and does not replay, finish, delete or roll back saved records. Successful intake also requires Reset before another submission. The busy indicator is temporary; the checkpoint is persistent.
+
+Real source SQL/controller fault tests exercise failures before and after individual action commits and retain the existing 24 successful enrollment cases. This is a client recovery aid, not database transactionality or server idempotency. Different browsers/tabs, erased storage, account changes during in-flight work and external delivery still need their independent server/runtime controls. The multi-action atomicity gate remains open.
