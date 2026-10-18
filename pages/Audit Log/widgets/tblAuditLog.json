@@ -372,7 +372,6 @@
       "currencyCode": "USD",
       "customAlias": "",
       "decimals": 0,
-      "displayText": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"details\"])) : currentRow[\"details\"] })()}}",
       "enableFilter": true,
       "enableSort": true,
       "horizontalAlignment": "LEFT",

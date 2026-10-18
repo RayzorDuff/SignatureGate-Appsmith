@@ -1,0 +1,21 @@
+{
+  "Contributor Functions/DonationsTable": {
+    "donor_display_name": "Contributor"
+  },
+  "Directory/tblDirectory": {
+    "contributor_status": "Contributor",
+    "membership_status": "Participation",
+    "customColumn3": "Participant Functions",
+    "customColumn4": "Contributor Functions"
+  },
+  "Agreement Templates/tblAgreementTemplates": {
+    "documenso_facilitator_recipient_id": "Spiritual Practitioner Recipient ID"
+  },
+  "Facilitator Functions/tblAssignedParticipants": {
+    "first_name": "Participant First Name",
+    "last_name": "Participant Last Name"
+  },
+  "Member Functions/ReleasesTable": {
+    "facilitator_id": "Spiritual Practitioner ID"
+  }
+}

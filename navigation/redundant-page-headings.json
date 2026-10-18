@@ -1,0 +1,29 @@
+{
+  "Directory": [
+    "txtDirectoryTitle"
+  ],
+  "Cash Deposits": [
+    "txtCashDepositsTitle"
+  ],
+  "Terminology Administration": [
+    "txtTerminologyTitle"
+  ],
+  "Agreement Templates": [
+    "Header"
+  ],
+  "Audit Log": [
+    "Header"
+  ],
+  "Members – Intake": [
+    "Header"
+  ],
+  "Agreements - Queue": [
+    "Header"
+  ],
+  "Events - Create": [
+    "Header"
+  ],
+  "Events - Check In": [
+    "Header"
+  ]
+}

@@ -411,7 +411,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": false,
-      "label": "{{ navigationLabels.text(\"Facilitator ID\") }}",
+      "label": "Spiritual Practitioner ID",
       "notation": "standard",
       "originalId": "facilitator_id",
       "sticky": "",

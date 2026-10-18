@@ -14,6 +14,7 @@ The [combined SignatureGate changelog](https://github.com/RayzorDuff/SignatureGa
 - Cash Deposits supports verified cash reconciliation, reasoned exclusion/revival, immutable batch composition, preparation/confirmation, printing/tally, narrow confirmed-date correction and durable ERP synchronization/retry boundaries.
 - Reports distinguish six contribution groups, restrict financial metrics independently and retain canonical staff access. Audit display uses configurable headings, escaped values and validated links without translating stored record wording.
 - Four generated workflow groups use canonical current-account capabilities and preserve Directory navigation on denied pages. Static captions, workflow notifications and report labels consume shared terminology; stable SQL/page identifiers remain compatible.
+- Navigation is accepted across all pages. Nine duplicate page-name headings are removed. Agreement Templates displays Created/Updated timestamps as dates, independently of document URLs. Table column titles use readable deployment defaults: Appsmith 2.4.2's title editor does not support the dynamic terminology bindings used by other captions; changing table titles requires regenerating the source registry.
 - Source and empty-table checks cover guarded action modes, safe startup state, exact export preservation and retained datasource/PDF-library descriptors.
 
 ## Required environment and promotion order
@@ -26,7 +27,7 @@ The [combined SignatureGate changelog](https://github.com/RayzorDuff/SignatureGa
 
 ## Remaining release gates
 
-Paper upload remains blocked before records/files pending destination and principal validation. Safe recovery/atomicity across independently committed Intake steps, external delivery/authorization, cold Terminology loading, mobile/keyboard/native SDK/Git synchronization and protected upgrade/recovery still need acceptance. Legacy Intake and unlisted event/queue pages remain in source; their presence is not parity or workflow acceptance.
+Paper upload remains blocked before records/files pending destination and principal validation. Safe recovery/atomicity across independently committed Intake steps, external delivery/authorization, mobile/keyboard/native SDK/Git synchronization and protected upgrade/recovery still need acceptance. The operator accepted all-page navigation; that does not certify unrelated workflow outcomes. Legacy Intake and unlisted event/queue pages remain in source; their presence is not parity or workflow acceptance.
 
 The development ERP default and both explicit synchronization calls remain `test`; the reviewed production candidate must update all three only after backend/integration acceptance. Existing executed agreements and historical records are preserved. No v1.2.0 VERSION change, Appsmith master promotion, export packaging or release tag is performed by this draft.
 

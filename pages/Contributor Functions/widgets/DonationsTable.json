@@ -732,7 +732,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "{{ navigationLabels.text(\"Contributor\") }}",
+      "label": "Contributor",
       "notation": "standard",
       "originalId": "donor_display_name",
       "sticky": "",

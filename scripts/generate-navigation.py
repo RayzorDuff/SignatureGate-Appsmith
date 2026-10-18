@@ -40,6 +40,8 @@ def existing_metadata(path,fallback):
  value['gitSyncId']=prefix+'_'+str(uuid.uuid4())
  return value
 registry=read('navigation/registry.json')
+table_headings=read('navigation/table-headings.json')
+redundant_headings=read('navigation/redundant-page-headings.json')
 pages=sorted(p.name for p in (ROOT/'pages').iterdir() if p.is_dir())
 registered=[i['page'] for g in registry['groups'] for i in g['items']]+registry['contextPages']+registry['unlistedPages']
 assert len(set(registered))==len(registered) and set(registered)==set(pages),'Every page must have exactly one navigation disposition'
@@ -87,6 +89,9 @@ def transform_widget(d):
   if isinstance(v,dict):
    for key,value in list(v.items()):
     prop=f'{path}.{key}' if path else key
+    # Table V2 editable column titles are literal strings in Appsmith 2.4.2.
+    # Do not inject expressions into the title editor (it renders them verbatim).
+    if key=='label' and re.fullmatch(r'primaryColumns\.[^.]+\.label',prop):continue
     if key in ['text','label','tooltip','placeholderText'] and isinstance(value,str):
      changed=presentation(value)
      if changed!=value:v[key]=changed;bindings.append(prop)
@@ -113,6 +118,8 @@ for page in pages:
  first=not (ROOT/f'pages/{page}/widgets/navMenuPeople.json').exists()
  for widget in (ROOT/f'pages/{page}/widgets').rglob('*.json'):
   if widget.name.startswith('navMenu') or widget.name=='txtNavigationPage.json':continue
+  if widget.stem in redundant_headings.get(page,[]):
+   raise SystemExit('Redundant page heading restored; remove it: '+str(widget.relative_to(ROOT)))
   d=json.loads(widget.read_text())
   original=copy.deepcopy(d)
   if first and d.get('parentId')=='0' and d.get('type')!='MODAL_WIDGET':
@@ -121,6 +128,8 @@ for page in pages:
    for field in ['mobileTopRow','mobileBottomRow']:
     if isinstance(d.get(field),(int,float)):d[field]+=24
   if page!='Terminology Administration':d=transform_widget(d)
+  for field,title in table_headings.get(page+'/'+widget.stem,{}).items():
+   d['primaryColumns'][field]['label']=title
   if d!=original:emit(str(widget.relative_to(ROOT)),d)
  p=f'pages/{page}/{page}.json';d=read(p);d['unpublishedPage']['isHidden']=page!='Directory'
  if first:
