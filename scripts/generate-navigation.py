@@ -1,12 +1,44 @@
 #!/usr/bin/env python3
 """Generate v2.4.2 Menu Button navigation and shared presentation copies. --check never writes."""
 from pathlib import Path
-import argparse,copy,json,re
+import argparse,copy,json,re,uuid
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');ARGS=parser.parse_args()
 def read(path):return json.loads((ROOT/path).read_text())
 pending={}
-def emit(path,value):pending[path]=json.dumps(value,indent=2,ensure_ascii=False)+'\n' if isinstance(value,(dict,list)) else value
+def comparable(value):
+ # Native Git can reorder binding paths and remove a redundant static label binding.
+ # Function arguments, menus and other ordered lists must keep their order.
+ if isinstance(value,dict):
+  result={key:comparable(item) for key,item in value.items()}
+  for key in ['dynamicBindingPathList','dynamicTriggerPathList','dynamicPropertyPathList']:
+   if isinstance(result.get(key),list):
+    paths=result[key]
+    if key=='dynamicBindingPathList' and '{{' not in str(value.get('label','')):
+     paths=[item for item in paths if item!={'key':'label'}]
+    result[key]=sorted(paths,key=lambda item:json.dumps(item,sort_keys=True))
+  return result
+ if isinstance(value,list):return [comparable(item) for item in value]
+ return value
+
+def emit(path,value):
+ file=ROOT/path
+ if isinstance(value,(dict,list)):
+  if file.exists() and comparable(json.loads(file.read_text()))==comparable(value):return
+  pending[path]=json.dumps(value,indent=2,ensure_ascii=False)+'\n'
+ else:pending[path]=value
+
+def existing_metadata(path,fallback):
+ # gitSyncId is a persistent resource identity, not a generated display name.
+ # In particular, never replace an Appsmith-recreated resource's identity.
+ if (ROOT/path).exists():
+  value=read(path)
+  if not value.get('gitSyncId'):raise SystemExit('Existing resource lacks gitSyncId: '+path)
+  return value
+ value=copy.deepcopy(fallback)
+ prefix=read('pages/Directory/Directory.json')['gitSyncId'].split('_')[0]
+ value['gitSyncId']=prefix+'_'+str(uuid.uuid4())
+ return value
 registry=read('navigation/registry.json')
 pages=sorted(p.name for p in (ROOT/'pages').iterdir() if p.is_dir())
 registered=[i['page'] for g in registry['groups'] for i in g['items']]+registry['contextPages']+registry['unlistedPages']
@@ -31,7 +63,8 @@ FROM public.application_access({{ appsmith.user?.email || '' }}::text);
 """
 sql_terms='SELECT * FROM public.issue20_organization_terminology();\n'
 def query(page,name,body):
- d=copy.deepcopy(db_template);d['id']=page+'_'+name;d['gitSyncId']='navigation-'+page+'-'+name
+ path=f'pages/{page}/queries/{name}/metadata.json'
+ d=existing_metadata(path,db_template);d['id']=page+'_'+name
  a=d['unpublishedAction'];a['name']=name;a['pageId']=page;a['actionConfiguration']['body']=body;a['runBehaviour']='MANUAL';a['userSetOnLoad']=True
  a['dynamicBindingPathList']=[{'key':'body'}] if '{{' in body else []
  emit(f'pages/{page}/queries/{name}/metadata.json',d);emit(f'pages/{page}/queries/{name}/{name}.txt',body)
@@ -66,13 +99,15 @@ def transform_widget(d):
  return d
 for page in pages:
  query(page,'qNavigationAccess',sql_access);query(page,'qNavigationTerminology',sql_terms)
- collection={'gitSyncId':'navigation-labels-'+page,'id':page+'_navigationLabels','unpublishedCollection':{'name':'navigationLabels','pageId':page,'pluginId':'js-plugin','pluginType':'JS','variables':[]}}
+ collection_path=f'pages/{page}/jsobjects/navigationLabels/metadata.json'
+ collection=existing_metadata(collection_path,{'id':page+'_navigationLabels','unpublishedCollection':{'name':'navigationLabels','pageId':page,'pluginId':'js-plugin','pluginType':'JS','variables':[]}})
  emit(f'pages/{page}/jsobjects/navigationLabels/metadata.json',collection);emit(f'pages/{page}/jsobjects/navigationLabels/navigationLabels.js',label_source)
  for method,args in [('label',['concept','plural']),('text',['copy']),('accessState',[]),('accessMessage',[]),('initialize',[])]:
-  d=copy.deepcopy(js_template);d['id']=page+'_navigationLabels.'+method;d['gitSyncId']='navigation-labels-'+page+'-'+method
-  a=d['unpublishedAction'];a['collectionId']=page+'_navigationLabels';a['name']=method;a['fullyQualifiedName']='navigationLabels.'+method;a['pageId']=page;a['runBehaviour']='MANUAL';a['userSetOnLoad']=True;a['actionConfiguration']['jsArguments']=[{'name':name} for name in args]
+  path=f'pages/{page}/queries/navigationLabels-{method}/metadata.json'
+  d=existing_metadata(path,js_template);d['id']=page+'_navigationLabels.'+method
+  a=d['unpublishedAction'];a['collectionId']=page+'_navigationLabels';a['name']=method;a['fullyQualifiedName']='navigationLabels.'+method;a['pageId']=page;a['runBehaviour']='MANUAL';a['userSetOnLoad']=True;a['actionConfiguration']['jsArguments']=[next((item for item in a['actionConfiguration'].get('jsArguments',[]) if item.get('name')==name),{'name':name}) for name in args]
   if method=='initialize':
-   a['runBehaviour']='ON_PAGE_LOAD';a['clientSideExecution']=True
+   a['runBehaviour']='ON_PAGE_LOAD'
    a['actionConfiguration']['timeoutInMillisecond']=60000
   emit(f'pages/{page}/queries/navigationLabels-{method}/metadata.json',d)
  first=not (ROOT/f'pages/{page}/widgets/navMenuPeople.json').exists()
@@ -111,7 +146,27 @@ for page in pages:
   emit(f'pages/{page}/widgets/{name}.json',d)
  titles={i['page']:i['label'] for g in registry['groups'] for i in g['items']};title=titles.get(page,page)
  d=read('pages/Terminology Administration/widgets/txtTerminologyDenied.json');d.update(widgetName='txtNavigationPage',widgetId='navigation-current-page',key='navigation-current-page',parentId='0',isVisible=True,topRow=5,bottomRow=9,originalTopRow=5,originalBottomRow=9,mobileTopRow=20,mobileBottomRow=24,mobileLeftColumn=0,mobileRightColumn=64,minWidth=120,text='{{ "Current page: " + navigationLabels.text('+json.dumps(title,ensure_ascii=False)+') + (navigationLabels.accessMessage() ? " — " + navigationLabels.accessMessage() : "") }}')
- d['dynamicBindingPathList']=[{'key':'text'},{'key':'fontFamily'}];emit(f'pages/{page}/widgets/txtNavigationPage.json',d)
+ d['dynamicBindingPathList']=[{'key':'text'},{'key':'fontFamily'}]
+ title_path=f'pages/{page}/widgets/txtNavigationPage.json'
+ if (ROOT/title_path).exists():
+  existing_title=read(title_path)
+  for key in ['topRow','bottomRow','leftColumn','rightColumn','originalTopRow','originalBottomRow','mobileTopRow','mobileBottomRow','mobileLeftColumn','mobileRightColumn']:
+   if key in existing_title:d[key]=existing_title[key]
+ emit(title_path,d)
+# Catch cloned persistent identities before writing any generated changes.
+identities={}
+metadata_paths={str(path.relative_to(ROOT)) for path in (ROOT/'pages').rglob('metadata.json')}
+metadata_paths.update(path for path in pending if path.endswith('/metadata.json'))
+for path in sorted(metadata_paths):
+ parts=Path(path).parts
+ if len(parts)!=5 or parts[2] not in ['queries','jsobjects']:continue
+ value=json.loads(pending[path]) if path in pending else read(path)
+ for key in ['id','gitSyncId']:
+  identity=value.get(key)
+  if not isinstance(identity,str) or not identity:raise SystemExit('Missing '+key+': '+path)
+  scoped=(parts[2],key,identity)
+  if scoped in identities:raise SystemExit('Duplicate '+key+': '+path+' and '+identities[scoped])
+  identities[scoped]=path
 changed=[path for path,content in pending.items() if not (ROOT/path).exists() or (ROOT/path).read_text()!=content]
 if ARGS.check:
  if changed:raise SystemExit('Navigation generation differs: '+', '.join(changed[:12]))

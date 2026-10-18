@@ -33,7 +33,7 @@
     "fullyQualifiedName": "navigationLabels.label",
     "name": "label",
     "pageId": "Directory",
-    "runBehaviour": "ON_PAGE_LOAD",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

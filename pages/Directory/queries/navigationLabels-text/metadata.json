@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Directory",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

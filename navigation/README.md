@@ -1,0 +1,23 @@
+# Generated navigation and persistent identities
+
+`registry.json` owns menu groups and routes. `labels.js` owns shared presentation and current-account menu initialization. Run `python3 scripts/generate-navigation.py`; `--check` detects drift without writing.
+
+Existing metadata is the source of persistent resource identity. Preserve each JS collection, JS function and query's `gitSyncId`, including identities Appsmith assigns after an object is recreated. Logical `id` and `collectionId` still connect page/object/function names in the native Git representation. Do not derive a replacement sync ID from those names or rotate existing IDs to match a preferred format. Only genuinely new resources receive a fresh UUID-based identity, retained on reapplication. Duplicate/missing identities stop generation before writes.
+
+The generator preserves native metadata extensions, function argument defaults and the existing current-page title geometry. It compares JSON semantically and tolerates native reordering of binding paths/removal of a redundant static-label binding, so normalization alone does not rewrite files.
+
+`navigationLabels.initialize` is the startup action. `label`, `text`, `accessState` and `accessMessage` are synchronous helpers and stay explicitly Manual. They may be evaluated as widget expressions; they must not replace the initializer in the server startup schedule. Deliberate authority queries remain Manual and are invoked by the initializer. Labels and role visibility do not grant database authority.
+
+The operator's recreation checkpoint `3763b0a` preserved new Directory objects, but saved `initialize` as Manual and `label` as On page load. The subsequent correction changes those modes while keeping the recreated identities. Directory's recreated `directoryFlows.load` omits `clientSideExecution` and per-function async metadata; the operator reports the table loads. These fields are not mandatory source acceptance assertions. Preserve native metadata already present elsewhere rather than stripping or requiring it.
+
+Checks:
+
+```bash
+python3 tests/navigation-generation.py
+python3 scripts/generate-navigation.py --check
+node scripts/check-page-load-registration.mjs
+node tests/page-startup.mjs
+node tests/navigation.mjs
+```
+
+The generation regression reproduces the wrong-hook checkpoint, preserves all existing identities/defaults/native extensions, rejects duplicate identities and checks byte-stable reapplication and one-time new-resource IDs. Controller fixtures validate source behavior only. The deployed Appsmith scheduler and page rendering still need focused runtime acceptance. The source audit found no duplicated sync IDs; object recreation helping at runtime does not prove the old sync ID's spelling caused the stored-object problem.
