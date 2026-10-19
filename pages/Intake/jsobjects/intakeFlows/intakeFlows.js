@@ -148,6 +148,11 @@ export default {
       if (delivery === "Paper") {
         showAlert("Paper agreement upload is pending integration validation. No record or file was sent.","warning"); return;
       }
+      if (!["Digital","Later"].includes(delivery)) {
+        showAlert("Choose a digital agreement or explicitly create the agreement later.","warning"); return;
+      }
+      // Stale hidden selection values must not request an agreement in Later mode.
+      if (delivery === "Later") { agreementType = null; agreementTemplate = null; }
     }
 
     const first=(inpIntakeFirstName.text || "").trim();
@@ -201,18 +206,19 @@ export default {
     saved=true; // A timeout does not establish that the transaction rolled back.
     const receipt=(await qSubmitAtomicIntake.run({owner:submissionOwner,request_id:requestId,payload_json:JSON.stringify(payload)}))?.[0]?.receipt;
     if(receipt?.state!=="committed" || receipt.request_id!==requestId ||
-      (member && (!receipt.member_id || !receipt.agreement_id)) || (contributor && !receipt.contributor_id)) {
+      (member && (!receipt.member_id || (delivery === "Digital" && !receipt.agreement_id)
+        || (delivery === "Later" && (receipt.agreement_id || receipt.agreement_deferred !== true)))) || (contributor && !receipt.contributor_id)) {
       throw new Error("The Intake transaction did not return a complete receipt.");
     }
     await this.checkpoint(submissionOwner,{state:"incomplete",member_id:receipt.member_id,person_id:receipt.person_id,
       organization_id:receipt.organization_id,contributor_id:receipt.contributor_id,agreement_id:receipt.agreement_id});
     stage(company ? "Company and Contributor enrollment saved." : "Individual and selected enrollment capacities saved.");
     stage("Contact methods and identity notes saved.");
-    if(member) stage("Spiritual Practitioner assignment and pending agreement saved.");
+    if(member) stage(delivery === "Digital" ? "Spiritual Practitioner assignment and pending agreement saved." : "Spiritual Practitioner assignment saved. Create and complete an agreement from Participant Functions before a release.");
     if(member && contactEmail && payload.participant_subscribe) stage("Participant mailing preference saved; Listmonk synchronization queued…");
     if(contributor && contactEmail && payload.contributor_subscribe) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
     let triggerResult=null;
-    if(member) {
+    if(member && delivery === "Digital") {
       stage("Agreement created. Requesting the signing workflow…");
       // The committed agreement is the stable external key. Never auto-retry HTTP.
       triggerResult=await apiTriggerDocumenso.run({member_agreement_id:receipt.agreement_id,externalId:"ma:"+receipt.agreement_id});
@@ -223,7 +229,7 @@ export default {
     await this.checkpoint(submissionOwner,{state:"completed",phase:"Enrollment completed"});
     showAlert(navigationLabels.text(member && contributor ? "Individual enrolled as Member and Contributor." : member ? "Individual enrolled as Member." : "Contributor enrollment completed."),"success");
     return {memberId:receipt.member_id,contributorId:receipt.contributor_id,
-      agreementResult:member ? [{member_agreement_id:receipt.agreement_id}] : null,triggerResult};
+      agreementResult:receipt.agreement_id ? [{member_agreement_id:receipt.agreement_id}] : null,triggerResult};
     } catch(error) {
       if(saved) {
         try {await this.checkpoint(submissionOwner,{state:"needs_review",phase});} catch(checkpointError) { /* Keep the original owner-scoped uncertainty marker. */ }

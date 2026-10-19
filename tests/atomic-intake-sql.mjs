@@ -12,5 +12,5 @@ try {
  await db.exec(read(schemaPath));
  for(let pass=0;pass<2;pass++)await db.exec(read(path.join(dbRoot,'migrations/atomic_intake.sql')));
  await db.exec(read(path.join(dbRoot,'tests/verify_atomic_intake.sql')));
- console.log('PASS atomic Intake SQL: 24 enrollment/replay cases, 14 full rollback/retry boundaries, strict input/authority/owner/payload checks and migration reapplication');
+ console.log('PASS atomic Intake SQL: 24 Digital/Contributor plus 18 deferred enrollment/replay cases, 14 full rollback/retry boundaries, strict input/authority/owner/payload checks and migration reapplication');
 } finally {await db.close();}

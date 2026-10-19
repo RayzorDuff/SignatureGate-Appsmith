@@ -74,6 +74,38 @@ try {
   }
  }
  assert.equal(completed,24);
+ let deferred=0;
+ for(const kind of ['member','dual']) for(const contacts of ['email_phone','email_address','phone_address']) {
+  for(const [memberOpt,contributorOpt] of kind==='dual'?[[false,false],[true,false],[false,true],[true,true]]:[[false,false],[true,true]]) {
+   const x=fixture({kind,contacts,memberOpt,contributorOpt,email:kind==='member'?doc.email:admin.email,delivery:'Later'});
+   // Hidden selections from an earlier Digital choice cannot create an agreement.
+   x.c.selAgreementTemplate.selectedOptionValue='stale-not-a-uuid';
+   const result=await x.flows.submit();assert.ok(result,JSON.stringify(x.calls.alerts));
+   assert.ok(result.memberId);assert.equal(result.agreementResult,null);assert.equal(x.calls.api,0);
+   assert.equal((await db.query('SELECT count(*)::int AS n FROM member_agreements WHERE member_id=$1',[result.memberId])).rows[0].n,0);
+   assert.equal((await db.query('SELECT count(*)::int AS n FROM issue19_sacrament_release_agreement($1)',[result.memberId])).rows[0].n,0);
+   const record=(await db.query('SELECT * FROM member_practitioner_assignments WHERE member_id=$1',[result.memberId])).rows[0];
+   assert.equal(record.practitioner_person_id,practitioner);
+   assert.ok(x.calls.alerts.some(a=>/Create and complete an agreement/.test(a.message)));
+   assert.equal(x.flows.recovery().state,'completed');await x.flows.inspectRecovery();assert.equal(x.calls.api,0);
+   const before=x.calls.actions.length;await x.flows.submit();assert.equal(x.calls.actions.length,before);
+   deferred++;
+  }
+ }
+ assert.equal(deferred,18);
+ for(const delivery of ['',null,'Unknown']) {
+  const x=fixture({email:doc.email,delivery});assert.equal(await x.flows.submit(),undefined);
+  assert.ok(!x.calls.actions.includes('qSubmitAtomicIntake'),'unselected/unknown agreement timing cannot silently defer');
+ }
+ {
+  const widget=JSON.parse(fs.readFileSync(new URL('widgets/frmIntake/tabsMemberEnrollment/selAgreementDelivery.json',page),'utf8'));
+  const choices=vm.runInNewContext(widget.sourceData.slice(2,-2),{});assert.ok(choices.some(c=>c.value==='Later'));
+  for(const name of ['selAgreementType','selAgreementTemplate']) {
+   const field=JSON.parse(fs.readFileSync(new URL('widgets/frmIntake/tabsMemberEnrollment/'+name+'.json',page),'utf8'));
+   assert.equal(vm.runInNewContext(field.isRequired.slice(2,-2),{chkIntakeMember:{isChecked:true},selAgreementDelivery:{selectedOptionValue:'Later'}}),false);
+   assert.equal(vm.runInNewContext(field.isDisabled.slice(2,-2),{selAgreementDelivery:{selectedOptionValue:'Later'}}),true);
+  }
+ }
  for(const options of [{email:participant.email},{email:doc.email,kind:'dual'},{email:doc.email,delivery:'Paper'},{email:doc.email,contacts:'phone_address'},{email:doc.email,contacts:'email'}]) {
   const x=fixture(options);assert.equal(await x.flows.submit(),undefined);assert.ok(x.calls.actions.every(n=>['qPageAccess','qCurrentFacilitator','qIntakeActorRoles'].includes(n)),'preflight must block before identity writes');
  }
@@ -105,6 +137,6 @@ try {
  {const x=fixture({email:doc.email});x.c.appsmith.store['intake_submission:'+doc.email]={version:1,owner:doc.email,state:'needs_review'};await x.flows.inspectRecovery();assert.equal(x.calls.actions.length,0,'legacy checkpoint should not perform a lookup');}
  console.log('PASS '+faults+' atomic request/lost-response guards, read-only receipt recovery, legacy checkpoint, account isolation, acknowledged reset and signing no-replay');
  {const x=fixture({email:doc.email});x.c.appsmith.store.intake_busy=true;await x.flows.submit();assert.equal(x.calls.actions.length,0);}
- console.log('PASS Intake: 24 controller/prepared-SQL enrollment cases, independent mailing consent, shared contact roles, optional DOB, pre-write denial/paper/contact checks and atomic persistence and signing recovery');
+ console.log('PASS Intake: 24 Digital/Contributor and 18 deferred controller/prepared-SQL cases, independent consent, shared contacts, optional DOB, no-email enrollment, no agreement/release eligibility, pre-write denial/paper/contact checks and atomic recovery');
  await db.exec('ROLLBACK');
 } catch(error) {console.error(error.message);process.exitCode=1;} finally {await db.close();}

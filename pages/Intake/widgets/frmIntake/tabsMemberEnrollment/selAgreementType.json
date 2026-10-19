@@ -13,6 +13,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
     }
   ],
   "dynamicPropertyPathList": [
@@ -50,5 +53,6 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-agreement-type",
-  "widgetName": "selAgreementType"
+  "widgetName": "selAgreementType",
+  "isDisabled": "{{ selAgreementDelivery.selectedOptionValue !== 'Digital' }}"
 }

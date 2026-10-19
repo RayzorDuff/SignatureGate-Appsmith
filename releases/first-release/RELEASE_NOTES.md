@@ -51,3 +51,7 @@ Progress feedback remains, with database-stage completion reported after commit.
 ## Remaining terminology controls
 
 Select captions/placeholders and Directory's per-row Participant/Contributor action buttons now use configured labels. Profile enrollment/contact-role captions retain stable capacity values while showing deployment labels. Terminology Administration displays the complete installed active/reserved structure in a read-only table and refreshes current-page labels after saving. Older installed `member=Member` configuration requires an explicit audited adoption to Participant; configuration overrides are preserved. Rooted Psyche's expected Participant wording uses `member`, not the separately reserved event `participant` concept.
+
+## Deferred agreement parity
+
+Intake now offers an explicit Create agreement later choice. Participant enrollment still requires two contacts and a practitioner assignment; phone plus address is supported without email. This mode creates no agreement, performs no signing request and grants no release eligibility. The saved receipt/replay/reset protections remain. Digital remains the default; paper upload remains blocked. Reapply the updated atomic Intake migration on test before pulling this frontend. SQL/controller suites exercise 18 added deferred cases alongside the 24 existing enrollments.

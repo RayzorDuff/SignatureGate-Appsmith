@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: RayzorDuff/SignatureGate
-          ref: 0a8df7c5287d5ddc37123011b387ed931b788bd6
+          ref: 9c644932e357e2d6b28e995cc704091510fab463
           path: SignatureGate
       - uses: actions/setup-node@v4
         with:
