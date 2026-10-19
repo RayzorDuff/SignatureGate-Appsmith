@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Events - Check In",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

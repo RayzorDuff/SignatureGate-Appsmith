@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Terminology Administration",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

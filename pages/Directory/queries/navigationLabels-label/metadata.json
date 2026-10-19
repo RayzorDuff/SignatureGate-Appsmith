@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Directory",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

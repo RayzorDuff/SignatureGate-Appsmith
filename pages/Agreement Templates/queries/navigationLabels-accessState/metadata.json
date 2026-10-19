@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Agreement Templates",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

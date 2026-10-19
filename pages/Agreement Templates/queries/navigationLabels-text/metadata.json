@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Agreement Templates",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

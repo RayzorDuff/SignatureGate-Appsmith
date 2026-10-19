@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Intake",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

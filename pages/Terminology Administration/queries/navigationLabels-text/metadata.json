@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Terminology Administration",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

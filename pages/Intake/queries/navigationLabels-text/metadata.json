@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Intake",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

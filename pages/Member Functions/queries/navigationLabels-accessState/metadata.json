@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Member Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }
