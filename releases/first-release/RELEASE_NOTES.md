@@ -27,7 +27,7 @@ The [combined SignatureGate changelog](https://github.com/RayzorDuff/SignatureGa
 
 ## Remaining release gates
 
-Paper upload remains blocked before records/files pending destination and principal validation. PostgreSQL 16.13 upgrade/concurrency verification of atomic Intake and native unified Intake retirement acceptance, external delivery/authorization, mobile/keyboard/native SDK/Git synchronization and protected upgrade/recovery still need acceptance. The operator accepted all-page navigation; that does not certify unrelated workflow outcomes. Unlisted event/queue pages remain in source; their presence is not workflow acceptance. The duplicate legacy Intake page is retired after unified parity checks.
+Paper upload remains blocked before records/files pending destination and principal validation. Installed PostgreSQL 16 ownership/grants and restored-upgrade verification of atomic Intake and native unified Intake retirement acceptance, external delivery/authorization, mobile/keyboard/native SDK/Git synchronization and protected upgrade/recovery still need acceptance. The operator accepted all-page navigation; that does not certify unrelated workflow outcomes. Unlisted event/queue pages remain in source; their presence is not workflow acceptance. The duplicate legacy Intake page is retired after unified parity checks.
 
 The development ERP default and both explicit synchronization calls remain `test`; the reviewed production candidate must update all three only after backend/integration acceptance. Existing executed agreements and historical records are preserved. No v1.2.0 VERSION change, Appsmith master promotion, export packaging or release tag is performed by this draft.
 
@@ -39,7 +39,7 @@ Record the accepted Appsmith master/source SHA and tree, published revision and 
 
 Before the first identity write, Intake persists an account-scoped checkpoint containing controlled stage text and technical IDs only. A rejected request, lost response or signing failure leaves a review notice and blocks ordinary resubmission, including after a reload that retains Appsmith storage. Known identity/agreement IDs are retained privately. Reset after an incomplete outcome requires explicit review acknowledgment; it starts a separate intake and does not replay, finish, delete or roll back saved records. Successful intake also requires Reset before another submission. The busy indicator is temporary; the checkpoint is persistent.
 
-Real source SQL/controller fault tests exercise failures before and after individual action commits and retain the existing 24 successful enrollment cases. The browser checkpoint is a recovery aid. The active Intake API additionally provides database transactionality and owner/key/payload idempotency. Different request keys, real concurrent-session verification, cleared storage and external delivery retain their separate runtime/policy gates.
+Real source SQL/controller fault tests exercise failures before and after individual action commits and retain the existing 24 successful enrollment cases. The browser checkpoint is a recovery aid. The active Intake API additionally provides database transactionality and owner/key/payload idempotency. Different request keys, installed ownership/grants, cleared storage and external delivery retain their separate runtime/policy gates.
 
 
 ## Atomic active Intake candidate
@@ -59,3 +59,7 @@ Intake now offers an explicit Create agreement later choice. Participant enrollm
 ## Single Intake entry
 
 Unified Intake now replaces the duplicate legacy page in the native application registry and every menu. Seventeen unused active-Intake write/helper/upload actions are removed. Canonical duplicate feedback works for reviewers without Participant capacity, and the signing action is explicitly Manual. Completion audit is emitted only by the enrollment transaction. See docs/INTAKE_PARITY.md for supported parity, intentional rule changes and remaining runtime/paper gates.
+
+## PostgreSQL 16 evidence
+
+The full application suite and four lock-observed contention cases pass on PostgreSQL 16.13 in CI run 39194685976 at code checkpoint aca3d48 with canonical backend d85fecb. Commit/replay, rollback/retry and owner/payload conflicts each preserve one enrollment/receipt/completion audit; the disposable database is removed. This is fresh-engine evidence, separate from the installed database and protected production restore. Current source/phase/rollout details are maintained in SignatureGate/releases/v1.2.0/STATUS.md and UNIFIED_INTAKE_VALIDATION.md.

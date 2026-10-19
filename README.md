@@ -9,3 +9,7 @@ This app is built using Appsmith. Turn any datasource into an internal app in mi
 ##### You can visit the application using the below link
 
 ###### [![](https://assets.appsmith.com/git-sync/Buttons.svg) ](https://appsmith.danks.store/applications/6aba2d8df6d579f05d9be929/pages/6aba2d8df6d579f05d9be93a) [![](https://assets.appsmith.com/git-sync/Buttons2.svg)](https://appsmith.danks.store/applications/6aba2d8df6d579f05d9be929/pages/6aba2d8df6d579f05d9be93a/edit)
+
+## Current v1.2.0 development checkpoint
+
+Unified Intake is now the only enrollment page; the duplicate legacy page and seventeen unused partial-write/helper/upload actions are retired. Digital remains the default; explicit Create agreement later supports two contacts without email, retains practitioner assignment and creates no agreement/signing request or release eligibility. The full suite exercises 42 enrollment cases and real PostgreSQL 16.13 contention CI. Apply the updated backend atomic API before pulling the frontend; see [current rollout and focused validation](https://github.com/RayzorDuff/SignatureGate/blob/main/releases/v1.2.0/UNIFIED_INTAKE_VALIDATION.md). Production promotion and final packaging remain gated.
