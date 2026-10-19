@@ -3,4 +3,4 @@ SELECT type_key, display_name
 FROM public.agreement_types
 WHERE active = true
 ORDER BY sort_order, display_name
-) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');
+) role_policy_guard WHERE public.application_member_access({{ appsmith.user.email }},NULLIF({{ this.params.member_id || appsmith.store.member_id || '' }},'')::uuid,true);

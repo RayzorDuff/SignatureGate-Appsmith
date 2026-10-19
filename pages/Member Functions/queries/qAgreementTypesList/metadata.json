@@ -5,7 +5,7 @@
   "pluginType": "DB",
   "unpublishedAction": {
     "actionConfiguration": {
-      "body": "SELECT role_policy_guard.* FROM (\nSELECT type_key, display_name\nFROM public.agreement_types\nWHERE active = true\nORDER BY sort_order, display_name\n) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');\n",
+      "body": "SELECT role_policy_guard.* FROM (\nSELECT type_key, display_name\nFROM public.agreement_types\nWHERE active = true\nORDER BY sort_order, display_name\n) role_policy_guard WHERE public.application_member_access({{ appsmith.user.email }},NULLIF({{ this.params.member_id || appsmith.store.member_id || '' }},'')::uuid,true);\n",
       "encodeParamsToggle": true,
       "paginationType": "NONE",
       "pluginSpecifiedTemplates": [

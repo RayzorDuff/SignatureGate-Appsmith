@@ -8,6 +8,7 @@ SELECT
   documenso_template_envelope_id
 FROM public.agreement_templates
 WHERE active = true
-  AND {{ selAgreementType.selectedOptionValue || this.params.type_key }} = ANY(required_for)
+  AND EXISTS (SELECT 1 FROM public.agreement_types t WHERE t.active AND t.type_key = {{ this.params.type_key ?? selAgreementType.selectedOptionValue ?? '' }})
+  AND {{ this.params.type_key ?? selAgreementType.selectedOptionValue ?? '' }} = ANY(required_for)
 ORDER BY name, version DESC, created_at DESC
-) role_policy_guard WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');
+) role_policy_guard WHERE public.application_member_access({{ appsmith.user.email }},NULLIF({{ this.params.member_id || appsmith.store.member_id || '' }},'')::uuid,true);

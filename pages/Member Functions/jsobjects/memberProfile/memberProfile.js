@@ -26,21 +26,38 @@ export default {
     return [];
   }
 
-	return Promise.allSettled([directoryPromise, qMemberById.run(), qMemberAgreements.run(), qMemberReleases.run(), qListFacilitators?.run?.(), qMemberFacilitators?.run?.(), qMemberEmails?.run?.(), qAgreementTypesList.run(), selAgreementType?.selectedOptionValue ? qAgreementTemplatesByType.run({
-			type_key: selAgreementType.selectedOptionValue
-		}) : Promise.resolve([])]);
-	},
-
-	async refreshAgreements() {
-    if (!selAgreementType.selectedOptionValue) {
-				return null;
+  // Load the catalog before choosing a type. Widget selection can lag a query response.
+  const catalogPromise = (async () => {
+    try {
+      const types = await qAgreementTypesList.run({ member_id: memberId });
+      const selected = selAgreementType.selectedOptionValue;
+      const typeKey = (types || []).some(row => row.type_key === selected)
+        ? selected : (types?.[0]?.type_key || "");
+      await selAgreementType.setSelectedOption(typeKey);
+      return await memberProfile.refreshAgreements(typeKey);
+    } catch (error) {
+      showAlert("Agreement choices could not be loaded. Refresh before creating an agreement.", "warning");
+      throw error;
     }
-	
-    return await qAgreementTemplatesByType.run({
-      type_key: selAgreementType.selectedOptionValue,
-    });
+  })();
+  return Promise.allSettled([directoryPromise, qMemberById.run(), qMemberAgreements.run(), qMemberReleases.run(), qListFacilitators?.run?.(), qMemberFacilitators?.run?.(), qMemberEmails?.run?.(), catalogPromise]);
   },
-	
+
+  async refreshAgreements(typeKey) {
+    // Explicit parameters take precedence over a previous widget selection.
+    const selectedType = typeKey ?? selAgreementType.selectedOptionValue ?? "";
+    await selAgreementTemplate.setSelectedOption("");
+    await storeValue("agreement_template_id", "");
+    const rows = await qAgreementTemplatesByType.run({
+      type_key: selectedType,
+      member_id: appsmith.store.member_id || "",
+    });
+    if (selectedType && !(rows || []).length) {
+      showAlert("No active agreement templates are available for the selected type.", "warning");
+    }
+    return rows;
+  },
+
 	_requireMemberId() {
     let memberId = selMember?.selectedOptionValue;
 		
@@ -89,7 +106,16 @@ export default {
       return null;
     }
 		
-		storeValue("agreement_template_id", agreementTemplateId);
+    const typeKey = selAgreementType.selectedOptionValue;
+    const template = (qAgreementTemplatesByType.data || []).find(row =>
+      row.agreement_template_id === agreementTemplateId && row.active === true &&
+      Array.isArray(row.required_for) && row.required_for.includes(typeKey));
+    const activeType = (qAgreementTypesList.data || []).some(row => row.type_key === typeKey);
+    if (!template || !activeType) {
+      showAlert("Select an active template for the current agreement type before creating an agreement.", "warning");
+      return null;
+    }
+    storeValue("agreement_template_id", agreementTemplateId);
     return agreementTemplateId;
   },
 

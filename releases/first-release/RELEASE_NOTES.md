@@ -63,3 +63,5 @@ Unified Intake now replaces the duplicate legacy page in the native application 
 ## PostgreSQL 16 evidence
 
 The full application suite and four lock-observed contention cases pass on PostgreSQL 16.13 in CI run 39194685976 at code checkpoint aca3d48 with canonical backend d85fecb. Commit/replay, rollback/retry and owner/payload conflicts each preserve one enrollment/receipt/completion audit; the disposable database is removed. This is fresh-engine evidence, separate from the installed database and protected production restore. Current source/phase/rollout details are maintained in SignatureGate/releases/v1.2.0/STATUS.md and UNIFIED_INTAKE_VALIDATION.md.
+
+- Restore copied navigation startup settings while retaining native JS identities. Show Participant agreement types and load templates in canonical reviewer/assigned-practitioner scope after deferred Intake, with ordered reads and stale-selection protection.

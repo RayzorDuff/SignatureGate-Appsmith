@@ -18,7 +18,7 @@ function run(command,args) {
  if(result.error)throw result.error;
  if(result.status!==0)process.exit(result.status||1);
 }
-const sqlTests=new Set(['atomic-intake-sql.mjs','application-authorization-sql.mjs','intake-flows.mjs','reporting-sql.mjs']);
+const sqlTests=new Set(['atomic-intake-sql.mjs','application-authorization-sql.mjs','intake-flows.mjs','reporting-sql.mjs','member-agreements-sql.mjs']);
 if(!args.includes('--sql-only')) {
  run('python3',['tests/navigation-generation.py']);
  run('python3',['scripts/generate-navigation.py','--check']);

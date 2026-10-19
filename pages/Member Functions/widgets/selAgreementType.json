@@ -4,7 +4,7 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 23,
   "boxShadow": "none",
-  "defaultOptionValue": "sacrament_release",
+  "defaultOptionValue": "",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"
@@ -14,6 +14,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -26,6 +29,9 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicTriggerPathList": [
@@ -37,7 +43,7 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": false,
+  "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "rgf69u4gmd",
   "labelAlignment": "left",
   "labelPosition": "Top",
@@ -61,7 +67,7 @@
   "parentColumnSpace": 9.9375,
   "parentId": "0",
   "parentRowSpace": 10,
-  "placeholderText": "Select option",
+  "placeholderText": "Select agreement type",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 42,
