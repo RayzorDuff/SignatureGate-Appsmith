@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 19,
+  "bottomRow": 23,
   "boxShadow": "none",
   "defaultOptionValue": "sacrament_release",
   "dynamicBindingPathList": [
@@ -33,7 +33,7 @@
       "key": "onOptionChange"
     }
   ],
-  "isDisabled": "{{!(selMember.selectedOptionValue)}}",
+  "isDisabled": "{{! (selMember?.selectedOptionValue ) }}",
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
@@ -67,7 +67,7 @@
   "rightColumn": 42,
   "serverSideFiltering": false,
   "sourceData": "{{ qAgreementTypesList.data}}",
-  "topRow": 15,
+  "topRow": 16,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "l9cxwh7i0s",

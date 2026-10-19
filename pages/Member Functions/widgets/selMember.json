@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 19,
+  "bottomRow": 23,
   "boxShadow": "none",
   "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  appsmith.store.member_id || \"\" ))(selMember.options, selMember.serverSideFiltering) }}",
   "dynamicBindingPathList": [
@@ -79,7 +79,7 @@
   "rightColumn": 22,
   "serverSideFiltering": false,
   "sourceData": "{{ (qMembersDirectory.data || []).slice().sort((a, b) => `${a.last_name || ''} ${a.first_name || ''}`.localeCompare(`${b.last_name || ''} ${b.first_name || ''}`)).map(item => ({ label: `${item.first_name || ''} ${item.last_name || ''}`.trim(), value: item.member_id })) }}",
-  "topRow": 15,
+  "topRow": 16,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "k95wcuviua",
