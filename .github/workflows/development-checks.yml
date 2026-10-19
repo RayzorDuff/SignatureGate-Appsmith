@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: RayzorDuff/SignatureGate
-          ref: 9c644932e357e2d6b28e995cc704091510fab463
+          ref: c9dc30eb7b1191aa344ae8410008712abe18e359
           path: SignatureGate
       - uses: actions/setup-node@v4
         with:
@@ -41,3 +41,37 @@ jobs:
       - name: Exercise source, controllers and disposable SQL
         working-directory: SignatureGate-Appsmith
         run: npm test
+
+  postgres-intake-concurrency:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16.13
+        env:
+          POSTGRES_USER: signaturegate
+          POSTGRES_PASSWORD: synthetic-ci-validation-only
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd "pg_isready -U signaturegate -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: RayzorDuff/SignatureGate
+          ref: c9dc30eb7b1191aa344ae8410008712abe18e359
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exercise disposable database lifecycle guards
+        run: python3 scripts/test_postgres_intake_validation.py
+      - name: Exercise real PostgreSQL 16 transaction contention
+        env:
+          PG_VALIDATION_CONTAINER: ${{ job.services.postgres.id }}
+        run: >-
+          python3 scripts/validate_postgres_intake.py
+          --container "$PG_VALIDATION_CONTAINER"
+          --maintenance-database postgres
+          --evidence "$RUNNER_TEMP/signaturegate-postgres-evidence"

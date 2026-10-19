@@ -1,3 +1,0 @@
-{
-  "files": {{ this.params.files || FilePicker1.files }}
-}

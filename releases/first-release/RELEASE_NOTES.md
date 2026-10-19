@@ -27,7 +27,7 @@ The [combined SignatureGate changelog](https://github.com/RayzorDuff/SignatureGa
 
 ## Remaining release gates
 
-Paper upload remains blocked before records/files pending destination and principal validation. PostgreSQL 16.13 upgrade/concurrency verification of atomic Intake and legacy Intake parity/retirement, external delivery/authorization, mobile/keyboard/native SDK/Git synchronization and protected upgrade/recovery still need acceptance. The operator accepted all-page navigation; that does not certify unrelated workflow outcomes. Legacy Intake and unlisted event/queue pages remain in source; their presence is not parity or workflow acceptance.
+Paper upload remains blocked before records/files pending destination and principal validation. PostgreSQL 16.13 upgrade/concurrency verification of atomic Intake and native unified Intake retirement acceptance, external delivery/authorization, mobile/keyboard/native SDK/Git synchronization and protected upgrade/recovery still need acceptance. The operator accepted all-page navigation; that does not certify unrelated workflow outcomes. Unlisted event/queue pages remain in source; their presence is not workflow acceptance. The duplicate legacy Intake page is retired after unified parity checks.
 
 The development ERP default and both explicit synchronization calls remain `test`; the reviewed production candidate must update all three only after backend/integration acceptance. Existing executed agreements and historical records are preserved. No v1.2.0 VERSION change, Appsmith master promotion, export packaging or release tag is performed by this draft.
 
@@ -39,14 +39,14 @@ Record the accepted Appsmith master/source SHA and tree, published revision and 
 
 Before the first identity write, Intake persists an account-scoped checkpoint containing controlled stage text and technical IDs only. A rejected request, lost response or signing failure leaves a review notice and blocks ordinary resubmission, including after a reload that retains Appsmith storage. Known identity/agreement IDs are retained privately. Reset after an incomplete outcome requires explicit review acknowledgment; it starts a separate intake and does not replay, finish, delete or roll back saved records. Successful intake also requires Reset before another submission. The busy indicator is temporary; the checkpoint is persistent.
 
-Real source SQL/controller fault tests exercise failures before and after individual action commits and retain the existing 24 successful enrollment cases. The browser checkpoint is a recovery aid. The active Intake API additionally provides database transactionality and owner/key/payload idempotency. Different request keys, real concurrent-session verification, legacy Intake, cleared storage and external delivery retain their separate runtime/policy gates.
+Real source SQL/controller fault tests exercise failures before and after individual action commits and retain the existing 24 successful enrollment cases. The browser checkpoint is a recovery aid. The active Intake API additionally provides database transactionality and owner/key/payload idempotency. Different request keys, real concurrent-session verification, cleared storage and external delivery retain their separate runtime/policy gates.
 
 
 ## Atomic active Intake candidate
 
 The active Intake page now persists the new identity, selected capacities, contacts, notes, practitioner assignment, pending digital agreement, mailing queue entries and completion audit in one database call. A durable UUID request key, canonical owner and payload fingerprint make a repeated committed request return the same receipt. Invalid/failed transactions leave no partial enrollment. Known technical IDs can be recovered through Check saved Intake without replaying creation or signing. A missing receipt can still mean an in-flight request; its local guard remains.
 
-Progress feedback remains, with database-stage completion reported after commit. Digital signing occurs afterward with the existing agreement ID as its external key. A failed/uncertain HTTP response still requires delivery reconciliation; it does not undo enrollment or permit automatic resubmission. Apply SignatureGate's `atomic_intake.sql` to test before pulling this candidate. There is no fallback to the old multi-action write sequence. Legacy Intake remains a separate parity/retirement gate; restored PostgreSQL 16 ownership/grants/concurrent-session acceptance and external delivery remain open.
+Progress feedback remains, with database-stage completion reported after commit. Digital signing occurs afterward with the existing agreement ID as its external key. A failed/uncertain HTTP response still requires delivery reconciliation; it does not undo enrollment or permit automatic resubmission. Apply SignatureGate's `atomic_intake.sql` to test before pulling this candidate. There is no fallback to the old multi-action write sequence. Legacy Intake retirement is implemented in the development successor; native acceptance remains; restored PostgreSQL 16 ownership/grants/concurrent-session acceptance and external delivery remain open.
 
 ## Remaining terminology controls
 
@@ -55,3 +55,7 @@ Select captions/placeholders and Directory's per-row Participant/Contributor act
 ## Deferred agreement parity
 
 Intake now offers an explicit Create agreement later choice. Participant enrollment still requires two contacts and a practitioner assignment; phone plus address is supported without email. This mode creates no agreement, performs no signing request and grants no release eligibility. The saved receipt/replay/reset protections remain. Digital remains the default; paper upload remains blocked. Reapply the updated atomic Intake migration on test before pulling this frontend. SQL/controller suites exercise 18 added deferred cases alongside the 24 existing enrollments.
+
+## Single Intake entry
+
+Unified Intake now replaces the duplicate legacy page in the native application registry and every menu. Seventeen unused active-Intake write/helper/upload actions are removed. Canonical duplicate feedback works for reviewers without Participant capacity, and the signing action is explicitly Manual. Completion audit is emitted only by the enrollment transaction. See docs/INTAKE_PARITY.md for supported parity, intentional rule changes and remaining runtime/paper gates.

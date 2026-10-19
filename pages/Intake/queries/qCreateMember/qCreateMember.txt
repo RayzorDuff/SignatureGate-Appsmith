@@ -1,4 +1,0 @@
-SELECT * FROM public.application_create_participant(
- {{ appsmith.user.email }}::text, {{ this.params.first_name }}::text, {{ this.params.last_name }}::text,
- NULLIF({{ this.params.email || "" }}::text,''), NULLIF({{ this.params.phone || "" }}::text,''),
- NULLIF({{ this.params.date_of_birth || "" }}::text,'')::date);

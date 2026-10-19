@@ -1,26 +1,93 @@
 {
   "groups": [
-    {"key":"people","label":"People & Organizations","items":[
-      {"page":"Directory","label":"Directory","permission":null},
-      {"page":"Intake","label":"Intake","permission":"can_intake"},
-      {"page":"Members – Intake","label":"Legacy Intake","permission":"is_document_reviewer"}
-    ]},
-    {"key":"practice","label":"Participation & Practice","items":[
-      {"page":"Member Functions","label":"Participant Functions","permission":"can_member_functions"},
-      {"page":"Facilitator Functions","label":"Spiritual Practitioner Functions","permission":"can_practitioner_admin"},
-      {"page":"Sacrament Release","label":"Sacrament Release","permission":"can_release"}
-    ]},
-    {"key":"contributions","label":"Contributions","items":[
-      {"page":"Contributor Functions","label":"Contributor Functions","permission":"can_contributor_functions"},
-      {"page":"Cash Deposits","label":"Cash Deposits","permission":"can_cash_deposits"}
-    ]},
-    {"key":"administration","label":"Reports & Administration","items":[
-      {"page":"Reports","label":"Reports","permission":"reports"},
-      {"page":"Agreement Templates","label":"Agreement Templates","permission":"is_document_reviewer"},
-      {"page":"Audit Log","label":"Audit Log","permission":"audit"},
-      {"page":"Terminology Administration","label":"Terminology Administration","permission":"is_directory_manager"}
-    ]}
+    {
+      "key": "people",
+      "label": "People & Organizations",
+      "items": [
+        {
+          "page": "Directory",
+          "label": "Directory",
+          "permission": null
+        },
+        {
+          "page": "Intake",
+          "label": "Intake",
+          "permission": "can_intake"
+        }
+      ]
+    },
+    {
+      "key": "practice",
+      "label": "Participation & Practice",
+      "items": [
+        {
+          "page": "Member Functions",
+          "label": "Participant Functions",
+          "permission": "can_member_functions"
+        },
+        {
+          "page": "Facilitator Functions",
+          "label": "Spiritual Practitioner Functions",
+          "permission": "can_practitioner_admin"
+        },
+        {
+          "page": "Sacrament Release",
+          "label": "Sacrament Release",
+          "permission": "can_release"
+        }
+      ]
+    },
+    {
+      "key": "contributions",
+      "label": "Contributions",
+      "items": [
+        {
+          "page": "Contributor Functions",
+          "label": "Contributor Functions",
+          "permission": "can_contributor_functions"
+        },
+        {
+          "page": "Cash Deposits",
+          "label": "Cash Deposits",
+          "permission": "can_cash_deposits"
+        }
+      ]
+    },
+    {
+      "key": "administration",
+      "label": "Reports & Administration",
+      "items": [
+        {
+          "page": "Reports",
+          "label": "Reports",
+          "permission": "reports"
+        },
+        {
+          "page": "Agreement Templates",
+          "label": "Agreement Templates",
+          "permission": "is_document_reviewer"
+        },
+        {
+          "page": "Audit Log",
+          "label": "Audit Log",
+          "permission": "audit"
+        },
+        {
+          "page": "Terminology Administration",
+          "label": "Terminology Administration",
+          "permission": "is_directory_manager"
+        }
+      ]
+    }
   ],
-  "contextPages":["Individual Profile","Company Profile"],
-  "unlistedPages":["Unauthorized","Events - Create","Events - Check In","Agreements - Queue"]
+  "contextPages": [
+    "Individual Profile",
+    "Company Profile"
+  ],
+  "unlistedPages": [
+    "Unauthorized",
+    "Events - Create",
+    "Events - Check In",
+    "Agreements - Queue"
+  ]
 }

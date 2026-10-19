@@ -8,14 +8,9 @@ WITH input AS (
     NULLIF({{ this.params.date_of_birth || "" }}, '')::date AS date_of_birth
 ),
 actor AS (
-  SELECT
-    m.member_id,
-    COALESCE(m.is_document_reviewer, FALSE) AS is_document_reviewer
-  FROM public.member_profiles m
-  WHERE lower(btrim(m.email)) = lower(btrim({{ appsmith.user.email }}))
-    AND m.is_facilitator IS TRUE
-    AND m.status = 'active'
-  LIMIT 1
+  SELECT a.member_id, a.is_document_reviewer
+  FROM public.application_access({{ appsmith.user.email }}::text) a
+  WHERE a.is_document_reviewer
 ),
 email_matches AS (
   SELECT

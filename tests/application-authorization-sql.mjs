@@ -47,19 +47,21 @@ try {
  const count=Number((await db.query('SELECT count(*) AS count FROM public.donations')).rows[0].count);
  await assert.rejects(action('Contributor Functions','qInsertCashDonation',self.email));
  assert.equal(Number((await db.query('SELECT count(*) AS count FROM public.donations')).rows[0].count),count);
- await assert.rejects(action('Intake','qCreateMember',self.email));
- await assert.rejects(action('Members – Intake','qCreateMember',self.email));
- await assert.rejects(action('Members – Intake','qCheckMemberDuplicate',self.email));
+ assert.equal((await action('Intake','qCheckMemberDuplicate',self.email)).length,0,'unauthorized duplicate search returns no identities');
  await assert.rejects(action('Member Functions','qAuditLogInsert',self.email,{action:'synthetic.event',entity_type:'member',entity_id:target}));
  const audit=(await action('Member Functions','qAuditLogInsert',doc.email,{actor_email:'forged@example.invalid',action:'synthetic.event',entity_type:'member',entity_id:target}))[0];
  assert.equal((await db.query('SELECT actor FROM public.audit_log WHERE audit_log_id=$1',[audit.audit_log_id])).rows[0].actor,doc.email,'audit actor is signed account, not caller parameter');
  target=other.memberId;
  await assert.rejects(action('Member Functions','qAuditLogInsert',practitioner.email,{action:'synthetic.event',entity_type:'member',entity_id:target}));
  target=self.memberId;
- assert.equal((await action('Members – Intake','qCreateMember',doc.email,{email:'synthetic-intake@example.invalid',phone:'5550109292'})).length,1,'canonical nonmember reviewer creates Participant through legacy action');
- const duplicate=await action('Members – Intake','qCheckMemberDuplicate',doc.email,{email:'synthetic-intake@example.invalid',phone:'5550109292'});
+ const intakeRequest=(await db.query('SELECT public.uuid_generate_v4() AS id')).rows[0].id;
+ const intakePayload=JSON.stringify({kind:'individual',participant:true,contributor:false,first_name:'Synthetic',last_name:'Canonical Intake',email:'synthetic-intake@example.invalid',phone:'5550109292',agreement_delivery:'Later',practitioner_person_id:practitioner.id});
+ const intakeParams={owner:doc.email,request_id:intakeRequest,payload_json:intakePayload};
+ await assert.rejects(action('Intake','qSubmitAtomicIntake',self.email,{...intakeParams,owner:self.email}));
+ assert.equal((await action('Intake','qSubmitAtomicIntake',self.email,intakeParams))[0].receipt,null,'forged owner cannot enroll');
+ assert.equal((await action('Intake','qSubmitAtomicIntake',doc.email,intakeParams))[0].receipt.state,'committed','canonical nonmember reviewer enrolls through the atomic API');
+ const duplicate=await action('Intake','qCheckMemberDuplicate',doc.email,{email:'synthetic-intake@example.invalid',phone:'5550109292'});
  assert.ok(duplicate.some(row=>row.is_accessible===true),'canonical nonmember reviewer sees authorized duplicate');
- await assert.rejects(action('Intake','qAddMemberEmail',self.email,{email:'synthetic-added@example.invalid'}));
  assert.equal((await action('Contributor Functions','qInsertCashDonation',doc.email)).length,1,'nonmember document reviewer records anonymous');
  actorId=practitioner.id;
  for(const name of ['qListFacilitators','qMemberById','qMemberStorageLocations','qAssignedParticipants','qParticipantCandidates','qLocationNameSuggestions','qDistinctStorageLocationNames'])await action('Facilitator Functions',name,doc.email);
@@ -120,8 +122,9 @@ try {
  assert.equal((await action('Individual Profile','qUnsubscribeIndividualEmail',doc.email,mailParams))[0].mailing_subscription_status,'unsubscribed');
  assert.equal((await action('Terminology Administration','qTerminologyAccess',combined.email))[0].allowed,true);
  assert.equal((await action('Terminology Administration','qTerminologyAccess',self.email))[0].allowed,false);
- await assert.rejects(action('Intake','qAuditLog',self.email,{actor_email:combined.email,action:'intake.completed',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}));
- const intakeAudit=(await action('Intake','qAuditLog',doc.email,{actor_email:combined.email,action:'intake.completed',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}))[0];
+ await assert.rejects(action('Intake','qAuditLog',self.email,{actor_email:combined.email,action:'member.create_blocked_duplicate',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}));
+ assert.equal((await action('Intake','qAuditLog',doc.email,{action:'intake.completed',entity_type:'individual',entity_id:'synthetic',details_json:'{}'})).length,0,'only the atomic transaction may write completion audit');
+ const intakeAudit=(await action('Intake','qAuditLog',doc.email,{actor_email:combined.email,action:'member.create_blocked_duplicate',entity_type:'individual',entity_id:'synthetic',details_json:'{}'}))[0];
  assert.equal((await db.query('SELECT actor FROM public.audit_log WHERE audit_log_id=$1',[intakeAudit.audit_log_id])).rows[0].actor,doc.email,'signed actor overrides forged parameters');
 
  for(const [who,expected] of [[self,false],[doc,true],[don,false],[practitioner,true]]) {

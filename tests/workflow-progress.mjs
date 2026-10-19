@@ -32,15 +32,6 @@ for(const page of ['Individual Profile','Company Profile']) {
   assert.ok(calls.every(a=>!/(subscribed successfully|subscription completed)/i.test(a.m)));
  }
 }
-assert.doesNotMatch(read('Members – Intake/jsobjects/memberFlows/memberFlows.js'),/showAlert\("Email sent\./);
-{
- const source=read('Members – Intake/jsobjects/memberFlows/memberFlows.js');assert.doesNotMatch(source,/apiUploadEvidenceViaN8n\.run/);
- const alerts=[];const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},inpUploadRelease:{isChecked:true},showAlert:(m,l)=>alerts.push({m,l})};
- const f=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c);await f.submitMember();
- assert.equal(alerts.length,1);assert.equal(alerts[0].l,'warning');assert.match(alerts[0].m,/No record or file was sent/);
- for(const name of ['inpUploadRelease','FilePicker1'])assert.equal(JSON.parse(read('Members – Intake/widgets/Members_IntakeForm/'+name+'.json')).isDisabled,true);
-}
-
 for(const status of ['succeeded','test_skipped','failed']) {
  const calls=[];const c={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},appsmith:{store:{}},storeValue:async(k,v)=>c.appsmith.store[k]=v,showAlert:(m,l)=>calls.push({m,l}),
  inpCashDepositActualAmount:{text:'1'},inpCashDepositDate:{selectedDate:null},inpCashDepositSlipNumber:{text:'Synthetic reference'},moment:()=>({format:()=> '2026-01-01'}),

@@ -13,7 +13,7 @@ const base={email:'synthetic-nav@example.invalid',person_id:'synthetic-person',i
 const cases=[
  [null,['Directory']],
  [{...base,can_member_functions:true},['Directory','Member Functions']],
- [{...base,is_document_reviewer:true,can_intake:true,can_member_functions:true,can_practitioner_admin:true,can_contributor_functions:true},['Directory','Intake','Members – Intake','Member Functions','Facilitator Functions','Contributor Functions','Reports','Agreement Templates','Audit Log']],
+ [{...base,is_document_reviewer:true,can_intake:true,can_member_functions:true,can_practitioner_admin:true,can_contributor_functions:true},['Directory','Intake','Member Functions','Facilitator Functions','Contributor Functions','Reports','Agreement Templates','Audit Log']],
  [{...base,is_donations_reviewer:true,can_intake:true,can_cash_deposits:true,can_contributor_functions:true},['Directory','Intake','Contributor Functions','Cash Deposits','Reports','Audit Log']],
  [{...base,is_practitioner:true,can_member_functions:true,can_release:true,can_contributor_functions:true},['Directory','Member Functions','Sacrament Release','Contributor Functions','Reports','Audit Log']],
  [{...base,is_directory_manager:true},['Directory','Terminology Administration']],
@@ -54,4 +54,4 @@ for(const page of pages) {
  assert.equal(c.navigationLabels.text('Participant'),'Contributor','configured labels must not be recursively retranslated');
  assert.equal(c.navigationLabels.text('member_id / facilitator_id'),'member_id / facilitator_id');
 }
-console.log('PASS generated navigation: all 18 dispositions, seven authority/cache cases, retained Directory escape, guarded groups, registered triggers, mobile spans and alternate/colliding label configurations');
+console.log('PASS generated navigation: all retained dispositions, seven authority/cache cases, retained Directory escape, guarded groups, registered triggers, mobile spans and alternate/colliding label configurations');

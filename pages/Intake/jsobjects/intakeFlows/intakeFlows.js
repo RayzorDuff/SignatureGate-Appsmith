@@ -180,7 +180,7 @@ export default {
           const detail = inaccessible.length
             ? (elsewhere ? "The matching member is assigned to another practitioner." : "The matching member is outside your accessible directory.")
             : "An existing member is accessible in Directory.";
-          showAlert(`An active member already matches on ${fields}. ${detail} No new member was created. Contact a document reviewer for access or reassignment if needed.`, "error");
+          showAlert(navigationLabels.text(`An active member already matches on ${fields}. ${detail} No new member was created. Contact a document reviewer for access or reassignment if needed.`), "error");
           await this.auditLog("member.create_blocked_duplicate", "member", existing.member_id || "", {
             match_fields: [...new Set(hard.map(d => d.matched_field))], page: "Intake"
           });

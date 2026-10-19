@@ -37,4 +37,4 @@ for(const [page,names] of Object.entries(removed)) {
  assert.ok(fs.existsSync(new URL('pages/'+page+'/widgets/txtNavigationPage.json',root)));
  for(const name of names)assert.ok(!fs.existsSync(new URL('pages/'+page+'/widgets/'+name+'.json',root)));
 }
-console.log('PASS '+tables+' table title contracts; created/updated timestamp, empty/null/invalid vectors, document independence and ten redundant heading removals');
+console.log('PASS '+tables+' table title contracts; created/updated timestamp, empty/null/invalid vectors, document independence and retained-page redundant heading removals');

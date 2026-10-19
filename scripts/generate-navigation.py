@@ -184,7 +184,7 @@ for path in sorted(metadata_paths):
 changed=[path for path,content in pending.items() if not (ROOT/path).exists() or (ROOT/path).read_text()!=content]
 if ARGS.check:
  if changed:raise SystemExit('Navigation generation differs: '+', '.join(changed[:12]))
- print('Navigation generation is current: all 18 pages, four groups and shared label source')
+ print(f'Navigation generation is current: all {len(pages)} pages, four groups and shared label source')
 else:
  for path in changed:(ROOT/path).parent.mkdir(parents=True,exist_ok=True);(ROOT/path).write_text(pending[path])
  print(f'Generated {len(changed)} changed files from one menu registry and label source')
