@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_042d4fca-783e-47ff-9ce0-9a92e3ed993e",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_95a87526-eef3-4ade-beaf-3a70af0af03f",
   "id": "Audit Log_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Audit Log",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

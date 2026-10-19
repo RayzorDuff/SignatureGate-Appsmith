@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_9fca1e44-69fa-489a-861b-57de4f692093",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_e1581eaa-45ad-4a1f-acb6-3564cb01a1c7",
   "id": "Member Functions_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Member Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

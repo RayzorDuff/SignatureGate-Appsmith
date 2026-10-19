@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_f07caff7-f798-4685-ab97-89c62e9cfdcd",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_f229f42c-0fcd-477c-8079-cada8fffb088",
   "id": "Intake_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Intake",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

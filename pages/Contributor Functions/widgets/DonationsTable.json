@@ -98,6 +98,9 @@
       "key": "primaryColumns.notes.computedValue"
     },
     {
+      "key": "primaryColumns.contributor_type.computedValue"
+    },
+    {
       "key": "primaryColumns.amount_cents.computedValue"
     },
     {
@@ -173,6 +176,9 @@
       "key": "primaryColumns.reviewer_id.computedValue"
     },
     {
+      "key": "primaryColumns.contributor_name.computedValue"
+    },
+    {
       "key": "primaryColumns.currency.computedValue"
     },
     {
@@ -198,12 +204,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.contributor_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.contributor_type.computedValue"
     }
   ],
   "dynamicPropertyPathList": [

@@ -10,13 +10,13 @@
       "key": "sourceData"
     },
     {
+      "key": "labelText"
+    },
+    {
       "key": "isVisible"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -51,8 +51,8 @@
   "needsErrorInfo": false,
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 135,
-  "originalTopRow": 128,
+  "originalBottomRow": 136,
+  "originalTopRow": 129,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,

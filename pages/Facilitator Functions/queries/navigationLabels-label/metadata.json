@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_08a84b17-fc93-4701-b7e3-e57634c3e75a",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_633673db-6de3-4ed1-84d0-28b38bc893b5",
   "id": "Facilitator Functions_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Facilitator Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

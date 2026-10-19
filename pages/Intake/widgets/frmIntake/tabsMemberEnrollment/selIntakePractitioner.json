@@ -9,13 +9,13 @@
       "key": "sourceData"
     },
     {
+      "key": "labelText"
+    },
+    {
       "key": "isRequired"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "labelText"
     }
   ],
   "dynamicPropertyPathList": [

@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_43eb788d-8384-49a5-bdbe-f5279d0b2929",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_c9fba681-6cdd-4a7f-8e70-4d1b1b2575a8",
   "id": "Reports_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 60000
+      "timeoutInMillisecond": 10000
     },
     "collectionId": "Reports_navigationLabels",
     "confirmBeforeExecute": false,
@@ -25,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Reports",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

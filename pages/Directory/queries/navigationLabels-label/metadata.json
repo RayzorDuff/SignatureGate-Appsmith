@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_bf81f854-32b9-4bba-ba91-71094e6f4c87",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_af6dcefb-b001-4c1f-95f7-ebb2247c2f33",
   "id": "Directory_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Directory",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

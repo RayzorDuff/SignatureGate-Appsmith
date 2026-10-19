@@ -13,6 +13,9 @@
       "key": "defaultOptionValue"
     },
     {
+      "key": "labelText"
+    },
+    {
       "key": "isVisible"
     },
     {
@@ -20,9 +23,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -65,8 +65,8 @@
   "onFilterUpdate": "{{\n            qListFacilitators.run();\n            \n          }}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 16,
-  "originalTopRow": 12,
+  "originalBottomRow": 19,
+  "originalTopRow": 15,
   "parentColumnSpace": 9.77734375,
   "parentId": "0",
   "parentRowSpace": 10,

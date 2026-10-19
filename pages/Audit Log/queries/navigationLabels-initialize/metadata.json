@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_f29b7540-8bae-4446-8d4b-2a2e37902608",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_1db53a70-dbba-4735-8699-28d636acddc8",
   "id": "Audit Log_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 60000
+      "timeoutInMillisecond": 10000
     },
     "collectionId": "Audit Log_navigationLabels",
     "confirmBeforeExecute": false,
@@ -25,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Audit Log",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

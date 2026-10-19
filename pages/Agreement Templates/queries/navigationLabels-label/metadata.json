@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_5e71840e-201a-472d-a53c-c7090e210283",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_1e356cf7-31d9-4d66-9a3a-a3ffd00b6e5d",
   "id": "Agreement Templates_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Agreement Templates",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

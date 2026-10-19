@@ -10,13 +10,13 @@
       "key": "sourceData"
     },
     {
+      "key": "labelText"
+    },
+    {
       "key": "isVisible"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",

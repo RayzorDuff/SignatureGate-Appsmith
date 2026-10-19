@@ -13,6 +13,9 @@
       "key": "defaultOptionValue"
     },
     {
+      "key": "labelText"
+    },
+    {
       "key": "isRequired"
     },
     {
@@ -23,9 +26,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",

@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_01ae5827-191a-46e8-ac15-66a1a5114ef9",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_4a56cc6d-1e50-46b9-9e8a-11a8e10111f8",
   "id": "Events - Create_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Events - Create",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

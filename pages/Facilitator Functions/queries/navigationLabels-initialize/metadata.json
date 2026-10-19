@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_9aa0b428-7e48-4d42-8266-d9b36dcc63f8",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_bc49e603-ce1e-4015-9c51-77b514d46206",
   "id": "Facilitator Functions_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 60000
+      "timeoutInMillisecond": 10000
     },
     "collectionId": "Facilitator Functions_navigationLabels",
     "confirmBeforeExecute": false,
@@ -25,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Facilitator Functions",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

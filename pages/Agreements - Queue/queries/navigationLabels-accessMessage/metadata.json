@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_f65a90b4-37d4-4932-85b3-aba29fbbf551",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_990283ef-f9d9-436e-946b-9a3388dc3a48",
   "id": "Agreements - Queue_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Agreements - Queue",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

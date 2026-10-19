@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_40ba6c1b-8e80-4565-935a-ae8dcc76ab67",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_f6d551d6-5df7-4c54-9f6d-a11793310a00",
   "id": "Unauthorized_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Unauthorized",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

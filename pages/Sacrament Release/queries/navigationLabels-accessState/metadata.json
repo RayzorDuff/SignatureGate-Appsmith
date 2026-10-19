@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_e0a66e72-ef48-4ca8-8eaa-02a6021f950f",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_f7b4b90d-551a-4d5c-92f1-ffdb6e5c6520",
   "id": "Sacrament Release_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Sacrament Release",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

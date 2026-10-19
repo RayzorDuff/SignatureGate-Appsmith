@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 73,
+  "bottomRow": 72,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -94,6 +94,9 @@
       "key": "primaryColumns.customColumn2.boxShadow"
     },
     {
+      "key": "primaryColumns.customColumn3.buttonLabel"
+    },
+    {
       "key": "primaryColumns.customColumn3.isDisabled"
     },
     {
@@ -107,6 +110,9 @@
     },
     {
       "key": "primaryColumns.display_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.customColumn4.buttonLabel"
     },
     {
       "key": "primaryColumns.customColumn4.isDisabled"
@@ -146,12 +152,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.customColumn3.buttonLabel"
-    },
-    {
-      "key": "primaryColumns.customColumn4.buttonLabel"
     }
   ],
   "dynamicPropertyPathList": [
@@ -199,8 +199,8 @@
   "onRowSelected": "",
   "onSearchTextChanged": "",
   "onSort": "",
-  "originalBottomRow": 71,
-  "originalTopRow": 20,
+  "originalBottomRow": 73,
+  "originalTopRow": 22,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -693,7 +693,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{ qPartyDirectory.data }}",
   "textSize": "0.875rem",
-  "topRow": 22,
+  "topRow": 21,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

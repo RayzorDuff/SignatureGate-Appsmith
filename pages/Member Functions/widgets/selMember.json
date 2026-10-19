@@ -13,16 +13,16 @@
       "key": "defaultOptionValue"
     },
     {
-      "key": "isVisible"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
       "key": "labelText"
     },
     {
       "key": "placeholderText"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -68,8 +68,8 @@
   "onOptionChange": "{{ memberProfile.setMemberId(selMember.selectedOptionValue)  }}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 16,
-  "originalTopRow": 12,
+  "originalBottomRow": 19,
+  "originalTopRow": 15,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,

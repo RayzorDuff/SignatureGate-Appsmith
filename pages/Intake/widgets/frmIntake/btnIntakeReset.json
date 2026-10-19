@@ -8,13 +8,13 @@
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "isDisabled"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isDisabled"
     }
   ],
   "dynamicPropertyPathList": [
@@ -40,8 +40,8 @@
   "mobileTopRow": 103,
   "needsErrorInfo": false,
   "onClick": "{{ intakeFlows.reset(); }}",
-  "originalBottomRow": 109,
-  "originalTopRow": 105,
+  "originalBottomRow": 116,
+  "originalTopRow": 112,
   "parentColumnSpace": 14.1875,
   "parentId": "mqyh9qp9p6",
   "parentRowSpace": 10,

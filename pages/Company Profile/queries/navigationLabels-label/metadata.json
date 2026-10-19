@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_70908ebd-4fb7-46e8-9de4-f319f7778256",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_8eed2406-bb32-411d-b85e-6628a7af90aa",
   "id": "Company Profile_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Company Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

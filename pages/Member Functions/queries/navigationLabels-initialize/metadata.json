@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_34aa2ddf-9cab-488e-b1a9-9f2e9d84414c",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_b24fbbd6-6922-499c-9085-f93ab187a8d6",
   "id": "Member Functions_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 60000
+      "timeoutInMillisecond": 10000
     },
     "collectionId": "Member Functions_navigationLabels",
     "confirmBeforeExecute": false,
@@ -25,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Member Functions",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

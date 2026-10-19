@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_8edcacbd-ebd0-4f1e-badc-08b2c2448542",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_8cc03e45-8d88-4f68-91e0-48c4d498c5bd",
   "id": "Cash Deposits_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Cash Deposits",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

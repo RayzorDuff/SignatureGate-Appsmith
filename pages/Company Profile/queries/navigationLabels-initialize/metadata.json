@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_6f9e37af-6f39-4e7f-9cf8-50efcee2146a",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_2f1ffce6-7c12-4044-869d-29b34d5d6f26",
   "id": "Company Profile_navigationLabels.initialize",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "jsArguments": [],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 60000
+      "timeoutInMillisecond": 10000
     },
     "collectionId": "Company Profile_navigationLabels",
     "confirmBeforeExecute": false,
@@ -25,7 +25,7 @@
     "fullyQualifiedName": "navigationLabels.initialize",
     "name": "initialize",
     "pageId": "Company Profile",
-    "runBehaviour": "ON_PAGE_LOAD",
-    "userSetOnLoad": true
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": false
   }
 }

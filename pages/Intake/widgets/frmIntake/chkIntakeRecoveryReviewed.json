@@ -3,7 +3,7 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 131,
+  "bottomRow": 127,
   "defaultCheckedState": false,
   "dynamicBindingPathList": [
     {
@@ -45,7 +45,7 @@
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 64,
-  "topRow": 126,
+  "topRow": 122,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "widgetId": "intake-recovery-reviewed",

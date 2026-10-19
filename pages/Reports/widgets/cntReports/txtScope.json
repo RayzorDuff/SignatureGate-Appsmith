@@ -27,6 +27,8 @@
   "mobileRightColumn": 10,
   "mobileTopRow": 14,
   "needsErrorInfo": false,
+  "originalBottomRow": 18,
+  "originalTopRow": 14,
   "overflow": "NONE",
   "parentColumnSpace": 13.875,
   "parentId": "rphztmlj14",

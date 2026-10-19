@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_abadeb8e-39f7-4587-ac4b-088e31e4919d",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_4689bd68-4551-4a2a-b57a-c3dee32d510f",
   "id": "Company Profile_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Company Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

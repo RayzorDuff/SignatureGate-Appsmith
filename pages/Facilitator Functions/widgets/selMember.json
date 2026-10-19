@@ -13,6 +13,9 @@
       "key": "defaultOptionValue"
     },
     {
+      "key": "labelText"
+    },
+    {
       "key": "placeholderText"
     },
     {
@@ -20,9 +23,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",

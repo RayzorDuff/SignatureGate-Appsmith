@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_286954e4-64e6-4b7e-9074-8d4dced5b173",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_ef4025cb-6224-442f-b74f-dfd5ce80fcfb",
   "id": "Events - Check In_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Events - Check In",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

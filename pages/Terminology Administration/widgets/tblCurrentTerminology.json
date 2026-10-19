@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 190,
+  "bottomRow": 188,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -55,6 +55,27 @@
       "key": "tableData"
     },
     {
+      "key": "primaryColumns.concept_key.computedValue"
+    },
+    {
+      "key": "primaryColumns.singular_label.computedValue"
+    },
+    {
+      "key": "primaryColumns.short_label.computedValue"
+    },
+    {
+      "key": "primaryColumns.presentation_state.computedValue"
+    },
+    {
+      "key": "primaryColumns.plural_label.computedValue"
+    },
+    {
+      "key": "primaryColumns.description.computedValue"
+    },
+    {
+      "key": "primaryColumns.concept_kind.computedValue"
+    },
+    {
       "key": "isVisible"
     },
     {
@@ -65,27 +86,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.concept_key.computedValue"
-    },
-    {
-      "key": "primaryColumns.concept_kind.computedValue"
-    },
-    {
-      "key": "primaryColumns.singular_label.computedValue"
-    },
-    {
-      "key": "primaryColumns.plural_label.computedValue"
-    },
-    {
-      "key": "primaryColumns.short_label.computedValue"
-    },
-    {
-      "key": "primaryColumns.presentation_state.computedValue"
-    },
-    {
-      "key": "primaryColumns.description.computedValue"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -185,19 +185,19 @@
       "verticalAlignment": "CENTER",
       "width": 120
     },
-    "singular_label": {
-      "alias": "singular_label",
+    "description": {
+      "alias": "description",
       "allowCellWrapping": true,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{ (tblCurrentTerminology.processedTableData || []).map(row => row[\"singular_label\"]) }}",
+      "computedValue": "{{ (tblCurrentTerminology.processedTableData || []).map(row => row[\"description\"]) }}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
       "enableSort": true,
       "horizontalAlignment": "LEFT",
-      "id": "singular_label",
-      "index": 2,
+      "id": "description",
+      "index": 6,
       "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
@@ -206,15 +206,15 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Singular label",
+      "label": "Description",
       "notation": "standard",
-      "originalId": "singular_label",
+      "originalId": "description",
       "sticky": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
       "verticalAlignment": "CENTER",
-      "width": 200
+      "width": 400
     },
     "plural_label": {
       "alias": "plural_label",
@@ -247,37 +247,6 @@
       "verticalAlignment": "CENTER",
       "width": 210
     },
-    "short_label": {
-      "alias": "short_label",
-      "allowCellWrapping": true,
-      "allowSameOptionsInNewRow": true,
-      "columnType": "text",
-      "computedValue": "{{ (tblCurrentTerminology.processedTableData || []).map(row => row[\"short_label\"]) }}",
-      "currencyCode": "USD",
-      "decimals": 0,
-      "enableFilter": true,
-      "enableSort": true,
-      "horizontalAlignment": "LEFT",
-      "id": "short_label",
-      "index": 4,
-      "isCellEditable": false,
-      "isCellVisible": true,
-      "isDerived": false,
-      "isDisabled": false,
-      "isDiscardVisible": true,
-      "isEditable": false,
-      "isSaveVisible": true,
-      "isVisible": true,
-      "label": "Short label",
-      "notation": "standard",
-      "originalId": "short_label",
-      "sticky": "",
-      "textSize": "0.875rem",
-      "thousandSeparator": true,
-      "validation": {},
-      "verticalAlignment": "CENTER",
-      "width": 150
-    },
     "presentation_state": {
       "alias": "presentation_state",
       "allowCellWrapping": true,
@@ -309,19 +278,19 @@
       "verticalAlignment": "CENTER",
       "width": 160
     },
-    "description": {
-      "alias": "description",
+    "short_label": {
+      "alias": "short_label",
       "allowCellWrapping": true,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{ (tblCurrentTerminology.processedTableData || []).map(row => row[\"description\"]) }}",
+      "computedValue": "{{ (tblCurrentTerminology.processedTableData || []).map(row => row[\"short_label\"]) }}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
       "enableSort": true,
       "horizontalAlignment": "LEFT",
-      "id": "description",
-      "index": 6,
+      "id": "short_label",
+      "index": 4,
       "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": false,
@@ -330,15 +299,46 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Description",
+      "label": "Short label",
       "notation": "standard",
-      "originalId": "description",
+      "originalId": "short_label",
       "sticky": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
       "verticalAlignment": "CENTER",
-      "width": 400
+      "width": 150
+    },
+    "singular_label": {
+      "alias": "singular_label",
+      "allowCellWrapping": true,
+      "allowSameOptionsInNewRow": true,
+      "columnType": "text",
+      "computedValue": "{{ (tblCurrentTerminology.processedTableData || []).map(row => row[\"singular_label\"]) }}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "horizontalAlignment": "LEFT",
+      "id": "singular_label",
+      "index": 2,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "Singular label",
+      "notation": "standard",
+      "originalId": "singular_label",
+      "sticky": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 200
     }
   },
   "renderMode": "CANVAS",
@@ -349,7 +349,7 @@
   "showInlineEditingOptionDropdown": false,
   "tableData": "{{ terminologyAdminFlows.hasAccess() ? (qTerminology.data || []).map(row => ({concept_key:row.concept_key,concept_kind:row.concept_kind,singular_label:row.singular_label,plural_label:row.plural_label,short_label:row.short_label || \"\",presentation_state:row.is_active === true ? \"Active\" : \"Inactive / reserved\",description:row.description || \"\"})) : [] }}",
   "textSize": "0.875rem",
-  "topRow": 126,
+  "topRow": 124,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

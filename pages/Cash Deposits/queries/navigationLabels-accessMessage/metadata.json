@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_e528f32f-421b-489e-b187-9766cc8ea54c",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_0fd61a5c-e013-4e42-bd62-501a813ab500",
   "id": "Cash Deposits_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Cash Deposits",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

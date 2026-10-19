@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_df483894-cb61-4132-b06f-d69df39f7715",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_fdc457b5-872b-4adb-8361-4bc18687c6ea",
   "id": "Agreement Templates_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Agreement Templates",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

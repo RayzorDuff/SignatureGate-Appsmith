@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_c4002f3d-3eaa-4327-a57d-cc5dc0adeec9",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_dde119c2-df32-45f1-8afa-1b9957e4728e",
   "id": "Unauthorized_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Unauthorized",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

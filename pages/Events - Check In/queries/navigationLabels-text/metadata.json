@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_f2091357-48cb-4e11-8bf4-cfb6e98e47e3",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_175652d2-6458-4435-8002-f4a925ba4325",
   "id": "Events - Check In_navigationLabels.text",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -30,6 +30,6 @@
     "name": "text",
     "pageId": "Events - Check In",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

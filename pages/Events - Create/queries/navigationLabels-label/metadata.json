@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_661eed72-783a-4bd0-b1c2-65146a291b8f",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_f031be9b-1dbb-487d-afdb-2b8a4eee07ab",
   "id": "Events - Create_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Events - Create",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

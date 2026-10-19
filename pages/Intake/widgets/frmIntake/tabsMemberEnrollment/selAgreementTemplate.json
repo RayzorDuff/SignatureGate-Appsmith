@@ -12,10 +12,10 @@
       "key": "isRequired"
     },
     {
-      "key": "borderRadius"
+      "key": "isDisabled"
     },
     {
-      "key": "isDisabled"
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -27,6 +27,7 @@
     }
   ],
   "dynamicTriggerPathList": [],
+  "isDisabled": "{{ selAgreementDelivery.selectedOptionValue !== 'Digital' }}",
   "isFilterable": true,
   "isLoading": false,
   "isRequired": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Digital' }}",
@@ -48,6 +49,5 @@
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "intake-agreement-template",
-  "widgetName": "selAgreementTemplate",
-  "isDisabled": "{{ selAgreementDelivery.selectedOptionValue !== 'Digital' }}"
+  "widgetName": "selAgreementTemplate"
 }

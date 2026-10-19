@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_0faea887-2ae5-4c58-9755-12e88252434c",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_6e116a45-875e-412d-96f7-e0e6c3f026ee",
   "id": "Individual Profile_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Individual Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

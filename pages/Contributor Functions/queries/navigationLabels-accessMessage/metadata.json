@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_4e03ee33-8860-43da-89bb-62ce9b0cf0f2",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_86ff22c5-13c9-4f64-b76b-f9df182ebc2e",
   "id": "Contributor Functions_navigationLabels.accessMessage",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessMessage",
     "pageId": "Contributor Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

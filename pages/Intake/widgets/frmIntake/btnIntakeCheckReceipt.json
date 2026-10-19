@@ -1,23 +1,23 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 136,
+  "bottomRow": 132,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "SECONDARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
-      "key": "buttonColor"
-    },
-    {
-      "key": "borderRadius"
+      "key": "isVisible"
     },
     {
       "key": "isDisabled"
     },
     {
-      "key": "isVisible"
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [
@@ -55,7 +55,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 24,
   "text": "Check saved Intake",
-  "topRow": 132,
+  "topRow": 128,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "intake-check-receipt",

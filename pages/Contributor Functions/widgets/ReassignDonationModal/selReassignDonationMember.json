@@ -10,13 +10,13 @@
       "key": "sourceData"
     },
     {
+      "key": "labelText"
+    },
+    {
       "key": "placeholderText"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",

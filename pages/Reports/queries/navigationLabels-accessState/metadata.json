@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_4e3aa043-db40-477b-8ff7-c8a663541fee",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_91fc16e4-6921-46ec-806f-ed9ca28bee2c",
   "id": "Reports_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Reports",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

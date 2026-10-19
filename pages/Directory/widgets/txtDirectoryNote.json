@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 22,
+  "bottomRow": 21,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -24,8 +24,8 @@
   "mobileRightColumn": 10,
   "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 20,
-  "originalTopRow": 16,
+  "originalBottomRow": 22,
+  "originalTopRow": 17,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -37,7 +37,7 @@
   "text": "Individuals and organizations you can access",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 17,
+  "topRow": 16,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

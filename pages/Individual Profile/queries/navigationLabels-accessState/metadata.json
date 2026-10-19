@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_1fe685f4-149c-4de2-abfb-d446c75d8685",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_b297bbc0-1861-4c38-97f9-0fc4aaa1a028",
   "id": "Individual Profile_navigationLabels.accessState",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -26,6 +26,6 @@
     "name": "accessState",
     "pageId": "Individual Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }

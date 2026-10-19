@@ -1,5 +1,5 @@
 {
-  "gitSyncId": "6abadc9bf6d579f05d9bed10_b6d012f1-5b03-43c3-9b0e-496e1b744a9e",
+  "gitSyncId": "6abadc9bf6d579f05d9bed10_18ba4064-4f69-4542-a093-2005b577e6a5",
   "id": "Agreements - Queue_navigationLabels.label",
   "pluginId": "js-plugin",
   "pluginType": "JS",
@@ -34,6 +34,6 @@
     "name": "label",
     "pageId": "Agreements - Queue",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": true
+    "userSetOnLoad": false
   }
 }
