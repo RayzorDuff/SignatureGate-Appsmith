@@ -18,10 +18,11 @@ function run(command,args) {
  if(result.error)throw result.error;
  if(result.status!==0)process.exit(result.status||1);
 }
-const sqlTests=new Set(['atomic-intake-sql.mjs','application-authorization-sql.mjs','intake-flows.mjs','reporting-sql.mjs','member-agreements-sql.mjs']);
+const sqlTests=new Set(['atomic-intake-sql.mjs','application-authorization-sql.mjs','intake-flows.mjs','reporting-sql.mjs','member-agreements-sql.mjs','paper-agreements-sql.mjs']);
 if(!args.includes('--sql-only')) {
  run('python3',['tests/navigation-generation.py']);
  run('python3',['scripts/generate-navigation.py','--check']);
+ run(process.execPath,['../SignatureGate/scripts/test_paper_upload_workflow.mjs']);
  for(const script of ['check-binding-syntax.mjs','check-page-load-registration.mjs','check-navigation-routes.mjs'])run(process.execPath,['scripts/'+script]);
  for(const name of fs.readdirSync(path.join(root,'tests')).filter(n=>n.endsWith('.mjs')&&!sqlTests.has(n)).sort())run(process.execPath,['tests/'+name]);
 }

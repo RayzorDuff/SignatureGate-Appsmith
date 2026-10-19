@@ -353,15 +353,92 @@ export default {
     }
   },
 
-	async openPaperUpload() {
-    const permission = (await qMemberWriteAccess.run())?.[0];
-    if (permission?.allowed !== true) {
-      showAlert(navigationLabels.text("Staff permission is required; Participant access is read-only."), "error");
-      return;
+  async openPaperUpload(checkOnly = false) {
+    if (appsmith.store.paper_upload_busy === true) return;
+    await storeValue("paper_upload_busy", true);
+    const owner = String(appsmith.user?.email || "").trim().toLowerCase();
+    const checkpoint = appsmith.store.paper_upload_checkpoint;
+    const currentOwner = () => owner && owner === String(appsmith.user?.email || "").trim().toLowerCase();
+    let dispatched = false;
+    try {
+      if (!owner) throw new Error("Sign in before uploading a paper agreement.");
+      if (checkOnly === "cancel") {
+        if (checkpoint?.owner !== owner || checkpoint.state !== "uncertain") throw new Error("No unresolved paper upload belongs to this account.");
+        const reason = String(inpPaperUploadRecoveryReason.text || "").trim();
+        if (!reason) throw new Error("A cancellation reason is required.");
+        const receipt = (await qCancelPaperUploadRequest.run({...checkpoint,reason}))?.[0]?.receipt;
+        if (!currentOwner()) return;
+        if (receipt?.state !== "cancelled") throw new Error("Cancellation could not be confirmed; check the saved request.");
+        await storeValue("paper_upload_checkpoint", null);
+        await resetWidget("FilePicker1", true);
+        await closeModal("mdlPaperUploadRecovery");
+        showAlert("Pending upload cancelled. Inspect any stored file before starting a separate attempt.", "info");
+        return;
+      }
+      // An unresolved dispatch is recovered by a read, never a second storage upload.
+      if (checkpoint?.owner === owner && checkpoint.state !== "committed") {
+        showAlert("Checking the saved paper upload request…", "info");
+        const receipt = (await qPaperUploadReceipt.run({request_id:checkpoint.request_id}))?.[0]?.receipt;
+        if (!currentOwner()) return;
+        if (receipt?.state === "committed") {
+          await storeValue("paper_upload_checkpoint", {...checkpoint,state:"committed"});
+          await qMemberAgreements.run();
+          showAlert("Paper agreement saved and awaiting Document Reviewer approval. No file was sent again.", "success");
+        } else if (receipt?.state === "cancelled") {
+          await storeValue("paper_upload_checkpoint", null);
+          await resetWidget("FilePicker1", true);
+          showAlert("The pending paper upload was cancelled. Select a new file for a separate attempt.", "info");
+        } else {
+          showAlert("The previous paper upload is unresolved. Check its workflow execution before retrying; no second file was sent.", "warning");
+        }
+        return;
+      }
+      if (checkOnly) {
+        showAlert(checkpoint?.owner === owner ? "The last paper upload is saved. Refresh Agreements to review it." : "No paper upload request is saved for this account.", "info");
+        return;
+      }
+      if (checkpoint?.owner === owner && checkpoint.state === "committed") {
+        showAlert("This paper upload is saved. Select a new file before starting a separate upload.", "info");
+        return;
+      }
+      const memberId = this._requireMemberId();
+      const practitionerId = this._requireFacilitator();
+      if (!memberId || !practitionerId) return;
+      const permission = (await qMemberWriteAccess.run())?.[0];
+      if (!currentOwner()) return;
+      if (permission?.allowed !== true) throw new Error("Staff permission for the selected Participant is required.");
+      const selectedTemplate = selAgreementTemplate.selectedOptionValue;
+      const templateId = selectedTemplate ? this._requireAgreementTemplate() : "";
+      if (selectedTemplate && !templateId) return;
+      const files = FilePicker1.files || [];
+      if (files.length !== 1) throw new Error("Select one signed PDF, PNG or JPEG document, up to 5 MiB.");
+      const file = files[0];
+      if (!["application/pdf","image/png","image/jpeg"].includes(file.type || file.mimeType) || typeof file.data !== "string" || file.data.length > 6990600) throw new Error("Select one signed PDF, PNG or JPEG document, up to 5 MiB, using Base64 file data.");
+      showAlert("Checking paper upload permission and preparing the request…", "info");
+      const requestId = (await qNewPaperUploadRequest.run({member_id:memberId}))?.[0]?.request_id;
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId || "")) throw new Error("Paper upload request key unavailable.");
+      if (!currentOwner() || memberId !== selMember.selectedOptionValue || practitionerId !== inpFacilitator.selectedOptionValue) throw new Error("Selection changed; review the Participant and practitioner before uploading.");
+      const pending = {owner,member_id:memberId,practitioner_person_id:practitionerId,request_id:requestId,state:"uncertain"};
+      await storeValue("paper_upload_checkpoint", pending);
+      if (!currentOwner()) return;
+      showAlert("Uploading the signed paper document and saving it for review…", "info");
+      dispatched = true;
+      const response = await apiUploadEvidenceViaN8n.run({request_id:requestId,member_id:memberId,practitioner_person_id:practitionerId,agreement_template_id:templateId,files:[{name:file.name,type:file.type || file.mimeType,data:file.data}]});
+      const receipt = response?.data ?? response;
+      if (!currentOwner()) return;
+      if (receipt?.state !== "committed" || receipt.request_id !== requestId || !receipt.member_agreement_id) throw new Error("Paper upload response is not confirmed.");
+      await storeValue("paper_upload_checkpoint", {...pending,state:"committed"});
+      showAlert("Paper document stored. Agreement saved pending Document Reviewer approval.", "info");
+      await resetWidget("FilePicker1", true);
+      await qMemberAgreements.run();
+      showAlert("Paper agreement uploaded for review. No email was required or sent.", "success");
+    } catch (error) {
+      if (!currentOwner()) return;
+      const saved = appsmith.store.paper_upload_checkpoint?.owner === owner && appsmith.store.paper_upload_checkpoint?.state === "committed";
+      showAlert(saved ? "Paper agreement saved; refresh Agreements before taking another action." : dispatched ? "Paper upload outcome is uncertain. Use Check saved paper upload; do not upload it again." : (error?.message || "Paper upload could not start."), saved || dispatched ? "warning" : "error");
+    } finally {
+      await storeValue("paper_upload_busy", false);
     }
-    // Fail closed until the upload destination and authorization are validated.
-    showAlert("Paper evidence upload is pending integration validation. No file was sent.", "warning");
-    return;
   },
 
 	evidenceLinks(evidenceCell) {

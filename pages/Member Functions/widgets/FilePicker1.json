@@ -1,5 +1,5 @@
 {
-  "allowedFileTypes": "[\n  \"image/*\",\n  \"image/jpeg\",\n  \".png\",\n\t\"application/pdf\",\n\t\".pdf\"\n]",
+  "allowedFileTypes": "[\"application/pdf\",\"image/png\",\"image/jpeg\"]",
   "animateLoading": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 37,
@@ -14,6 +14,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -22,9 +25,6 @@
     },
     {
       "key": "allowedFileTypes"
-    },
-    {
-      "key": "onFilesSelected"
     }
   ],
   "dynamicTriggerPathList": [
@@ -36,22 +36,22 @@
   "fileDataType": "Base64",
   "files": [],
   "isDefaultClickDisabled": true,
-  "isDisabled": "{{!(\n\tselMember?.selectedOptionValue\n)\t}}",
+  "isDisabled": "{{ !selMember.selectedOptionValue || appsmith.store.paper_upload_busy === true }}",
   "isLoading": false,
   "isRequired": false,
-  "isVisible": false,
+  "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "67f2brnxij",
-  "label": "Select Files",
+  "label": "Select signed paper document",
   "leftColumn": 19,
-  "maxFileSize": "50",
-  "maxNumFiles": "",
+  "maxFileSize": "5",
+  "maxNumFiles": "1",
   "minWidth": 120,
   "mobileBottomRow": 50,
   "mobileLeftColumn": 44,
   "mobileRightColumn": 60,
   "mobileTopRow": 46,
   "needsErrorInfo": false,
-  "onFilesSelected": "{{storeValue('', \"\");}}",
+  "onFilesSelected": "{{ (() => { const checkpoint = appsmith.store.paper_upload_checkpoint; if (!appsmith.store.paper_upload_busy && (FilePicker1.files || []).length && checkpoint?.state === \"committed\" && checkpoint.owner === String(appsmith.user?.email || \"\").trim().toLowerCase()) return storeValue(\"paper_upload_checkpoint\", null); })() }}",
   "originalBottomRow": 34,
   "originalTopRow": 29,
   "parentColumnSpace": 9.9375,

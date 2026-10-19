@@ -3,13 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const text=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');
-{
- const alerts=[],context={navigationLabels:{text:copy=>copy},navigationLabels:{text:copy=>copy},qMemberWriteAccess:{run:async()=>[{allowed:true}]},showAlert:(message,level)=>alerts.push(level)};
- const flows=vm.runInNewContext(text('pages/Member Functions/jsobjects/memberProfile/memberProfile.js').replace(/^export default/,'globalThis.memberProfile ='),context);
- await flows.openPaperUpload();
- assert.deepEqual(alerts,['warning'],'unvalidated upload sends no file and invokes no API');
- assert.equal(JSON.parse(text('pages/Member Functions/widgets/UploadRelease.json')).isDisabled,true);
-}
+assert.equal(typeof JSON.parse(text('pages/Member Functions/widgets/UploadRelease.json')).isDisabled,'string','paper enablement uses guarded runtime state');
 const email=JSON.parse(text('pages/Intake/widgets/frmIntake/inpIntakeEmail.json')).validation.slice(2,-2);
 for(const address of ['sample.s@example.invalid','sample+tag@sub.example.invalid','user_name@sub-domain.example.invalid',''])assert.equal(vm.runInNewContext(email,{inpIntakeEmail:{text:address}}),true,address);
 for(const address of ['not-an-address','a@@example.invalid','a b@example.invalid','a@example'])assert.equal(vm.runInNewContext(email,{inpIntakeEmail:{text:address}}),false,address);

@@ -6,9 +6,14 @@
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "jsArguments": [],
+      "jsArguments": [
+        {
+          "name": "checkOnly",
+          "value": "{{false}}"
+        }
+      ],
       "paginationType": "NONE",
-      "timeoutInMillisecond": 10000
+      "timeoutInMillisecond": 240000
     },
     "collectionId": "Member Functions_memberProfile",
     "confirmBeforeExecute": false,

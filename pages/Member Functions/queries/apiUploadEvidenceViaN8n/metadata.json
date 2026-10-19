@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{\n  \"files\": {{ this.params.files || FilePicker1.files }}\n}",
+      "body": "{\n  \"actor_email\": {{ appsmith.user.email }},\n  \"request_id\": {{ this.params.request_id }},\n  \"member_id\": {{ this.params.member_id }},\n  \"practitioner_person_id\": {{ this.params.practitioner_person_id }},\n  \"agreement_template_id\": {{ this.params.agreement_template_id || \"\" }},\n  \"files\": {{ this.params.files }}\n}",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {
@@ -21,14 +21,14 @@
       "httpMethod": "POST",
       "httpVersion": "HTTP11",
       "paginationType": "NONE",
-      "path": "/webhook/signaturegate/upload",
+      "path": "/webhook/signaturegate/paper-agreements",
       "pluginSpecifiedTemplates": [
         {
           "value": true
         }
       ],
       "queryParameters": [],
-      "timeoutInMillisecond": 60000
+      "timeoutInMillisecond": 180000
     },
     "confirmBeforeExecute": false,
     "datasource": {
@@ -45,6 +45,6 @@
     "name": "apiUploadEvidenceViaN8n",
     "pageId": "Member Functions",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }
