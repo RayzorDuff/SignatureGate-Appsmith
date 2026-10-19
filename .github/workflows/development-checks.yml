@@ -1,0 +1,43 @@
+name: Development checks
+
+on:
+  push:
+    branches: [chatgpt_development]
+  pull_request:
+    branches: [chatgpt_development]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  application-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: SignatureGate-Appsmith
+      - uses: actions/checkout@v4
+        with:
+          repository: RayzorDuff/SignatureGate
+          ref: 0a8df7c5287d5ddc37123011b387ed931b788bd6
+          path: SignatureGate
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: SignatureGate-Appsmith/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Record synthetic test source revisions
+        run: |
+          git -C SignatureGate-Appsmith rev-parse HEAD
+          git -C SignatureGate rev-parse HEAD
+      - name: Install locked test dependency
+        working-directory: SignatureGate-Appsmith
+        run: npm ci --ignore-scripts
+      - name: Exercise source, controllers and disposable SQL
+        working-directory: SignatureGate-Appsmith
+        run: npm test

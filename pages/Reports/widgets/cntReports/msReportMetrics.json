@@ -4,7 +4,7 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 7,
   "boxShadow": "none",
-  "defaultOptionValue": "[\n  \"agreements_signed\",\n  \"releases_sent\",\n  \"donations_count\",\n  \"donations_dollars\",\n  \"members_created\"\n]",
+  "defaultOptionValue": "[\n  \"agreements_signed\",\n  \"releases_sent\",\n  \"donations_count\",\n  \"donations_dollars\",\n  \"contributor_donations_count\",\n  \"contributor_donations_dollars\",\n  \"participants_created\",\n  \"contributors_created\"\n]",
   "dynamicBindingPathList": [
     {
       "key": "sourceData"

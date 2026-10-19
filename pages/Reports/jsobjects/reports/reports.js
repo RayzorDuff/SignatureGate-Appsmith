@@ -7,24 +7,28 @@ export default {
       { label: "Releases sent", value: "releases_sent" },
       { label: "Number of donations received", value: "donations_count" },
       { label: "Dollars in donations received", value: "donations_dollars" },
-      { label: "Participant-linked donation count", value: "member_donations_count" },
-      { label: "Participant-linked donation dollars", value: "member_donations_dollars" },
-      { label: "Anonymous cash donation count", value: "anonymous_donations_count" },
-      { label: "Anonymous cash donation dollars", value: "anonymous_donations_dollars" },
+      { label: "Contributor-linked donation count", value: "contributor_donations_count" },
+      { label: "Contributor-linked donation dollars", value: "contributor_donations_dollars" },
+      { label: "Participant-linked donation count (subset)", value: "participant_donations_count" },
+      { label: "Participant-linked donation dollars (subset)", value: "participant_donations_dollars" },
+      { label: "Anonymous donation count", value: "anonymous_donations_count" },
+      { label: "Anonymous donation dollars", value: "anonymous_donations_dollars" },
       { label: "Individual contributor donation count", value: "individual_donations_count" },
       { label: "Individual contributor donation dollars", value: "individual_donations_dollars" },
       { label: "Company contributor donation count", value: "organization_donations_count" },
       { label: "Company contributor donation dollars", value: "organization_donations_dollars" },
       { label: "Unresolved donation count", value: "unresolved_donations_count" },
       { label: "Unresolved donation dollars", value: "unresolved_donations_dollars" },
-      { label: "Participants created", value: "members_created" },
+      { label: "Participants created", value: "participants_created" },
+      { label: "Contributors created", value: "contributors_created" },
     ];
 
     const donationMetrics = new Set([
       "donations_count",
       "donations_dollars",
-      "member_donations_count",
-      "member_donations_dollars",
+      "contributor_donations_count", "contributor_donations_dollars", "contributors_created",
+      "participant_donations_count",
+      "participant_donations_dollars",
       "anonymous_donations_count",
       "anonymous_donations_dollars",
       "individual_donations_count", "individual_donations_dollars",
@@ -51,7 +55,8 @@ export default {
 
   selectedMetricKeys() {
     const allowed = this.metricOptions().map(x => x.value);
-    const selected = msReportMetrics.selectedOptionValues || [];
+    const aliases = {members_created:"participants_created",member_donations_count:"participant_donations_count",member_donations_dollars:"participant_donations_dollars"};
+    const selected = [...new Set((msReportMetrics.selectedOptionValues || []).map(key=>aliases[key] || key))];
     return selected.length ? selected.filter(key => allowed.includes(key)) : allowed;
   },
 
@@ -74,15 +79,16 @@ export default {
     return !!(dpReportStart.selectedDate && dpReportEnd.selectedDate);
   },
 
-	scopeLabel() {
-		const documents = appsmith.store.facilitator_is_reviewer === true;
-		const donations = appsmith.store.facilitator_is_donations_reviewer === true;
-		if (documents && donations) return "Scope: all participants and donations";
-		if (donations) return "Scope: all donations; assigned participants for other metrics";
-		if (documents) return "Scope: all participants; donation financials restricted";
-		return "Scope: assigned participants; donation financials restricted";
-	},
-	
+  scopeLabel() {
+    const sameActor = appsmith.store.reports_actor_email === String(appsmith.user?.email || "").trim().toLowerCase();
+    const documents = sameActor && appsmith.store.facilitator_is_reviewer === true;
+    const donations = sameActor && appsmith.store.facilitator_is_donations_reviewer === true;
+    const scope = documents ? "Scope: all Participants" : "Scope: assigned Participants";
+    return navigationLabels.text(scope + (donations
+      ? "; all Contributors and donations. Contributor-linked totals include individual and company attribution. Participant-linked donations are an overlapping subset for currently active Participants; do not add subsets to totals."
+      : "; Contributor creation and donation financials restricted."));
+  },
+
 	async verifyaccess() {
     // Clear prior page/account state before accepting the current canonical actor.
     await Promise.all([

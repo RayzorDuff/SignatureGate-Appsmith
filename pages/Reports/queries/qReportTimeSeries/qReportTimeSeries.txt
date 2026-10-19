@@ -144,17 +144,20 @@ selected_metrics AS (
     UNION ALL SELECT 'releases_sent', 'Releases sent', 20
     UNION ALL SELECT 'donations_count', 'Donations received', 30
     UNION ALL SELECT 'donations_dollars', 'Donation dollars', 40
-    UNION ALL SELECT 'member_donations_count', 'Participant-linked donations', 50
-    UNION ALL SELECT 'member_donations_dollars', 'Participant-linked donation dollars', 60
-    UNION ALL SELECT 'anonymous_donations_count', 'Anonymous cash donations', 70
-    UNION ALL SELECT 'anonymous_donations_dollars', 'Anonymous cash donation dollars', 80
+    UNION ALL SELECT 'contributor_donations_count', 'Contributor-linked donations', 45
+    UNION ALL SELECT 'contributor_donations_dollars', 'Contributor-linked donation dollars', 46
+    UNION ALL SELECT 'participant_donations_count', 'Participant-linked donations (subset)', 50
+    UNION ALL SELECT 'participant_donations_dollars', 'Participant-linked donation dollars (subset)', 60
+    UNION ALL SELECT 'anonymous_donations_count', 'Anonymous donations', 70
+    UNION ALL SELECT 'anonymous_donations_dollars', 'Anonymous donation dollars', 80
     UNION ALL SELECT 'individual_donations_count', 'Individual contributor donations', 90
     UNION ALL SELECT 'individual_donations_dollars', 'Individual contributor donation dollars', 100
     UNION ALL SELECT 'organization_donations_count', 'Company contributor donations', 110
     UNION ALL SELECT 'organization_donations_dollars', 'Company contributor donation dollars', 120
     UNION ALL SELECT 'unresolved_donations_count', 'Unresolved donations', 130
     UNION ALL SELECT 'unresolved_donations_dollars', 'Unresolved donation dollars', 140
-    UNION ALL SELECT 'members_created', 'Participants created', 150
+    UNION ALL SELECT 'participants_created', 'Participants created', 150
+    UNION ALL SELECT 'contributors_created', 'Contributors created', 160
   ) m
   CROSS JOIN bounds b
   CROSS JOIN auth a
@@ -163,8 +166,9 @@ selected_metrics AS (
     OR m.metric_key NOT IN (
       'donations_count',
       'donations_dollars',
-      'member_donations_count',
-      'member_donations_dollars',
+      'contributor_donations_count', 'contributor_donations_dollars', 'contributors_created',
+      'participant_donations_count',
+      'participant_donations_dollars',
       'anonymous_donations_count',
       'anonymous_donations_dollars',
       'individual_donations_count', 'individual_donations_dollars',
@@ -175,7 +179,12 @@ selected_metrics AS (
   AND (
     jsonb_array_length(b.metric_keys_json) = 0
     OR m.metric_key IN (
-      SELECT value::text
+      -- Accept retained development selections without exposing legacy labels.
+      SELECT CASE value
+        WHEN 'members_created' THEN 'participants_created'
+        WHEN 'member_donations_count' THEN 'participant_donations_count'
+        WHEN 'member_donations_dollars' THEN 'participant_donations_dollars'
+        ELSE value END
       FROM jsonb_array_elements_text(b.metric_keys_json)
     )
   )
@@ -218,8 +227,10 @@ donation_metrics AS (
   FROM buckets b
   CROSS JOIN (VALUES
     ('donations_count', 'all', false), ('donations_dollars', 'all', true),
-    ('member_donations_count', 'participant', false),
-    ('member_donations_dollars', 'participant', true),
+    ('contributor_donations_count', 'contributor', false),
+    ('contributor_donations_dollars', 'contributor', true),
+    ('participant_donations_count', 'participant', false),
+    ('participant_donations_dollars', 'participant', true),
     ('anonymous_donations_count', 'anonymous', false),
     ('anonymous_donations_dollars', 'anonymous', true),
     ('individual_donations_count', 'individual', false),
@@ -234,6 +245,8 @@ donation_metrics AS (
    AND COALESCE(d.donated_at, d.created_at) < b.bucket_end
    AND lower(COALESCE(d.status, '')) IN ('verified', 'imported', 'pending_review')
    AND (category.kind = 'all'
+     OR (category.kind = 'contributor' AND d.donor_kind = 'identified'
+         AND d.contributor_id IS NOT NULL AND d.contributor_type IN ('individual', 'organization'))
      OR (category.kind = 'participant' AND d.donor_kind = 'identified'
          AND d.contributor_type = 'individual' AND d.has_participant_capacity)
      OR (category.kind = 'individual' AND d.donor_kind = 'identified'
@@ -245,17 +258,37 @@ donation_metrics AS (
   GROUP BY b.bucket_start, category.metric_key, category.is_dollars
 ),
 
-member_counts AS (
+participant_counts AS (
   SELECT
     b.bucket_start,
-    'members_created'::text AS metric_key,
+    'participants_created'::text AS metric_key,
     COUNT(m.member_id)::numeric AS value
   FROM buckets b
-  LEFT JOIN public.member_profiles m
-    ON m.member_id IN (SELECT member_id FROM scoped_members)
+  CROSS JOIN auth a
+  LEFT JOIN public.members m
+    ON (a.is_document_reviewer IS TRUE OR (a.is_practitioner IS TRUE AND EXISTS (
+      SELECT 1 FROM public.member_practitioner_assignments assignment
+      WHERE assignment.member_id = m.member_id
+        AND assignment.practitioner_person_id = a.viewer_person_id
+        AND assignment.status = 'active'
+    )))
    AND m.created_at >= b.bucket_start
    AND m.created_at < b.bucket_end
    AND lower(COALESCE(m.status, 'active')) <> 'deleted'
+  GROUP BY b.bucket_start
+),
+
+-- Capacity creation is distinct from person/company creation. Later archive/merge
+-- or an ended enrollment must not erase a historical creation event.
+contributor_counts AS (
+  SELECT b.bucket_start, 'contributors_created'::text AS metric_key,
+         COUNT(c.contributor_id)::numeric AS value
+  FROM buckets b
+  CROSS JOIN auth a
+  LEFT JOIN public.contributors c
+    ON a.is_donations_reviewer IS TRUE
+   AND c.created_at >= b.bucket_start
+   AND c.created_at < b.bucket_end
   GROUP BY b.bucket_start
 ),
 
@@ -263,7 +296,8 @@ all_metric_values AS (
   SELECT * FROM agreement_counts
   UNION ALL SELECT * FROM release_counts
   UNION ALL SELECT * FROM donation_metrics
-  UNION ALL SELECT * FROM member_counts
+  UNION ALL SELECT * FROM participant_counts
+  UNION ALL SELECT * FROM contributor_counts
 )
 
 SELECT

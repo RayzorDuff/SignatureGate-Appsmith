@@ -44,6 +44,7 @@ try {
  const member=(await db.query('INSERT INTO public.members(person_id) VALUES ($1) RETURNING member_id',[first])).rows[0].member_id;
  await db.query('INSERT INTO public.members(person_id) VALUES ($1)',[second]);
  await db.query('INSERT INTO public.member_practitioner_assignments(member_id,practitioner_person_id) VALUES ($1,$2)',[member,practitioner.id]);
+ await db.query("UPDATE public.people SET created_at=now()-interval '10 years' WHERE person_id=ANY($1::uuid[])",[[first,donor]]);
  const organization=(await db.query("INSERT INTO public.organizations(organization_name) VALUES ('Synthetic Reporting Company') RETURNING organization_id")).rows[0].organization_id;
  const contributor1=(await db.query("INSERT INTO public.contributors(contributor_type,person_id) VALUES ('individual',$1) RETURNING contributor_id",[first])).rows[0].contributor_id;
  const contributor2=(await db.query("INSERT INTO public.contributors(contributor_type,person_id) VALUES ('individual',$1) RETURNING contributor_id",[donor])).rows[0].contributor_id;
@@ -55,25 +56,41 @@ try {
   const actors=await query(actorSource,who.email);assert.equal(actors.length,1);assert.equal(actors[0].member_id,null,'canonical actor needs no membership');assert.equal(actors[0].person_id,who.id);
  }
  const rows=await query(source,reviewer.email);
+ assert.equal(value(rows,'contributor_donations_count'),3);assert.equal(value(rows,'contributor_donations_dollars'),6);
+ assert.equal(value(rows,'contributors_created'),3,'count individual and company capacities, not people or donations');
+ assert.equal(value(rows,'contributor_donations_count'),value(rows,'individual_donations_count')+value(rows,'organization_donations_count'));
+ assert.equal(value(rows,'donations_count'),value(rows,'contributor_donations_count')+value(rows,'anonymous_donations_count')+value(rows,'unresolved_donations_count'));
+ assert.equal(value(rows,'donations_dollars'),value(rows,'contributor_donations_dollars')+value(rows,'anonymous_donations_dollars')+value(rows,'unresolved_donations_dollars'));
+ assert.ok(rows.every(row=>!/^member/.test(row.metric_key)&&! /\bmembers?\b/i.test(row.metric_label)));
+ const retained=await query(source,reviewer.email,['member_donations_count']);
+ assert.equal(retained.length,1);assert.equal(retained[0].metric_key,'participant_donations_count');
  assert.equal(value(rows,'donations_count'),5);assert.equal(value(rows,'donations_dollars'),15);
  assert.equal(value(rows,'individual_donations_count'),2);assert.equal(value(rows,'individual_donations_dollars'),3);
  assert.equal(value(rows,'organization_donations_count'),1);assert.equal(value(rows,'organization_donations_dollars'),3);
  assert.equal(value(rows,'anonymous_donations_count'),1);assert.equal(value(rows,'anonymous_donations_dollars'),4);
  assert.equal(value(rows,'unresolved_donations_count'),1);assert.equal(value(rows,'unresolved_donations_dollars'),5);
- assert.equal(value(rows,'member_donations_count'),1);assert.equal(value(rows,'member_donations_dollars'),1);
- assert.equal(value(rows,'members_created'),0,'financial reviewer alone receives no global participation metrics');
+ assert.equal(value(rows,'participant_donations_count'),1);assert.equal(value(rows,'participant_donations_dollars'),1);
+ assert.equal(value(rows,'participants_created'),0,'financial reviewer alone receives no global participation metrics');
  for(const [who,count] of [[documents,2],[practitioner,1]]){
-  const scoped=await query(source,who.email);assert.equal(value(scoped,'members_created'),count);assert.equal(financial(scoped).length,0);
-  assert.equal((await query(source,who.email,['donations_dollars','unresolved_donations_count'])).length,0,'direct financial selection denied');
+  const scoped=await query(source,who.email);assert.equal(value(scoped,'participants_created'),count);assert.equal(financial(scoped).length,0);assert.ok(!scoped.some(row=>row.metric_key==='contributors_created'));
+  assert.equal((await query(source,who.email,['donations_dollars','unresolved_donations_count','contributor_donations_count','contributors_created'])).length,0,'direct financial selection denied');
  }
- assert.equal(value(await query(source,both.email),'members_created'),2);
+ assert.equal(value(await query(source,both.email),'participants_created'),2,'capacity creation is independent of person age');
+ assert.equal(value(await query(source,both.email),'contributors_created'),3);
+ assert.equal(value(await query(source,documents.email,['members_created']),'participants_created'),2,'retained selections normalize to new key');
+ await db.query("UPDATE public.contributors SET status='archived' WHERE contributor_id=$1",[contributor2]);
+ const archived=await query(source,reviewer.email);assert.equal(value(archived,'contributors_created'),3);assert.equal(value(archived,'contributor_donations_count'),3,'archive does not erase attribution');
+ await db.query("UPDATE public.contributors SET created_at=now()-interval '2 days' WHERE contributor_id=$1",[contributor3]);
+ assert.equal(value(await query(source,reviewer.email),'contributors_created'),2,'use capacity creation bucket, not donation date');
  for(const email of [directory.email,'unknown@example.invalid']){assert.equal((await query(actorSource,email)).length,0);assert.equal((await query(source,email)).length,0);}
  await db.query("UPDATE public.members SET status='inactive' WHERE member_id=$1",[member]);
- const ended=await query(source,reviewer.email);assert.equal(value(ended,'member_donations_count'),0);assert.equal(value(ended,'individual_donations_count'),2);assert.equal(value(ended,'donations_count'),5,'capacity change preserves historical attribution');
+ assert.equal(value(await query(source,documents.email),'participants_created'),2,'ended enrollment retains creation history');
+ assert.equal(value(await query(source,practitioner.email),'participants_created'),1,'historical count retains current assignment scope');
+ const ended=await query(source,reviewer.email);assert.equal(value(ended,'participant_donations_count'),0);assert.equal(value(ended,'individual_donations_count'),2);assert.equal(value(ended,'donations_count'),5,'capacity change preserves historical attribution');
  await db.query("DELETE FROM public.person_roles WHERE person_id=$1 AND role_key='donations_reviewer'",[reviewer.id]);
  assert.equal((await query(source,reviewer.email)).length,0,'removed role cannot read financials');
  await db.query("UPDATE public.person_app_accounts SET status='disabled' WHERE person_id=$1",[both.id]);
  assert.equal((await query(source,both.email)).length,0,'disabled account denied');
  await db.exec('ROLLBACK');
- console.log('PASS source Reports SQL: six contribution groups, canonical actor/assignment scope, direct financial denial, capacity history and disabled-account denial');
+ console.log('PASS source Reports SQL: contributor attribution reconciliation, optional Participant subset, independent capacity creation/time buckets, retained selections, canonical role/assignment scope and financial/account denial');
 } finally {await db.close();}

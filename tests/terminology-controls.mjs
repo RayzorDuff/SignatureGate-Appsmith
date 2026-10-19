@@ -13,6 +13,19 @@ for(const [member,practitioner] of [['Participant','Spiritual Practitioner'],['A
   assert.equal(vm.runInNewContext(w.labelText.slice(2,-2),c),expected,page+'/'+name);
   if(name==='selParticipantToAssign')assert.equal(vm.runInNewContext(w.placeholderText.slice(2,-2),c),'Select '+member);
  }
+ // Exercise the saved menu/title bindings, not just the shared formatter.
+ const pageNames=fs.readdirSync(new URL('pages/',root));
+ for(const page of pageNames) {
+  const practice=read('pages/'+page+'/widgets/navMenuPractice.json');
+  const contributions=read('pages/'+page+'/widgets/navMenuContributions.json');
+  assert.equal(vm.runInNewContext(practice.menuItems.item1.label.slice(2,-2),c),member+' Functions',page+' Participant navigation');
+  assert.equal(vm.runInNewContext(contributions.menuItems.item1.label.slice(2,-2),c),'Supporter Functions',page+' Contributor navigation');
+  assert.ok(practice.menuItems.item1.onClick.includes('navigateTo("Member Functions"'),'stable route');
+ }
+ for(const [page,expected] of [['Member Functions',member+' Functions'],['Contributor Functions','Supporter Functions']]) {
+  const title=read('pages/'+page+'/widgets/txtNavigationPage.json');
+  assert.equal(vm.runInNewContext(title.text.slice(2,-2),c).split(' — ')[0],'Current page: '+expected);
+ }
  const directory=read('pages/Directory/widgets/tblDirectory.json');
  for(const [key,expected] of [['customColumn3',member+' Functions'],['customColumn4','Supporter Functions']]) {
   assert.ok(directory.dynamicBindingPathList.some(p=>p.key==='primaryColumns.'+key+'.buttonLabel'));
