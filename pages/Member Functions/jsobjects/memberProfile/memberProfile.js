@@ -410,6 +410,8 @@ export default {
       const selectedTemplate = selAgreementTemplate.selectedOptionValue;
       const templateId = selectedTemplate ? this._requireAgreementTemplate() : "";
       if (selectedTemplate && !templateId) return;
+      const storageProvider = selPaperStorageProvider.selectedOptionValue;
+      if (!["google_drive", "nocodb"].includes(storageProvider)) throw new Error("Select Google Drive or NocoDB paper storage.");
       const files = FilePicker1.files || [];
       if (files.length !== 1) throw new Error("Select one signed PDF, PNG or JPEG document, up to 5 MiB.");
       const file = files[0];
@@ -417,13 +419,13 @@ export default {
       showAlert("Checking paper upload permission and preparing the request…", "info");
       const requestId = (await qNewPaperUploadRequest.run({member_id:memberId}))?.[0]?.request_id;
       if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId || "")) throw new Error("Paper upload request key unavailable.");
-      if (!currentOwner() || memberId !== selMember.selectedOptionValue || practitionerId !== inpFacilitator.selectedOptionValue) throw new Error("Selection changed; review the Participant and practitioner before uploading.");
-      const pending = {owner,member_id:memberId,practitioner_person_id:practitionerId,request_id:requestId,state:"uncertain"};
+      if (!currentOwner() || memberId !== selMember.selectedOptionValue || practitionerId !== inpFacilitator.selectedOptionValue || storageProvider !== selPaperStorageProvider.selectedOptionValue) throw new Error("Selection changed; review the Participant and practitioner before uploading.");
+      const pending = {owner,member_id:memberId,practitioner_person_id:practitionerId,storage_provider:storageProvider,request_id:requestId,state:"uncertain"};
       await storeValue("paper_upload_checkpoint", pending);
       if (!currentOwner()) return;
       showAlert("Uploading the signed paper document and saving it for review…", "info");
       dispatched = true;
-      const response = await apiUploadEvidenceViaN8n.run({request_id:requestId,member_id:memberId,practitioner_person_id:practitionerId,agreement_template_id:templateId,files:[{name:file.name,type:file.type || file.mimeType,data:file.data}]});
+      const response = await apiUploadEvidenceViaN8n.run({request_id:requestId,member_id:memberId,practitioner_person_id:practitionerId,agreement_template_id:templateId,storage_provider:storageProvider,files:[{name:file.name,type:file.type || file.mimeType,data:file.data}]});
       const receipt = response?.data ?? response;
       if (!currentOwner()) return;
       if (receipt?.state !== "committed" || receipt.request_id !== requestId || !receipt.member_agreement_id) throw new Error("Paper upload response is not confirmed.");
@@ -448,7 +450,7 @@ export default {
 		// - null
 		// - or even nested like [[{...},{...}], [{...}]] depending on your query/table mapping
 		const base = (appsmith.store.NC_PUBLIC_URL || "").replace(/\/+$/, "");
-		if (!base) return "<span style='color:#999'>Set NC_PUBLIC_URL</span>";
+
 
 		let ev = evidenceCell;
 
@@ -476,11 +478,15 @@ export default {
 		return ev
 // Use for signed paths
 //			.filter(f => f && (f.signedPath || f.path))
-				.filter(f => f && f.path)
+        .filter(f => f && (f.storage_provider === "google_drive"
+          ? /^[A-Za-z0-9_-]{10,200}$/.test(f.drive_file_id || "")
+          : (!f.storage_provider || f.storage_provider === "nocodb") && f.path && base))
 			.map((f, idx) => {
 // Use for signed paths
 //				const href = `${base}/${f.signedPath || f.path}`; // prefer signedPath
-				const href = `${base}/${f.path}`;
+        const href = f.storage_provider === "google_drive"
+          ? "https://drive.google.com/file/d/" + f.drive_file_id + "/view"
+          : `${base}/${f.path}`;
 				const label = esc(f.title || `File ${idx + 1}`);
 				return `<a
 					href="${esc(href)}"

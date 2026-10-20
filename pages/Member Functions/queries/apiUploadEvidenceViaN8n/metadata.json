@@ -11,7 +11,7 @@
           "value": "application/json"
         }
       ],
-      "body": "{\n  \"actor_email\": \"{{ appsmith.user.email }}\",\n  \"request_id\": \"{{ this.params.request_id }}\",\n  \"member_id\": \"{{ this.params.member_id }}\",\n  \"practitioner_person_id\": \"{{ this.params.practitioner_person_id }}\",\n  \"agreement_template_id\": \"{{ this.params.agreement_template_id || '' }}\",\n  \"files\": \"{{ this.params.files || [] }}\"\n}",
+      "body": "{{ JSON.stringify({\n  actor_email: appsmith.user?.email || \"\",\n  request_id: this.params?.request_id || \"\",\n  member_id: this.params?.member_id || \"\",\n  practitioner_person_id: this.params?.practitioner_person_id || \"\",\n  agreement_template_id: this.params?.agreement_template_id || \"\",\n  storage_provider: this.params?.storage_provider || \"google_drive\",\n  files: Array.isArray(this.params?.files) ? this.params.files : []\n}) }}\n",
       "bodyFormData": [],
       "encodeParamsToggle": true,
       "formData": {

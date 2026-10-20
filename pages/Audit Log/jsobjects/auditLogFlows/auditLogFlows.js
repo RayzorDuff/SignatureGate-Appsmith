@@ -48,6 +48,10 @@ export default {
     if(Array.isArray(details.evidence)) for(const file of details.evidence) {
       if(!file || typeof file!=="object")continue;
       const title=file.title || file.name || "Attachment";
+      if (file.storage_provider === "google_drive") {
+        if (/^[A-Za-z0-9_-]{10,200}$/.test(file.drive_file_id || "")) html.push(`<b>Attachment:</b> ${link(title,"https://drive.google.com/file/d/"+file.drive_file_id+"/view")}`);
+        continue;
+      }
       const path=file.signedPath || file.path || file.url;
       if(!path)continue;
       const url=/^https?:\/\//i.test(String(path))?String(path):this.NOCODB_BASE_URL+"/"+String(path).replace(/^\/+/,"");

@@ -67,3 +67,5 @@ The full application suite and four lock-observed contention cases pass on Postg
 - Restore copied navigation startup settings while retaining native JS identities. Show Participant agreement types and load templates in canonical reviewer/assigned-practitioner scope after deferred Intake, with ordered reads and stale-selection protection.
 
 - Add protected paper agreement upload for no-email Participants, with bounded file validation, authenticated/scoped storage, pending reviewer approval and saved-request/cancellation recovery. Requires the companion backend migration and configured n8n workflow.
+
+- Offer private Google Drive or NocoDB paper storage, preserve existing evidence and Header Auth, render controlled Drive references and repair the file-array JSON transport.
