@@ -1,8 +1,8 @@
 {
-  "actor_email": {{ appsmith.user.email }},
-  "request_id": {{ this.params.request_id }},
-  "member_id": {{ this.params.member_id }},
-  "practitioner_person_id": {{ this.params.practitioner_person_id }},
-  "agreement_template_id": {{ this.params.agreement_template_id || "" }},
-  "files": {{ this.params.files }}
+  "actor_email": "{{ appsmith.user.email }}",
+  "request_id": "{{ this.params.request_id }}",
+  "member_id": "{{ this.params.member_id }}",
+  "practitioner_person_id": "{{ this.params.practitioner_person_id }}",
+  "agreement_template_id": "{{ this.params.agreement_template_id || '' }}",
+  "files": "{{ this.params.files || [] }}"
 }
