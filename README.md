@@ -9,3 +9,11 @@ This app is built using Appsmith. Turn any datasource into an internal app in mi
 ##### You can visit the application using the below link
 
 ###### [![](https://assets.appsmith.com/git-sync/Buttons.svg) ](https://appsmith.danks.store/applications/6aba2d8df6d579f05d9be929/pages/6aba2d8df6d579f05d9be93a) [![](https://assets.appsmith.com/git-sync/Buttons2.svg)](https://appsmith.danks.store/applications/6aba2d8df6d579f05d9be929/pages/6aba2d8df6d579f05d9be93a/edit)
+
+## Internal RootedOps API routing (Issue #5)
+
+Appsmith server-executed API actions targeting the **same RootedOps Docker deployment** should use private Docker DNS, not the publicly routed `https://*.danks.store` gateway. In the Appsmith datasource editor, configure the existing `N8N` REST API datasource base URL as **`http://n8n:5678`** (no `/webhook` suffix). Existing action paths such as `/webhook/signaturegate/documenso/templates` must remain unchanged. Confirm the actual Appsmith container can resolve `n8n` and reach port 5678 before changing the deployed datasource. This is an internal HTTP hop within the trusted Docker network; do not expose the service port publicly.
+
+**Git Sync limitation:** `datasources/N8N.json` contains the datasource identity only; its connection URL and credentials are not versioned in this repository. Fetching or checking out this branch **does not update the actual datasource base URL**. Configure and verify the connection separately in the corresponding deployed Appsmith instance, after backing up its saved datasource configuration. Avoid altering REST API action paths or adding unsupported datasource fields to Git to work around this limitation.
+
+Apply the same principle to server-executed NocoDB calls where verified reachable: `http://nocodb:8080`. Preserve browser navigation, public QR/links, external webhook ingress, Google/OAuth callbacks, and third-party URLs. Never direct a production Appsmith instance to a test/test2 service or merge the divergent `master` and `chatgpt_development` applications wholesale. Treat `NocoDB danks.store public` as needing per-action classification, not an automatic blanket replacement. See SignatureGate #29 and MushroomProcess #110 for the wider integration audit.
