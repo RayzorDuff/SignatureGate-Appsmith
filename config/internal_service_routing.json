@@ -1,23 +1,60 @@
 {
-  "schema_version": 1,
-  "description": "Non-secret desired state for Appsmith server-side REST API connections on the same RootedOps Docker network. Actual datasource URLs are omitted by Appsmith Git Sync and require deployment reconciliation.",
-  "datasources": {
-    "N8N": {
+  "schema_version": 2,
+  "description": "Version-controlled non-secret destination inventory for server-side Appsmith and n8n connections in the same RootedOps deployment. Appsmith Git Sync omits datasource connection URLs; this manifest is desired state, not an automatically applied Appsmith configuration.",
+  "internal_services": {
+    "n8n": {
       "base_url": "http://n8n:5678",
-      "action_path_prefix": "/webhook/",
-      "network_requirement": "Appsmith and n8n must share a Docker network"
+      "port": 5678,
+      "scope": "Appsmith -> n8n API"
     },
-    "NocoDB danks.store": {
+    "nocodb": {
       "base_url": "http://nocodb:8080",
-      "requires_action_audit": true
+      "port": 8080,
+      "scope": "internal NocoDB API"
+    },
+    "listmonk": {
+      "base_url": "http://listmonk:9000",
+      "port": 9000,
+      "scope": "n8n -> Listmonk"
+    },
+    "documenso": {
+      "base_url": "http://documenso:3000",
+      "port": 3000,
+      "scope": "n8n -> Documenso"
+    },
+    "erpnext": {
+      "base_url": "http://erpnext-backend:8000",
+      "port": 8000,
+      "scope": "n8n -> ERPNext"
     }
   },
-  "do_not_rewrite": [
-    "NocoDB danks.store public",
-    "browser navigation",
-    "OAuth callbacks",
+  "appsmith_datasources": {
+    "N8N": {
+      "service": "n8n",
+      "action_path_prefix": "/webhook/",
+      "status": "requires_live_datasource_update"
+    },
+    "NocoDB danks.store": {
+      "service": "nocodb",
+      "status": "requires_action_audit_before_live_update"
+    }
+  },
+  "not_internal_by_default": [
+    "NocoDB danks.store public"
+  ],
+  "preserve_public": [
+    "browser-facing page URLs",
     "public QR links",
-    "external webhook ingress",
-    "third-party API endpoints"
-  ]
+    "OAuth redirects and callbacks",
+    "externally received webhooks",
+    "email hyperlinks",
+    "third-party API URLs"
+  ],
+  "safety": {
+    "requires_shared_docker_network": true,
+    "verify_from_actual_caller": true,
+    "do_not_cross_test_environments": true,
+    "preserve_credentials": true,
+    "production_change_requires_separate_verification": true
+  }
 }
