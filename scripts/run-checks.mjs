@@ -20,6 +20,8 @@ function run(command,args) {
 }
 const sqlTests=new Set(['atomic-intake-sql.mjs','application-authorization-sql.mjs','intake-flows.mjs','reporting-sql.mjs','member-agreements-sql.mjs','paper-agreements-sql.mjs']);
 if(!args.includes('--sql-only')) {
+ run('python3',['tests/internal-service-routing.py']);
+ run('python3',['scripts/check_internal_service_routing.py']);
  run('python3',['tests/navigation-generation.py']);
  run('python3',['scripts/generate-navigation.py','--check']);
  run(process.execPath,['../SignatureGate/scripts/test_paper_upload_workflow.mjs']);
