@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: RayzorDuff/SignatureGate
-          ref: 575d4c4b470065f574c5672dfb1ec39ba29d7e29
+          ref: 3e12116e7c34739b4c35216d0fe75cb1d1ac13db
           path: SignatureGate
       - uses: actions/setup-node@v4
         with:
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: RayzorDuff/SignatureGate
-          ref: 575d4c4b470065f574c5672dfb1ec39ba29d7e29
+          ref: 3e12116e7c34739b4c35216d0fe75cb1d1ac13db
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

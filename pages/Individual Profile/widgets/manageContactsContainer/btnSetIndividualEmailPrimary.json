@@ -37,7 +37,7 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": "{{ !(selIndividualRoleContactToArchive.selectedOptionValue && (((selIndividualContactCapacity.selectedOptionValue === 'member' ? qIndividualMembershipContacts.data : qIndividualDonorContacts.data) || []).find(c => c.contact_id === selIndividualRoleContactToArchive.selectedOptionValue)?.contact_kind === 'email') ) }}",
+  "isDisabled": "{{ (selIndividualContactCapacity.selectedOptionValue === 'member' && qIndividualMemberOperationsState.data?.[0]?.membership_status !== 'active') || (!(selIndividualRoleContactToArchive.selectedOptionValue && (((selIndividualContactCapacity.selectedOptionValue === 'member' ? qIndividualMembershipContacts.data : qIndividualDonorContacts.data) || []).find(c => c.contact_id === selIndividualRoleContactToArchive.selectedOptionValue)?.contact_kind === 'email') )) }}",
   "isLoading": false,
   "isVisible": "{{ qIndividualMemberOperationsState.data?.[0]?.can_view === true || (qIndividualCanEditDonorContacts.data?.[0]?.can_edit === true && !!qIndividualProfile.data?.[0]?.contributor_id) }}",
   "key": "btnSetIndividualEmailPrimary-issue19",
