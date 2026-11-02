@@ -326,7 +326,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = DonationsTable.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (Number(currentRow[\"amount_cents\"]) / 100)) : [] })()}}",
+      "computedValue": "{{ (DonationsTable.processedTableData || []).map(row => Number(row.amount_cents) / 100) }}",
       "currencyCode": "USD",
       "decimals": 2,
       "enableFilter": true,
