@@ -9,7 +9,7 @@ for(const [page,collection,param,stateKey,query] of [['Individual Profile','Indi
   const f=vm.runInNewContext(source.replace(/^export default/,'globalThis.f='),c);return {f,c,calls};
  }
  {const x=fixture('AAAAAAAA-AAAA-4AAA-8AAA-AAAAAAAAAAAA');await x.f.load();assert.equal(x.f.isReady(),true);assert.equal(x.calls[0].p.party_id,'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa');}
- {const x=fixture();await x.f.load();assert.equal(x.f.isReady(),true);assert.equal(x.c.appsmith.store[stateKey].id,first);assert.ok(x.calls.length>2);assert.equal(x.calls[0].p.party_id,first);}
+ {const x=fixture();await x.f.load();assert.equal(x.f.isReady(),true);assert.equal(x.c.appsmith.store[stateKey].id,first);assert.ok(x.calls.length>2);if(page==='Individual Profile')assert.equal(x.calls.filter(call=>call.name==='qIndividualReassignTargets').length,1);assert.equal(x.calls[0].p.party_id,first);}
  for(const [id,status] of [[null,'missing'],['not-a-uuid','invalid']]) {const x=fixture(id);await x.f.load();assert.equal(x.calls.length,0);assert.equal(x.f.state().status,status);assert.equal(x.f.isReady(),false);}
  {const x=fixture();x.c[query].run=async()=>[];await x.f.load();assert.equal(x.f.state().status,'denied');assert.equal(x.calls.length,0);assert.equal(x.f.isReady(),false);}
  {const x=fixture();const run=x.c[query].run;let n=0;x.c[query].run=async p=>{if(++n===1)throw Error('Synthetic cold read');return run(p);};await x.f.load();assert.equal(n,2);assert.equal(x.f.isReady(),true);}
