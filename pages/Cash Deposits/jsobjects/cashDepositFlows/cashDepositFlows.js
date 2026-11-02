@@ -1,5 +1,8 @@
 export default {
 
+  // v1.2.0 ships the local deposit workflow. Enable only after separate ERP acceptance.
+  erpEnabled() { return false; },
+
   accessState() {
     const state = appsmith.store.cash_deposit_access || {};
     const email = String(appsmith.user?.email || "").trim().toLowerCase();
@@ -42,7 +45,7 @@ export default {
       await storeValue("cash_deposit_access",{email,status:!linked?"unlinked":allowed?"ready":"denied",actor:linked?access:null});
       if (!allowed) { await qCashDepositAccessDiagnostic.run().catch(()=>null); return []; }
       const results = await Promise.allSettled([
-        qCashDepositCashOnHand.run(), qCashDepositBatches.run(), apiCashDepositBankAccounts.run()
+        qCashDepositCashOnHand.run(), qCashDepositBatches.run()
       ]);
       if (pass === appsmith.store.cash_deposit_access_pass && email === String(appsmith.user?.email || "").trim().toLowerCase()
           && results.some(result=>result.status === "rejected")) showAlert("Access verified, but some deposit information could not load. Retry refresh.","warning");
@@ -535,7 +538,7 @@ export default {
 
     const slip = (inpCashDepositSlipNumber.text || "").trim();
     const bankAccount = String(
-      inpCashDepositBankAccount.selectedOptionValue || ""
+      inpCashDepositBankAccount.text || ""
     ).trim();
     const depositDate = inpCashDepositDate.selectedDate
       ? moment(inpCashDepositDate.selectedDate).format("YYYY-MM-DD")
@@ -547,7 +550,7 @@ export default {
     }
 
     if (!bankAccount) {
-      showAlert("Select the destination ERPNext bank account before preparing the batch.", "warning");
+      showAlert("Enter the destination bank account or reference before preparing the batch.", "warning");
       return;
     }
 
@@ -603,6 +606,11 @@ export default {
     });
 
     await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
+    if (!this.erpEnabled()) {
+      showAlert("Deposit batch confirmed. ERP synchronization is deferred for this release.", "success");
+      await this.refresh();
+      return;
+    }
     showAlert("Deposit confirmation saved. Requesting ERP synchronization…", "info");
 
     try {
@@ -646,6 +654,10 @@ export default {
   },
 
   async retryERPSync() {
+    if (!this.erpEnabled()) {
+      showAlert("ERP synchronization is deferred for this release.", "info");
+      return;
+    }
     const batch = this.selectedBatch();
     const reviewerId = this.requireDonationsReviewer();
 
