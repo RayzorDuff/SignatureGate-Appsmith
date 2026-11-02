@@ -37,7 +37,7 @@ export default {
       if(profileRows?.[0]?.party_id!==id) {await update("denied");return;}
       const profile=profileRows[0];
       await Promise.all([qIndividualContacts.run(), qIndividualRoles.run(),
-        qIndividualAccount.run(), qDirectoryCanManage.run(),
+        qIndividualAccount.run(), qDirectoryCanManage.run(), qIndividualReassignTargets.run(),
         qProfileCanCreateContributor.run(),
         qIndividualCanEditDonorContacts.run(), qIndividualDonorContacts.run(), qIndividualDonorAddresses.run(),
         qProfileCanCreateMember.run(), qMembershipIdentity.run(),
