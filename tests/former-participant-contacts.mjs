@@ -1,7 +1,7 @@
 // Exercise saved native widget bindings, including controls sharing the selector.
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
 const root=new URL('../pages/Individual%20Profile/widgets/manageContactsContainer/',import.meta.url);
-const names=['btnReassignIndividualContact','selIndividualRoleContactToArchive','selIndividualContactReassignTarget','btnAddIndividualRoleContact','btnArchiveIndividualRoleContact','btnSetIndividualEmailPrimary','btnVerifyIndividualEmail','btnToggleIndividualEmailSubscription'];
+const names=['btnReassignIndividualContact','selIndividualRoleContactToArchive','selIndividualContactReassignTarget','inpIndividualRoleContactReason','btnAddIndividualRoleContact','btnArchiveIndividualRoleContact','btnSetIndividualEmailPrimary','btnVerifyIndividualEmail','btnToggleIndividualEmailSubscription'];
 const widgets=Object.fromEntries(names.map(name=>[name,JSON.parse(fs.readFileSync(new URL(name+'.json',root),'utf8'))]));
 function context(status='inactive',manage=true,capacity='member') {
  const c={};
@@ -20,6 +20,15 @@ for(const status of ['active','inactive']) {
  const c=context(status,false);
  assert.equal(field('btnReassignIndividualContact','isDisabled',c),true,'view-only actor cannot reassign');
  assert.equal(field('selIndividualRoleContactToArchive','isDisabled',c),true,'view-only actor cannot use maintenance selector');
+}
+for(const status of ['active','inactive']) {
+ const c=context(status);
+ assert.equal(field('selIndividualContactReassignTarget','isDisabled',c),false,'reviewer can choose an active target from either source enrollment');
+ assert.equal(field('inpIndividualRoleContactReason','isDisabled',c),false,'reviewer can enter the required correction reason');
+ assert.equal(field('selIndividualContactReassignTarget','isDisabled',{...c,selIndividualRoleContactToArchive:{selectedOptionValue:''}}),true,'target requires a selected source contact');
+ const denied=context(status,false);
+ assert.equal(field('selIndividualContactReassignTarget','isDisabled',denied),true,'view-only actor cannot select correction target');
+ assert.equal(field('inpIndividualRoleContactReason','isDisabled',denied),true,'view-only actor cannot edit correction reason');
 }
 const inactive=context();
 for(const name of ['btnAddIndividualRoleContact','btnArchiveIndividualRoleContact','btnSetIndividualEmailPrimary','btnVerifyIndividualEmail','btnToggleIndividualEmailSubscription'])assert.equal(field(name,'isDisabled',inactive),true,name+' remains disabled for ended enrollment');
