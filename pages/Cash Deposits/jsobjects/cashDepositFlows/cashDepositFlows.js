@@ -1,7 +1,6 @@
 export default {
 
-  // v1.2.0 ships the local deposit workflow. Enable only after separate ERP acceptance.
-  erpEnabled() { return false; },
+  // v1.2.0 ships local deposits; optional ERP API actions remain for later acceptance.
 
   accessState() {
     const state = appsmith.store.cash_deposit_access || {};
@@ -606,106 +605,11 @@ export default {
     });
 
     await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
-    if (!this.erpEnabled()) {
-      showAlert("Deposit batch confirmed. ERP synchronization is deferred for this release.", "success");
-      await this.refresh();
-      return;
-    }
-    showAlert("Deposit confirmation saved. Requesting ERP synchronization…", "info");
-
-    try {
-      const response = await apiSyncCashDepositToERPNext.run({
-        deposit_batch_id: batch.deposit_batch_id,
-        mode: "test"
-      });
-      const raw = response?.data ?? response;
-      const result = raw?.message ?? raw ?? {};
-
-      if (result.ok === true && result.status === "succeeded") {
-        const erpDocument = [result.erp_doctype, result.erp_name]
-          .filter(Boolean)
-          .join(" ");
-        showAlert(
-          "Deposit batch confirmed and synchronized to ERPNext"
-            + (erpDocument ? " as " + erpDocument + "." : "."),
-          "success"
-        );
-      } else if (result.ok === true && result.status === "test_skipped") {
-        showAlert(
-          "Test deposit confirmed. Production ERP synchronization was intentionally skipped.",
-          "info"
-        );
-      } else {
-        showAlert(
-          "Deposit batch confirmed, but ERP synchronization did not complete. "
-            + "Use Retry ERP Sync after reviewing the synchronization status.",
-          "warning"
-        );
-      }
-    } catch (error) {
-      showAlert(
-        "Deposit batch confirmed, but the ERP synchronization request failed. "
-          + "The confirmed deposit is retained and can be retried.",
-        "warning"
-      );
-    }
-
+    showAlert("Deposit batch confirmed. ERP synchronization is deferred for this release.", "success");
     await this.refresh();
   },
 
   async retryERPSync() {
-    if (!this.erpEnabled()) {
-      showAlert("ERP synchronization is deferred for this release.", "info");
-      return;
-    }
-    const batch = this.selectedBatch();
-    const reviewerId = this.requireDonationsReviewer();
-
-    if (!reviewerId) return;
-
-    if (!batch.deposit_batch_id || batch.status !== "confirmed") {
-      showAlert("Select a confirmed deposit batch to retry ERP synchronization.", "warning");
-      return;
-    }
-
-    if (batch.erp_sync_status === "succeeded") {
-      showAlert("This deposit batch is already synchronized to ERPNext.", "info");
-      return;
-    }
-
-    showAlert("Retrying ERP synchronization for the confirmed deposit…", "info");
-    try {
-      const response = await apiSyncCashDepositToERPNext.run({
-        deposit_batch_id: batch.deposit_batch_id,
-        mode: "test"
-      });
-      const raw = response?.data ?? response;
-      const result = raw?.message ?? raw ?? {};
-
-      if (result.ok === true && result.status === "succeeded") {
-        const erpDocument = [result.erp_doctype, result.erp_name]
-          .filter(Boolean)
-          .join(" ");
-        showAlert(
-          "ERP synchronization completed"
-            + (erpDocument ? " as " + erpDocument + "." : "."),
-          "success"
-        );
-      } else if (result.ok === true && result.status === "test_skipped") {
-        showAlert("Test-mode ERP synchronization was intentionally skipped.", "info");
-      } else {
-        showAlert(
-          "ERP synchronization did not complete. Review the synchronization status and retry when appropriate.",
-          "warning"
-        );
-      }
-    } catch (error) {
-      showAlert(
-        "ERP synchronization request failed. The confirmed deposit remains available for retry.",
-        "error"
-      );
-    }
-
-    await this.refresh();
+    showAlert("ERP synchronization is deferred for this release.", "info");
   }
 };
