@@ -1,51 +1,51 @@
 {
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
+  "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 147,
   "boxShadow": "none",
-  "defaultOptionValue": "{{ cashDepositFlows.selectedBatch()?.destination_bank_account || \"\" }}",
+  "defaultText": "{{ cashDepositFlows.selectedBatch()?.destination_bank_account || \"\" }}",
   "dynamicBindingPathList": [
-    {
-      "key": "sourceData"
-    },
-    {
-      "key": "defaultOptionValue"
-    },
     {
       "key": "isVisible"
     },
     {
-      "key": "isDisabled"
+      "key": "accentColor"
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "defaultText"
+    },
+    {
+      "key": "isDisabled"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
-      "key": "defaultOptionValue"
+      "key": "isVisible"
     },
     {
-      "key": "sourceData"
+      "key": "defaultText"
     },
     {
       "key": "isDisabled"
-    },
-    {
-      "key": "isVisible"
     }
   ],
+  "dynamicTriggerPathList": [],
+  "iconAlign": "left",
+  "inputType": "TEXT",
   "isDisabled": "{{ [\"prepared\", \"confirmed\"].includes(cashDepositFlows.selectedBatch()?.status) }}",
-  "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
   "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "cdepbank01",
+  "label": "Destination Bank Account / Reference",
   "labelAlignment": "left",
   "labelPosition": "Auto",
-  "labelText": "Destination Bank Account",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 29,
@@ -56,24 +56,21 @@
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
   "mobileTopRow": 162,
-  "needsErrorInfo": false,
-  "optionLabel": "label",
-  "optionValue": "value",
   "originalBottomRow": 139,
   "originalTopRow": 132,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
-  "placeholderText": "Select an ERPNext bank account",
   "renderMode": "CANVAS",
+  "resetOnSubmit": false,
   "responsiveBehavior": "fill",
   "rightColumn": 52,
-  "serverSideFiltering": false,
-  "sourceData": "{{ (() => { const response = apiCashDepositBankAccounts.data?.message || apiCashDepositBankAccounts.data || {}; const options = (response.accounts || []).map(a => ({ label: a.label, value: a.value })); const current = String(cashDepositFlows.selectedBatch()?.destination_bank_account || \"\").trim(); if (current && !options.some(o => o.value === current)) options.unshift({ label: current + \" (historical)\", value: current }); return options; })() }}",
-  "tooltip": "Select an active Rooted Psyche Bank Account from ERPNext.",
+  "showStepArrows": false,
   "topRow": 140,
-  "type": "SELECT_WIDGET",
-  "version": 1,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
   "widgetId": "cdepbank01",
-  "widgetName": "inpCashDepositBankAccount"
+  "widgetName": "inpCashDepositBankAccount",
+  "placeholderText": "Enter destination account or reference",
+  "tooltip": "Records the physical deposit destination in SignatureGate. No bank transaction or ERP synchronization is sent."
 }
