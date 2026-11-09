@@ -13,6 +13,9 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "tooltip"
     }
   ],
   "dynamicPropertyPathList": [
@@ -43,5 +46,5 @@
   "version": 1,
   "widgetId": "intake-agreement-delivery",
   "widgetName": "selAgreementDelivery",
-  "tooltip": "For a signed paper agreement, choose Later, complete Intake, then open Participant Functions and upload the document for review."
+  "tooltip": "{{ navigationLabels.text(\"For a signed paper agreement, choose Later, complete Intake, then open Participant Functions and upload the document for review.\") }}"
 }
