@@ -11,7 +11,7 @@ The duplicate Members – Intake page and its menu/native application entries ar
 | Optional DOB and notes | Stored on the individual identity; notes do not replace required contacts |
 | Practitioner assignment | Canonical assigned person and appointment checks; enrollment does not grant practitioner or reviewer permissions |
 | Mailing preferences | Independent explicit Participant and Contributor consent; queuing is not a claim of external subscription completion |
-| Paper upload | Unavailable in both paths; remains a separate destination/principal/integration gate. Removing the legacy page does not claim paper acceptance |
+| Paper upload | Choose Later, complete enrollment, then upload from Participant Functions. Direct paper timing/picker is not offered in Intake. Native NocoDB storage/retrieval/review acceptance remains tracked separately |
 | Reset and progress | Accepted completion/reset behavior retained; durable receipt recovery never replays signing |
 
 The legacy one-contact-plus-notes bypass and appointment checkbox are intentionally not carried forward: current requirements enforce two contacts and independent access appointments. Create agreement later does not create a pending/signed document or grant sacrament-release eligibility. Complete the appropriate agreement later through Participant Functions. Deferred receipts retain the same owner/key/payload replay guard as Digital Intake.

@@ -389,7 +389,7 @@ export default {
           await resetWidget("FilePicker1", true);
           showAlert("The pending paper upload was cancelled. Select a new file for a separate attempt.", "info");
         } else {
-          showAlert("The previous paper upload is unresolved. Check its workflow execution before retrying; no second file was sent.", "warning");
+          showAlert("The saved upload request is unresolved, even if you change the selected Participant. Inspect its workflow execution, then use Resolve pending upload if cancellation is confirmed safe; no second file was sent.", "warning");
         }
         return;
       }
@@ -411,7 +411,7 @@ export default {
       const templateId = selectedTemplate ? this._requireAgreementTemplate() : "";
       if (selectedTemplate && !templateId) return;
       const storageProvider = selPaperStorageProvider.selectedOptionValue;
-      if (!["google_drive", "nocodb"].includes(storageProvider)) throw new Error("Select Google Drive or NocoDB paper storage.");
+      if (storageProvider !== "nocodb") throw new Error("Select NocoDB paper storage. New Google Drive uploads are temporarily disabled.");
       const files = FilePicker1.files || [];
       if (files.length !== 1) throw new Error("Select one signed PDF, PNG or JPEG document, up to 5 MiB.");
       const file = files[0];
