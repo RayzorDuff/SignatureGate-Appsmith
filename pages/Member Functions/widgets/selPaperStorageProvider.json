@@ -4,7 +4,7 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 36,
   "boxShadow": "none",
-  "defaultOptionValue": "google_drive",
+  "defaultOptionValue": "nocodb",
   "dynamicBindingPathList": [
     {
       "key": "isDisabled"
@@ -52,10 +52,11 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "serverSideFiltering": false,
-  "sourceData": "[ {\"label\":\"Google Drive\",\"value\":\"google_drive\"}, {\"label\":\"NocoDB\",\"value\":\"nocodb\"} ]",
+  "sourceData": "[ {\"label\":\"NocoDB\",\"value\":\"nocodb\"} ]",
   "topRow": 30,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "paper-storage-provider",
-  "widgetName": "selPaperStorageProvider"
+  "widgetName": "selPaperStorageProvider",
+  "tooltip": "NocoDB is the current upload destination. New Google Drive uploads are temporarily disabled. Existing documents remain available."
 }

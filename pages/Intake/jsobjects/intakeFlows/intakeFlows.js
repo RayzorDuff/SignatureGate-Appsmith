@@ -146,7 +146,7 @@ export default {
         return;
       }
       if (delivery === "Paper") {
-        showAlert("Paper agreement upload is pending integration validation. No record or file was sent.","warning"); return;
+        showAlert("For a paper agreement, choose Create agreement later, complete Intake, then upload from Participant Functions. No record or file was sent.","warning"); return;
       }
       if (!["Digital","Later"].includes(delivery)) {
         showAlert("Choose a digital agreement or explicitly create the agreement later.","warning"); return;
