@@ -407,6 +407,12 @@ export default {
       const permission = (await qMemberWriteAccess.run())?.[0];
       if (!currentOwner()) return;
       if (permission?.allowed !== true) throw new Error("Staff permission for the selected Participant is required.");
+      const assignments = await qMemberFacilitators.run();
+      if (!currentOwner()) return;
+      if (memberId !== selMember.selectedOptionValue || practitionerId !== inpFacilitator.selectedOptionValue) throw new Error("Selection changed; review the Participant and practitioner before uploading.");
+      if (!Array.isArray(assignments) || !assignments.some(assignment => assignment.member_id === memberId && assignment.facilitator_id === practitionerId && assignment.status === "active")) {
+        throw new Error("The selected Spiritual Practitioner has no active saved assignment to this Participant. Select an assigned practitioner, or have authorized staff use Assign Spiritual Practitioner first. No file was sent.");
+      }
       const selectedTemplate = selAgreementTemplate.selectedOptionValue;
       const templateId = selectedTemplate ? this._requireAgreementTemplate() : "";
       if (selectedTemplate && !templateId) return;
