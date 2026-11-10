@@ -1,20 +1,20 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 65,
+  "bottomRow": 81,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
+      "key": "isVisible"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -22,17 +22,17 @@
   "isDefaultClickDisabled": true,
   "isDisabled": true,
   "isLoading": false,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "bkfm8aymy0",
   "leftColumn": 32,
   "minWidth": 120,
-  "mobileBottomRow": 22,
+  "mobileBottomRow": 38,
   "mobileLeftColumn": 19,
   "mobileRightColumn": 35,
-  "mobileTopRow": 18,
+  "mobileTopRow": 34,
   "needsErrorInfo": false,
-  "originalBottomRow": 75,
-  "originalTopRow": 68,
+  "originalBottomRow": 91,
+  "originalTopRow": 84,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -44,7 +44,7 @@
   "rightColumn": 45,
   "text": "Cash on Hand",
   "tooltip": "Cash on Hand is a derived status: a verified cash donation that is not assigned to an active deposit batch.",
-  "topRow": 61,
+  "topRow": 77,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "4acdskdgjc",

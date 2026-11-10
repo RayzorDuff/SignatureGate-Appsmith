@@ -1,0 +1,1 @@
+SELECT is_document_reviewer,is_donations_reviewer,is_directory_manager FROM public.application_access({{ appsmith.user.email }});

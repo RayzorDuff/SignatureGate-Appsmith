@@ -29,7 +29,7 @@
     ],
     "name": "qDirectoryCanManage",
     "pageId": "Individual Profile",
-    "runBehaviour": "AUTOMATIC",
-    "userSetOnLoad": false
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": true
   }
 }

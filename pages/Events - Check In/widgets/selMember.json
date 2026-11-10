@@ -2,33 +2,30 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 13,
+  "bottomRow": 52,
   "boxShadow": "none",
   "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  appsmith.store.facilitator_id ))(inpFacilitator.options, inpFacilitator.serverSideFiltering) }}",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
       "key": "sourceData"
-    },
-    {
-      "key": "isVisible"
-    },
-    {
-      "key": "isRequired"
     },
     {
       "key": "defaultOptionValue"
     },
     {
+      "key": "labelText"
+    },
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
       "key": "isDisabled"
     },
     {
-      "key": "sourceData"
+      "key": "borderRadius"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -50,23 +47,23 @@
   "key": "tcvabvv6qz",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Member",
+  "labelText": "{{ navigationLabels.text(\"Member\") }}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 32,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 17,
+  "mobileBottomRow": 41,
   "mobileLeftColumn": 45,
   "mobileRightColumn": 64,
-  "mobileTopRow": 10,
+  "mobileTopRow": 34,
   "needsErrorInfo": false,
   "onFilterUpdate": "{{\n            qListFacilitators.run();\n            \n          }}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 23,
-  "originalTopRow": 14,
+  "originalBottomRow": 35,
+  "originalTopRow": 26,
   "parentColumnSpace": 9.77734375,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -76,7 +73,7 @@
   "rightColumn": 64,
   "serverSideFiltering": true,
   "sourceData": "{{ (qMembersForEventCheckin.data || []).slice().sort((a, b) => `${a.last_name || ''} ${a.first_name || ''}`.localeCompare(`${b.last_name || ''} ${b.first_name || ''}`)).map(m => ({ label: `${m.first_name || ''} ${m.last_name || ''}${m.email ? ' (' + m.email + ')' : ''}`, value: m.member_id })) }}",
-  "topRow": 5,
+  "topRow": 44,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "zqpvyalupz",

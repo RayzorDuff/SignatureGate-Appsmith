@@ -1,0 +1,77 @@
+name: Development checks
+
+on:
+  push:
+    branches: [chatgpt_development]
+  pull_request:
+    branches: [chatgpt_development]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  application-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: SignatureGate-Appsmith
+      - uses: actions/checkout@v4
+        with:
+          repository: RayzorDuff/SignatureGate
+          ref: 3e12116e7c34739b4c35216d0fe75cb1d1ac13db
+          path: SignatureGate
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: SignatureGate-Appsmith/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Record synthetic test source revisions
+        run: |
+          git -C SignatureGate-Appsmith rev-parse HEAD
+          git -C SignatureGate rev-parse HEAD
+      - name: Install locked test dependency
+        working-directory: SignatureGate-Appsmith
+        run: npm ci --ignore-scripts
+      - name: Exercise source, controllers and disposable SQL
+        working-directory: SignatureGate-Appsmith
+        run: npm test
+
+  postgres-intake-concurrency:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16.13
+        env:
+          POSTGRES_USER: signaturegate
+          POSTGRES_PASSWORD: synthetic-ci-validation-only
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd "pg_isready -U signaturegate -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: RayzorDuff/SignatureGate
+          ref: 3e12116e7c34739b4c35216d0fe75cb1d1ac13db
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exercise disposable database lifecycle guards
+        run: python3 scripts/test_postgres_intake_validation.py
+      - name: Exercise real PostgreSQL 16 transaction contention
+        env:
+          PG_VALIDATION_CONTAINER: ${{ job.services.postgres.id }}
+        run: >-
+          python3 scripts/validate_postgres_intake.py
+          --container "$PG_VALIDATION_CONTAINER"
+          --maintenance-database postgres
+          --evidence "$RUNNER_TEMP/signaturegate-postgres-evidence"

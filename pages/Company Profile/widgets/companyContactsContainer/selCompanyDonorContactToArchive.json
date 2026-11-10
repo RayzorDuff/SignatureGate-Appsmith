@@ -1,0 +1,67 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 64,
+  "boxShadow": "none",
+  "defaultOptionValue": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "key": "7ac886e503",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Contact to manage",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 100,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 42,
+  "mobileTopRow": 94,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 64,
+  "originalTopRow": 58,
+  "parentColumnSpace": 9.9375,
+  "parentId": "6mi04nz8p0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select contact",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 42,
+  "serverSideFiltering": false,
+  "sourceData": "{{ selCompanyDonorContactKind.selectedOptionValue === 'address' ? (qCompanyDonorAddresses.data || []).map(a => ({label: `${a.address_1}${a.address_2 ? ', '+a.address_2 : ''}, ${a.city}, ${a.state} ${a.postal_code}`,value:a.address_id})) : (qCompanyDonorContacts.data || []).filter(c => c.contact_kind === selCompanyDonorContactKind.selectedOptionValue).map(c => ({label:`${c.contact_kind === 'email' ? 'Email' : 'Phone'}: ${c.contact_value}${c.is_primary ? ' (primary)' : ''}`,value:c.contact_id})) }}",
+  "topRow": 58,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "5fc0f94737",
+  "widgetName": "selCompanyDonorContactToArchive"
+}

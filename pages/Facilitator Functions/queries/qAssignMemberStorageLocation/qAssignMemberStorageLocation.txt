@@ -1,0 +1,2 @@
+SELECT public.issue19_set_practitioner_storage_location({{ appsmith.user.email }},{{ appsmith.store.selected_facilitator_id }}::uuid,
+{{ this.params.storage_location_name }},true,{{ this.params.notes || null }},COALESCE(NULLIF({{ this.params.notes || "" }},''),'Assigned through practitioner administration')) AS facilitator_storage_location_access_id;

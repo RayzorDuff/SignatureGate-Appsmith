@@ -1,0 +1,7 @@
+SELECT r.*
+FROM public.releases r
+
+WHERE r.member_id = NULLIF({{ appsmith.store.member_id || '' }},'')::uuid
+  AND public.application_member_access({{ appsmith.user.email }},r.member_id,false)
+ORDER BY r.released_at DESC
+LIMIT 200;

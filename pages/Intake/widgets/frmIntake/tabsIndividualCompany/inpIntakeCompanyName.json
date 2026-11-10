@@ -1,0 +1,36 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 11,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": true,
+  "label": "Company name",
+  "leftColumn": 0,
+  "originalBottomRow": 72,
+  "originalTopRow": 65,
+  "parentColumnSpace": 10.25,
+  "parentId": "kzty0i0elx",
+  "parentRowSpace": 10,
+  "rightColumn": 64,
+  "topRow": 5,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-company-name",
+  "widgetName": "inpIntakeCompanyName"
+}

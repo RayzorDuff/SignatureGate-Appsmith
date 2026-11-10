@@ -1,0 +1,48 @@
+{
+  "allowedFileTypes": "[\"application/pdf\",\".pdf\"]",
+  "animateLoading": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 27,
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "dynamicTyping": true,
+  "fileDataType": "Base64",
+  "files": [],
+  "isDefaultClickDisabled": false,
+  "isLoading": false,
+  "isRequired": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Paper' }}",
+  "isVisible": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Paper' }}",
+  "label": "Upload paper agreement",
+  "leftColumn": 35,
+  "originalBottomRow": 176,
+  "originalTopRow": 169,
+  "parentId": "2mq85c27oi",
+  "rightColumn": 64,
+  "topRow": 20,
+  "type": "FILE_PICKER_WIDGET_V2",
+  "version": 1,
+  "widgetId": "intake-paper-agreement",
+  "widgetName": "FilePickerAgreement"
+}

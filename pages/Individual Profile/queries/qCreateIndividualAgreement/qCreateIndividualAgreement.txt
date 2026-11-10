@@ -1,0 +1,12 @@
+SELECT *
+FROM public.issue19_create_member_agreement(
+  {{ appsmith.user.email }},
+  {{ qIndividualMemberOperationsState.data?.[0]?.member_id || null }}::uuid,
+  {{ this.params.practitioner_id || null }}::uuid,
+  NULLIF({{ this.params.template_id || "" }}, '')::uuid,
+  'documenso',
+  'pending_email_send',
+  '[]'::jsonb,
+  NULLIF({{ this.params.email_id || "" }}, '')::uuid
+);
+

@@ -1,18 +1,62 @@
 export default {
 
+  accessState() {
+    const state = appsmith.store.cash_deposit_access || {};
+    const email = String(appsmith.user?.email || "").trim().toLowerCase();
+    return email && state.email === email ? state : {status:"loading"};
+  },
+
+  hasAccess() {
+    const state = this.accessState();
+    return state.status === "ready" && state.actor?.can_cash_deposits === true
+      && state.actor?.is_donations_reviewer === true;
+  },
+
+  accessMessage() {
+    const state = this.accessState();
+    if (state.status === "error") return "Cash Deposits could not verify access. Retry access or reload; no financial actions have been loaded.";
+    if (state.status === "unlinked") return "Your sign-in account has no active directory account link. A Directory Manager must verify its ownership and link it to the intended individual.";
+    if (state.status === "denied") return "Your linked sign-in account needs Donations Reviewer permission to view or manage Cash Deposits.";
+    return "Checking Cash Deposits access…";
+  },
+
   async refresh() {
-    await Promise.allSettled([
-      qCashDepositCurrentFacilitator.run(),
-      qCashDepositCashOnHand.run(),
-      qCashDepositBatches.run(),
-      apiCashDepositBankAccounts.run()
-    ]);
+    const pass = `${Date.now()}-${Math.random()}`;
+    await storeValue("cash_deposit_access_pass",pass);
+    await storeValue("cash_deposit_access",{status:"loading",email:String(appsmith.user?.email || "").trim().toLowerCase()});
+    for (let i=0;i<30 && !(appsmith.user?.email || "").trim();i++) await new Promise(resolve=>setTimeout(resolve,150));
+    const email = String(appsmith.user?.email || "").trim().toLowerCase();
+    try {
+      if (!email) throw new Error("Sign-in account has not loaded.");
+      let access;
+      try {access=(await qPageAccess.run())?.[0];}
+      catch(error) {
+        if(pass!==appsmith.store.cash_deposit_access_pass || email!==String(appsmith.user?.email||"").trim().toLowerCase()) return [];
+        await new Promise(resolve=>setTimeout(resolve,300));
+        if(pass!==appsmith.store.cash_deposit_access_pass || email!==String(appsmith.user?.email||"").trim().toLowerCase()) return [];
+        access=(await qPageAccess.run())?.[0];
+      }
+      if (pass !== appsmith.store.cash_deposit_access_pass || email !== String(appsmith.user?.email || "").trim().toLowerCase()) return [];
+      const linked = !!access?.person_id && String(access?.email || "").trim().toLowerCase() === email;
+      const allowed = linked && access?.can_cash_deposits === true && access?.is_donations_reviewer === true;
+      await storeValue("cash_deposit_access",{email,status:!linked?"unlinked":allowed?"ready":"denied",actor:linked?access:null});
+      if (!allowed) { await qCashDepositAccessDiagnostic.run().catch(()=>null); return []; }
+      const results = await Promise.allSettled([
+        qCashDepositCashOnHand.run(), qCashDepositBatches.run(), apiCashDepositBankAccounts.run()
+      ]);
+      if (pass === appsmith.store.cash_deposit_access_pass && email === String(appsmith.user?.email || "").trim().toLowerCase()
+          && results.some(result=>result.status === "rejected")) showAlert("Access verified, but some deposit information could not load. Retry refresh.","warning");
+      return results;
+    } catch (error) {
+      if (pass === appsmith.store.cash_deposit_access_pass && email === String(appsmith.user?.email || "").trim().toLowerCase())
+        await storeValue("cash_deposit_access",{email,status:"error"});
+      await qCashDepositAccessDiagnostic.run().catch(()=>null);
+      return [];
+    }
   },
 
   facilitatorId() {
-    return qCashDepositCurrentFacilitator.data?.[0]?.member_id
-      || appsmith.store.facilitator_id
-      || "";
+    return this.hasAccess() ? (this.accessState().actor?.person_id || "") : "";
   },
 
   selectedDonation() {
@@ -32,8 +76,7 @@ export default {
   },
 
   isDonationsReviewer() {
-    return qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true
-      || appsmith.store.facilitator_is_donations_reviewer === true;
+    return this.hasAccess();
   },
 
   requireDonationsReviewer() {
@@ -49,7 +92,7 @@ export default {
   requireFacilitator() {
     const id = this.facilitatorId();
     if (!id) {
-      showAlert("You must be an active Spiritual Practitioner to manage cash deposits.", "error");
+      showAlert("Donations Reviewer permission is required to manage cash deposits.", "error");
       return "";
     }
     return id;
@@ -60,66 +103,89 @@ export default {
     await qCashDepositCashOnHand.run();
   },
 
-  async excludeDonationFromReconciliation(donationId) {
-    const clickedId = String(donationId || "").trim();
-    const donation = clickedId
-      ? (tblCashDeposits.processedTableData || []).find(
-          row => String(row.donation_id || "").trim() === clickedId
-        ) || {}
+  async clearDisposition() {
+    await storeValue("cash_reconciliation_intent", null);
+  },
+
+  async openDisposition(donationId, mode) {
+    const access = (await qPageAccess.run())?.[0];
+    if (access?.can_cash_deposits !== true || access?.is_donations_reviewer !== true ||
+        String(access?.email || "").trim().toLowerCase() !== String(appsmith.user?.email || "").trim().toLowerCase()) {
+      showAlert("Donations Reviewer permission is required.", "error");
+      return false;
+    }
+    const id = String(donationId || "").trim();
+    const donation = id
+      ? (tblCashDeposits.processedTableData || []).find(row => String(row.donation_id || "").trim() === id)
       : this.selectedDonation();
-    const reviewerId = this.requireDonationsReviewer();
-
-    if (!reviewerId) return;
-
-    if (!donation.donation_id) {
-      showAlert("Select a cash donation to exclude from deposit reconciliation.", "warning");
-      return;
+    const expected = mode === "revive" ? "deposit_reconciliation_excluded" : mode === "exclude" ? "cash_on_hand" : "";
+    if (!expected || !donation?.donation_id || donation.operational_status !== expected) {
+      showAlert("Select an eligible cash donation for this action.", "warning");
+      return false;
     }
-
-    if (donation.operational_status !== "cash_on_hand") {
-      showAlert("Only a Cash on Hand donation can be excluded from deposit reconciliation.", "warning");
-      return;
-    }
-
-    await qExcludeCashDonation.run({
-      donation_id: donation.donation_id,
-      actor_id: reviewerId,
-      reason: "Historical cash donation could not be reconciled to a physical deposit.",
-      notes: "Excluded from future cash-deposit batching; original donation record retained."
+    await storeValue("cash_reconciliation_intent", {
+      donation_id: donation.donation_id, mode,
+      actor_email: String(appsmith.user?.email || "").trim().toLowerCase()
     });
+    await storeValue("cash_reconciliation_busy", false);
+    await Promise.all([resetWidget("inpCashDispositionReason", true), resetWidget("inpCashDispositionNotes", true)]);
+    await showModal("mdlCashDisposition");
+    return true;
+  },
 
-    showAlert("Cash donation excluded from deposit reconciliation.", "success");
-    await qCashDepositCashOnHand.run();
+  async excludeDonationFromReconciliation(donationId) {
+    return this.openDisposition(donationId, "exclude");
   },
 
   async reviveDonationFromReconciliation(donationId) {
-    const clickedId = String(donationId || "").trim();
-    const donation = clickedId
-      ? (tblCashDeposits.processedTableData || []).find(
-          row => String(row.donation_id || "").trim() === clickedId
-        ) || {}
-      : this.selectedDonation();
-    const reviewerId = this.requireDonationsReviewer();
+    return this.openDisposition(donationId, "revive");
+  },
 
-    if (!reviewerId) return;
-
-    if (!donation.donation_id) {
-      showAlert("Select an excluded cash donation to revive.", "warning");
-      return;
+  async submitDisposition() {
+    if (appsmith.store.cash_reconciliation_busy === true) return false;
+    const intent = appsmith.store.cash_reconciliation_intent;
+    const reason = String(inpCashDispositionReason.text || "").trim();
+    const notes = String(inpCashDispositionNotes.text || "").trim();
+    if (!intent?.donation_id || !["exclude", "revive"].includes(intent.mode)) {
+      showAlert("Choose a reconciliation action first.", "warning");
+      return false;
     }
-
-    if (donation.operational_status !== "deposit_reconciliation_excluded") {
-      showAlert("Only an excluded cash donation can be revived.", "warning");
-      return;
+    if (!reason) {
+      showAlert("A reason is required for this reconciliation change.", "warning");
+      return false;
     }
-
-    await qReviveCashDonation.run({
-      donation_id: donation.donation_id,
-      actor_id: reviewerId
-    });
-
-    showAlert("Cash donation revived and returned to Cash on Hand.", "success");
-    await qCashDepositCashOnHand.run();
+    await storeValue("cash_reconciliation_busy", true);
+    let committed = false;
+    try {
+      const access = (await qPageAccess.run())?.[0];
+      const email = String(appsmith.user?.email || "").trim().toLowerCase();
+      if (!email || email !== intent.actor_email || String(access?.email || "").trim().toLowerCase() !== email || access?.can_cash_deposits !== true || access?.is_donations_reviewer !== true) {
+        await this.clearDisposition();
+        showAlert("Access changed. No reconciliation change was made.", "error");
+        return false;
+      }
+      const query = intent.mode === "revive" ? qReviveCashDonation : qExcludeCashDonation;
+      await query.run({donation_id: intent.donation_id, reason, notes: notes || null});
+      committed = true;
+      await this.clearDisposition();
+      await closeModal("mdlCashDisposition");
+      await qCashDepositCashOnHand.run();
+      await resetWidget("tblCashDeposits",true);
+      showAlert(intent.mode === "revive"
+        ? "Cash donation revived and returned to Cash on Hand."
+        : "Cash donation excluded from deposit reconciliation; verification status is unchanged. Uncheck Hide ineligible donations to see and revive it.", "success");
+      return intent.donation_id;
+    } catch (error) {
+      if (committed) {
+        await this.clearDisposition();
+        showAlert("Reconciliation change saved, but the display refresh failed. Reload the page; do not repeat the change.", "warning");
+        return intent.donation_id;
+      }
+      showAlert("Reconciliation change failed: " + (error?.message || error), "error");
+      return false;
+    } finally {
+      await storeValue("cash_reconciliation_busy", false);
+    }
   },
 
   async verifyDonation() {
@@ -526,6 +592,7 @@ export default {
       return;
     }
 
+    showAlert("Saving deposit confirmation…", "info");
     await qConfirmCashDepositBatch.run({
       deposit_batch_id: batch.deposit_batch_id,
       verifier_id: verifierId,
@@ -536,13 +603,15 @@ export default {
     });
 
     await storeValue("cash_deposit_batch_id", batch.deposit_batch_id);
+    showAlert("Deposit confirmation saved. Requesting ERP synchronization…", "info");
 
     try {
       const response = await apiSyncCashDepositToERPNext.run({
         deposit_batch_id: batch.deposit_batch_id,
         mode: "production"
       });
-      const result = response?.message || response || {};
+      const raw = response?.data ?? response;
+      const result = raw?.message ?? raw ?? {};
 
       if (result.ok === true && result.status === "succeeded") {
         const erpDocument = [result.erp_doctype, result.erp_name]
@@ -555,7 +624,7 @@ export default {
         );
       } else if (result.ok === true && result.status === "test_skipped") {
         showAlert(
-          "Deposit batch confirmed. ERP synchronization was intentionally skipped in test mode.",
+          "Test deposit confirmed. Production ERP synchronization was intentionally skipped.",
           "info"
         );
       } else {
@@ -592,12 +661,14 @@ export default {
       return;
     }
 
+    showAlert("Retrying ERP synchronization for the confirmed deposit…", "info");
     try {
       const response = await apiSyncCashDepositToERPNext.run({
         deposit_batch_id: batch.deposit_batch_id,
         mode: "production"
       });
-      const result = response?.message || response || {};
+      const raw = response?.data ?? response;
+      const result = raw?.message ?? raw ?? {};
 
       if (result.ok === true && result.status === "succeeded") {
         const erpDocument = [result.erp_doctype, result.erp_name]
@@ -609,7 +680,7 @@ export default {
           "success"
         );
       } else if (result.ok === true && result.status === "test_skipped") {
-        showAlert("ERP synchronization was intentionally skipped in test mode.", "info");
+        showAlert("Test-mode ERP synchronization was intentionally skipped.", "info");
       } else {
         showAlert(
           "ERP synchronization did not complete. Review the synchronization status and retry when appropriate.",

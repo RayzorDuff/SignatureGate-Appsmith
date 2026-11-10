@@ -1,0 +1,8 @@
+SELECT assignment.member_practitioner_assignment_id AS member_facilitator_id,assignment.member_id,
+ assignment.practitioner_person_id AS facilitator_id,assignment.status,assignment.created_at,assignment.updated_at,assignment.notes,p.first_name,p.last_name,a.email,
+ actor.first_name AS assigned_by_first_name,actor.last_name AS assigned_by_last_name
+FROM public.member_practitioner_assignments assignment JOIN public.people p ON p.person_id=assignment.practitioner_person_id
+LEFT JOIN public.person_app_accounts a ON a.person_id=p.person_id AND a.status='active'
+LEFT JOIN public.people actor ON actor.person_id=assignment.assigned_by_person_id
+WHERE assignment.member_id=NULLIF({{ appsmith.store.member_id || "" }},'')::uuid
+AND public.application_member_access({{ appsmith.user.email }},assignment.member_id,false) ORDER BY assignment.status,p.display_name;

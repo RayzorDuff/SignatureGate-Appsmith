@@ -1,0 +1,60 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 116,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ (() => {\n  const individual = selIntakeEntityType.selectedOptionValue === \"Individual\";\n  const company = selIntakeEntityType.selectedOptionValue === \"Company\";\n  const member = individual && chkIntakeMember.isChecked;\n  const contributor = (individual && chkIntakeContributor.isChecked) ||\n    (company && chkCompanyContributor.isChecked);\n  const email = (inpIntakeEmail.text || \"\").trim();\n  const phone = (inpIntakePhone.text || \"\").trim();\n  const address = (inpIntakeAddress.text || \"\").trim();\n  const city = (inpIntakeCity.text || \"\").trim();\n  const state = (inpIntakeState.text || \"\").trim();\n  const postal = (inpIntakePostalCode.text || \"\").trim();\n  const hasAnyAddress = [address, city, state, postal].some(Boolean);\n  const hasCompleteAddress = [address, city, state, postal].every(Boolean);\n  const contactCount = [!!email, !!phone, hasCompleteAddress].filter(Boolean).length;\n  const addressValid = !hasAnyAddress || hasCompleteAddress;\n  const identityValid = individual\n    ? !!(inpIntakeFirstName.text || \"\").trim() && !!(inpIntakeLastName.text || \"\").trim()\n    : company\n      ? !!(inpIntakeCompanyName.text || \"\").trim()\n      : false;\n  const contributorReasonValid = !contributor || !!(inpContributorReason.text || \"\").trim();\n  const memberSetupValid = !member || (\n    !!selIntakePractitioner.selectedOptionValue &&\n    !!selAgreementDelivery.selectedOptionValue &&\n    (selAgreementDelivery.selectedOptionValue !== \"Digital\" ||\n      (!!email && !!selAgreementType.selectedOptionValue && !!selAgreementTemplate.selectedOptionValue)) &&\n    (selAgreementDelivery.selectedOptionValue !== \"Paper\" ||\n      !!(FilePickerAgreement.files || []).length)\n  );\n  return appsmith.store.intake_busy === true || Boolean(intakeFlows.recovery()) || !(\n    (individual || company) &&\n    identityValid &&\n    contactCount >= 2 &&\n    addressValid &&\n    inpIntakeEmail.isValid &&\n    inpIntakePhone.isValid &&\n    contributorReasonValid &&\n    memberSetupValid\n  );\n})() }}",
+  "isLoading": false,
+  "isVisible": true,
+  "key": "nc7a08ja9p",
+  "leftColumn": 0,
+  "minWidth": 120,
+  "mobileBottomRow": 107,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 14,
+  "mobileTopRow": 103,
+  "needsErrorInfo": false,
+  "onClick": "{{ intakeFlows.submit(); }}",
+  "originalBottomRow": 116,
+  "originalTopRow": 112,
+  "parentColumnSpace": 14.1875,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 18,
+  "text": "Complete Intake",
+  "topRow": 112,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "gj41nc669m",
+  "widgetName": "btnIntakeSubmitNew"
+}

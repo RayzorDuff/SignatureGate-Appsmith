@@ -3,11 +3,14 @@
   "animateLoading": true,
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 40,
+  "bottomRow": 44,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "columnOrder": [],
   "defaultSelectedRowIndex": 0,
   "dynamicBindingPathList": [
+    {
+      "key": "tableData"
+    },
     {
       "key": "accentColor"
     },
@@ -16,9 +19,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "tableData"
     }
   ],
   "dynamicTriggerPathList": [],
@@ -37,7 +37,7 @@
   "searchText": "",
   "sortOrder": [],
   "tableData": "{{ qEventsList.data }}",
-  "topRow": 5,
+  "topRow": 9,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

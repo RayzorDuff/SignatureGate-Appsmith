@@ -3,11 +3,17 @@
   "alignWidget": "LEFT",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 15,
+  "bottomRow": 31,
   "defaultCheckedState": true,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -18,24 +24,26 @@
   ],
   "isDisabled": false,
   "isRequired": false,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (true) }}",
   "key": "cashDepositHideIneligible",
   "label": "Hide ineligible donations",
   "labelPosition": "Left",
   "leftColumn": 18,
   "minWidth": 120,
-  "mobileBottomRow": 20,
+  "mobileBottomRow": 36,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 30,
-  "mobileTopRow": 16,
+  "mobileTopRow": 32,
   "onCheckChange": "{{cashDepositFlows.setHideIneligible(chkCashDepositHideIneligible.isChecked)}}",
+  "originalBottomRow": 27,
+  "originalTopRow": 23,
   "parentColumnSpace": 19.125,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 34,
-  "topRow": 11,
+  "topRow": 27,
   "type": "CHECKBOX_WIDGET",
   "version": 1,
   "verticalAlignment": "CENTER",

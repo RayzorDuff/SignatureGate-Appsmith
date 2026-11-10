@@ -30,6 +30,6 @@
     "name": "qArchiveCompanyDonorContact",
     "pageId": "Company Profile",
     "runBehaviour": "MANUAL",
-    "userSetOnLoad": false
+    "userSetOnLoad": true
   }
 }

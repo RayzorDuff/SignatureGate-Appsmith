@@ -1,0 +1,46 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 58,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "label": "State",
+  "leftColumn": 33,
+  "originalBottomRow": 58,
+  "originalTopRow": 52,
+  "parentColumnSpace": 10.25,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "rightColumn": 48,
+  "topRow": 52,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{ !inpIntakeState.text || (inpIntakeAddress.text && inpIntakeCity.text && inpIntakePostalCode.text) }}",
+  "version": 2,
+  "widgetId": "intake-state",
+  "widgetName": "inpIntakeState"
+}

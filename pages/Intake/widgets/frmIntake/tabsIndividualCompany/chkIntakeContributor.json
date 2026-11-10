@@ -1,0 +1,37 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "alignWidget": "LEFT",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 14,
+  "defaultCheckedState": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "label"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "label": "{{ navigationLabels.text(\"Enroll as Contributor\") }}",
+  "labelPosition": "Right",
+  "leftColumn": 12,
+  "originalBottomRow": 65,
+  "originalTopRow": 59,
+  "parentId": "1tzudli4lz",
+  "rightColumn": 26,
+  "topRow": 10,
+  "type": "CHECKBOX_WIDGET",
+  "version": 1,
+  "widgetId": "intake-contributor",
+  "widgetName": "chkIntakeContributor"
+}

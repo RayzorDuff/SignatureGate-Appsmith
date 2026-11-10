@@ -1,0 +1,11 @@
+{
+  "gitSyncId": "issue20-terminology-admin-init",
+  "id": "Terminology Administration_terminologyAdminFlows",
+  "unpublishedCollection": {
+    "name": "terminologyAdminFlows",
+    "pageId": "Terminology Administration",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": []
+  }
+}

@@ -1,0 +1,4 @@
+SELECT p.person_id AS member_id,p.person_id,p.first_name,p.last_name,p.display_name,a.email,true AS is_facilitator,true AS has_practitioner_appointment
+FROM public.person_roles role JOIN public.people p USING(person_id)
+LEFT JOIN LATERAL(SELECT email FROM public.person_app_accounts WHERE person_id=p.person_id AND status='active' ORDER BY created_at LIMIT 1) a ON true
+WHERE role.role_key='practitioner' AND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer') ORDER BY p.display_name;

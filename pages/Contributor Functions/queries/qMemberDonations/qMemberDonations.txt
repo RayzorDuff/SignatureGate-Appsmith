@@ -1,0 +1,41 @@
+SELECT
+  d.*,
+  c.display_name AS contributor_name,
+  c.contributor_type,
+  CASE
+    WHEN d.donor_kind = 'anonymous' THEN 'Anonymous'
+    WHEN d.donor_kind = 'unresolved' THEN 'Unresolved'
+    ELSE COALESCE(c.display_name, 'Contributor identity missing')
+  END AS donor_display_name
+FROM public.donations d
+LEFT JOIN public.contributor_profiles c
+  ON c.contributor_id = d.contributor_id
+
+WHERE (
+ public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer')
+ OR (d.provider='cash' AND EXISTS(SELECT 1 FROM public.audit_log recorded
+  WHERE recorded.entity_type='donation' AND recorded.entity_id=d.donation_id::text
+   AND recorded.action='donation.cash.created' AND lower(recorded.actor)=lower({{ appsmith.user.email }})
+   AND EXISTS(SELECT 1 FROM public.application_access({{ appsmith.user.email }}) actor WHERE actor.can_contributor_functions)))
+ OR (public.issue19_has_role({{ appsmith.user.email }},'practitioner') AND d.donor_kind='identified'
+  AND EXISTS(SELECT 1 FROM public.contributors contributor JOIN public.members participant ON participant.person_id=contributor.person_id
+   WHERE contributor.contributor_id=d.contributor_id AND public.application_member_access({{ appsmith.user.email }},participant.member_id,true)))
+)
+  AND (
+    CASE
+      WHEN left(COALESCE({{ this.params.selection_value || "" }}, ''), 12) = 'contributor:'
+        THEN d.contributor_id = substring({{ this.params.selection_value || "" }} from 13)::uuid
+      WHEN left(COALESCE({{ this.params.selection_value || "" }}, ''), 7) = 'member:'
+        THEN d.member_id = substring({{ this.params.selection_value || "" }} from 8)::uuid
+      WHEN {{ this.params.selection_value || "" }} = '__anonymous__'
+        THEN COALESCE(d.donor_kind, '') = 'anonymous'
+      ELSE FALSE
+    END
+  )
+  AND (
+    {{ Boolean(this.params.show_rejected) }}
+    OR lower(COALESCE(d.status, '')) <> 'rejected'
+  )
+ORDER BY
+  d.donated_at DESC NULLS LAST,
+  d.created_at DESC;

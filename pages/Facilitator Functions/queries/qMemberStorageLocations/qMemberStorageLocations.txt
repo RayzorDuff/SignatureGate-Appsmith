@@ -1,0 +1,6 @@
+SELECT location_access.practitioner_storage_location_access_id AS facilitator_storage_location_access_id,
+ location_access.practitioner_person_id AS facilitator_id,location_access.storage_location_name,location_access.status,location_access.created_at,location_access.updated_at,location_access.notes,
+ actor.first_name AS assigned_by_first_name,actor.last_name AS assigned_by_last_name
+FROM public.practitioner_storage_location_access location_access LEFT JOIN public.people actor ON actor.person_id=location_access.assigned_by_person_id
+WHERE location_access.practitioner_person_id=NULLIF({{ appsmith.store.selected_facilitator_id || "" }},'')::uuid
+AND public.issue19_has_role({{ appsmith.user.email }},'document_reviewer') ORDER BY location_access.status,location_access.storage_location_name;

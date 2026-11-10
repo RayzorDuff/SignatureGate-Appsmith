@@ -1,0 +1,63 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 36,
+  "boxShadow": "none",
+  "defaultOptionValue": "nocodb",
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": "true",
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
+  "key": "paper-storage-provider",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Paper document storage",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 37,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 46,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 39,
+  "needsErrorInfo": false,
+  "onOptionChange": "{{ }}",
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 37,
+  "originalTopRow": 30,
+  "parentColumnSpace": 9.9375,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "Select storage",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "serverSideFiltering": false,
+  "sourceData": "[ {\"label\":\"NocoDB\",\"value\":\"nocodb\"} ]",
+  "tooltip": "NocoDB is the current upload destination. New Google Drive uploads are temporarily disabled. Existing documents remain available.",
+  "topRow": 29,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "paper-storage-provider",
+  "widgetName": "selPaperStorageProvider"
+}

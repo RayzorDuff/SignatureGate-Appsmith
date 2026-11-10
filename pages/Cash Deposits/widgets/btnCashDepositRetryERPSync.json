@@ -1,12 +1,15 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 116,
+  "bottomRow": 132,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "SECONDARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
     {
       "key": "isDisabled"
     },
@@ -15,9 +18,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -36,18 +36,18 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !tblCashDepositBatches.selectedRow?.deposit_batch_id || tblCashDepositBatches.selectedRow?.status !== \"confirmed\" || tblCashDepositBatches.selectedRow?.erp_sync_status === \"succeeded\" }}",
   "isLoading": false,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "cashdepositerpretry",
   "leftColumn": 34,
   "minWidth": 120,
-  "mobileBottomRow": 87,
+  "mobileBottomRow": 103,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
-  "mobileTopRow": 83,
+  "mobileTopRow": 99,
   "needsErrorInfo": false,
   "onClick": "{{ cashDepositFlows.retryERPSync() }}",
-  "originalBottomRow": 119,
-  "originalTopRow": 115,
+  "originalBottomRow": 135,
+  "originalTopRow": 131,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -59,7 +59,7 @@
   "rightColumn": 47,
   "text": "Retry ERP Sync",
   "tooltip": "Retry ERPNext synchronization for a confirmed deposit batch.",
-  "topRow": 112,
+  "topRow": 128,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "cashdepositerpretrywidget",

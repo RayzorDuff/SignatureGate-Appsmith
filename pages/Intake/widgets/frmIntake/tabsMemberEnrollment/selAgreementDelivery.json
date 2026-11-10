@@ -1,0 +1,50 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 26,
+  "defaultOptionValue": "Digital",
+  "dynamicBindingPathList": [
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "tooltip"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isFilterable": false,
+  "isLoading": false,
+  "isRequired": "{{ chkIntakeMember.isChecked }}",
+  "isVisible": true,
+  "labelPosition": "Top",
+  "labelText": "Agreement timing",
+  "leftColumn": 0,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "originalBottomRow": 176,
+  "originalTopRow": 169,
+  "parentId": "2mq85c27oi",
+  "rightColumn": 34,
+  "sourceData": "{{ [{ label: 'Create a digital agreement now', value: 'Digital' }, { label: 'Upload signed paper agreement now', value: 'Paper' }, { label: 'Create agreement later', value: 'Later' }] }}",
+  "topRow": 19,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-agreement-delivery",
+  "widgetName": "selAgreementDelivery",
+  "tooltip": "{{ navigationLabels.text(\"Paper upload saves the enrollment and practitioner assignment first, then sends the selected signed document to NocoDB for reviewer approval. If storage is uncertain, check the saved request; do not repeat Intake.\") }}"
+}

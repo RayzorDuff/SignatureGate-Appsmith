@@ -4,16 +4,16 @@
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "bottomRow": 7,
   "boxShadow": "none",
-  "defaultOptionValue": "[\n  \"agreements_signed\",\n  \"releases_sent\",\n  \"donations_count\",\n  \"donations_dollars\",\n  \"members_created\"\n]",
+  "defaultOptionValue": "[\n  \"agreements_signed\",\n  \"releases_sent\",\n  \"donations_count\",\n  \"donations_dollars\",\n  \"contributor_donations_count\",\n  \"contributor_donations_dollars\",\n  \"participants_created\",\n  \"contributors_created\"\n]",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
+      "key": "sourceData"
     },
     {
       "key": "borderRadius"
     },
     {
-      "key": "sourceData"
+      "key": "accentColor"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -34,7 +34,7 @@
   "labelText": "Metrics",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 14,
+  "leftColumn": 17,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -51,7 +51,7 @@
   "placeholderText": "Select option(s)",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 43,
+  "rightColumn": 54,
   "serverSideFiltering": false,
   "sourceData": "{{ reports.metricOptions() }}",
   "topRow": 0,

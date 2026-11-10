@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 57,
+  "bottomRow": 73,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -48,69 +48,96 @@
     "donation_status",
     "batch_status",
     "review_notes",
+    "exclusion_id",
+    "excluded_at",
+    "excluded_by",
+    "exclusion_reason",
+    "exclusion_notes",
     "exclude"
   ],
-  "columnUpdatedAt": 1791065825280,
+  "columnUpdatedAt": 1791507728346,
   "columnWidthMap": {},
   "customIsLoading": false,
   "customIsLoadingValue": "",
   "defaultPageSize": 0,
-  "defaultSelectedRowIndex": 0,
-  "defaultSelectedRowIndices": [
-    0
-  ],
+  "defaultSelectedRowIndex": -1,
+  "defaultSelectedRowIndices": [],
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.donation_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.donated_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.amount_cents.computedValue"
-    },
-    {
-      "key": "primaryColumns.currency.computedValue"
-    },
-    {
-      "key": "primaryColumns.donor_kind.computedValue"
-    },
-    {
       "key": "primaryColumns.member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.contributor_id.computedValue"
     },
     {
       "key": "primaryColumns.donor_name.computedValue"
     },
     {
-      "key": "primaryColumns.contributor_type.computedValue"
-    },
-    {
-      "key": "primaryColumns.donation_status.computedValue"
+      "key": "primaryColumns.notes.computedValue"
     },
     {
       "key": "primaryColumns.operational_status.computedValue"
     },
     {
-      "key": "primaryColumns.deposit_batch_id.computedValue"
+      "key": "primaryColumns.contributor_type.computedValue"
+    },
+    {
+      "key": "primaryColumns.amount_cents.computedValue"
+    },
+    {
+      "key": "primaryColumns.review_notes.computedValue"
     },
     {
       "key": "primaryColumns.batch_status.computedValue"
     },
     {
-      "key": "primaryColumns.notes.computedValue"
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
-      "key": "primaryColumns.review_notes.computedValue"
+      "key": "primaryColumns.donor_kind.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclusion_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.deposit_batch_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.excluded_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclusion_reason.computedValue"
+    },
+    {
+      "key": "primaryColumns.excluded_by.computedValue"
+    },
+    {
+      "key": "primaryColumns.donated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.donation_status.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclusion_notes.computedValue"
+    },
+    {
+      "key": "primaryColumns.currency.computedValue"
+    },
+    {
+      "key": "primaryColumns.exclude.buttonLabel"
+    },
+    {
+      "key": "primaryColumns.exclude.isDisabled"
+    },
+    {
+      "key": "primaryColumns.donation_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.contributor_id.computedValue"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -120,15 +147,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.exclude.buttonLabel"
-    },
-    {
-      "key": "primaryColumns.exclude.isDisabled"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [],
@@ -144,7 +162,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,
@@ -153,13 +171,13 @@
   "label": "Cash Donations",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 55,
+  "mobileBottomRow": 71,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 30,
-  "mobileTopRow": 27,
+  "mobileTopRow": 43,
   "needsErrorInfo": false,
-  "originalBottomRow": 61,
-  "originalTopRow": 23,
+  "originalBottomRow": 77,
+  "originalTopRow": 39,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -170,7 +188,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"amount_cents\"])) : amount_cents })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"amount_cents\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -204,7 +222,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"batch_status\"])) : batch_status })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"batch_status\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -238,7 +256,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_id\"])) : contributor_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -272,7 +290,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_type\"])) : contributor_type })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_type\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -306,7 +324,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"created_at\"])) : created_at })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"created_at\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -340,7 +358,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"currency\"])) : currency })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"currency\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -374,7 +392,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"deposit_batch_id\"])) : deposit_batch_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"deposit_batch_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -408,7 +426,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donated_at\"])) : donated_at })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donated_at\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -442,7 +460,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donation_id\"])) : donation_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donation_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -476,7 +494,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donation_status\"])) : donation_status })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donation_status\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -510,7 +528,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donor_kind\"])) : donor_kind })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donor_kind\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -544,7 +562,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donor_name\"])) : donor_name })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"donor_name\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -584,15 +602,185 @@
       "index": 16,
       "isCellVisible": true,
       "isDerived": true,
-      "isDisabled": "{{tblCashDeposits.processedTableData.map((currentRow, currentIndex) => ( !['cash_on_hand', 'deposit_reconciliation_excluded'].includes(currentRow.operational_status) || !qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer))}}",
+      "isDisabled": "{{tblCashDeposits.processedTableData.map((currentRow, currentIndex) => ( !['cash_on_hand', 'deposit_reconciliation_excluded'].includes(currentRow.operational_status) || !cashDepositFlows.isDonationsReviewer()))}}",
       "isVisible": true,
       "label": "Action",
-      "onClick": "{{currentRow.operational_status === 'deposit_reconciliation_excluded' ? cashDepositFlows.reviveDonationFromReconciliation(currentRow.donation_id) : cashDepositFlows.excludeDonationFromReconciliation(currentRow.donation_id)}}",
+      "onClick": "{{tblCashDeposits.triggeredRow.operational_status === 'deposit_reconciliation_excluded' ? cashDepositFlows.reviveDonationFromReconciliation(tblCashDeposits.triggeredRow.donation_id) : cashDepositFlows.excludeDonationFromReconciliation(tblCashDeposits.triggeredRow.donation_id)}}",
       "originalId": "exclude",
       "sticky": "right",
       "textSize": "0.875rem",
       "verticalAlignment": "CENTER",
       "width": 105
+    },
+    "excluded_at": {
+      "alias": "excluded_at",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"excluded_at\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "excluded_at",
+      "index": 15,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "excluded_at",
+      "notation": "standard",
+      "originalId": "excluded_at",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "excluded_by": {
+      "alias": "excluded_by",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"excluded_by\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "excluded_by",
+      "index": 16,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "excluded_by",
+      "notation": "standard",
+      "originalId": "excluded_by",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "exclusion_id": {
+      "alias": "exclusion_id",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"exclusion_id\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "exclusion_id",
+      "index": 14,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "exclusion_id",
+      "notation": "standard",
+      "originalId": "exclusion_id",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "exclusion_notes": {
+      "alias": "exclusion_notes",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"exclusion_notes\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "exclusion_notes",
+      "index": 18,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "exclusion_notes",
+      "notation": "standard",
+      "originalId": "exclusion_notes",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "exclusion_reason": {
+      "alias": "exclusion_reason",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"exclusion_reason\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "exclusion_reason",
+      "index": 17,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "exclusion_reason",
+      "notation": "standard",
+      "originalId": "exclusion_reason",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
     },
     "member_id": {
       "alias": "member_id",
@@ -600,7 +788,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"member_id\"])) : member_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"member_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -634,7 +822,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"notes\"])) : notes })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"notes\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -668,7 +856,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"operational_status\"])) : operational_status })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"operational_status\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -702,7 +890,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"review_notes\"])) : review_notes })()}}",
+      "computedValue": "{{(() => { const tableData = tblCashDeposits.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"review_notes\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -738,7 +926,7 @@
   "tableData": "{{ qCashDepositCashOnHand.data }}",
   "textSize": "0.875rem",
   "tooltip": "Select a cash donation to perform an available action.",
-  "topRow": 15,
+  "topRow": 31,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

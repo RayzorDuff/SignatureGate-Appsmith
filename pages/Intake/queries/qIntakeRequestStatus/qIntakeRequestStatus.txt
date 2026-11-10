@@ -1,0 +1,1 @@
+SELECT CASE WHEN lower(btrim({{ appsmith.user.email }}::text)) = lower(btrim({{ this.params.owner }}::text)) THEN public.application_intake_status({{ appsmith.user.email }}::text,{{ this.params.request_id }}::uuid) ELSE NULL END AS receipt;

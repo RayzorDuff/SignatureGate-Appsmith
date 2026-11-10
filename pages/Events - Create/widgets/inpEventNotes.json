@@ -3,18 +3,18 @@
   "animateLoading": true,
   "autoFocus": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 22,
+  "bottomRow": 61,
   "boxShadow": "none",
   "defaultText": "",
   "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
     {
       "key": "accentColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "validation"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -37,10 +37,10 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 23,
+  "mobileBottomRow": 47,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 8,
-  "mobileTopRow": 16,
+  "mobileTopRow": 40,
   "needsErrorInfo": false,
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -51,7 +51,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "showStepArrows": false,
-  "topRow": 12,
+  "topRow": 51,
   "type": "INPUT_WIDGET_V2",
   "validation": "{{inpFirstName.text.length > 0}}",
   "version": 2,

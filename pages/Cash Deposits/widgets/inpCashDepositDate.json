@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 127,
+  "bottomRow": 143,
   "boxShadow": "none",
   "closeOnSelection": true,
   "dateFormat": "LL",
@@ -11,6 +11,9 @@
   "dynamicBindingPathList": [
     {
       "key": "defaultDate"
+    },
+    {
+      "key": "label"
     },
     {
       "key": "minDate"
@@ -26,9 +29,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "label"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -42,7 +42,7 @@
   "isDisabled": false,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "cdepdate01",
   "label": "{{ cashDepositFlows.selectedBatch()?.status === \"draft\" ? \"Planned Deposit Date\" : [\"prepared\", \"confirmed\"].includes(cashDepositFlows.selectedBatch()?.status) ? \"Actual Deposit Date\" : \"Deposit Date\" }}",
   "labelAlignment": "left",
@@ -55,12 +55,12 @@
   "minDate": "{{ moment().subtract(5, \"year\").format(\"YYYY-MM-DD\") }}",
   "minDynamicHeight": 4,
   "minWidth": 180,
-  "mobileBottomRow": 146,
+  "mobileBottomRow": 162,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
-  "mobileTopRow": 138,
-  "originalBottomRow": 146,
-  "originalTopRow": 138,
+  "mobileTopRow": 154,
+  "originalBottomRow": 162,
+  "originalTopRow": 154,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -69,7 +69,7 @@
   "rightColumn": 14,
   "shortcuts": false,
   "timePrecision": "None",
-  "topRow": 120,
+  "topRow": 136,
   "type": "DATE_PICKER_WIDGET2",
   "version": 2,
   "widgetId": "cdepdate01",

@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 20,
+  "bottomRow": 35,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -9,6 +9,9 @@
   "dynamicBindingPathList": [
     {
       "key": "tooltip"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "isDisabled"
@@ -33,18 +36,18 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !selMember.selectedOptionValue || (qAccessibleStorageLocations.data || []).length === 0 }}",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_release === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "key": "vdp8i20knw",
-  "leftColumn": 0,
+  "leftColumn": 50,
   "minWidth": 120,
-  "mobileBottomRow": 37,
+  "mobileBottomRow": 61,
   "mobileLeftColumn": 42,
   "mobileRightColumn": 58,
-  "mobileTopRow": 33,
+  "mobileTopRow": 57,
   "needsErrorInfo": false,
   "onClick": "{{apiListAvailableProducts.run()}}",
-  "originalBottomRow": 15,
-  "originalTopRow": 11,
+  "originalBottomRow": 28,
+  "originalTopRow": 24,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -53,10 +56,10 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 15,
+  "rightColumn": 64,
   "text": "Load Products",
   "tooltip": "{{\n(qAccessibleStorageLocations.data || []).length === 0\n  ? \"You do not have access to any storage locations.\"\n  : \"Update products available in your storage locations.\"\n}}",
-  "topRow": 16,
+  "topRow": 31,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "tephqn65vx",

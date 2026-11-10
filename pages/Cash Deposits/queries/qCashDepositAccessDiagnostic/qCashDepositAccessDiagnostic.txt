@@ -1,0 +1,10 @@
+-- Read-only sign-in diagnostics; returns only technical environment and booleans.
+WITH input AS (SELECT lower(btrim({{ appsmith.user?.email || "" }}::text)) AS email)
+SELECT current_database() AS database_name,
+ (input.email <> '') AS sign_in_available,
+ EXISTS(SELECT 1 FROM public.person_app_accounts a WHERE a.email_normalized=input.email) AS account_registered,
+ EXISTS(SELECT 1 FROM public.person_app_accounts a WHERE a.email_normalized=input.email AND a.status='active') AS account_active,
+ public.issue19_has_role(input.email,'directory_manager') AS directory_manager,
+ public.issue19_has_role(input.email,'donations_reviewer') AS donations_reviewer,
+ COALESCE((SELECT a.can_cash_deposits FROM public.application_access(input.email) a LIMIT 1),false) AS cash_deposits_allowed
+FROM input;

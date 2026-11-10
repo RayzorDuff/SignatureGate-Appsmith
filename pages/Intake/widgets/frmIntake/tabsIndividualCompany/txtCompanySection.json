@@ -1,0 +1,26 @@
+{
+  "bottomRow": 5,
+  "dynamicBindingPathList": [
+    {
+      "key": "fontFamily"
+    }
+  ],
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
+  "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
+  "fontSize": "1.125rem",
+  "fontStyle": "BOLD",
+  "isVisible": true,
+  "leftColumn": 0,
+  "originalBottomRow": 65,
+  "originalTopRow": 60,
+  "parentId": "kzty0i0elx",
+  "rightColumn": 64,
+  "text": "Company information",
+  "textColor": "#231F20",
+  "topRow": 0,
+  "type": "TEXT_WIDGET",
+  "version": 1,
+  "widgetId": "intake-company-section",
+  "widgetName": "txtCompanySection"
+}

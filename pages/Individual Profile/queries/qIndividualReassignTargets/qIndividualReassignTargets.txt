@@ -1,0 +1,23 @@
+SELECT
+  d.party_id::text AS person_id,
+  d.display_name,
+  d.member_id::text AS member_id,
+  d.contributor_id::text AS contributor_id,
+  d.email,
+  d.phone,
+  d.membership_status,
+  d.contributor_status
+FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+WHERE d.party_kind = 'individual'
+  AND (
+    (
+      d.member_id IS NOT NULL
+      AND d.membership_status = 'active'
+    )
+    OR
+    (
+      d.contributor_id IS NOT NULL
+      AND d.contributor_status = 'active'
+    )
+  )
+ORDER BY d.display_name NULLS LAST, d.party_id;

@@ -1,0 +1,49 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 46,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "validation"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "inputType": "EMAIL",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Digital' }}",
+  "isVisible": true,
+  "label": "Email",
+  "labelPosition": "Top",
+  "leftColumn": 0,
+  "originalBottomRow": 46,
+  "originalTopRow": 39,
+  "parentColumnSpace": 10.25,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "rightColumn": 32,
+  "tooltip": "Email is one of three contact methods. At least two of email, phone, and mailing address are required. Email is required when sending a Digital Agreement.",
+  "topRow": 39,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{ !inpIntakeEmail.text || /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(inpIntakeEmail.text.trim()) }}",
+  "version": 2,
+  "widgetId": "intake-email",
+  "widgetName": "inpIntakeEmail"
+}

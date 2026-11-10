@@ -29,7 +29,7 @@
     ],
     "name": "qCompanyCanEditDonorContacts",
     "pageId": "Company Profile",
-    "runBehaviour": "AUTOMATIC",
-    "userSetOnLoad": false
+    "runBehaviour": "MANUAL",
+    "userSetOnLoad": true
   }
 }

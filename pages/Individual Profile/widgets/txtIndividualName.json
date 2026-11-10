@@ -1,19 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 4,
+  "bottomRow": 17,
   "dynamicBindingPathList": [
     {
       "key": "text"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "truncateButtonColor"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -22,31 +19,31 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (true) }}",
   "key": "2fb0817e7e",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 4,
+  "mobileBottomRow": 28,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 10,
-  "mobileTopRow": 0,
+  "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 4,
-  "originalTopRow": 0,
+  "originalBottomRow": 16,
+  "originalTopRow": 12,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 64,
+  "rightColumn": 46,
   "shouldTruncate": false,
   "text": "{{ qIndividualProfile.data?.[0]?.display_name || 'Individual Profile' }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 0,
+  "topRow": 13,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

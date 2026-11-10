@@ -1,0 +1,62 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "allowDialCodeChange": false,
+  "allowFormatting": true,
+  "animateLoading": true,
+  "autoFocus": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 46,
+  "boxShadow": "none",
+  "defaultDialCode": "+1",
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicTriggerPathList": [],
+  "iconAlign": "left",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": true,
+  "key": "ak3gp05svi",
+  "label": "Phone",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelStyle": "",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 33,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 23,
+  "mobileLeftColumn": 33,
+  "mobileRightColumn": 53,
+  "mobileTopRow": 16,
+  "needsErrorInfo": false,
+  "originalBottomRow": 46,
+  "originalTopRow": 39,
+  "parentColumnSpace": 13.875,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "resetOnSubmit": true,
+  "responsiveBehavior": "fill",
+  "rightColumn": 64,
+  "tooltip": "Phone is one of three contact methods. At least two of email, phone, and mailing address are required.",
+  "topRow": 39,
+  "type": "PHONE_INPUT_WIDGET",
+  "validation": "{{ !inpIntakePhone.text || inpIntakePhone.text.split('').filter(c => '0123456789'.includes(c)).length >= 10 }}",
+  "version": 1,
+  "widgetId": "6l9zjpeg2q",
+  "widgetName": "inpIntakePhone"
+}

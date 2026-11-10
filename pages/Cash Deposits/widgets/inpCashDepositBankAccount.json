@@ -2,24 +2,21 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 127,
+  "bottomRow": 143,
   "boxShadow": "none",
   "defaultOptionValue": "{{ cashDepositFlows.selectedBatch()?.destination_bank_account || \"\" }}",
   "dynamicBindingPathList": [
     {
-      "key": "defaultOptionValue"
-    },
-    {
       "key": "sourceData"
     },
     {
-      "key": "isDisabled"
+      "key": "defaultOptionValue"
     },
     {
       "key": "isVisible"
     },
     {
-      "key": "accentColor"
+      "key": "isDisabled"
     },
     {
       "key": "borderRadius"
@@ -44,7 +41,7 @@
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "cdepbank01",
   "labelAlignment": "left",
   "labelPosition": "Auto",
@@ -55,15 +52,15 @@
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 180,
-  "mobileBottomRow": 146,
+  "mobileBottomRow": 162,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 12,
-  "mobileTopRow": 138,
+  "mobileTopRow": 154,
   "needsErrorInfo": false,
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 146,
-  "originalTopRow": 138,
+  "originalBottomRow": 162,
+  "originalTopRow": 154,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -74,7 +71,7 @@
   "serverSideFiltering": false,
   "sourceData": "{{ (() => { const response = apiCashDepositBankAccounts.data?.message || apiCashDepositBankAccounts.data || {}; const options = (response.accounts || []).map(a => ({ label: a.label, value: a.value })); const current = String(cashDepositFlows.selectedBatch()?.destination_bank_account || \"\").trim(); if (current && !options.some(o => o.value === current)) options.unshift({ label: current + \" (historical)\", value: current }); return options; })() }}",
   "tooltip": "Select an active Rooted Psyche Bank Account from ERPNext.",
-  "topRow": 120,
+  "topRow": 136,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "cdepbank01",

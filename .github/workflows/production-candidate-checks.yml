@@ -1,0 +1,29 @@
+name: Production candidate checks
+on:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-and-controller-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: SignatureGate-Appsmith
+      - uses: actions/checkout@v4
+        with:
+          repository: RayzorDuff/SignatureGate
+          ref: f07f0de32218cac6fb01b295113dac53a0670c75
+          path: SignatureGate
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile bindings and exercise source/controller regressions
+        working-directory: SignatureGate-Appsmith
+        run: npm run test:source

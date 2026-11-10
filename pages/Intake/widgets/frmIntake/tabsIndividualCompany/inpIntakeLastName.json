@@ -1,0 +1,40 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 10,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [],
+  "dynamicTriggerPathList": [],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": true,
+  "label": "Last name",
+  "leftColumn": 33,
+  "originalBottomRow": 65,
+  "originalTopRow": 59,
+  "parentColumnSpace": 10.25,
+  "parentId": "1tzudli4lz",
+  "parentRowSpace": 10,
+  "rightColumn": 64,
+  "topRow": 4,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{ inpIntakeLastName.text.length > 0 }}",
+  "version": 2,
+  "widgetId": "intake-last-name",
+  "widgetName": "inpIntakeLastName"
+}

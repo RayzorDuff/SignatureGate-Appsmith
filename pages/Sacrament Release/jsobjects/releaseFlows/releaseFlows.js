@@ -26,6 +26,8 @@ export default {
   },
 
   async verifyaccess() {
+    await Promise.all([storeValue("release_scope_member_id", ""),storeValue("facilitator_id", ""), storeValue("facilitator_is_reviewer", false), storeValue("facilitator_is_donations_reviewer", false)]);
+
       try {
         let email = null;
         for (let i = 0; i < 20; i++) {
@@ -37,14 +39,15 @@ export default {
           showAlert("Unknown user: appsmith.user.email not available.", "error");
           return;
         }
-        let rows = await qCurrentFacilitator.run({ email });
+        await qPageAccess.run();
+            let rows = await qCurrentFacilitator.run({ email });
         if (!Array.isArray(rows)) rows = [];
         const me = rows[0];
-        if (!me?.person_id) {
-          showAlert("Access denied: a practitioner appointment is required for " + email, "error");
+        if (!me?.person_id || me.can_release !== true) {
+          showAlert(navigationLabels.text("Access denied: a practitioner appointment is required for ") + email, "error");
           await releaseFlows.auditLog("auth.denied", "person", "", { email, required_role: "practitioner", page: appsmith.URL?.pathname, mode: appsmith.mode });
           if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-            navigateTo("Unauthorized", {}, "SAME_WINDOW");
+            /* Access denied in place; keep navigation available. */
           }
           return;
         }
@@ -61,9 +64,9 @@ export default {
         ]);
       } catch (e) {
         showAlert("Access check failed: " + (e?.message || e), "error");
-        showAlert("Query error: " + JSON.stringify(qCurrentFacilitator?.error ?? {}), "error");
+        showAlert("Query error: " + JSON.stringify(({})), "error");
         if (appsmith.mode === "DEPLOYED" || appsmith.mode === "PUBLISHED") {
-          navigateTo("Unauthorized", {}, "SAME_WINDOW");
+          /* Access denied in place; keep navigation available. */
         }
         return;
       }
@@ -98,10 +101,13 @@ export default {
       if (selectedPractitioner) {
         await selFacilitator.setSelectedOption(selectedPractitioner);
       }
-      await qAccessibleStorageLocations.run({
+      await storeValue("release_scope_member_id", "");
+      const locations = await qAccessibleStorageLocations.run({
         member_id: selectedMember,
         practitioner_person_id: selectedPractitioner || null
       });
+      if (!(locations || []).length) { showAlert(navigationLabels.text("No storage locations are granted to the selected practitioner for this Participant."), "info"); return gateRows; }
+      await storeValue("release_scope_member_id", selectedMember);
       await apiListAvailableProducts.run();
       return gateRows;
   },
@@ -110,7 +116,7 @@ export default {
       const member_id = String(selMember.selectedOptionValue || appsmith.store.member_id || "").trim() || null;
       const release_type = "sacrament_release";
       if (!member_id) {
-        showAlert("Select a member.", "warning");
+        showAlert(navigationLabels.text("Select a member."), "warning");
         return;
       }
       const product = tblProducts.selectedRow;
@@ -126,7 +132,7 @@ export default {
       });
       const membership = await qReleaseMemberActive.run({ member_id });
       if (membership?.[0]?.is_active !== true) {
-        showAlert("Select an active member before releasing sacrament.", "error");
+        showAlert(navigationLabels.text("Select an active member before releasing sacrament."), "error");
         return;
       }
       const gateRows = await qGateCheckAgreement.run({ member_id, release_type });
@@ -136,7 +142,7 @@ export default {
       const notes = inpNotes.text || "";
       const reviewerOverride = !hasAgreement && isReviewer;
       if (!hasAgreement && !isReviewer) {
-        showAlert("Not eligible. The member must sign an agreement authorizing sacrament release before the transfer can be recorded.", "error");
+        showAlert(navigationLabels.text("Not eligible. The member must sign an agreement authorizing sacrament release before the transfer can be recorded."), "error");
         return;
       }
       if (reviewerOverride && !notes.trim()) {
@@ -148,7 +154,7 @@ export default {
         return;
       }
       const practitioner_person_id = String(selFacilitator.selectedOptionValue || appsmith.store.release_practitioner_person_id || "").trim() || null;
-      const practitionerLabel = String(appsmith.store.practitioner_singular_label || "Practitioner");
+      const practitionerLabel = String(((qTerminology.data || []).find(x => x.concept_key === "practitioner") || {}).singular_label || appsmith.store.practitioner_singular_label || "Practitioner");
       if (!practitioner_person_id) {
         showAlert(`Select a ${practitionerLabel.toLowerCase()}.`, "warning");
         return;
