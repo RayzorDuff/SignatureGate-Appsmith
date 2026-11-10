@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 35,
+  "bottomRow": 16,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -51,7 +51,7 @@
   "text": "{{ \"Access check (safe to return): \" + JSON.stringify(qCashDepositAccessDiagnostic.data?.[0] || {}) }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 31,
+  "topRow": 12,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

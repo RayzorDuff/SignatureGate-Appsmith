@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 16,
+  "bottomRow": 13,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -45,7 +45,7 @@
   "text": "Agreement Templates administration requires Document Reviewer permission.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 12,
+  "topRow": 9,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

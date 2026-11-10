@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 45,
+  "bottomRow": 41,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -11,13 +11,13 @@
       "key": "isVisible"
     },
     {
+      "key": "isDisabled"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isDisabled"
     }
   ],
   "dynamicPropertyPathList": [
@@ -38,7 +38,7 @@
   "isLoading": false,
   "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "paper-upload-receipt",
-  "leftColumn": 19,
+  "leftColumn": 37,
   "minWidth": 120,
   "mobileBottomRow": 54,
   "mobileLeftColumn": 38,
@@ -56,9 +56,9 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 38,
+  "rightColumn": 51,
   "text": "Check saved paper upload",
-  "topRow": 41,
+  "topRow": 37,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "paper-upload-receipt",

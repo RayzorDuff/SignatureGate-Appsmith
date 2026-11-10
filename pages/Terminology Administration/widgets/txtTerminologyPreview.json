@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 33,
+  "bottomRow": 18,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -45,7 +45,7 @@
   "text": "Edit the labels below and review the concept, singular, plural, short label, and active state before saving.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 29,
+  "topRow": 14,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

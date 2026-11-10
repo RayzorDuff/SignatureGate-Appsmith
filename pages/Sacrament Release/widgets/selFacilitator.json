@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 17,
+  "bottomRow": 20,
   "boxShadow": "none",
   "defaultOptionValue": "{{ appsmith.store.release_practitioner_person_id || appsmith.store.practitioner_person_id || '' }}",
   "dynamicBindingPathList": [
@@ -79,7 +79,7 @@
   "rightColumn": 64,
   "serverSideFiltering": false,
   "sourceData": "{{ (qListFacilitators.data || []).map(i => ({ label: i.display_name || `${i.first_name || ''} ${i.last_name || ''}`.trim(), value: i.practitioner_person_id || i.member_id })) }}",
-  "topRow": 12,
+  "topRow": 13,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "duv1ugg6h9",

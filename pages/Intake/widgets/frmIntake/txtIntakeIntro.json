@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 8,
+  "bottomRow": 4,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -45,7 +45,7 @@
   "text": "{{ selIntakeEntityType.selectedOptionValue === 'Company' ? navigationLabels.text('For a Company, Contributor is currently required. The Contributor option is selected by default; leave it selected to complete this intake.') : navigationLabels.text('For an Individual, select one or more roles to establish during this intake: Member, Contributor, or both.') }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 4,
+  "topRow": 0,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 131,
+  "bottomRow": 142,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -35,8 +35,8 @@
   "mobileRightColumn": 19,
   "mobileTopRow": 188,
   "needsErrorInfo": false,
-  "originalBottomRow": 129,
-  "originalTopRow": 125,
+  "originalBottomRow": 139,
+  "originalTopRow": 135,
   "overflow": "NONE",
   "parentColumnSpace": 14.1875,
   "parentId": "0",
@@ -48,7 +48,7 @@
   "text": "{{ navigationLabels.text(\"New Facilitator\\n\") }}",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 127,
+  "topRow": 138,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

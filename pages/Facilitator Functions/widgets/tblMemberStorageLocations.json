@@ -38,13 +38,12 @@
     "status",
     "created_at",
     "updated_at",
-    "assigned_by_member_id",
     "assigned_by_first_name",
     "assigned_by_last_name",
     "notes",
     "customColumn1"
   ],
-  "columnUpdatedAt": 1777090727696,
+  "columnUpdatedAt": 1794273622661,
   "columnWidthMap": {
     "customColumn1": 99
   },
@@ -74,9 +73,6 @@
     },
     {
       "key": "primaryColumns.updated_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.assigned_by_member_id.computedValue"
     },
     {
       "key": "primaryColumns.facilitator_id.computedValue"
@@ -225,37 +221,6 @@
       "label": "Assigned by Last Name",
       "notation": "standard",
       "originalId": "assigned_by_last_name",
-      "sticky": "",
-      "textSize": "0.875rem",
-      "thousandSeparator": true,
-      "validation": {},
-      "verticalAlignment": "CENTER",
-      "width": 150
-    },
-    "assigned_by_member_id": {
-      "alias": "assigned_by_member_id",
-      "allowCellWrapping": false,
-      "allowSameOptionsInNewRow": true,
-      "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblMemberStorageLocations.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"assigned_by_member_id\"])) : [] })()}}",
-      "currencyCode": "USD",
-      "decimals": 0,
-      "enableFilter": true,
-      "enableSort": true,
-      "horizontalAlignment": "LEFT",
-      "id": "assigned_by_member_id",
-      "index": 6,
-      "isCellEditable": false,
-      "isCellVisible": true,
-      "isDerived": false,
-      "isDisabled": false,
-      "isDiscardVisible": true,
-      "isEditable": false,
-      "isSaveVisible": true,
-      "isVisible": false,
-      "label": "assigned_by_member_id",
-      "notation": "standard",
-      "originalId": "assigned_by_member_id",
       "sticky": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,

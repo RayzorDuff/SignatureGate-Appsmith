@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 116,
+  "bottomRow": 117,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -45,7 +45,7 @@
   "text": "Use an existing email, phone, or address for another active role. Contacts from ended memberships remain available.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 111,
+  "topRow": 112,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -2,10 +2,13 @@
   "allowedFileTypes": "[\"application/pdf\",\"image/png\",\"image/jpeg\"]",
   "animateLoading": false,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 37,
+  "bottomRow": 41,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
     {
       "key": "isDisabled"
     },
@@ -14,9 +17,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -41,8 +41,8 @@
   "isRequired": false,
   "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "67f2brnxij",
-  "label": "Select signed paper document",
-  "leftColumn": 19,
+  "label": "Select paper upload",
+  "leftColumn": 0,
   "maxFileSize": "5",
   "maxNumFiles": "1",
   "minWidth": 120,
@@ -52,16 +52,16 @@
   "mobileTopRow": 46,
   "needsErrorInfo": false,
   "onFilesSelected": "{{ (() => { const checkpoint = appsmith.store.paper_upload_checkpoint; if (!appsmith.store.paper_upload_busy && (FilePicker1.files || []).length && checkpoint?.state === \"committed\" && checkpoint.owner === String(appsmith.user?.email || \"\").trim().toLowerCase()) return storeValue(\"paper_upload_checkpoint\", null); })() }}",
-  "originalBottomRow": 34,
-  "originalTopRow": 29,
+  "originalBottomRow": 37,
+  "originalTopRow": 33,
   "parentColumnSpace": 9.9375,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "hug",
-  "rightColumn": 38,
+  "rightColumn": 23,
   "selectedFiles": [],
-  "topRow": 33,
+  "topRow": 37,
   "type": "FILE_PICKER_WIDGET_V2",
   "version": 1,
   "widgetId": "1id805j7vo",

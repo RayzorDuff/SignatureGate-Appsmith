@@ -40,7 +40,7 @@
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 64,
+  "rightColumn": 28,
   "shouldTruncate": false,
   "text": "{{ \"Current page: \" + navigationLabels.text(\"Contributor Functions\") + (navigationLabels.accessMessage() ? \" — \" + navigationLabels.accessMessage() : \"\") }}",
   "textAlign": "LEFT",

@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 25,
+  "bottomRow": 52,
   "boxShadow": "none",
   "defaultOptionValue": "{{ ((options, serverSideFiltering) => (  appsmith.store.facilitator_id ))(inpFacilitator.options, inpFacilitator.serverSideFiltering) }}",
   "dynamicBindingPathList": [
@@ -70,7 +70,7 @@
   "rightColumn": 32,
   "serverSideFiltering": true,
   "sourceData": "{{ qEventsList.data.map(e => ({ label: e.name + ' (' + (e.starts_at || '') + ')', value: e.event_id })) }}",
-  "topRow": 17,
+  "topRow": 44,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "xcmnq36pbt",

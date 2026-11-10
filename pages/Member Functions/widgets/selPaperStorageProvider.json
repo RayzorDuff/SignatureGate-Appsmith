@@ -7,19 +7,20 @@
   "defaultOptionValue": "nocodb",
   "dynamicBindingPathList": [
     {
-      "key": "isDisabled"
+      "key": "isVisible"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicHeight": "FIXED",
-  "dynamicPropertyPathList": [],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    }
+  ],
   "dynamicTriggerPathList": [],
-  "isDisabled": "{{ appsmith.store.paper_upload_busy === true }}",
+  "isDisabled": "true",
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
@@ -30,7 +31,7 @@
   "labelText": "Paper document storage",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 38,
+  "leftColumn": 37,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
@@ -42,7 +43,7 @@
   "onOptionChange": "{{ }}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 36,
+  "originalBottomRow": 37,
   "originalTopRow": 30,
   "parentColumnSpace": 9.9375,
   "parentId": "0",
@@ -53,10 +54,10 @@
   "rightColumn": 64,
   "serverSideFiltering": false,
   "sourceData": "[ {\"label\":\"NocoDB\",\"value\":\"nocodb\"} ]",
-  "topRow": 30,
+  "tooltip": "NocoDB is the current upload destination. New Google Drive uploads are temporarily disabled. Existing documents remain available.",
+  "topRow": 29,
   "type": "SELECT_WIDGET",
   "version": 1,
   "widgetId": "paper-storage-provider",
-  "widgetName": "selPaperStorageProvider",
-  "tooltip": "NocoDB is the current upload destination. New Google Drive uploads are temporarily disabled. Existing documents remain available."
+  "widgetName": "selPaperStorageProvider"
 }

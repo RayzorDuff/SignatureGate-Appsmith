@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 97,
+  "bottomRow": 12,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -32,20 +32,20 @@
   "mobileRightColumn": 13,
   "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 97,
-  "originalTopRow": 93,
+  "originalBottomRow": 100,
+  "originalTopRow": 96,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 64,
+  "rightColumn": 46,
   "shouldTruncate": false,
   "text": "Reports requires reviewer or practitioner permission.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 93,
+  "topRow": 8,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

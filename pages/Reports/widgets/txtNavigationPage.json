@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 9,
+  "bottomRow": 8,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -45,7 +45,7 @@
   "text": "{{ \"Current page: \" + navigationLabels.text(\"Reports\") + (navigationLabels.accessMessage() ? \" — \" + navigationLabels.accessMessage() : \"\") }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 5,
+  "topRow": 4,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

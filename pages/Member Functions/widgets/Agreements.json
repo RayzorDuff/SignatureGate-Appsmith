@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 45,
+  "bottomRow": 46,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -27,8 +27,8 @@
   "mobileRightColumn": 16,
   "mobileTopRow": 52,
   "needsErrorInfo": false,
-  "originalBottomRow": 43,
-  "originalTopRow": 39,
+  "originalBottomRow": 49,
+  "originalTopRow": 45,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -40,7 +40,7 @@
   "text": "Agreements",
   "textAlign": "CENTER",
   "textColor": "#231F20",
-  "topRow": 41,
+  "topRow": 42,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

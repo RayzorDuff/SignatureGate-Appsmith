@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 16,
+  "bottomRow": 13,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -48,7 +48,7 @@
   "text": "{{ navigationLabels.text(\"A Facilitator/Spiritual Practitioner appointment is required for sacrament release.\") }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 12,
+  "topRow": 9,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

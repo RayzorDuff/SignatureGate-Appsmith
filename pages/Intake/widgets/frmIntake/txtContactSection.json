@@ -1,5 +1,5 @@
 {
-  "bottomRow": 39,
+  "bottomRow": 36,
   "dynamicBindingPathList": [
     {
       "key": "isVisible"
@@ -19,13 +19,13 @@
   "fontStyle": "BOLD",
   "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
   "leftColumn": 0,
-  "originalBottomRow": 39,
-  "originalTopRow": 34,
+  "originalBottomRow": 36,
+  "originalTopRow": 31,
   "parentId": "mqyh9qp9p6",
   "rightColumn": 64,
   "text": "Contact information — at least 2 of 3 required: email, phone, or mailing address",
   "textColor": "#231F20",
-  "topRow": 34,
+  "topRow": 31,
   "type": "TEXT_WIDGET",
   "version": 1,
   "widgetId": "intake-contact-section",

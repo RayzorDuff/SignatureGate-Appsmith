@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 20,
+  "bottomRow": 24,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -42,7 +42,7 @@
   "text": "{{ cashDepositFlows.isDonationsReviewer() ? \"Review cash donations and prepare and confirm cash deposits.\" : \"Cash deposit and donation financial information is restricted to Donations Reviewers.\" }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 16,
+  "topRow": 20,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

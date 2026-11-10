@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 26,
+  "bottomRow": 14,
   "dynamicBindingPathList": [
     {
       "key": "fontFamily"
@@ -24,8 +24,8 @@
   "mobileRightColumn": 13,
   "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 26,
-  "originalTopRow": 21,
+  "originalBottomRow": 14,
+  "originalTopRow": 9,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -37,7 +37,7 @@
   "text": "Directory managers can configure organization-facing terminology. Labels change presentation only; they do not rename roles, grant appointments or permissions, or rewrite historical records or executed agreements.",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 21,
+  "topRow": 9,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

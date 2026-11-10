@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 21,
+  "bottomRow": 10,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
@@ -49,7 +49,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 64,
   "text": "Back to Directory",
-  "topRow": 17,
+  "topRow": 6,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "zee2cf2n0i",

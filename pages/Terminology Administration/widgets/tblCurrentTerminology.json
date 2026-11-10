@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 188,
+  "bottomRow": 111,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -88,7 +88,11 @@
       "key": "boxShadow"
     }
   ],
-  "dynamicPropertyPathList": [],
+  "dynamicPropertyPathList": [
+    {
+      "key": "tableData"
+    }
+  ],
   "dynamicTriggerPathList": [],
   "enableClientSideSearch": true,
   "endOfData": false,
@@ -116,8 +120,8 @@
   "onRowSelected": "",
   "onSearchTextChanged": "",
   "onSort": "",
-  "originalBottomRow": 190,
-  "originalTopRow": 126,
+  "originalBottomRow": 159,
+  "originalTopRow": 95,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -349,7 +353,7 @@
   "showInlineEditingOptionDropdown": false,
   "tableData": "{{ terminologyAdminFlows.hasAccess() ? (qTerminology.data || []).map(row => ({concept_key:row.concept_key,concept_kind:row.concept_kind,singular_label:row.singular_label,plural_label:row.plural_label,short_label:row.short_label || \"\",presentation_state:row.is_active === true ? \"Active\" : \"Inactive / reserved\",description:row.description || \"\"})) : [] }}",
   "textSize": "0.875rem",
-  "topRow": 124,
+  "topRow": 59,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

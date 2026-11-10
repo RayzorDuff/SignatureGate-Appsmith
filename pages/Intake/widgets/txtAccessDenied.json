@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 16,
+  "bottomRow": 14,
   "dynamicBindingPathList": [
     {
       "key": "text"
@@ -35,8 +35,8 @@
   "mobileRightColumn": 13,
   "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 16,
-  "originalTopRow": 12,
+  "originalBottomRow": 14,
+  "originalTopRow": 9,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
@@ -48,7 +48,7 @@
   "text": "{{ navigationLabels.text(\"Intake requires Document Reviewer or Donations Reviewer permission. Participant access does not grant enrollment permission.\") }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 12,
+  "topRow": 9,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

@@ -11,13 +11,13 @@
       "key": "isVisible"
     },
     {
+      "key": "isDisabled"
+    },
+    {
       "key": "buttonColor"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isDisabled"
     }
   ],
   "dynamicPropertyPathList": [
@@ -38,7 +38,7 @@
   "isLoading": false,
   "isVisible": "{{ ((qPageAccess.data?.[0]?.can_member_functions === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true)) && (qPageAccess.data?.[0]?.is_document_reviewer === true || qPageAccess.data?.[0]?.is_practitioner === true) }}",
   "key": "zy8x2yht2q",
-  "leftColumn": 19,
+  "leftColumn": 23,
   "minWidth": 120,
   "mobileBottomRow": 29,
   "mobileLeftColumn": 38,
@@ -46,8 +46,8 @@
   "mobileTopRow": 25,
   "needsErrorInfo": false,
   "onClick": "{{ memberProfile.openPaperUpload() }}",
-  "originalBottomRow": 38,
-  "originalTopRow": 34,
+  "originalBottomRow": 41,
+  "originalTopRow": 37,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -56,7 +56,7 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 38,
+  "rightColumn": 37,
   "text": "Upload Paper Agreement",
   "topRow": 37,
   "type": "BUTTON_WIDGET",
