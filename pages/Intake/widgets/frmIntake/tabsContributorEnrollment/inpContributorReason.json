@@ -1,0 +1,46 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 12,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "label"
+    },
+    {
+      "key": "isRequired"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": "{{ (selIntakeEntityType.selectedOptionValue === 'Individual' && chkIntakeContributor.isChecked) || (selIntakeEntityType.selectedOptionValue === 'Company' && chkCompanyContributor.isChecked) }}",
+  "isVisible": true,
+  "label": "{{ navigationLabels.text(\"Contributor enrollment reason\") }}",
+  "labelPosition": "Top",
+  "leftColumn": 0,
+  "originalBottomRow": 151,
+  "originalTopRow": 144,
+  "parentColumnSpace": 10.25,
+  "parentId": "gb0jk02tsa",
+  "parentRowSpace": 10,
+  "rightColumn": 64,
+  "topRow": 5,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "intake-contributor-reason",
+  "widgetName": "inpContributorReason"
+}

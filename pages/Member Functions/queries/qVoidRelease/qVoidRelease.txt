@@ -1,0 +1,8 @@
+UPDATE public.releases
+SET
+  status = 'voided',
+  voided_at = now(),
+  voided_by = (SELECT member_id FROM public.application_access({{ appsmith.user.email }})),
+  void_reason = {{ this.params.void_reason }}
+WHERE public.application_require_permission({{ appsmith.user.email }},'participant.review',{{ appsmith.store.member_id || null }}::uuid) AND release_id = {{ this.params.release_id }}::uuid
+RETURNING release_id;

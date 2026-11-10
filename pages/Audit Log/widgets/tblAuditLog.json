@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 50,
+  "bottomRow": 63,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -69,43 +69,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
+      "key": "tableData"
     },
     {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
+      "key": "primaryColumns.detail_member_name.computedValue"
     },
     {
       "key": "primaryColumns.created_at.computedValue"
     },
     {
-      "key": "tableData"
-    },
-    {
-      "key": "primaryColumns.actor.computedValue"
-    },
-    {
-      "key": "primaryColumns.action.computedValue"
-    },
-    {
-      "key": "primaryColumns.entity_type.computedValue"
-    },
-    {
-      "key": "primaryColumns.entity_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.details.computedValue"
-    },
-    {
-      "key": "primaryColumns.audit_log_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.customColumn1.computedValue"
-    },
-    {
-      "key": "primaryColumns.customColumn1.displayText"
+      "key": "primaryColumns.customColumn1.buttonColor"
     },
     {
       "key": "primaryColumns.customColumn1.borderRadius"
@@ -114,22 +87,46 @@
       "key": "primaryColumns.customColumn1.boxShadow"
     },
     {
-      "key": "primaryColumns.customColumn1.buttonColor"
-    },
-    {
-      "key": "primaryColumns.actor_member_name.computedValue"
-    },
-    {
-      "key": "primaryColumns.detail_member_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.detail_member_name.computedValue"
+      "key": "primaryColumns.detail_facilitator_name.computedValue"
     },
     {
       "key": "primaryColumns.detail_facilitator_id.computedValue"
     },
     {
-      "key": "primaryColumns.detail_facilitator_name.computedValue"
+      "key": "primaryColumns.entity_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.actor.computedValue"
+    },
+    {
+      "key": "primaryColumns.entity_type.computedValue"
+    },
+    {
+      "key": "primaryColumns.detail_member_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.action.computedValue"
+    },
+    {
+      "key": "primaryColumns.details.computedValue"
+    },
+    {
+      "key": "primaryColumns.actor_member_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.audit_log_id.computedValue"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [
@@ -173,7 +170,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_page === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": true,
   "isVisiblePagination": true,
@@ -182,18 +179,18 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 49,
+  "mobileBottomRow": 73,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 31,
-  "mobileTopRow": 21,
+  "mobileTopRow": 45,
   "needsErrorInfo": false,
   "onAddNewRowSave": "",
   "onPageChange": "",
   "onRowSelected": "",
   "onSearchTextChanged": "{{\n            qAuditLogList.run();\n           \n          }}",
   "onSort": "{{\n            qAuditLogList.run();\n          }}",
-  "originalBottomRow": 61,
-  "originalTopRow": 15,
+  "originalBottomRow": 62,
+  "originalTopRow": 16,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -204,7 +201,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"action\"])) : action })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"action\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -235,7 +232,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"actor\"])) : actor })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"actor\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -267,7 +264,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"actor_member_name\"])) : actor_member_name })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"actor_member_name\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -301,7 +298,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"audit_log_id\"])) : audit_log_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"audit_log_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -334,7 +331,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( (currentRow.created_at ? new Date(currentRow.created_at).toLocaleString() : '') )) :  (currentRow.created_at ? new Date(currentRow.created_at).toLocaleString() : '')  })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( (currentRow.created_at ? new Date(currentRow.created_at).toLocaleString() : '') )) : [] })()}}",
       "currencyCode": "USD",
       "customAlias": "",
       "decimals": 0,
@@ -371,11 +368,10 @@
       "buttonLabel": "Details",
       "buttonStyle": "rgb(3, 179, 101)",
       "columnType": "button",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"details\"])) : currentRow[\"details\"] })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"details\"])) : [] })()}}",
       "currencyCode": "USD",
       "customAlias": "",
       "decimals": 0,
-      "displayText": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"details\"])) : currentRow[\"details\"] })()}}",
       "enableFilter": true,
       "enableSort": true,
       "horizontalAlignment": "LEFT",
@@ -407,7 +403,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_facilitator_id\"])) : detail_facilitator_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_facilitator_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -441,7 +437,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_facilitator_name\"])) : detail_facilitator_name })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_facilitator_name\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -475,7 +471,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_member_id\"])) : detail_member_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_member_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -509,7 +505,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_member_name\"])) : detail_member_name })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"detail_member_name\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -542,7 +538,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"details\"])) : details })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"details\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -573,7 +569,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"entity_id\"])) : entity_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"entity_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -604,7 +600,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"entity_type\"])) : entity_type })()}}",
+      "computedValue": "{{(() => { const tableData = tblAuditLog.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"entity_type\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -639,7 +635,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": " {{qAuditLogList.data}} ",
   "textSize": "0.875rem",
-  "topRow": 4,
+  "topRow": 17,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

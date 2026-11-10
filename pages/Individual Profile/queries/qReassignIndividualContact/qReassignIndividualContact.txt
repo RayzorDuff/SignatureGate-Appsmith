@@ -1,0 +1,9 @@
+SELECT public.issue19_reassign_person_contact(
+  {{ appsmith.user.email }},
+  {{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid,
+  {{ selIndividualContactCapacity.selectedOptionValue }},
+  {{ selIndividualRoleContactKind.selectedOptionValue }},
+  {{ selIndividualRoleContactToArchive.selectedOptionValue }}::uuid,
+  {{ selIndividualContactReassignTarget.selectedOptionValue }}::uuid,
+  {{ inpIndividualRoleContactReason.text }}
+) AS reassigned;

@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 58,
+  "bottomRow": 72,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": [],
   "canFreezeColumn": true,
@@ -39,9 +39,16 @@
     "contributor_status",
     "email",
     "phone",
-    "customColumn1"
+    "customColumn1",
+    "customColumn3",
+    "customColumn4",
+    "customColumn2",
+    "party_id",
+    "member_id",
+    "contributor_id",
+    "created_at"
   ],
-  "columnUpdatedAt": 1781303964737,
+  "columnUpdatedAt": 1792311506734,
   "columnWidthMap": {},
   "customIsLoading": false,
   "customIsLoadingValue": "",
@@ -54,34 +61,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.display_name.computedValue"
+      "key": "primaryColumns.member_id.computedValue"
     },
     {
       "key": "primaryColumns.party_kind.computedValue"
     },
     {
-      "key": "primaryColumns.membership_status.computedValue"
-    },
-    {
-      "key": "primaryColumns.contributor_status.computedValue"
-    },
-    {
-      "key": "primaryColumns.email.computedValue"
-    },
-    {
-      "key": "primaryColumns.phone.computedValue"
+      "key": "primaryColumns.created_at.computedValue"
     },
     {
       "key": "primaryColumns.customColumn1.buttonColor"
@@ -91,6 +80,78 @@
     },
     {
       "key": "primaryColumns.customColumn1.boxShadow"
+    },
+    {
+      "key": "primaryColumns.customColumn2.isDisabled"
+    },
+    {
+      "key": "primaryColumns.customColumn2.buttonColor"
+    },
+    {
+      "key": "primaryColumns.customColumn2.borderRadius"
+    },
+    {
+      "key": "primaryColumns.customColumn2.boxShadow"
+    },
+    {
+      "key": "primaryColumns.customColumn3.buttonLabel"
+    },
+    {
+      "key": "primaryColumns.customColumn3.isDisabled"
+    },
+    {
+      "key": "primaryColumns.customColumn3.buttonColor"
+    },
+    {
+      "key": "primaryColumns.customColumn3.borderRadius"
+    },
+    {
+      "key": "primaryColumns.customColumn3.boxShadow"
+    },
+    {
+      "key": "primaryColumns.display_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.customColumn4.buttonLabel"
+    },
+    {
+      "key": "primaryColumns.customColumn4.isDisabled"
+    },
+    {
+      "key": "primaryColumns.customColumn4.buttonColor"
+    },
+    {
+      "key": "primaryColumns.customColumn4.borderRadius"
+    },
+    {
+      "key": "primaryColumns.customColumn4.boxShadow"
+    },
+    {
+      "key": "primaryColumns.phone.computedValue"
+    },
+    {
+      "key": "primaryColumns.party_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.contributor_status.computedValue"
+    },
+    {
+      "key": "primaryColumns.email.computedValue"
+    },
+    {
+      "key": "primaryColumns.membership_status.computedValue"
+    },
+    {
+      "key": "primaryColumns.contributor_id.computedValue"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [
@@ -128,29 +189,63 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 49,
+  "mobileBottomRow": 73,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 31,
-  "mobileTopRow": 21,
+  "mobileTopRow": 45,
   "needsErrorInfo": false,
   "onAddNewRowSave": "",
   "onPageChange": "",
   "onRowSelected": "",
   "onSearchTextChanged": "",
   "onSort": "",
-  "originalBottomRow": 58,
-  "originalTopRow": 7,
+  "originalBottomRow": 73,
+  "originalTopRow": 22,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
   "primaryColumnId": "display_name",
   "primaryColumns": {
+    "contributor_id": {
+      "alias": "contributor_id",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_id\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "contributor_id",
+      "index": 4,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": false,
+      "label": "contributor_id",
+      "notation": "standard",
+      "originalId": "contributor_id",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
     "contributor_status": {
       "alias": "contributor_status",
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_status\"])) : contributor_status })()}}",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"contributor_status\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -170,6 +265,40 @@
       "notation": "standard",
       "originalId": "contributor_status",
       "sticky": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "created_at": {
+      "alias": "created_at",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"created_at\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "created_at",
+      "index": 9,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": false,
+      "label": "created_at",
+      "notation": "standard",
+      "originalId": "created_at",
+      "sticky": "",
+      "textColor": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
@@ -206,7 +335,7 @@
       "label": "Open profile",
       "labelColor": "#FFFFFF",
       "notation": "standard",
-      "onClick": "{{ navigateTo(currentRow.party_kind === 'organization' ? 'Company Profile' : 'Individual Profile', currentRow.party_kind === 'organization' ? {organization_id: currentRow.party_id} : {person_id: currentRow.party_id}, 'SAME_WINDOW') }}",
+      "onClick": "{{ directoryFlows.openProfile(tblDirectory.triggeredRow) }}",
       "originalId": "customColumn1",
       "sticky": "",
       "textSize": "0.875rem",
@@ -222,7 +351,7 @@
       "borderRadius": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
       "boxShadow": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
       "buttonColor": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
-      "buttonLabel": "Record Release",
+      "buttonLabel": "Sacrament Release",
       "buttonStyle": "rgb(3, 179, 101)",
       "columnType": "button",
       "computedValue": "",
@@ -233,20 +362,98 @@
       "enableSort": true,
       "horizontalAlignment": "LEFT",
       "id": "customColumn2",
-      "index": 8,
+      "index": 10,
       "isCellEditable": false,
       "isCellVisible": true,
       "isDerived": true,
-      "isDisabled": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => (!(currentRow.party_kind === \"individual\" && currentRow.member_id && currentRow.membership_status === \"active\")))}}",
+      "isDisabled": "{{ (tblDirectory.processedTableData || []).map(row => !(row.party_kind === 'individual' && Boolean(row.member_id) && row.membership_status === 'active')) }}",
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Sacrament",
+      "label": "Sacrament Release",
       "labelColor": "#FFFFFF",
       "notation": "standard",
-      "onClick": "{{navigateTo(\"Sacrament Release\", { member_id: currentRow.member_id }, \"SAME_WINDOW\")}}",
+      "onClick": "{{ directoryFlows.openSacramentRelease(tblDirectory.triggeredRow) }}",
       "originalId": "customColumn2",
+      "sticky": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "customColumn3": {
+      "alias": "Member Functions",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "borderRadius": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+      "boxShadow": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+      "buttonColor": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+      "buttonLabel": "{{ (tblDirectory.processedTableData || []).map(() => navigationLabels.text(\"Member Functions\")) }}",
+      "buttonStyle": "rgb(3, 179, 101)",
+      "columnType": "button",
+      "computedValue": "",
+      "currencyCode": "USD",
+      "customAlias": "",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "horizontalAlignment": "LEFT",
+      "id": "customColumn3",
+      "index": 8,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": true,
+      "isDisabled": "{{ (tblDirectory.processedTableData || []).map(row => !(row.party_kind === 'individual' && Boolean(row.member_id) && row.membership_status === 'active')) }}",
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "Participant Functions",
+      "labelColor": "#FFFFFF",
+      "notation": "standard",
+      "onClick": "{{ directoryFlows.openMemberFunctions(tblDirectory.triggeredRow) }}",
+      "originalId": "customColumn3",
+      "sticky": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "customColumn4": {
+      "alias": "Contributor Functions",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "borderRadius": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.borderRadius.appBorderRadius)))}}",
+      "boxShadow": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( \"none\"))}}",
+      "buttonColor": "{{tblDirectory.processedTableData.map((currentRow, currentIndex) => ( (appsmith.theme.colors.primaryColor)))}}",
+      "buttonLabel": "{{ (tblDirectory.processedTableData || []).map(() => navigationLabels.text(\"Contributor Functions\")) }}",
+      "buttonStyle": "rgb(3, 179, 101)",
+      "columnType": "button",
+      "computedValue": "",
+      "currencyCode": "USD",
+      "customAlias": "",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "horizontalAlignment": "LEFT",
+      "id": "customColumn4",
+      "index": 9,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": true,
+      "isDisabled": "{{ (tblDirectory.processedTableData || []).map(row => !(Boolean(row.contributor_id) && row.contributor_status === 'active')) }}",
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": true,
+      "label": "Contributor Functions",
+      "labelColor": "#FFFFFF",
+      "notation": "standard",
+      "onClick": "{{ directoryFlows.openContributorFunctions(tblDirectory.triggeredRow) }}",
+      "originalId": "customColumn4",
       "sticky": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
@@ -259,7 +466,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"display_name\"])) : display_name })()}}",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"display_name\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -290,7 +497,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"email\"])) : email })()}}",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"email\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -316,12 +523,46 @@
       "verticalAlignment": "CENTER",
       "width": 150
     },
+    "member_id": {
+      "alias": "member_id",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"member_id\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "member_id",
+      "index": 3,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": false,
+      "label": "member_id",
+      "notation": "standard",
+      "originalId": "member_id",
+      "sticky": "",
+      "textColor": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
     "membership_status": {
       "alias": "membership_status",
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"membership_status\"])) : membership_status })()}}",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"membership_status\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -337,10 +578,44 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "Membership",
+      "label": "Participation",
       "notation": "standard",
       "originalId": "membership_status",
       "sticky": "",
+      "textSize": "0.875rem",
+      "thousandSeparator": true,
+      "validation": {},
+      "verticalAlignment": "CENTER",
+      "width": 150
+    },
+    "party_id": {
+      "alias": "party_id",
+      "allowCellWrapping": false,
+      "allowSameOptionsInNewRow": true,
+      "cellBackground": "",
+      "columnType": "text",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"party_id\"])) : [] })()}}",
+      "currencyCode": "USD",
+      "decimals": 0,
+      "enableFilter": true,
+      "enableSort": true,
+      "fontStyle": "",
+      "horizontalAlignment": "LEFT",
+      "id": "party_id",
+      "index": 1,
+      "isCellEditable": false,
+      "isCellVisible": true,
+      "isDerived": false,
+      "isDisabled": false,
+      "isDiscardVisible": true,
+      "isEditable": false,
+      "isSaveVisible": true,
+      "isVisible": false,
+      "label": "party_id",
+      "notation": "standard",
+      "originalId": "party_id",
+      "sticky": "",
+      "textColor": "",
       "textSize": "0.875rem",
       "thousandSeparator": true,
       "validation": {},
@@ -352,7 +627,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"party_kind\"])) : party_kind })()}}",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"party_kind\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -383,7 +658,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"phone\"])) : phone })()}}",
+      "computedValue": "{{(() => { const tableData = tblDirectory.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"phone\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -418,7 +693,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{ qPartyDirectory.data }}",
   "textSize": "0.875rem",
-  "topRow": 7,
+  "topRow": 21,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

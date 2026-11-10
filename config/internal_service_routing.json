@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "description": "Version-controlled non-secret destination inventory for server-side Appsmith and n8n connections in the same RootedOps deployment. Appsmith Git Sync omits datasource connection URLs; this manifest is desired state, not an automatically applied Appsmith configuration.",
   "internal_services": {
     "n8n": {
@@ -56,5 +56,23 @@
     "do_not_cross_test_environments": true,
     "preserve_credentials": true,
     "production_change_requires_separate_verification": true
+  },
+  "test_database_contracts": {
+    "signaturegate-postgres-test": {
+      "database": "signaturegate_test",
+      "username": "signaturegate_test_app",
+      "status": "requires_live_binding_and_privilege_verification",
+      "live_binding_verified": false,
+      "port": 5432,
+      "requires_restricted_principal": true,
+      "preserve_git_sync_identity": true,
+      "host_status": "requires_private_target_deployment_verification"
+    }
+  },
+  "application_target": {
+    "datasource": "signaturegate-postgres",
+    "database": "signaturegate",
+    "erp_mode": "production",
+    "live_binding_verified": false
   }
 }

@@ -5,7 +5,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 40,
+  "bottomRow": 53,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -76,39 +76,6 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.created_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.agreement_template_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.name.computedValue"
-    },
-    {
-      "key": "primaryColumns.name.isCellEditable"
-    },
-    {
-      "key": "primaryColumns.version.computedValue"
-    },
-    {
-      "key": "primaryColumns.version.isCellEditable"
-    },
-    {
-      "key": "primaryColumns.required_for.computedValue"
-    },
-    {
-      "key": "primaryColumns.doc_url.computedValue"
-    },
-    {
-      "key": "primaryColumns.doc_url.isCellEditable"
-    },
-    {
-      "key": "primaryColumns.active.computedValue"
-    },
-    {
-      "key": "primaryColumns.active.isCellEditable"
-    },
-    {
       "key": "primaryColumns.EditActions1.isSaveVisible"
     },
     {
@@ -124,6 +91,18 @@
       "key": "primaryColumns.EditActions1.discardBorderRadius"
     },
     {
+      "key": "primaryColumns.agreement_template_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.active.computedValue"
+    },
+    {
+      "key": "primaryColumns.active.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.created_at.computedValue"
+    },
+    {
       "key": "primaryColumns.customColumn1.buttonColor"
     },
     {
@@ -133,10 +112,13 @@
       "key": "primaryColumns.customColumn1.boxShadow"
     },
     {
-      "key": "primaryColumns.documenso_template_envelope_id.computedValue"
+      "key": "primaryColumns.documenso_template_id.computedValue"
     },
     {
-      "key": "primaryColumns.documenso_template_envelope_id.isCellEditable"
+      "key": "primaryColumns.version.computedValue"
+    },
+    {
+      "key": "primaryColumns.version.isCellEditable"
     },
     {
       "key": "primaryColumns.documenso_member_recipient_id.computedValue"
@@ -145,16 +127,40 @@
       "key": "primaryColumns.documenso_member_recipient_id.isCellEditable"
     },
     {
+      "key": "primaryColumns.doc_url.computedValue"
+    },
+    {
+      "key": "primaryColumns.doc_url.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.updated_at.computedValue"
+    },
+    {
+      "key": "primaryColumns.documenso_template_envelope_id.computedValue"
+    },
+    {
+      "key": "primaryColumns.documenso_template_envelope_id.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.name.computedValue"
+    },
+    {
+      "key": "primaryColumns.name.isCellEditable"
+    },
+    {
+      "key": "primaryColumns.required_for.computedValue"
+    },
+    {
       "key": "primaryColumns.documenso_facilitator_recipient_id.computedValue"
     },
     {
       "key": "primaryColumns.documenso_facilitator_recipient_id.isCellEditable"
     },
     {
-      "key": "primaryColumns.documenso_template_id.computedValue"
+      "key": "allowAddNewRow"
     },
     {
-      "key": "allowAddNewRow"
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -164,12 +170,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.updated_at.computedValue"
-    },
-    {
-      "key": "primaryColumns.created_at.displayText"
     }
   ],
   "dynamicPropertyPathList": [
@@ -258,7 +258,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_page === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": true,
   "isVisiblePagination": true,
@@ -267,18 +267,18 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 49,
+  "mobileBottomRow": 73,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 31,
-  "mobileTopRow": 21,
+  "mobileTopRow": 45,
   "needsErrorInfo": false,
   "onAddNewRowSave": "{{ agreementTemplateFlows.saveTemplate(tblAgreementTemplates.newRow,  MultiSelectRequiredFor.selectedOptionValues.map(String) ) \n}}",
   "onPageChange": "",
   "onRowSelected": "",
   "onSearchTextChanged": "",
   "onSort": "",
-  "originalBottomRow": 41,
-  "originalTopRow": 5,
+  "originalBottomRow": 52,
+  "originalTopRow": 16,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -330,7 +330,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "checkbox",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"active\"])) : active })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"active\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -361,7 +361,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"agreement_template_id\"])) : agreement_template_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"agreement_template_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -391,12 +391,11 @@
       "alias": "created_at",
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
-      "columnType": "url",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"doc_url\"])) : currentRow[\"doc_url\"] })()}}",
+      "columnType": "text",
+      "computedValue": "{{ (tblAgreementTemplates.processedTableData || []).map(row => { const value = row[\"created_at\"]; if (!value) return \"\"; const date = new Date(value); return Number.isNaN(date.getTime()) ? \"\" : date.toLocaleString(); }) }}",
       "currencyCode": "USD",
       "customAlias": "",
       "decimals": 0,
-      "displayText": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => ( ( currentRow.created_at ? new Date(currentRow.created_at).toLocaleString() : '') )) :  ( currentRow.created_at ? new Date(currentRow.created_at).toLocaleString() : '')  })()}}",
       "enableFilter": true,
       "enableSort": true,
       "horizontalAlignment": "LEFT",
@@ -464,10 +463,9 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"doc_url\"])) : doc_url })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"doc_url\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
-      "displayText": "",
       "enableFilter": true,
       "enableSort": true,
       "horizontalAlignment": "LEFT",
@@ -497,7 +495,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_facilitator_recipient_id\"])) : documenso_facilitator_recipient_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_facilitator_recipient_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -514,7 +512,7 @@
       "isEditable": true,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "FacilitatorID",
+      "label": "Spiritual Practitioner Recipient ID",
       "notation": "standard",
       "originalId": "documenso_facilitator_recipient_id",
       "sticky": "",
@@ -531,7 +529,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_member_recipient_id\"])) : documenso_member_recipient_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_member_recipient_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -565,7 +563,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_template_envelope_id\"])) : documenso_template_envelope_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_template_envelope_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -599,7 +597,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_template_id\"])) : documenso_template_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"documenso_template_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -632,10 +630,9 @@
       "allowCellWrapping": true,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"name\"])) : currentRow[\"name\"] })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"name\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
-      "displayText": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"name\"])) : currentRow[\"name\"] })()}}",
       "enableFilter": true,
       "enableSort": true,
       "horizontalAlignment": "LEFT",
@@ -665,7 +662,7 @@
       "allowSameOptionsInNewRow": true,
       "buttonLabel": "Select ",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"required_for\"])) : required_for })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"required_for\"])) : [] })()}}",
       "currencyCode": "USD",
       "customAlias": "",
       "decimals": 0,
@@ -700,7 +697,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"updated_at\"])) : updated_at })()}}",
+      "computedValue": "{{ (tblAgreementTemplates.processedTableData || []).map(row => { const value = row[\"updated_at\"]; if (!value) return \"\"; const date = new Date(value); return Number.isNaN(date.getTime()) ? \"\" : date.toLocaleString(); }) }}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -717,7 +714,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "updated_at",
+      "label": "Updated",
       "notation": "standard",
       "originalId": "updated_at",
       "sticky": "",
@@ -733,7 +730,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"version\"])) : version })()}}",
+      "computedValue": "{{(() => { const tableData = tblAgreementTemplates.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"version\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -768,7 +765,7 @@
   "showInlineEditingOptionDropdown": true,
   "tableData": "{{qAgreementTemplatesList.data}}",
   "textSize": "0.875rem",
-  "topRow": 4,
+  "topRow": 17,
   "totalRecordsCount": "",
   "type": "TABLE_WIDGET_V2",
   "version": 2,

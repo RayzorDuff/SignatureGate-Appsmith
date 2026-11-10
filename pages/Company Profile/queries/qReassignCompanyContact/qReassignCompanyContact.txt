@@ -1,0 +1,7 @@
+SELECT public.issue19_reassign_organization_contact(
+{{ appsmith.user.email }}::text,{{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid,
+{{ selCompanyDonorContactKind.selectedOptionValue }}::text,
+{{ selCompanyDonorContactToArchive.selectedOptionValue || null }}::uuid,
+{{ selCompanyContactReassignTarget.selectedOptionValue || null }}::uuid,
+{{ inpCompanyDonorContactReason.text || '' }}::text
+) AS reassigned;

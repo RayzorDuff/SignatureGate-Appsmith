@@ -1,0 +1,46 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 58,
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "validation"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "inputType": "TEXT",
+  "isDisabled": false,
+  "isLoading": false,
+  "isRequired": false,
+  "isVisible": "{{ selIntakeEntityType.selectedOptionValue === 'Individual' || selIntakeEntityType.selectedOptionValue === 'Company' }}",
+  "label": "ZIP / Postal code",
+  "leftColumn": 50,
+  "originalBottomRow": 58,
+  "originalTopRow": 52,
+  "parentColumnSpace": 10.25,
+  "parentId": "mqyh9qp9p6",
+  "parentRowSpace": 10,
+  "rightColumn": 64,
+  "topRow": 52,
+  "type": "INPUT_WIDGET_V2",
+  "validation": "{{ !inpIntakePostalCode.text || (inpIntakeAddress.text && inpIntakeCity.text && inpIntakeState.text) }}",
+  "version": 2,
+  "widgetId": "intake-postal-code",
+  "widgetName": "inpIntakePostalCode"
+}

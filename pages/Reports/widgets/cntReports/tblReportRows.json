@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 79,
+  "bottomRow": 82,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -51,25 +51,16 @@
   "delimiter": ",",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.bucket_start.computedValue"
+      "key": "primaryColumns.metric_key.computedValue"
     },
     {
       "key": "primaryColumns.bucket_label.computedValue"
     },
     {
-      "key": "primaryColumns.metric_key.computedValue"
+      "key": "primaryColumns.bucket_start.computedValue"
     },
     {
       "key": "primaryColumns.metric_label.computedValue"
@@ -79,6 +70,15 @@
     },
     {
       "key": "primaryColumns.value.computedValue"
+    },
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
     }
   ],
   "dynamicPropertyPathList": [
@@ -108,6 +108,8 @@
   "mobileRightColumn": 17,
   "mobileTopRow": 27,
   "needsErrorInfo": false,
+  "originalBottomRow": 79,
+  "originalTopRow": 51,
   "parentColumnSpace": 10.1064453125,
   "parentId": "rphztmlj14",
   "parentRowSpace": 10,
@@ -117,7 +119,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"bucket_label\"])) : bucket_label })()}}",
+      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"bucket_label\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -133,7 +135,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "bucket_label",
+      "label": "Period",
       "notation": "standard",
       "originalId": "bucket_label",
       "sticky": "",
@@ -148,7 +150,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "date",
-      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"bucket_start\"])) : bucket_start })()}}",
+      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"bucket_start\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -164,7 +166,7 @@
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": true,
+      "isVisible": false,
       "label": "bucket_start",
       "notation": "standard",
       "originalId": "bucket_start",
@@ -180,7 +182,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"metric_key\"])) : metric_key })()}}",
+      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"metric_key\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -195,7 +197,7 @@
       "isDiscardVisible": true,
       "isEditable": false,
       "isSaveVisible": true,
-      "isVisible": true,
+      "isVisible": false,
       "label": "metric_key",
       "notation": "standard",
       "originalId": "metric_key",
@@ -211,7 +213,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"metric_label\"])) : metric_label })()}}",
+      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"metric_label\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -227,7 +229,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "metric_label",
+      "label": "Metric",
       "notation": "standard",
       "originalId": "metric_label",
       "sticky": "",
@@ -235,14 +237,14 @@
       "thousandSeparator": true,
       "validation": {},
       "verticalAlignment": "CENTER",
-      "width": 150
+      "width": 300
     },
     "sort_order": {
       "alias": "sort_order",
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"sort_order\"])) : sort_order })()}}",
+      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"sort_order\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -273,7 +275,7 @@
       "allowCellWrapping": false,
       "allowSameOptionsInNewRow": true,
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"value\"])) : value })()}}",
+      "computedValue": "{{(() => { const tableData = tblReportRows.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"value\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -289,7 +291,7 @@
       "isEditable": false,
       "isSaveVisible": true,
       "isVisible": true,
-      "label": "value",
+      "label": "Value",
       "notation": "standard",
       "originalId": "value",
       "sticky": "",
@@ -304,9 +306,9 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "searchKey": "",
-  "tableData": "{{qReportTimeSeries.data}}",
+  "tableData": "{{ appsmith.store.reports_actor_email === String(appsmith.user?.email || \"\").trim().toLowerCase() ? (qReportTimeSeries.data || []).filter(row => reports.selectedMetricKeys().includes(row.metric_key)).map(row => ({...row, metric_label: navigationLabels.text(row.metric_label)})) : [] }}",
   "textSize": "0.875rem",
-  "topRow": 51,
+  "topRow": 54,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

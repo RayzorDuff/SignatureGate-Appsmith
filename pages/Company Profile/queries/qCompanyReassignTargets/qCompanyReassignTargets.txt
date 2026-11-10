@@ -1,0 +1,7 @@
+SELECT d.party_id::text AS organization_id,d.display_name
+FROM public.issue19_directory_entries({{ appsmith.user.email }}) d
+WHERE d.party_kind='organization' AND d.contributor_id IS NOT NULL
+AND d.contributor_status='active'
+AND d.party_id<> {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid
+AND public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer')
+ORDER BY d.display_name;

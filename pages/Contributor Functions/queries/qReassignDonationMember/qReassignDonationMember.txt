@@ -1,0 +1,3 @@
+SELECT * FROM public.application_reassign_donation(
+ {{ appsmith.user.email }}::text, {{ this.params.donation_id }}::uuid,
+ {{ this.params.contributor_choice }}::text, {{ this.params.reason }}::text);

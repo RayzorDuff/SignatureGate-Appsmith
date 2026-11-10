@@ -1,0 +1,25 @@
+WITH changed AS (
+ UPDATE public.contributor_emails e
+ SET mailing_subscription_status=CASE WHEN e.mailing_subscription_status='subscribed' THEN 'unsubscribed' ELSE 'subscribed' END,
+ mailing_subscription_source='individual_profile_contributor',
+ mailing_unsubscribed_at=CASE WHEN e.mailing_subscription_status='subscribed' THEN now() ELSE NULL END,
+ mailing_unsubscribe_source=CASE WHEN e.mailing_subscription_status='subscribed' THEN 'individual_profile_contributor' ELSE NULL END,
+ mailing_unsubscribe_reason=CASE WHEN e.mailing_subscription_status='subscribed' THEN 'Individual Profile contributor opt-out' ELSE NULL END,
+ updated_at=now()
+ WHERE e.contributor_email_id={{ selIndividualRoleContactToArchive.selectedOptionValue || null }}::uuid
+ AND e.status='active'
+ AND EXISTS(SELECT 1 FROM public.contributors c
+  WHERE c.contributor_id=e.contributor_id
+   AND c.person_id={{ qIndividualProfile.data?.[0]?.party_id || null }}::uuid
+   AND c.contributor_type='individual' AND c.status='active')
+ AND public.issue19_has_role({{ appsmith.user.email }},'donations_reviewer')
+ AND e.mailing_subscription_status IN ('subscribed','not_subscribed','unsubscribed','sync_error')
+ RETURNING e.contributor_email_id,e.mailing_subscription_status
+), queued AS (
+ SELECT c.contributor_email_id,c.mailing_subscription_status,
+ public.enqueue_listmonk_contributor_email_sync(c.contributor_email_id,
+  CASE WHEN c.mailing_subscription_status='subscribed' THEN 'subscribe' ELSE 'unsubscribe' END,
+  'individual_profile_contributor',{{ appsmith.user.email }},
+  jsonb_build_object('source','individual_profile','capacity','contributor')) AS queue_id FROM changed c
+)
+SELECT contributor_email_id::text AS contact_id,mailing_subscription_status,queue_id::text AS queue_id FROM queued;

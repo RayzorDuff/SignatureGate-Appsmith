@@ -1,1 +1,5 @@
-SELECT contact_id::text AS contact_id, contact_kind, contact_value, is_primary, is_verified FROM public.issue19_contributor_contacts({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid) ORDER BY contact_kind, is_primary DESC, contact_value;
+SELECT cc.contact_id::text AS contact_id, cc.contact_kind, cc.contact_value, cc.is_primary, cc.is_verified,
+ce.mailing_subscription_status, ce.listmonk_sync_status
+FROM public.issue19_contributor_contacts({{ appsmith.user.email }}, 'organization', {{ qCompanyProfile.data?.[0]?.party_id || null }}::uuid) cc
+LEFT JOIN public.contributor_emails ce ON ce.contributor_email_id=cc.contact_id AND cc.contact_kind='email'
+ORDER BY cc.contact_kind, cc.is_primary DESC, cc.contact_value;

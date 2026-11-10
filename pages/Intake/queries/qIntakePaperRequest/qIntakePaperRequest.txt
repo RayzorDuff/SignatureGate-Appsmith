@@ -1,0 +1,1 @@
+SELECT public.uuid_generate_v4() AS request_id WHERE public.application_require_permission({{ appsmith.user.email }}::text,'participant.manage',{{ this.params.member_id }}::uuid);

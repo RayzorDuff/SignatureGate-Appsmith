@@ -13,8 +13,8 @@
     },
     "themeSetting": {
       "appMaxWidth": "LARGE",
-      "density": 1,
-      "sizing": 1
+      "density": 1.0,
+      "sizing": 1.0
     }
   },
   "applicationVersion": 2,
@@ -23,23 +23,23 @@
   "evaluationVersion": 2,
   "pages": [
     {
-      "id": "Members - Directory",
+      "id": "Directory",
       "isDefault": true
     },
     {
-      "id": "Members - Profile",
+      "id": "Member Functions",
       "isDefault": false
     },
     {
-      "id": "Members – Intake",
+      "id": "Contributor Functions",
+      "isDefault": false
+    },
+    {
+      "id": "Facilitator Functions",
       "isDefault": false
     },
     {
       "id": "Sacrament Release",
-      "isDefault": false
-    },
-    {
-      "id": "Donations",
       "isDefault": false
     },
     {
@@ -71,7 +71,7 @@
       "isDefault": false
     },
     {
-      "id": "Directory",
+      "id": "Intake",
       "isDefault": false
     },
     {
@@ -80,6 +80,10 @@
     },
     {
       "id": "Company Profile",
+      "isDefault": false
+    },
+    {
+      "id": "Terminology Administration",
       "isDefault": false
     },
     {
@@ -104,8 +108,8 @@
     },
     "themeSetting": {
       "appMaxWidth": "LARGE",
-      "density": 1,
-      "sizing": 1
+      "density": 1.0,
+      "sizing": 1.0
     }
   }
 }

@@ -35,7 +35,7 @@
     "dynamicBindingPathList": [],
     "name": "apiCashDepositBankAccounts",
     "pageId": "Cash Deposits",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }

@@ -1,0 +1,2 @@
+SELECT public.issue19_end_member_practitioner({{ appsmith.user.email }},{{ this.params.person_id }}::uuid,
+{{ this.params.assignment_id }}::uuid,{{ this.params.reason }}) AS assignment_id;

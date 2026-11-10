@@ -1,0 +1,69 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 63,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "PRIMARY",
+  "disabledWhenInvalid": false,
+  "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isDisabled"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
+  "isDefaultClickDisabled": true,
+  "isDisabled": "{{ qArchiveCompanyDonorContact.isLoading }}",
+  "isLoading": false,
+  "isVisible": "{{ qCompanyCanEditDonorContacts.data?.[0]?.can_edit === true && !!qCompanyProfile.data?.[0]?.contributor_id }}",
+  "key": "c7238955eb",
+  "leftColumn": 44,
+  "minWidth": 120,
+  "mobileBottomRow": 99,
+  "mobileLeftColumn": 44,
+  "mobileRightColumn": 64,
+  "mobileTopRow": 95,
+  "needsErrorInfo": false,
+  "onClick": "{{ (async () => { try {\n const kind=selCompanyDonorContactKind.selectedOptionValue;\n const id=selCompanyDonorContactToArchive.selectedOptionValue;\n const reason=inpCompanyDonorContactReason.text?.trim() || (kind==='address' ? inpCompanyAddressReason.text?.trim() : '');\n if(!id || !reason) {showAlert('Select a contact and enter a reason.','warning');return;}\n if(kind==='address') {\n   const r=await qArchiveCompanyDonorAddress.run({id,reason});\n   if(!r?.[0]?.archived) throw new Error('Address was not archived.');\n   await Promise.all([qCompanyDonorAddresses.run(),qCompanyContacts.run()]);\n } else {\n   const entry=(qCompanyDonorContacts.data||[]).find(c=>c.contact_id===id);\n   if(!entry || entry.contact_kind!==kind) throw new Error('Select a matching contact.');\n   const r=await qArchiveCompanyDonorContact.run({kind,id,reason});\n   if(!r?.[0]?.archived) throw new Error('Contact was not archived.');\n   await Promise.all([qCompanyDonorContacts.run(),qCompanyContacts.run(),qCompanyProfile.run()]);\n }\n showAlert('Contributor contact archived.','success');\n} catch(e) {showAlert('Contact archive failed: '+(e?.message||e),'error');} })() }}",
+  "originalBottomRow": 63,
+  "originalTopRow": 59,
+  "parentColumnSpace": 10.25,
+  "parentId": "6mi04nz8p0",
+  "parentRowSpace": 10,
+  "placement": "CENTER",
+  "recaptchaType": "V3",
+  "renderMode": "CANVAS",
+  "resetFormOnClick": false,
+  "responsiveBehavior": "hug",
+  "rightColumn": 64,
+  "text": "Archive contact",
+  "topRow": 59,
+  "type": "BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "b15b6981cb",
+  "widgetName": "btnArchiveCompanyDonorContact"
+}

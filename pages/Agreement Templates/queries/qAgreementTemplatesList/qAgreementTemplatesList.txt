@@ -1,3 +1,4 @@
+SELECT guarded.* FROM (
 SELECT
   agreement_template_id,
   name,
@@ -12,4 +13,5 @@ SELECT
   documenso_member_recipient_id,
   documenso_facilitator_recipient_id
 FROM public.agreement_templates
-ORDER BY name, version DESC;
+ORDER BY name, version DESC
+) guarded WHERE public.issue19_has_role({{ appsmith.user.email }},'document_reviewer');

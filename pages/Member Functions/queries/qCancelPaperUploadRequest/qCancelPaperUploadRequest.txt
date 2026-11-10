@@ -1,0 +1,1 @@
+SELECT public.application_cancel_paper_upload({{ appsmith.user.email }}::text,{{ this.params.request_id }}::uuid,{{ this.params.member_id }}::uuid,{{ this.params.practitioner_person_id }}::uuid,{{ this.params.reason }}::text) AS receipt;

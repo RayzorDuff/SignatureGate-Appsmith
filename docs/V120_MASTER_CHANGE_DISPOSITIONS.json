@@ -1,0 +1,327 @@
+{
+  "mergeBase": "7c0a7e7cc48e5b522744bb0b934b636b9eb4857f",
+  "masterCommit": "48905ca281271889cf6cb778cd0249a221b87c82",
+  "developmentCommit": "2d2c3b2e012d2e73e7e0c6bf351ef8721e84e5f5",
+  "changes": [
+    {
+      "path": "README.md",
+      "disposition": "Retain accepted development evolution; matching jsPDF descriptor preserved; current procedures documented in production candidate review."
+    },
+    {
+      "path": "application.json",
+      "disposition": "Retain development active 17-page directory/default and grouped routes; retired Members/Donations pages intentionally excluded."
+    },
+    {
+      "path": "config/internal_service_routing.json",
+      "disposition": "Retain five-service master routing and development restricted-test contract; add source-only production candidate contract without asserting live destinations."
+    },
+    {
+      "path": "docs/INTERNAL_SERVICE_ROUTING.md",
+      "disposition": "Master documentation preserved verbatim; live connection checks remain open."
+    },
+    {
+      "path": "jslibs/jspdf_waw39JOOAAv-NKkoYN1v7Bvx4MzxJo-ceG_mCczsqe4.json",
+      "disposition": "Retain accepted development evolution; matching jsPDF descriptor preserved; current procedures documented in production candidate review."
+    },
+    {
+      "path": "pages/Cash Deposits/Cash Deposits.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/jsobjects/cashDepositFlows/cashDepositFlows.js",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/jsobjects/cashDepositFlows/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/apiCashDepositBankAccounts/metadata.json",
+      "disposition": "Existing bank selector lookup and refresh retained with native identity and canonical authorization."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/apiSyncCashDepositToERPNext/apiSyncCashDepositToERPNext.txt",
+      "disposition": "Retain production API fallback plus explicit confirm/retry mode=production; native action identity preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/apiSyncCashDepositToERPNext/metadata.json",
+      "disposition": "Retain production API fallback plus explicit confirm/retry mode=production; native action identity preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-addSelectedDonationToBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-confirmBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-createBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-excludeDonationFromReconciliation/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-facilitatorId/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-isDonationsReviewer/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-prepareBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-printBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-refresh/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-rejectDonation/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-requireDonationsReviewer/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-requireFacilitator/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-retryERPSync/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-selectedBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-selectedDonation/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-setHideIneligible/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/cashDepositFlows-verifyDonation/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qAddCashDepositItem/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qAddCashDepositItem/qAddCashDepositItem.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCashDepositBatchPrint/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCashDepositBatchPrint/qCashDepositBatchPrint.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCashDepositBatches/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCashDepositCashOnHand/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCashDepositCashOnHand/qCashDepositCashOnHand.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCashDepositCurrentFacilitator/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCashDepositCurrentFacilitator/qCashDepositCurrentFacilitator.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qConfirmCashDepositBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qConfirmCashDepositBatch/qConfirmCashDepositBatch.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCreateCashDepositBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qCreateCashDepositBatch/qCreateCashDepositBatch.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qExcludeCashDonation/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qExcludeCashDonation/qExcludeCashDonation.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qPrepareCashDepositBatch/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qPrepareCashDepositBatch/qPrepareCashDepositBatch.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qReviewCashDonation/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qReviewCashDonation/qReviewCashDonation.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qReviveCashDonation/metadata.json",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/queries/qReviveCashDonation/qReviveCashDonation.txt",
+      "disposition": "Retain development canonical account authorization and repairs; existing bank selection, confirmation, retry/status, dates and audit behavior preserved."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositAddToBatch.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositCashOnHand.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositConfirmBatch.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositCreateBatch.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositPrepareBatch.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositReject.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositRetryERPSync.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositVerify.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/btnCashDepositsRefresh.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/chkCashDepositHideIneligible.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/inpCashDepositActualAmount.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/inpCashDepositBankAccount.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/inpCashDepositDate.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/inpCashDepositSlipNumber.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/selCashDepositStatus.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/tblCashDepositBatches.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/tblCashDeposits.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/txtCashDepositBatchesTitle.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/txtCashDepositERPStatus.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/txtCashDepositSelectionStatus.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/txtCashDepositsSummary.json",
+      "disposition": "Master relative geometry retained below 16-row navigation/access header; development identities, guards and bindings retained."
+    },
+    {
+      "path": "pages/Cash Deposits/widgets/txtCashDepositsTitle.json",
+      "disposition": "Superseded by retained grouped-navigation txtNavigationPage; no retired title restored."
+    },
+    {
+      "path": "pages/Donations/queries/qPendingGivebutterDonations/metadata.json",
+      "disposition": "Retired surface superseded by canonical Member/Contributor Functions and profile routing with account-based authorization; not restored."
+    },
+    {
+      "path": "pages/Donations/queries/qPendingGivebutterDonations/qPendingGivebutterDonations.txt",
+      "disposition": "Retired surface superseded by canonical Member/Contributor Functions and profile routing with account-based authorization; not restored."
+    },
+    {
+      "path": "pages/Members - Profile/queries/qMemberDonations/metadata.json",
+      "disposition": "Retired surface superseded by canonical Member/Contributor Functions and profile routing with account-based authorization; not restored."
+    },
+    {
+      "path": "pages/Members - Profile/queries/qMemberDonations/qMemberDonations.txt",
+      "disposition": "Retired surface superseded by canonical Member/Contributor Functions and profile routing with account-based authorization; not restored."
+    },
+    {
+      "path": "pages/Members - Profile/widgets/DonationsTable.json",
+      "disposition": "Retired surface superseded by canonical Member/Contributor Functions and profile routing with account-based authorization; not restored."
+    },
+    {
+      "path": "pages/Reports/jsobjects/reports/reports.js",
+      "disposition": "Retain expanded canonical reporting and reviewer-only financial scope; master financial-access restriction preserved through canonical authority."
+    },
+    {
+      "path": "pages/Reports/queries/qReportTimeSeries/metadata.json",
+      "disposition": "Retain expanded canonical reporting and reviewer-only financial scope; master financial-access restriction preserved through canonical authority."
+    },
+    {
+      "path": "pages/Reports/queries/qReportTimeSeries/qReportTimeSeries.txt",
+      "disposition": "Retain expanded canonical reporting and reviewer-only financial scope; master financial-access restriction preserved through canonical authority."
+    },
+    {
+      "path": "scripts/check_internal_service_routing.py",
+      "disposition": "Retain five-service master routing and development restricted-test contract; add source-only production candidate contract without asserting live destinations."
+    }
+  ]
+}

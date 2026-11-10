@@ -7,13 +7,10 @@
   "defaultOptionValue": "month",
   "dynamicBindingPathList": [
     {
-      "key": "accentColor"
+      "key": "sourceData"
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "sourceData"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -51,7 +48,7 @@
   "placeholderText": "Select option",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 14,
+  "rightColumn": 17,
   "serverSideFiltering": false,
   "sourceData": "{{[\n  { label: \"Day\", value: \"day\" },\n  { label: \"Week\", value: \"week\" },\n  { label: \"Month\", value: \"month\" },\n  { label: \"Year\", value: \"year\" }\n]}}",
   "topRow": 0,

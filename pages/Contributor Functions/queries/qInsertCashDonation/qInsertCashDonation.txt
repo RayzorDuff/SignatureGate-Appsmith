@@ -1,0 +1,5 @@
+SELECT * FROM public.application_record_cash(
+ {{ appsmith.user.email }}::text, {{ this.params.contributor_choice }}::text,
+ COALESCE({{ this.params.is_anonymous }}::boolean,false), {{ this.params.amount_cents }}::integer,
+ NULLIF({{ this.params.donated_at || "" }}::text,'')::timestamptz,
+ NULLIF({{ this.params.notes || "" }}::text,''));

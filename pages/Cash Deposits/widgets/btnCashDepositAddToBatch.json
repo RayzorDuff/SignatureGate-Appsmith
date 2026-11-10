@@ -1,12 +1,15 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 65,
+  "bottomRow": 81,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
+    {
+      "key": "isVisible"
+    },
     {
       "key": "isDisabled"
     },
@@ -15,9 +18,6 @@
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -36,18 +36,18 @@
   "isDefaultClickDisabled": true,
   "isDisabled": "{{ !tblCashDeposits.selectedRow?.donation_id || tblCashDeposits.selectedRow?.operational_status !== \"cash_on_hand\" || !tblCashDepositBatches.selectedRow?.deposit_batch_id || tblCashDepositBatches.selectedRow?.status !== \"draft\" }}",
   "isLoading": false,
-  "isVisible": "{{ qCashDepositCurrentFacilitator.data?.[0]?.is_donations_reviewer === true }}",
+  "isVisible": "{{ (cashDepositFlows.hasAccess()) && (cashDepositFlows.isDonationsReviewer()) }}",
   "key": "bkfm8aymy0",
   "leftColumn": 47,
   "minWidth": 120,
-  "mobileBottomRow": 21,
+  "mobileBottomRow": 37,
   "mobileLeftColumn": 2,
   "mobileRightColumn": 18,
-  "mobileTopRow": 17,
+  "mobileTopRow": 33,
   "needsErrorInfo": false,
   "onClick": "{{ cashDepositFlows.addSelectedDonationToBatch() }}",
-  "originalBottomRow": 75,
-  "originalTopRow": 68,
+  "originalBottomRow": 91,
+  "originalTopRow": 84,
   "parentColumnSpace": 14.1875,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -59,7 +59,7 @@
   "rightColumn": 62,
   "text": "Add to Deposit Batch",
   "tooltip": "Add the selected cash donation to an open deposit batch.",
-  "topRow": 61,
+  "topRow": 77,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "oiowd8ylrs",

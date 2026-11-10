@@ -1,0 +1,25 @@
+SELECT
+  ma.member_agreement_id,
+  ma.created_at,
+  ma.status,
+  ma.signature_method,
+  ma.member_signed_at,
+  ma.facilitator_signed_at,
+  ma.opensign_document_id,
+  COALESCE(at.name, 'Paper Agreement - No Template') AS template_name,
+  ma.facilitator_id,
+  ma.evidence,
+  CASE WHEN public.application_member_access({{ appsmith.user.email }},ma.member_id,true) THEN ma.review_notes END AS review_notes,
+	ma.documenso_document_id,
+	ma.documenso_external_id,
+	ma.canceled_at,
+	ma.canceled_by,
+	ma.cancel_reason,
+	ma.expired_at
+FROM public.member_agreements ma
+LEFT JOIN public.agreement_templates at
+  ON at.agreement_template_id = ma.agreement_template_id
+
+WHERE ma.member_id = NULLIF({{ appsmith.store.member_id || '' }},'')::uuid
+  AND public.application_member_access({{ appsmith.user.email }},ma.member_id,false)
+ORDER BY ma.created_at DESC;

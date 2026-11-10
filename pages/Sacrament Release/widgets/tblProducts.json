@@ -4,7 +4,7 @@
   "borderColor": "#E0DEDE",
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
   "borderWidth": "1",
-  "bottomRow": 60,
+  "bottomRow": 75,
   "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
   "cachedTableData": {},
   "canFreezeColumn": true,
@@ -65,28 +65,34 @@
       "key": "tableData"
     },
     {
-      "key": "primaryColumns.airtable_record_id.computedValue"
-    },
-    {
-      "key": "primaryColumns.item_name.computedValue"
+      "key": "primaryColumns.strain.computedValue"
     },
     {
       "key": "primaryColumns.mushroomprocess_product_id.computedValue"
     },
     {
-      "key": "primaryColumns.net_weight_g.computedValue"
-    },
-    {
       "key": "primaryColumns.storage_location.computedValue"
-    },
-    {
-      "key": "primaryColumns.strain.computedValue"
     },
     {
       "key": "primaryColumns.unit.computedValue"
     },
     {
+      "key": "primaryColumns.net_weight_g.computedValue"
+    },
+    {
+      "key": "primaryColumns.airtable_record_id.computedValue"
+    },
+    {
       "key": "primaryColumns.storage_locations.computedValue"
+    },
+    {
+      "key": "primaryColumns.item_name.computedValue"
+    },
+    {
+      "key": "primaryColumns.package_class.computedValue"
+    },
+    {
+      "key": "isVisible"
     },
     {
       "key": "accentColor"
@@ -96,9 +102,6 @@
     },
     {
       "key": "boxShadow"
-    },
-    {
-      "key": "primaryColumns.package_class.computedValue"
     }
   ],
   "dynamicPropertyPathList": [
@@ -114,7 +117,7 @@
   "inlineEditingSaveOption": "ROW_LEVEL",
   "isLoading": false,
   "isSortable": true,
-  "isVisible": true,
+  "isVisible": "{{ (qPageAccess.data?.[0]?.can_release === true && String(qPageAccess.data?.[0]?.email || '').trim().toLowerCase() === String(appsmith.user?.email || '').trim().toLowerCase()) && (true) }}",
   "isVisibleDownload": true,
   "isVisibleFilters": false,
   "isVisiblePagination": true,
@@ -123,13 +126,13 @@
   "label": "Data",
   "leftColumn": 0,
   "minWidth": 450,
-  "mobileBottomRow": 67,
+  "mobileBottomRow": 91,
   "mobileLeftColumn": 28,
   "mobileRightColumn": 62,
-  "mobileTopRow": 39,
+  "mobileTopRow": 63,
   "needsErrorInfo": false,
-  "originalBottomRow": 60,
-  "originalTopRow": 20,
+  "originalBottomRow": 75,
+  "originalTopRow": 35,
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
@@ -140,7 +143,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"airtable_record_id\"])) : airtable_record_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"airtable_record_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -174,7 +177,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"item_name\"])) : item_name })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"item_name\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -208,7 +211,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"mushroomprocess_product_id\"])) : mushroomprocess_product_id })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"mushroomprocess_product_id\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -242,7 +245,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "number",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"net_weight_g\"] + currentRow[\"unit\"])) : currentRow[\"net_weight_g\"] + currentRow[\"unit\"] })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"net_weight_g\"] + currentRow[\"unit\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -276,7 +279,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"package_class\"])) : package_class })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"package_class\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -310,7 +313,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"storage_location\"])) : storage_location })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"storage_location\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -344,7 +347,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"storage_locations\"])) : storage_locations })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"storage_locations\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -378,7 +381,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"strain\"])) : strain })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"strain\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -412,7 +415,7 @@
       "allowSameOptionsInNewRow": true,
       "cellBackground": "",
       "columnType": "text",
-      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"unit\"])) : unit })()}}",
+      "computedValue": "{{(() => { const tableData = tblProducts.processedTableData || []; return tableData.length > 0 ? tableData.map((currentRow, currentIndex) => (currentRow[\"unit\"])) : [] })()}}",
       "currencyCode": "USD",
       "decimals": 0,
       "enableFilter": true,
@@ -445,9 +448,9 @@
   "responsiveBehavior": "fill",
   "rightColumn": 64,
   "searchKey": "",
-  "tableData": "{{apiListAvailableProducts.data.data}}",
+  "tableData": "{{ qPageAccess.data?.[0]?.can_release === true && appsmith.store.release_scope_member_id === appsmith.store.member_id ? ((apiListAvailableProducts.data?.data || apiListAvailableProducts.data || []).filter(p => (qAccessibleStorageLocations.data || []).some(loc => String(loc.storage_location_name).trim().toLowerCase() === String(p.storage_location || \"\").trim().toLowerCase()))) : [] }}",
   "textSize": "0.875rem",
-  "topRow": 20,
+  "topRow": 35,
   "totalRecordsCount": 0,
   "type": "TABLE_WIDGET_V2",
   "version": 2,

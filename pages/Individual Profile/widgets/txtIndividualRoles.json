@@ -1,19 +1,16 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 8,
+  "bottomRow": 13,
   "dynamicBindingPathList": [
     {
       "key": "text"
     },
     {
+      "key": "isVisible"
+    },
+    {
       "key": "fontFamily"
-    },
-    {
-      "key": "borderRadius"
-    },
-    {
-      "key": "truncateButtonColor"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
@@ -22,31 +19,31 @@
   "fontSize": "1rem",
   "fontStyle": "BOLD",
   "isLoading": false,
-  "isVisible": true,
+  "isVisible": "{{ IndividualProfileFlows.isReady() && (true) }}",
   "key": "82bf0bb07d",
   "leftColumn": 0,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 4,
+  "mobileBottomRow": 28,
   "mobileLeftColumn": 0,
   "mobileRightColumn": 10,
-  "mobileTopRow": 0,
+  "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "originalBottomRow": 8,
-  "originalTopRow": 4,
+  "originalBottomRow": 20,
+  "originalTopRow": 16,
   "overflow": "NONE",
   "parentColumnSpace": 10.25,
   "parentId": "0",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 64,
+  "rightColumn": 41,
   "shouldTruncate": false,
-  "text": "{{ (() => { const p = qIndividualProfile.data?.[0]; return p ? (p.party_kind === 'individual' ? ('Membership: ' + (p.membership_status || 'No') + '  ·  Contributor: ' + (p.contributor_status || 'No')) : ('Contributor: ' + (p.contributor_status || 'No'))) : 'Record not found or you do not have access'; })() }}",
+  "text": "{{ (() => { const p = qIndividualProfile.data?.[0]; return p ? (p.party_kind === 'individual' ? (navigationLabels.text('Membership: ') + (p.membership_status || 'No') + navigationLabels.text('  ·  Contributor: ') + (p.contributor_status || 'No')) : (navigationLabels.text('Contributor: ') + (p.contributor_status || 'No'))) : 'Select a record from Directory to load this profile'; })() }}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
-  "topRow": 4,
+  "topRow": 9,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
