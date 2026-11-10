@@ -1,4 +1,10 @@
 export default {
+  paperUploadBlocked(owner) {
+    const previous=appsmith.store.paper_upload_checkpoint;
+    // Only a confirmed committed receipt is safe to replace for a fresh Participant.
+    // Unknown and in-flight states must be recovered before another upload.
+    return previous?.owner===owner && previous.state!=="committed";
+  },
   recovery() {
     const owner=String(appsmith.user?.email || "").trim().toLowerCase();
     const receipt=appsmith.store["intake_submission:"+owner];
@@ -160,7 +166,7 @@ export default {
       }
       // Paper is an enrollment with a deferred agreement; the document is saved after the atomic enrollment.
       if (delivery !== "Digital") { agreementType = null; agreementTemplate = null; }
-      if (delivery === "Paper" && appsmith.store.paper_upload_checkpoint?.owner === submissionOwner) {
+      if (delivery === "Paper" && this.paperUploadBlocked(submissionOwner)) {
         showAlert("An earlier paper upload request belongs to this account. Review its saved receipt in Participant Functions before another Intake.","warning"); return;
       }
     }
@@ -237,14 +243,14 @@ export default {
       stage(result?.email_sent===true ? "Agreement email sent (confirmed by signing service)." : "Signing workflow requested. Check agreement status for email delivery.");
     }
     if (member && delivery === "Paper") {
-      if (appsmith.store.paper_upload_checkpoint?.owner === submissionOwner) throw new Error("An existing paper upload checkpoint requires review. No second upload was started.");
+      if (this.paperUploadBlocked(submissionOwner)) throw new Error("An existing paper upload checkpoint requires review. No second upload was started.");
       phase="preparing paper agreement upload";
       const memberId=receipt.member_id;
       const practitionerId=practitionerPersonId;
       if (!memberId || !practitionerId || submissionOwner!==String(appsmith.user?.email || "").trim().toLowerCase()) throw new Error("Enrollment identity or signed-in account changed.");
       const requestId=(await qIntakePaperRequest.run({member_id:memberId}))?.[0]?.request_id;
       if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId || "")) throw new Error("Paper upload request key unavailable.");
-      if (appsmith.store.paper_upload_checkpoint?.owner === submissionOwner) throw new Error("Another paper upload request is already saved; no file was sent.");
+      if (this.paperUploadBlocked(submissionOwner)) throw new Error("Another paper upload request is already saved; no file was sent.");
       const pending={owner:submissionOwner,member_id:memberId,practitioner_person_id:practitionerId,storage_provider:"nocodb",request_id:requestId,state:"uncertain"};
       await storeValue("paper_upload_checkpoint",pending,true);
       await this.checkpoint(submissionOwner,{state:"paper_upload_uncertain",phase:"Paper upload requested",paper_request_id:requestId});
