@@ -18,8 +18,8 @@ const source=read('pages/Intake/jsobjects/intakeFlows/intakeFlows.js');
 assert.equal((source.match(/qSubmitAtomicIntake\.run\(/g)||[]).length,1,'one enrollment write dispatch');
 for(const name of actions) {
  const d=JSON.parse(read('pages/Intake/queries/'+name+'/metadata.json'));
- if(d.pluginType==='API')assert.equal(name,'apiTriggerDocumenso','unreviewed external Intake surface');
- if(['qSubmitAtomicIntake','apiTriggerDocumenso'].includes(name)) {
+ if(d.pluginType==='API')assert.ok(['apiTriggerDocumenso','apiIntakePaperUpload'].includes(name),'unreviewed external Intake surface');
+ if(['qSubmitAtomicIntake','apiTriggerDocumenso','apiIntakePaperUpload','qIntakePaperRequest','qIntakePaperReceipt'].includes(name)) {
   assert.equal(d.unpublishedAction.runBehaviour,'MANUAL');assert.equal(d.unpublishedAction.userSetOnLoad,true);
  }
 }
@@ -27,3 +27,15 @@ const audit=read('pages/Intake/queries/qAuditLog/qAuditLog.txt');
 assert.ok(!audit.includes("'intake.completed'"),'completion audit belongs to the enrollment transaction');
 assert.ok(audit.includes("= 'member.create_blocked_duplicate'"));
 console.log('PASS unified Intake surface: one native/menu entry, no retired partial-write/upload actions, one guarded transaction dispatch and server-owned completion audit');
+
+// The selected paper file is preflighted before enrollment and sent only once afterward.
+assert.ok(source.includes('delivery === "Paper"'));
+assert.ok(source.includes('agreement_delivery:delivery === "Paper" ? "Later"'));
+assert.equal((source.match(/apiIntakePaperUpload\.run\(/g)||[]).length,1);
+assert.equal((source.match(/qIntakePaperRequest\.run\(/g)||[]).length,1);
+assert.ok(source.indexOf('qSubmitAtomicIntake.run(')<source.indexOf('apiIntakePaperUpload.run('));
+assert.ok(source.includes('paper_upload_checkpoint'));
+assert.ok(source.includes('qIntakePaperReceipt.run('));
+const paperPicker=JSON.parse(read('pages/Intake/widgets/frmIntake/tabsMemberEnrollment/FilePickerAgreement.json'));
+assert.ok(paperPicker.isVisible.includes("delivery.selectedOptionValue === 'Paper'"));
+console.log('PASS Intake paper upload preflight, one dispatch and receipt recovery source guards');
