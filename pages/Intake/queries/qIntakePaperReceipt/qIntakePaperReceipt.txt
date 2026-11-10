@@ -1,0 +1,1 @@
+SELECT public.application_paper_upload_receipt({{ appsmith.user.email }}::text,{{ this.params.request_id }}::uuid) AS receipt;
