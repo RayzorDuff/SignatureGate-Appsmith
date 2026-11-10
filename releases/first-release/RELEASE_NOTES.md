@@ -25,11 +25,17 @@ The [combined SignatureGate changelog](https://github.com/RayzorDuff/SignatureGa
 4. Reconcile current master hotfixes, review the production environment delta, publish the accepted application and validate its read-only/synthetic runtime boundaries.
 5. Run SignatureGate's existing Regenerate Appsmith export action with the exact accepted production-bound SHA. Commit its JSON in SignatureGate, verify source/export identity and record the action run, checksum, packaging commit and final tags.
 
+## Current candidate checkpoint — November 10, 2026
+
+**Appsmith PR #16 merged into `master` at `87cd74f5ee40dfe134a56ca92f5f4cfeb47065fe`.** This is a reviewed production-bound Git source merge, **not evidence of a published production application**. Source retains 17 pages, 475 actions, 30 JS collections, 966 checked native identity records, canonical Directory/Profiles and Cash Deposits layout, and the explicitly reviewed production ERP confirm/retry/fallback modes. `chatgpt_development` retains its test bindings. Any subsequent `master` commit (including this documentation) requires regenerating the release export at the final exact SHA.
+
+The native test-only **same-screen Intake paper** path passed after the original handoff was written: synthetic enrollment and practitioner assignment committed, a PDF was saved to NocoDB pending review, and **Check saved Intake** recovered the two receipts without resending. Mailing consent was unchecked and no signing email sent. The new agreement remained **pending independent review**; prior separate Participant Functions upload/retrieval/reviewer approval and audit acceptance remain valid. Do not represent this as production deployment or a new independent-review completion for that particular Intake test.
+
+The network-isolated restored-production PostgreSQL 16.13 rehearsal applied 12/12 migrations and passed 12/12 targeted SQL scripts; compared schema parity was zero differences and all 35 original table row counts were retained. Backend SignatureGate PR #42 merged, proposing 12 selected forward migrations, 11 skipped legacy replays and one separately excluded audited configuration step. **Nine protected environment proofs remain open**; this is still a non-executable migration plan.
+
 ## Remaining release gates
 
-Paper upload remains blocked before records/files pending destination and principal validation. Installed PostgreSQL 16 ownership/grants and restored-upgrade verification of atomic Intake and native unified Intake retirement acceptance, external delivery/authorization, mobile/keyboard/native SDK/Git synchronization and protected upgrade/recovery still need acceptance. The operator accepted all-page navigation; that does not certify unrelated workflow outcomes. Unlisted event/queue pages remain in source; their presence is not workflow acceptance. The duplicate legacy Intake page is retired after unified parity checks.
-
-The development ERP default and both explicit synchronization calls remain `test`; the reviewed production candidate must update all three only after backend/integration acceptance. Existing executed agreements and historical records are preserved. No v1.2.0 VERSION change, Appsmith master promotion, export packaging or release tag is performed by this draft.
+Before announcing or tagging the coordinated release, approve the final production baseline and migration dispositions; verify owner/grant-preserving restore, data invariants, real app/workflow database roles, deployed RootedOps/n8n route/credential pins, paper workflow production PG node bindings, writer isolation, recovery readiness and the actual production schema migration. Publish the Appsmith `master` revision only after the approved cutover and verify its actual saved PostgreSQL datasource and production revision. The generated SignatureGate JSON must be regenerated from the final pinned Appsmith `master` SHA and approved descriptor commit via the shared export process. A new ERP E2E replay, optional Drive upload acceptance and broad Playwright harness are deferred, not blockers.
 
 ## Final provenance checklist
 
@@ -54,7 +60,7 @@ Select captions/placeholders and Directory's per-row Participant/Contributor act
 
 ## Deferred agreement parity
 
-Intake now offers an explicit Create agreement later choice. Participant enrollment still requires two contacts and a practitioner assignment; phone plus address is supported without email. This mode creates no agreement, performs no signing request and grants no release eligibility. The saved receipt/replay/reset protections remain. Digital remains the default; paper upload remains blocked. Reapply the updated atomic Intake migration on test before pulling this frontend. SQL/controller suites exercise 18 added deferred cases alongside the 24 existing enrollments.
+Intake now offers an explicit Create agreement later choice. Participant enrollment still requires two contacts and a practitioner assignment; phone plus address is supported without email. This mode creates no agreement, performs no signing request and grants no release eligibility. The saved receipt/replay/reset protections remain. Digital remains the default; paper is available through the accepted later unified Intake paper path in test, subject to production rollout checks. Reapply the updated atomic Intake migration on test before pulling this frontend. SQL/controller suites exercise 18 added deferred cases alongside the 24 existing enrollments.
 
 ## Single Intake entry
 
