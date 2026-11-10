@@ -1,6 +1,7 @@
 // Guard the single transactional enrollment boundary after retiring duplicate writes.
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 const root=new URL('../',import.meta.url),read=p=>fs.readFileSync(new URL(p,root),'utf8');
 const application=JSON.parse(read('application.json'));
 const pages=fs.readdirSync(new URL('pages/',root)).sort();
@@ -39,3 +40,19 @@ assert.ok(source.includes('qIntakePaperReceipt.run('));
 const paperPicker=JSON.parse(read('pages/Intake/widgets/frmIntake/tabsMemberEnrollment/FilePickerAgreement.json'));
 assert.ok(paperPicker.isVisible.includes("selAgreementDelivery.selectedOptionValue === 'Paper'"));
 console.log('PASS Intake paper upload preflight, one dispatch and receipt recovery source guards');
+
+// A completed previous paper upload must not block a different Participant's Intake.
+// Unknown/pending states remain protected regardless of the current Participant selection.
+for(const [state, blocked] of [['committed',false],['uncertain',true],['pending',true],['cancelled',true]]) {
+  const context={appsmith:{store:{paper_upload_checkpoint:{owner:'reviewer@example.invalid',state}}}};
+  const flows=vm.runInNewContext(source.replace(/^export default/,'globalThis.intake='),context);
+  assert.equal(flows.paperUploadBlocked('reviewer@example.invalid'),blocked,'checkpoint state '+state);
+  assert.equal(flows.paperUploadBlocked('different@example.invalid'),false,'owner-scoped checkpoint');
+}
+{
+  const context={appsmith:{store:{paper_upload_checkpoint:null}}};
+  const flows=vm.runInNewContext(source.replace(/^export default/,'globalThis.intake='),context);
+  assert.equal(flows.paperUploadBlocked('reviewer@example.invalid'),false);
+}
+assert.equal((source.match(/this\.paperUploadBlocked\(submissionOwner\)/g)||[]).length,3,'all three pre-dispatch gates must share the same checkpoint rule');
+console.log('PASS completed paper receipt allows new Intake; uncertain/unknown states still block dispatch');
