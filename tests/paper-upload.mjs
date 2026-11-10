@@ -57,8 +57,8 @@ console.log('PASS actual API-body JSON round trip, array/base64 preservation, mi
 // A changed Participant never bypasses an unresolved account-owned checkpoint.
 {const x=fixture({checkpoint:pending,receiptState:null});x.c.selMember.selectedOptionValue='20000000-0000-4000-8000-000000000002';await x.f.openPaperUpload();assert.equal(x.calls.reads,1);assert.equal(x.calls.api,0);assert.equal(x.calls.keys,0);assert.equal(x.c.appsmith.store.paper_upload_checkpoint.request_id,id);}
 
-// Intake offers enrollment-only Later; a hidden legacy picker cannot solicit a file.
-{const base=new URL('../pages/Intake/widgets/frmIntake/tabsMemberEnrollment/',import.meta.url);const selector=JSON.parse(fs.readFileSync(new URL('selAgreementDelivery.json',base),'utf8'));const choices=vm.runInNewContext(selector.sourceData.slice(2,-2));assert.deepEqual(Array.from(choices,x=>x.value),['Digital','Later']);assert.match(choices[1].label,/upload paper after enrollment/);const picker=JSON.parse(fs.readFileSync(new URL('FilePickerAgreement.json',base),'utf8'));assert.equal(picker.isVisible,false);assert.equal(picker.isRequired,false);}
+// Intake now supports a signed paper file before enrollment; dispatch occurs only after atomic enrollment.
+{const base=new URL('../pages/Intake/widgets/frmIntake/tabsMemberEnrollment/',import.meta.url);const selector=JSON.parse(fs.readFileSync(new URL('selAgreementDelivery.json',base),'utf8'));const choices=vm.runInNewContext(selector.sourceData.slice(2,-2));assert.deepEqual(Array.from(choices,x=>x.value),['Digital','Paper','Later']);assert.match(choices[1].label,/Upload signed paper/);const picker=JSON.parse(fs.readFileSync(new URL('FilePickerAgreement.json',base),'utf8'));assert.match(picker.isVisible,/selAgreementDelivery/);assert.match(picker.isRequired,/selAgreementDelivery/);}
 
 // A chosen practitioner is not an assignment. Fail before key/checkpoint/file dispatch.
 for (const assignments of [[],null,[{member_id:id,facilitator_id:id,status:'inactive'}],[{member_id:id,facilitator_id:'other',status:'active'}],[{member_id:'other',facilitator_id:id,status:'active'}]]) {

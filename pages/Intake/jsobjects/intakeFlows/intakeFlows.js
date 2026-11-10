@@ -123,6 +123,7 @@ export default {
     let practitionerPersonId = null;
     let agreementType = null;
     let agreementTemplate = null;
+    let paperFile = null;
     if (member) {
       delivery = selAgreementDelivery.selectedOptionValue;
       practitionerPersonId = selIntakePractitioner.selectedOptionValue;
@@ -146,13 +147,22 @@ export default {
         return;
       }
       if (delivery === "Paper") {
-        showAlert("For a paper agreement, choose Create agreement later, complete Intake, then upload from Participant Functions. No record or file was sent.","warning"); return;
+        const files = FilePickerAgreement.files || [];
+        if (files.length !== 1) { showAlert("Select one signed PDF document, up to 5 MiB, before completing Intake.","warning"); return; }
+        paperFile = files[0];
+        if (!["application/pdf"].includes(paperFile.type || paperFile.mimeType) ||
+            typeof paperFile.data !== "string" || paperFile.data.length > 6990600) {
+          showAlert("Select one signed PDF document, up to 5 MiB, using Base64 file data.","warning"); return;
+        }
       }
-      if (!["Digital","Later"].includes(delivery)) {
-        showAlert("Choose a digital agreement or explicitly create the agreement later.","warning"); return;
+      if (!["Digital","Paper","Later"].includes(delivery)) {
+        showAlert("Choose a digital agreement, a signed paper upload or create the agreement later.","warning"); return;
       }
-      // Stale hidden selection values must not request an agreement in Later mode.
-      if (delivery === "Later") { agreementType = null; agreementTemplate = null; }
+      // Paper is an enrollment with a deferred agreement; the document is saved after the atomic enrollment.
+      if (delivery !== "Digital") { agreementType = null; agreementTemplate = null; }
+      if (delivery === "Paper" && appsmith.store.paper_upload_checkpoint?.owner === submissionOwner) {
+        showAlert("An earlier paper upload request belongs to this account. Review its saved receipt in Participant Functions before another Intake.","warning"); return;
+      }
     }
 
     const first=(inpIntakeFirstName.text || "").trim();
@@ -199,7 +209,7 @@ export default {
       address,city,state,postal_code:postal,notes:identityNotes,reason,
       participant_subscribe:chkIntakeSubscribeMemberListmonk.isChecked===true,
       contributor_subscribe:chkIntakeSubscribeContributorListmonk.isChecked===true,
-      agreement_delivery:delivery || "",agreement_type:agreementType || "",
+      agreement_delivery:delivery === "Paper" ? "Later" : (delivery || ""),agreement_type:agreementType || "",
       agreement_template_id:agreementTemplate || "",practitioner_person_id:practitionerPersonId || ""};
     stage("Saving identity, enrollment, contacts and pending agreement in one transaction…");
     await this.checkpoint(submissionOwner,{state:"uncertain",phase,request_id:requestId});
@@ -207,14 +217,14 @@ export default {
     const receipt=(await qSubmitAtomicIntake.run({owner:submissionOwner,request_id:requestId,payload_json:JSON.stringify(payload)}))?.[0]?.receipt;
     if(receipt?.state!=="committed" || receipt.request_id!==requestId ||
       (member && (!receipt.member_id || (delivery === "Digital" && !receipt.agreement_id)
-        || (delivery === "Later" && (receipt.agreement_id || receipt.agreement_deferred !== true)))) || (contributor && !receipt.contributor_id)) {
+        || (["Later","Paper"].includes(delivery) && (receipt.agreement_id || receipt.agreement_deferred !== true)))) || (contributor && !receipt.contributor_id)) {
       throw new Error("The Intake transaction did not return a complete receipt.");
     }
     await this.checkpoint(submissionOwner,{state:"incomplete",member_id:receipt.member_id,person_id:receipt.person_id,
       organization_id:receipt.organization_id,contributor_id:receipt.contributor_id,agreement_id:receipt.agreement_id});
     stage(company ? "Company and Contributor enrollment saved." : "Individual and selected enrollment capacities saved.");
     stage("Contact methods and identity notes saved.");
-    if(member) stage(delivery === "Digital" ? "Spiritual Practitioner assignment and pending agreement saved." : "Spiritual Practitioner assignment saved. Create and complete an agreement from Participant Functions before a release.");
+    if(member) stage(delivery === "Digital" ? "Spiritual Practitioner assignment and pending agreement saved." : delivery === "Paper" ? "Spiritual Practitioner assignment saved; preparing the signed paper upload." : "Spiritual Practitioner assignment saved. Create and complete an agreement from Participant Functions before a release.");
     if(member && contactEmail && payload.participant_subscribe) stage("Participant mailing preference saved; Listmonk synchronization queued…");
     if(contributor && contactEmail && payload.contributor_subscribe) stage("Contributor mailing preference saved; Listmonk synchronization queued…");
     let triggerResult=null;
@@ -226,15 +236,46 @@ export default {
       if(result?.ok===false || result?.success===false || ["failed","error"].includes(result?.status)) throw new Error("Signing workflow did not complete.");
       stage(result?.email_sent===true ? "Agreement email sent (confirmed by signing service)." : "Signing workflow requested. Check agreement status for email delivery.");
     }
-    await this.checkpoint(submissionOwner,{state:"completed",phase:"Enrollment completed"});
+    if (member && delivery === "Paper") {
+      if (appsmith.store.paper_upload_checkpoint?.owner === submissionOwner) throw new Error("An existing paper upload checkpoint requires review. No second upload was started.");
+      phase="preparing paper agreement upload";
+      const memberId=receipt.member_id;
+      const practitionerId=practitionerPersonId;
+      if (!memberId || !practitionerId || submissionOwner!==String(appsmith.user?.email || "").trim().toLowerCase()) throw new Error("Enrollment identity or signed-in account changed.");
+      const requestId=(await qIntakePaperRequest.run({member_id:memberId}))?.[0]?.request_id;
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId || "")) throw new Error("Paper upload request key unavailable.");
+      if (appsmith.store.paper_upload_checkpoint?.owner === submissionOwner) throw new Error("Another paper upload request is already saved; no file was sent.");
+      const pending={owner:submissionOwner,member_id:memberId,practitioner_person_id:practitionerId,storage_provider:"nocodb",request_id:requestId,state:"uncertain"};
+      await storeValue("paper_upload_checkpoint",pending,true);
+      await this.checkpoint(submissionOwner,{state:"paper_upload_uncertain",phase:"Paper upload requested",paper_request_id:requestId});
+      phase="uploading signed paper agreement";
+      stage("Uploading signed paper agreement to NocoDB for review…");
+      // A network timeout cannot justify resending this document.
+      const response=await apiIntakePaperUpload.run({
+        request_id:requestId,member_id:memberId,practitioner_person_id:practitionerId,
+        agreement_template_id:"",storage_provider:"nocodb",
+        files:[{name:paperFile.name,type:paperFile.type || paperFile.mimeType,data:paperFile.data}]
+      });
+      const paperReceipt=response?.data ?? response;
+      if (submissionOwner!==String(appsmith.user?.email || "").trim().toLowerCase()) return null;
+      if(paperReceipt?.state!=="committed" || paperReceipt.request_id!==requestId || !paperReceipt.member_agreement_id) {
+        throw new Error("Paper upload receipt is unconfirmed.");
+      }
+      await storeValue("paper_upload_checkpoint",{...pending,state:"committed"},true);
+      await this.checkpoint(submissionOwner,{state:"completed",phase:"Enrollment and paper agreement completed",paper_agreement_id:paperReceipt.member_agreement_id});
+      await resetWidget("FilePickerAgreement",true);
+      showAlert("Paper agreement saved pending Document Reviewer approval. No signing email was sent.","success");
+    } else {
+      await this.checkpoint(submissionOwner,{state:"completed",phase:"Enrollment completed"});
+    }
     showAlert(navigationLabels.text(member && contributor ? "Individual enrolled as Member and Contributor." : member ? "Individual enrolled as Member." : "Contributor enrollment completed."),"success");
     return {memberId:receipt.member_id,contributorId:receipt.contributor_id,
       agreementResult:receipt.agreement_id ? [{member_agreement_id:receipt.agreement_id}] : null,triggerResult};
     } catch(error) {
       if(saved) {
-        try {await this.checkpoint(submissionOwner,{state:"needs_review",phase});} catch(checkpointError) { /* Keep the original owner-scoped uncertainty marker. */ }
+        try {await this.checkpoint(submissionOwner,{state:appsmith.store.paper_upload_checkpoint?.owner === submissionOwner && appsmith.store.paper_upload_checkpoint?.state === "uncertain" ? "paper_upload_uncertain" : "needs_review",phase});} catch(checkpointError) { /* Keep the original owner-scoped uncertainty marker. */ }
       }
-      showAlert(saved ? "Intake stopped with a committed transaction or an uncertain response during "+phase+". Check the saved Intake receipt and existing identity/agreement; do not submit another intake." : "Intake could not complete during "+phase+". Check details before retrying.",saved ? "warning" : "error");
+      showAlert(saved ? "Intake stopped with a committed enrollment or uncertain response during "+phase+". Check the saved Intake receipt and any paper upload receipt in Participant Functions; do not submit another intake or resend the file." : "Intake could not complete during "+phase+". Check details before retrying.",saved ? "warning" : "error");
       return null;
     }
   },
@@ -249,11 +290,21 @@ export default {
         showAlert("No committed receipt is visible yet. The request may still be running. Keep this checkpoint and check again before starting a separate intake.","warning");return;
       }
       if(receipt.state!=="committed" || receipt.request_id!==existing.request_id) throw new Error("Unexpected Intake receipt.");
-      await this.checkpoint(owner,{state:existing.state==="completed" ? "completed" : "needs_review",
+      await this.checkpoint(owner,{state:existing.state==="completed" ? "completed" : existing.paper_request_id ? "paper_upload_uncertain" : "needs_review",
         member_id:receipt.member_id,person_id:receipt.person_id,organization_id:receipt.organization_id,
         contributor_id:receipt.contributor_id,agreement_id:receipt.agreement_id,
         phase:"Enrollment transaction committed; review existing contacts, capacities and agreement/signing status"});
-      showAlert("The enrollment transaction committed. Review the existing identity and agreement status. No enrollment or signing request was replayed.","info");
+      if(existing.paper_request_id) {
+        const paper=(await qIntakePaperReceipt.run({request_id:existing.paper_request_id}))?.[0]?.receipt;
+        if(paper?.state==="committed" && paper.member_agreement_id) {
+          await this.checkpoint(owner,{state:"completed",phase:"Enrollment and paper agreement recovered",paper_agreement_id:paper.member_agreement_id});
+          const savedPaper=appsmith.store.paper_upload_checkpoint;
+          if(savedPaper?.owner===owner && savedPaper.request_id===existing.paper_request_id) await storeValue("paper_upload_checkpoint",{...savedPaper,state:"committed"},true);
+          showAlert("Enrollment and paper upload are committed. Agreement awaits reviewer approval; no document was resent.","success");
+        } else {
+          showAlert("Enrollment committed, but paper storage is unresolved. Inspect the saved paper upload in Participant Functions; do not resend the document.","warning");
+        }
+      } else showAlert("The enrollment transaction committed. Review the existing identity and agreement status. No enrollment or signing request was replayed.","info");
       return receipt;
     } catch(error) {showAlert("The saved Intake receipt could not be checked. Keep the checkpoint and review the existing record before continuing.","warning");}
   },
