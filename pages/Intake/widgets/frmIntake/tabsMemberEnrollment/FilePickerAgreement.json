@@ -10,17 +10,30 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
     }
   ],
-  "dynamicPropertyPathList": [],
+  "dynamicPropertyPathList": [
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
   "dynamicTriggerPathList": [],
   "dynamicTyping": true,
   "fileDataType": "Base64",
   "files": [],
-  "isDefaultClickDisabled": true,
+  "isDefaultClickDisabled": false,
   "isLoading": false,
-  "isRequired": false,
-  "isVisible": false,
+  "isRequired": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Paper' }}",
+  "isVisible": "{{ chkIntakeMember.isChecked && selAgreementDelivery.selectedOptionValue === 'Paper' }}",
   "label": "Upload paper agreement",
   "leftColumn": 35,
   "originalBottomRow": 176,
