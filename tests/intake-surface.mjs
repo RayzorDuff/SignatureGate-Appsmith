@@ -37,5 +37,5 @@ assert.ok(source.indexOf('qSubmitAtomicIntake.run(')<source.indexOf('apiIntakePa
 assert.ok(source.includes('paper_upload_checkpoint'));
 assert.ok(source.includes('qIntakePaperReceipt.run('));
 const paperPicker=JSON.parse(read('pages/Intake/widgets/frmIntake/tabsMemberEnrollment/FilePickerAgreement.json'));
-assert.ok(paperPicker.isVisible.includes("delivery.selectedOptionValue === 'Paper'"));
+assert.ok(paperPicker.isVisible.includes("selAgreementDelivery.selectedOptionValue === 'Paper'"));
 console.log('PASS Intake paper upload preflight, one dispatch and receipt recovery source guards');
