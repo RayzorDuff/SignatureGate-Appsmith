@@ -100,6 +100,7 @@ export default {
 		await Promise.allSettled([
 			qMemberById.run(),
 			qMemberStorageLocations.run(),
+			qDistinctStorageLocationNames.run(),
 			qAssignedParticipants.run(),
 			qParticipantCandidates.run()
 		]);
@@ -116,7 +117,7 @@ export default {
 
 			const facilitator = qMemberById.data?.[0];
 
-			if (!facilitator?.member_id) {
+			if (!facilitator?.member_id || facilitator.member_id !== appsmith.store.selected_facilitator_id) {
 				showAlert(navigationLabels.text("No facilitator selected."), "error");
 				return;
 			}
