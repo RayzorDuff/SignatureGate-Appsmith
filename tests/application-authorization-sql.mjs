@@ -74,6 +74,25 @@ try {
  for(const who of [self,doc,don,practitioner])await action('Audit Log','qAuditLogList',who.email);
  assert.equal((await action('Audit Log','qAuditLogList',self.email)).length,0);
  assert.equal((await action('Audit Log','qAuditLogList',doc.email)).filter(r=>r.entity_type==='donation').length,0,'document reviewer cannot browse financial audits');
+ const cancellations = [
+   [other.memberId, 'agreement.documenso_canceled', { actor_email: ' recorded@example.invalid ' }, 'recorded@example.invalid'],
+   [other.memberId, 'agreement.documenso_canceled', {}, 'Synthetic Query other'],
+   [doc.id, 'agreement.documenso_canceled', {}, 'Synthetic Query documents'],
+   ['00000000-0000-0000-0000-000000000001', 'agreement.documenso_canceled', {}, '00000000-0000-0000-0000-000000000001'],
+   ['system@example.invalid', 'agreement.documenso_canceled', { actor_email: 'different@example.invalid' }, 'system@example.invalid'],
+   [other.memberId, 'synthetic.unrelated', {}, other.memberId],
+ ];
+ for (const [i, [actor, event, details]] of cancellations.entries()) {
+   await db.query('INSERT INTO public.audit_log(actor,action,entity_type,entity_id,details) VALUES ($1,$2,$3,$4,$5::jsonb)',
+     [actor,event,'member_agreement','synthetic-cancel-'+i,JSON.stringify(details)]);
+ }
+ const auditByEntity = new Map((await action('Audit Log','qAuditLogList',doc.email)).map(row=>[row.entity_id,row]));
+ for (const [i, [actor,,, display]] of cancellations.entries()) {
+   const row = auditByEntity.get('synthetic-cancel-'+i);
+   assert.equal(row.actor, actor, 'raw audit actor is preserved');
+   assert.equal(row.actor_display, display);
+ }
+ assert.equal((await action('Audit Log','qAuditLogList',self.email)).length,0,'actor display does not broaden access');
  assert.ok((await action('Audit Log','qAuditLogList',don.email)).some(r=>r.entity_type==='donation'));
  await db.query("SELECT public.application_review_donation($1,$2,'verified','Synthetic revival source test')",[don.email,donationId]);
  await action('Cash Deposits','qExcludeCashDonation',don.email,{reason:'Synthetic source exclusion'});

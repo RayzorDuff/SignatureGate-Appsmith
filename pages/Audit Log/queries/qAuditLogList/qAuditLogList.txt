@@ -3,6 +3,11 @@ audit_rows AS (
   SELECT
     al.*,
     CASE
+      WHEN al.action = 'agreement.documenso_canceled'
+       AND al.actor ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      THEN al.actor::uuid
+    END AS cancellation_actor_id,
+    CASE
       WHEN COALESCE(al.details::jsonb->>'member_id', '') ~*
         '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
       THEN (al.details::jsonb->>'member_id')::uuid
@@ -21,6 +26,14 @@ SELECT
   al.audit_log_id,
   al.created_at,
   al.actor,
+  CASE WHEN al.cancellation_actor_id IS NOT NULL THEN
+    COALESCE(
+      NULLIF(btrim(al.details::jsonb->>'actor_email'), ''),
+      NULLIF(btrim(cancellation_member.display_name), ''),
+      NULLIF(btrim(cancellation_person.display_name), ''),
+      al.actor
+    )
+  ELSE al.actor END AS actor_display,
   al.action,
   al.entity_type,
   al.entity_id,
@@ -39,6 +52,12 @@ CROSS JOIN me
 
 LEFT JOIN public.member_profiles actor_m
   ON lower(actor_m.email) = lower(al.actor)
+
+LEFT JOIN public.member_profiles cancellation_member
+  ON cancellation_member.member_id = al.cancellation_actor_id
+
+LEFT JOIN public.people cancellation_person
+  ON cancellation_person.person_id = al.cancellation_actor_id
 
 LEFT JOIN public.member_profiles member_m
   ON member_m.member_id = al.scoped_detail_member_id
