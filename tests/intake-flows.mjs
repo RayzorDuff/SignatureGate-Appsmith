@@ -93,6 +93,22 @@ try {
   }
  }
  assert.equal(deferred,18);
+ {
+  const former=await actor('former-collision',[]);
+  await db.query("UPDATE people SET first_name='Synthetic', last_name='Former Owner' WHERE person_id=$1",[former.id]);
+  const x=fixture({email:doc.email,delivery:'Later'});
+  const collision=x.c.inpIntakeEmail.text;
+  const member=(await db.query("INSERT INTO members(person_id,email,status) VALUES($1,$2,'inactive') RETURNING member_id",[former.id,collision])).rows[0];
+  const duplicate=await db.query("SELECT duplicate_blocked FROM public.create_member_from_intake('Synthetic','New Applicant',$1)",[collision]);
+  assert.equal(duplicate.rows[0].duplicate_blocked,true,'the historical email still blocks a direct insert');
+  const denied=await fixture({email:participant.email}).c.qCheckMemberDuplicate.run({email:collision});
+  assert.equal(denied.length,0,'unlinked account cannot enumerate a historical owner');
+  await x.flows.submit();
+  assert.ok(!x.calls.actions.includes('qSubmitAtomicIntake'),'block before submitting an impossible insert');
+  assert.ok(!x.flows.recovery(),'no uncertain checkpoint for a preflight rejection');
+  assert.match(x.calls.alerts.find(a=>a.level==='error')?.message,/Synthetic Former Owner.*email address.*still held.*reassignment/);
+  assert.equal((await db.query('SELECT email,status FROM members WHERE member_id=$1',[member.member_id])).rows[0].email,collision);
+ }
  for(const delivery of ['',null,'Unknown']) {
   const x=fixture({email:doc.email,delivery});assert.equal(await x.flows.submit(),undefined);
   assert.ok(!x.calls.actions.includes('qSubmitAtomicIntake'),'unselected/unknown agreement timing cannot silently defer');
