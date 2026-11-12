@@ -47,12 +47,14 @@ email_matches AS (
     m.email::text AS matched_value,
     'hard'::text AS match_severity,
     95 AS score,
-    'Compatibility email cache on an active member matches.'::text AS explanation
+    CASE WHEN m.status = 'active'
+         THEN 'Compatibility email cache on an active member matches.'
+         ELSE 'A former Participant still holds this email address on the enrollment record.'
+    END::text AS explanation
   FROM input i
   JOIN public.member_profiles m
     ON i.email_normalized IS NOT NULL
    AND lower(btrim(m.email)) = i.email_normalized
-   AND m.status = 'active'
 ),
 phone_matches AS (
   SELECT

@@ -195,8 +195,15 @@ export default {
           const elsewhere = inaccessible.some(d => d.access_scope === "other_facilitator");
           const detail = inaccessible.length
             ? (elsewhere ? "The matching member is assigned to another practitioner." : "The matching member is outside your accessible directory.")
-            : "An existing member is accessible in Directory.";
-          showAlert(navigationLabels.text(`An active member already matches on ${fields}. ${detail} No new member was created. Contact a document reviewer for access or reassignment if needed.`), "error");
+            : "Review the matching record in Directory.";
+          const name = [existing.first_name, existing.last_name].filter(Boolean).join(" ").trim();
+          const singleOwner = Boolean(existing.member_id) && hard.every(d => d.member_id === existing.member_id);
+          const owner = !inaccessible.length && singleOwner && name ? ` (${name})` : "";
+          const formerEmail = hard.some(d => d.matched_field === "members.email" && d.status !== "active");
+          const nextStep = formerEmail
+            ? "An email is still held by a former member. Review ownership and use the contact reassignment action if appropriate."
+            : "Contact a document reviewer for access or reassignment if needed.";
+          showAlert(navigationLabels.text(`An existing member${owner} already matches on ${fields}. ${detail} No new member was created. ${nextStep}`), "error");
           await this.auditLog("member.create_blocked_duplicate", "member", existing.member_id || "", {
             match_fields: [...new Set(hard.map(d => d.matched_field))], page: "Intake"
           });
